@@ -1,0 +1,5 @@
+# parley.adiletfndr.com once its DNS A record points here; the sslip.io name works without any DNS setup.
+77-42-12-77.sslip.io {
+	encode zstd gzip
+	reverse_proxy 127.0.0.1:8787
+}

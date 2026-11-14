@@ -8,7 +8,7 @@ export interface JournalStats {
 export interface JournalData { entries: Entry[]; stats: JournalStats; patterns: Pattern[]; now: string }
 
 export const KIND: Record<EntryKind, {label: string; plural: string; icon: IconId}> = {
-  message_in: {label: 'Message received', plural: 'Received', icon: 'chat'},
+  message_in: {label: 'Message received', plural: 'Received', icon: 'inbox'},
   message_out: {label: 'Message sent', plural: 'Sent', icon: 'reply'},
   incident: {label: 'Incident', plural: 'Incidents', icon: 'flag'},
   note: {label: 'Note', plural: 'Notes', icon: 'pencil'},

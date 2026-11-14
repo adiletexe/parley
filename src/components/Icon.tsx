@@ -7,7 +7,7 @@ export type IconId =
   | 'chat' | 'book' | 'calendar' | 'target' | 'heart' | 'clock' | 'lock' | 'upload' | 'download' | 'search' | 'family'
   | 'smile' | 'bolt' | 'timer' | 'user' | 'home' | 'scripts' | 'crown' | 'flame' | 'party' | 'ask' | 'split' | 'trash'
   | 'shield' | 'scale' | 'receipt' | 'flag'
-  | 'reply' | 'record' | 'pencil' | 'dollar' | 'dollarx' | 'noshow' | 'kids' | 'pdf' | 'camera';
+  | 'reply' | 'record' | 'pencil' | 'dollar' | 'dollarx' | 'noshow' | 'kids' | 'pdf' | 'camera' | 'inbox';
 
 export function Icon({id, size = 32, className}: {id: IconId; size?: number; className?: string}) {
   return (

@@ -8,379 +8,466 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="design-options/iphone.css">
 <style>
-/* Parley's own palette (src/styles/tokens.css), on the landing's night slab. */
+/* Parley's palette on the landing's night slab. Each slide carries only the words the speaker says. */
 :root {
-  --night: #0d0e1a; --night-2: #121427; --card: #161829; --line: #262a40;
+  --night: #0d0e1a; --card: #161829; --card-2: #1c1f33; --line: #262a40;
   --fg: #f4f5fb; --mute: #a9abc0; --dim: #62667e;
-  --acc: #7d8bff; --acc-2: #5b6cf6; --lilac: #9b84ff;
+  --acc: #8b97ff; --acc-2: #5b6cf6;
   --grad: linear-gradient(118deg, #7c5cf0 0%, #5b6cf6 45%, #3f8df5 100%);
-  --warn: #ff5fa0; --warn-bg: rgba(226,80,143,.14);
-  --ok: #34d399; --ok-bg: rgba(31,165,114,.16);
+  --warn: #ff5fa0; --ok: #34d399;
   --font: "Plus Jakarta Sans", system-ui, sans-serif;
 }
 @page { size: 1920px 1080px; margin: 0; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { background: #000; color: var(--fg); font-family: var(--font); -webkit-font-smoothing: antialiased; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-.slide {
-  position: relative; width: 1920px; height: 1080px; overflow: hidden;
-  background: var(--night);
-  page-break-after: always; break-after: page;
-}
-/* the one light on stage: a low lilac wash from the top right, like the landing hero */
+.slide { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--night); page-break-after: always; break-after: page; }
 .slide::before { content: ""; position: absolute; inset: 0; pointer-events: none;
   background: radial-gradient(70% 60% at 85% -10%, rgba(91,108,246,.20), rgba(91,108,246,0) 70%); }
 .slide > * { position: absolute; }
-.mark { left: 120px; top: 84px; font-size: 24px; font-weight: 800; letter-spacing: -.02em; display: flex; align-items: center; gap: 12px; }
+.mark { left: 120px; top: 80px; font-size: 24px; font-weight: 800; letter-spacing: -.02em; display: flex; align-items: center; gap: 12px; }
 .mark i { width: 26px; height: 26px; border-radius: 8px; background: var(--grad); display: block; }
-.kick { left: 120px; top: 168px; font-size: 22px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--acc); }
+.kick { font-size: 20px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--acc); }
 h1, h2 { font-weight: 800; letter-spacing: -.035em; line-height: 1.04; }
-h2 { left: 120px; top: 212px; width: 1180px; font-size: 68px; }
+h2 { font-size: 76px; }
 h2 span, h1 span { color: var(--mute); }
-.pg { right: 120px; bottom: 56px; font-size: 18px; color: var(--dim); font-weight: 600; }
-.src { left: 120px; bottom: 56px; width: 1500px; font-size: 15px; line-height: 1.5; color: var(--dim); }
+.pg { right: 120px; bottom: 52px; font-size: 18px; color: var(--dim); font-weight: 600; }
+.src { left: 120px; bottom: 52px; width: 1500px; font-size: 15px; line-height: 1.5; color: var(--dim); }
+.ic { display: block; flex: none; }
 .iphone { --status-bg: #f4f5fa; --tab-bg: #fefefe; }
 .iphone--black { --ti-1: #5f6170; --ti-2: #2b2c35; --ti-3: #8d8fa0; --ti-4: #1d1e26; --ti-5: #454757;
   --shadow: 0 50px 100px -30px rgba(0,0,0,.9), 0 0 0 1px rgba(255,255,255,.02); }
-.lead { font-size: 30px; line-height: 1.45; color: var(--mute); font-weight: 500; }
-.lead b { color: var(--fg); font-weight: 700; }
-.num { font-weight: 800; letter-spacing: -.04em; line-height: 1; }
-.cap { font-size: 20px; color: var(--mute); line-height: 1.4; margin-top: 12px; }
-.cap b { color: var(--fg); }
-.rule { border-top: 1px solid var(--line); }
+.num { font-weight: 800; letter-spacing: -.045em; line-height: .95; }
+.gradtxt { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
 
-/* chat bubbles drawn like a phone's own */
-.thread { display: flex; flex-direction: column; gap: 10px; }
-.b { max-width: 560px; padding: 16px 22px; border-radius: 26px; font-size: 26px; line-height: 1.35; font-weight: 500; }
-.b.in { background: #262839; color: #eceef7; align-self: flex-start; border-bottom-left-radius: 8px; }
+/* chat cards */
+.chat { width: 760px; background: var(--card); border: 1px solid var(--line); border-radius: 40px; padding: 40px 44px; box-shadow: 0 60px 120px -40px rgba(0,0,0,.9); }
+.chat .head { display: flex; align-items: center; gap: 14px; margin-bottom: 26px; }
+.chat .head b { font-size: 20px; } .chat .head span { font-size: 15px; color: var(--dim); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; margin-left: auto; }
+.av { width: 44px; height: 44px; border-radius: 50%; background: #2b2f48; display: grid; place-items: center; font-weight: 800; color: var(--mute); }
+.th { display: flex; flex-direction: column; gap: 10px; }
+.b { max-width: 560px; padding: 15px 22px; border-radius: 26px; font-size: 25px; line-height: 1.32; font-weight: 500; }
+.b.in { background: #262839; color: #c9cbdb; align-self: flex-start; border-bottom-left-radius: 8px; font-style: italic; font-size: 21px; }
 .b.out { background: #2f6bff; color: #fff; align-self: flex-end; border-bottom-right-radius: 8px; }
 .b.good { background: #1d7f5b; }
-.t { font-size: 15px; color: var(--dim); font-weight: 600; letter-spacing: .02em; }
-.hl { box-shadow: inset 0 -3px 0 var(--warn); }
+.b.hot { background: #e2508f; box-shadow: 0 0 0 4px rgba(226,80,143,.25), 0 20px 50px -10px rgba(226,80,143,.6); font-weight: 700; }
+.ghost { width: 470px; background: var(--card); border: 1px solid var(--line); border-radius: 30px; padding: 26px 28px; opacity: .38; }
+.ghost .b { font-size: 22px; max-width: none; }
+.ghost small { display: block; font-size: 14px; color: var(--dim); font-weight: 700; letter-spacing: .06em; margin-top: 14px; text-transform: uppercase; }
 
-/* 1 · cover */
-.s1 h1 { left: 120px; top: 230px; width: 1080px; font-size: 88px; }
-.nw { white-space: nowrap; }
-.s1 .sub { left: 120px; top: 690px; width: 880px; }
-.s1 .facts { left: 120px; bottom: 120px; display: flex; gap: 56px; }
-.s1 .facts div { font-size: 19px; color: var(--mute); line-height: 1.45; }
-.s1 .facts b { display: block; color: var(--fg); font-size: 22px; font-weight: 700; margin-bottom: 4px; }
-.s1 .hero { left: 1270px; top: 118px; }
+/* 1 · hook */
+.s1 .front { left: 120px; top: 80px; }
+.s1 .front .b { font-size: 23px; padding: 13px 20px; }
+.s1 .front .b.in { font-size: 19px; }
+.s1 .cost { left: 120px; top: 750px; width: 1100px; }
+.s1 .cost .k { color: var(--warn); }
+.s1 .cost h1 { font-size: 60px; margin-top: 10px; }
+.s1 .g1 { left: 1010px; top: 120px; transform: rotate(4deg); }
+.s1 .g2 { left: 1380px; top: 330px; transform: rotate(-5deg); }
+.s1 .g3 { left: 1060px; top: 560px; transform: rotate(-3deg); }
+.s1 .g4 { left: 1400px; top: 760px; transform: rotate(5deg); }
+.s1 .src { left: 1010px; width: 790px; text-align: right; }
 
 /* 2 · problem */
-.s2 .left { left: 120px; top: 500px; width: 760px; }
-.s2 .stage { left: 1010px; top: 150px; width: 790px; height: 760px; border-radius: 40px; background: var(--card); border: 1px solid var(--line); padding: 48px 52px; }
-.s2 .exhibit { position: absolute; right: 40px; top: 36px; font-size: 15px; font-weight: 800; letter-spacing: .14em; color: var(--warn); border: 2px solid var(--warn); border-radius: 8px; padding: 6px 12px; transform: rotate(4deg); }
-.s2 .ring { position: absolute; border: 3px solid var(--warn); border-radius: 50%; transform: rotate(-3deg); }
-.s2 .fix { margin-top: 30px; padding-top: 26px; border-top: 1px dashed #34384f; }
-.s2 .fix .t { color: var(--ok); }
-.s2 .stats { left: 120px; bottom: 120px; display: flex; gap: 70px; }
-.s2 .stats .num { font-size: 56px; }
+.s2 .big { left: 120px; top: 230px; font-size: 340px; }
+.s2 .lab { left: 140px; top: 590px; font-size: 52px; font-weight: 800; letter-spacing: -.03em; }
+.s2 .line2 { left: 140px; top: 690px; font-size: 52px; font-weight: 800; letter-spacing: -.03em; color: var(--mute); }
+.s2 .line2 b { color: var(--warn); }
+.s2 .icons { right: 140px; top: 260px; display: flex; flex-direction: column; gap: 40px; align-items: center; }
+.s2 .arrow { width: 4px; height: 70px; background: linear-gradient(var(--line), var(--warn)); border-radius: 2px; }
 
-/* 3 · competitors */
-.s3 table { left: 120px; top: 410px; width: 1680px; border-collapse: collapse; font-size: 24px; }
-.s3 th { text-align: left; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); font-weight: 700; padding: 0 22px 18px; }
-.s3 td { padding: 22px; border-top: 1px solid var(--line); color: var(--mute); vertical-align: top; line-height: 1.35; }
-.s3 td:first-child { color: var(--fg); font-weight: 700; }
-.s3 .y { color: var(--ok); font-weight: 700; } .s3 .n { color: var(--warn); font-weight: 700; }
-.s3 tr.us td { background: rgba(91,108,246,.12); color: var(--fg); }
-.s3 tr.us td:first-child { border-radius: 18px 0 0 18px; } .s3 tr.us td:last-child { border-radius: 0 18px 18px 0; }
+/* 3 · persona */
+.s3 .kick { left: 120px; top: 170px; }
+.s3 h2 { left: 120px; top: 210px; width: 900px; }
+.s3 .niche { left: 120px; top: 330px; width: 820px; font-size: 26px; line-height: 1.45; color: var(--mute); font-weight: 500; }
+.s3 .niche b { color: var(--fg); }
+.s3 .card { left: 1000px; top: 150px; width: 800px; background: var(--card); border: 1px solid var(--line); border-radius: 40px; padding: 48px 52px; }
+.s3 .who { display: flex; gap: 26px; align-items: center; padding-bottom: 30px; border-bottom: 1px solid var(--line); }
+.s3 .who .face { width: 120px; height: 120px; border-radius: 36px; background: linear-gradient(160deg,#ffd0e2,#f39ac0); display: grid; place-items: center; }
+.s3 .who b { font-size: 50px; font-weight: 800; letter-spacing: -.03em; display: block; }
+.s3 .who span { font-size: 22px; color: var(--mute); }
+.s3 .rows { margin-top: 18px; }
+.s3 .row { display: flex; gap: 22px; align-items: center; padding: 20px 0; font-size: 28px; font-weight: 600; line-height: 1.3; }
+.s3 .row + .row { border-top: 1px solid var(--line); }
+.s3 .row em { font-style: normal; color: var(--mute); font-weight: 500; }
+.s3 .note { left: 1000px; top: 980px; font-size: 15px; color: var(--dim); }
+.s3 .pains { left: 120px; top: 460px; width: 780px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.s3 .pains > div { background: var(--card); border: 1px solid var(--line); border-radius: 26px; padding: 26px 28px; }
+.s3 .pains .num { font-size: 56px; }
+.s3 .pains p { font-size: 19px; color: var(--mute); margin-top: 10px; line-height: 1.35; }
 
-/* 4/5/6 · product */
-.prod .copy { left: 120px; top: 420px; width: 700px; }
-.prod h2 { font-size: 60px; width: 740px !important; }
-.prod .copy li { list-style: none; font-size: 27px; line-height: 1.42; color: var(--mute); padding: 18px 0; border-top: 1px solid var(--line); }
-.prod .copy li b { color: var(--fg); }
-.prod .phones { right: 110px; top: 110px; display: flex; gap: 48px; align-items: flex-start; }
-.prod .phones .low { margin-top: 70px; }
+/* 4 · skill */
+.s4 .kick { left: 120px; top: 170px; }
+.s4 h2 { left: 120px; top: 210px; width: 1100px; }
+.s4 .cols { left: 120px; top: 400px; width: 1060px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+.s4 .col { border-radius: 32px; padding: 34px 36px; }
+.s4 .col.bad { background: rgba(226,80,143,.08); border: 1px solid rgba(226,80,143,.3); }
+.s4 .col.good { background: rgba(52,211,153,.08); border: 1px solid rgba(52,211,153,.3); }
+.s4 .col h3 { font-size: 22px; letter-spacing: .12em; text-transform: uppercase; }
+.s4 .bad h3 { color: var(--warn); } .s4 .good h3 { color: var(--ok); }
+.s4 .it { display: flex; gap: 18px; align-items: center; font-size: 30px; font-weight: 700; padding: 15px 0; }
+.s4 .foot { left: 120px; top: 880px; display: flex; gap: 46px; }
+.s4 .foot div { font-size: 30px; font-weight: 800; letter-spacing: -.02em; }
+.s4 .foot span { display: block; font-size: 18px; color: var(--mute); font-weight: 600; letter-spacing: 0; margin-top: 4px; }
+.s4 .phone { right: 150px; top: 120px; }
 
-/* 7 · marketing */
-.s7 .cols { left: 120px; top: 380px; width: 1680px; display: grid; grid-template-columns: 1fr 1fr 1.25fr; gap: 40px; }
-.s7 .col h3 { font-size: 26px; font-weight: 800; letter-spacing: -.02em; }
-.s7 .col p { font-size: 20px; color: var(--mute); line-height: 1.45; margin-top: 8px; min-height: 58px; }
-.s7 .thumbs { display: flex; gap: 14px; margin-top: 22px; }
-.s7 .thumbs img { height: 300px; border-radius: 14px; display: block; border: 1px solid var(--line); }
-.s7 .ad { width: 240px; height: 300px; border-radius: 14px; overflow: hidden; position: relative; flex: none; }
-.s7 .ad.notes { background: #fbf6e6; color: #1b1b1b; padding: 26px 20px 18px; }
-.s7 .ad.notes::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 5px; background: #f2c200; }
-.s7 .ad.notes small { color: #c49a00; font-size: 13px; font-weight: 600; }
-.s7 .ad.notes h4 { font-size: 21px; font-weight: 800; line-height: 1.12; margin: 10px 0 10px; text-transform: uppercase; }
-.s7 .ad.notes p { font-size: 14px; line-height: 1.35; color: #1b1b1b; min-height: 0; margin: 0 0 8px; }
-.s7 .ad.notes mark { background: #ffe680; }
-.s7 .ad.notes u { position: absolute; left: 20px; bottom: 18px; font-size: 15px; font-weight: 800; text-decoration-thickness: 2px; }
-.s7 .ad.imsg { background: #fff; padding: 18px 14px; display: flex; flex-direction: column; gap: 7px; }
-.s7 .ad.imsg .who { text-align: center; font-size: 12px; color: #8a8a8e; font-weight: 600; margin-bottom: 4px; }
-.s7 .ad.imsg .m { font-size: 14px; line-height: 1.3; padding: 8px 12px; border-radius: 16px; max-width: 86%; }
-.s7 .ad.imsg .i { background: #e9e9eb; color: #111; align-self: flex-start; }
-.s7 .ad.imsg .o { background: #e2508f; color: #fff; align-self: flex-end; text-decoration: line-through; text-decoration-color: rgba(255,255,255,.7); }
-.s7 .ad.imsg .g { background: #2f6bff; color: #fff; align-self: flex-end; }
-.s7 .ad.imsg .cta { margin-top: auto; text-align: center; font-size: 13px; font-weight: 800; color: #2f6bff; }
-.s7 .proof { left: 120px; bottom: 112px; width: 1680px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; padding-top: 30px; }
-.s7 .proof .num { font-size: 52px; }
-.s7 .proof .cap { font-size: 18px; }
+/* product slides */
+.prod .kick { left: 120px; top: 170px; }
+.prod h2 { left: 120px; top: 210px; width: 760px; }
+.prod .phones { right: 110px; top: 100px; display: flex; gap: 48px; align-items: flex-start; }
+.prod .phones .low { margin-top: 80px; }
+.prod .steps { left: 120px; top: 520px; display: flex; flex-direction: column; gap: 30px; }
+.prod .step { display: flex; gap: 22px; align-items: center; font-size: 30px; font-weight: 700; }
+.prod .step span { color: var(--mute); font-weight: 500; }
 
-/* 8 · unit economics */
-.s8 .funnel { left: 120px; top: 400px; width: 900px; }
-.s8 .row { display: grid; grid-template-columns: 260px 1fr 120px; align-items: center; gap: 24px; padding: 16px 0; border-top: 1px solid var(--line); }
-.s8 .row span { font-size: 21px; color: var(--mute); line-height: 1.3; }
-.s8 .row span small { display: block; font-size: 15px; color: var(--dim); }
-.s8 .bar { height: 14px; border-radius: 7px; background: #2a2e48; }
-.s8 .bar i { display: block; height: 100%; border-radius: 7px; background: var(--grad); }
-.s8 .row b { font-size: 30px; font-weight: 800; text-align: right; letter-spacing: -.02em; }
-.s8 .big { left: 1110px; top: 380px; width: 690px; }
-.s8 .big .num { font-size: 200px; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.s8 .pair { display: flex; gap: 60px; margin-top: 18px; }
-.s8 .pair .num { font-size: 64px; }
-.s8 .scen { margin-top: 36px; width: 100%; border-collapse: collapse; font-size: 19px; }
-.s8 .scen td { padding: 11px 0; border-top: 1px solid var(--line); color: var(--mute); }
-.s8 .scen td:not(:first-child) { text-align: right; color: var(--fg); font-weight: 700; }
-.s8 .scen tr.main td { color: var(--fg); }
+/* 7 · new */
+.s7 .kick { left: 120px; top: 170px; }
+.s7 h2 { left: 120px; top: 210px; width: 1500px; }
+.s7 .list { left: 120px; top: 410px; width: 1680px; }
+.s7 .r { display: grid; grid-template-columns: 80px 420px 1fr; align-items: center; padding: 22px 0; border-top: 1px solid var(--line); font-size: 32px; }
+.s7 .r b { font-weight: 800; letter-spacing: -.02em; }
+.s7 .r span { color: var(--warn); font-weight: 700; }
+.s7 .r.us { background: rgba(91,108,246,.12); border: 1px solid rgba(91,108,246,.4); border-radius: 26px; padding: 26px 24px; margin-top: 16px; }
+.s7 .r.us span { color: var(--ok); }
 
-/* 9 · path */
-.s9 .blocks { left: 120px; top: 400px; width: 1680px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; }
-.s9 .blk { background: var(--card); border: 1px solid var(--line); border-radius: 32px; padding: 40px 40px 36px; }
-.s9 .blk .t { color: var(--acc); letter-spacing: .12em; text-transform: uppercase; font-size: 15px; }
-.s9 .blk .num { font-size: 76px; margin-top: 18px; }
-.s9 .blk p { font-size: 21px; color: var(--mute); line-height: 1.45; margin-top: 14px; }
-.s9 .blk p b { color: var(--fg); }
-.s9 .price { left: 120px; bottom: 120px; width: 1680px; display: flex; gap: 22px; align-items: stretch; }
-.s9 .price div { flex: 1; border: 1px solid var(--line); border-radius: 22px; padding: 22px 26px; }
-.s9 .price div.pop { border-color: var(--acc-2); background: rgba(91,108,246,.10); }
-.s9 .price b { font-size: 36px; font-weight: 800; letter-spacing: -.02em; display: block; }
-.s9 .price span { font-size: 18px; color: var(--mute); }
+/* 8 · ads */
+.s8 .kick { left: 120px; top: 170px; }
+.s8 h2 { left: 120px; top: 210px; width: 1600px; font-size: 64px; }
+.s8 .them { left: 120px; top: 400px; display: flex; gap: 18px; opacity: .45; filter: saturate(.6); }
+.s8 .them img { height: 360px; border-radius: 16px; display: block; }
+.s8 .vs { left: 745px; top: 560px; font-size: 30px; font-weight: 800; color: var(--dim); }
+.s8 .ours { left: 820px; top: 390px; display: flex; gap: 22px; }
+.s8 .ad { width: 300px; height: 380px; border-radius: 18px; overflow: hidden; position: relative; box-shadow: 0 40px 80px -30px rgba(0,0,0,.9); }
+.s8 .ad.notes { background: #fbf6e6; color: #1b1b1b; padding: 30px 24px; }
+.s8 .ad.notes::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 6px; background: #f2c200; }
+.s8 .ad.notes small { color: #c49a00; font-size: 15px; font-weight: 600; }
+.s8 .ad.notes h4 { font-size: 27px; font-weight: 800; line-height: 1.1; margin: 14px 0 12px; text-transform: uppercase; }
+.s8 .ad.notes p { font-size: 17px; line-height: 1.35; margin-bottom: 8px; }
+.s8 .ad.notes mark { background: #ffe680; }
+.s8 .ad.notes u { position: absolute; left: 24px; bottom: 22px; font-size: 18px; font-weight: 800; }
+.s8 .ad.imsg { background: #fff; padding: 22px 16px; display: flex; flex-direction: column; gap: 9px; }
+.s8 .ad.imsg .who { text-align: center; font-size: 14px; color: #8a8a8e; font-weight: 600; margin-bottom: 6px; }
+.s8 .ad.imsg .m { font-size: 17px; line-height: 1.3; padding: 10px 14px; border-radius: 18px; max-width: 86%; }
+.s8 .ad.imsg .i { background: #e9e9eb; color: #111; align-self: flex-start; }
+.s8 .ad.imsg .o { background: #e2508f; color: #fff; align-self: flex-end; text-decoration: line-through; }
+.s8 .ad.imsg .g { background: #2f6bff; color: #fff; align-self: flex-end; }
+.s8 .ad.imsg .cta { margin-top: auto; text-align: center; font-size: 15px; font-weight: 800; color: #2f6bff; }
+.s8 .proof { left: 120px; top: 850px; width: 1680px; display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; border-top: 1px solid var(--line); padding-top: 22px; }
+.s8 .proof b { display: block; font-size: 34px; font-weight: 800; letter-spacing: -.03em; }
+.s8 .proof span { display: block; font-size: 17px; color: var(--mute); margin-top: 6px; line-height: 1.35; }
+.s8 .facts { left: 1500px; top: 420px; width: 300px; display: flex; flex-direction: column; gap: 34px; }
+.s8 .facts .num { font-size: 60px; }
+.s8 .facts p { font-size: 19px; color: var(--mute); margin-top: 8px; line-height: 1.35; }
 
-/* 10 · try it */
-.s10 h1 { left: 120px; top: 230px; font-size: 84px; width: 1100px; }
-.s10 .url { left: 120px; top: 440px; font-size: 54px; font-weight: 800; letter-spacing: -.03em; }
-.s10 .url span { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.s10 ol { left: 120px; top: 560px; width: 980px; list-style: none; counter-reset: s; }
-.s10 li { counter-increment: s; font-size: 26px; line-height: 1.4; color: var(--mute); padding: 15px 0 15px 62px; position: relative; border-top: 1px solid var(--line); }
-.s10 li::before { content: counter(s); position: absolute; left: 0; top: 13px; width: 38px; height: 38px; border-radius: 12px; background: rgba(91,108,246,.18); color: var(--acc); font-weight: 800; font-size: 20px; display: grid; place-items: center; }
-.s10 li b { color: var(--fg); }
-.s10 .hero { left: 1290px; top: 110px; }
+/* 9 · money */
+.s9 .kick { left: 120px; top: 170px; }
+.s9 .trio { left: 120px; top: 250px; display: flex; gap: 90px; align-items: flex-end; }
+.s9 .trio .num { font-size: 190px; }
+.s9 .trio p { font-size: 26px; color: var(--mute); margin-top: 14px; font-weight: 600; }
+.s9 .eq { font-size: 80px; color: var(--dim); font-weight: 800; padding-bottom: 70px; }
+.s9 .flow { left: 120px; top: 640px; width: 1680px; display: flex; align-items: center; gap: 14px; font-size: 22px; font-weight: 700; }
+.s9 .flow span { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 14px 20px; white-space: nowrap; }
+.s9 .flow span small { display: block; font-size: 14px; color: var(--dim); font-weight: 600; margin-top: 2px; }
+.s9 .flow i { color: var(--dim); font-style: normal; }
+.s9 .flow span.g { background: var(--grad); border: 0; }
+.s9 .flow span.g small { color: rgba(255,255,255,.8); }
+.s9 .bottom { left: 120px; top: 800px; width: 1680px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+.s9 .bottom div { background: var(--card); border: 1px solid var(--line); border-radius: 26px; padding: 26px 30px; font-size: 28px; font-weight: 800; letter-spacing: -.02em; }
+.s9 .bottom span { display: block; font-size: 18px; color: var(--mute); font-weight: 600; letter-spacing: 0; margin-top: 6px; }
+
+/* 10 · live */
+.s10 .kick { left: 120px; top: 300px; }
+.s10 h1 { left: 120px; top: 350px; font-size: 104px; width: 900px; }
+.s10 .url { left: 120px; top: 650px; font-size: 52px; font-weight: 800; letter-spacing: -.03em; }
+.s10 .sub { left: 120px; top: 730px; font-size: 26px; color: var(--mute); font-weight: 600; }
+.s10 .end { left: 1040px; top: 300px; }
+.s10 .src { width: 860px; }
+
+/* v2-style fuller layouts, no icon tiles */
+.lead { font-size: 30px; line-height: 1.45; color: var(--mute); font-weight: 500; }
+.lead b { color: var(--fg); font-weight: 700; }
+.cap { font-size: 20px; color: var(--mute); line-height: 1.4; margin-top: 12px; }
+.s2b .big { left: 120px; top: 190px; font-size: 300px; }
+.s2b .lab { left: 130px; top: 510px; font-size: 50px; font-weight: 800; letter-spacing: -.03em; }
+.s2b .line2 { left: 130px; top: 580px; font-size: 50px; font-weight: 800; letter-spacing: -.03em; color: var(--mute); }
+.s2b .line2 b { color: var(--warn); }
+.s2b .stats { left: 120px; top: 760px; width: 1680px; display: grid; grid-template-columns: repeat(3,1fr); gap: 30px; }
+.s2b .stats > div { background: var(--card); border: 1px solid var(--line); border-radius: 28px; padding: 30px 34px; }
+.s2b .stats .num { font-size: 60px; }
+.s2b .law { left: 1060px; top: 200px; width: 740px; background: var(--card); border: 1px solid var(--line); border-radius: 32px; padding: 38px 42px; }
+.s2b .law .k { color: var(--acc); font-size: 16px; }
+.s2b .law q { display: block; font-size: 30px; line-height: 1.4; font-weight: 600; margin-top: 16px; quotes: "“" "”"; }
+.s2b .law small { display: block; margin-top: 18px; font-size: 16px; color: var(--dim); }
+.s3b .card { left: 1000px; top: 150px; width: 800px; background: var(--card); border: 1px solid var(--line); border-radius: 40px; padding: 48px 52px; }
+.s3b .who { display: flex; gap: 26px; align-items: center; padding-bottom: 30px; border-bottom: 1px solid var(--line); }
+.s3b .face { width: 110px; height: 110px; border-radius: 50%; background: linear-gradient(150deg,#f6a5c8,#9b84ff); display: grid; place-items: center; font-size: 48px; font-weight: 800; }
+.s3b .who b { font-size: 50px; font-weight: 800; letter-spacing: -.03em; display: block; }
+.s3b .who span { font-size: 22px; color: var(--mute); }
+.s3b .rows li { list-style: none; font-size: 28px; line-height: 1.35; font-weight: 600; padding: 22px 0; border-top: 1px solid var(--line); }
+.s3b .rows li:first-child { border-top: 0; }
+.s3b .rows em { font-style: normal; color: var(--mute); font-weight: 500; }
+.s3b .note { left: 1000px; top: 990px; font-size: 15px; color: var(--dim); }
+.s3b .kick { left: 120px; top: 170px; }
+.s3b h2 { left: 120px; top: 210px; width: 820px; }
+.s3b .niche { left: 120px; top: 330px; width: 800px; }
+.s3b .pains { left: 120px; top: 520px; width: 800px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.s3b .pains > div { background: var(--card); border: 1px solid var(--line); border-radius: 26px; padding: 28px 30px; }
+.s3b .pains .num { font-size: 58px; }
+.s3b .trig { left: 120px; top: 760px; width: 800px; }
+.s3b .trig .k { color: var(--warn); font-size: 16px; }
+.s3b .trig p { font-size: 24px; line-height: 1.5; color: var(--mute); margin-top: 10px; }
+.s3b .trig b { color: var(--fg); }
+.s4b .kick { left: 120px; top: 170px; }
+.s4b h2 { left: 120px; top: 210px; width: 1100px; font-size: 68px; }
+.s4b .cols { left: 120px; top: 330px; width: 1060px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.s4b .col { border-radius: 32px; padding: 32px 34px; }
+.s4b .col.bad { background: rgba(226,80,143,.08); border: 1px solid rgba(226,80,143,.3); }
+.s4b .col.good { background: rgba(52,211,153,.08); border: 1px solid rgba(52,211,153,.3); }
+.s4b .col h3 { font-size: 18px; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 14px; }
+.s4b .bad h3 { color: var(--warn); } .s4b .good h3 { color: var(--ok); }
+.s4b .b { font-size: 22px; max-width: none; margin-top: 10px; border-radius: 22px; }
+.s4b .bad .b { background: #2f6bff; color: #fff; }
+.s4b .good .b { background: #1d7f5b; color: #fff; }
+.s4b .col p { font-size: 19px; color: var(--mute); margin-top: 14px; line-height: 1.4; }
+.s4b .steps { left: 120px; top: 820px; width: 1060px; display: grid; grid-template-columns: repeat(4,1fr); gap: 18px; }
+.s4b .steps div { border-top: 3px solid var(--acc-2); padding-top: 16px; font-size: 24px; font-weight: 800; letter-spacing: -.01em; }
+.s4b .steps span { display: block; font-size: 17px; color: var(--mute); font-weight: 500; margin-top: 6px; line-height: 1.35; }
+.s4b .weeks { left: 120px; top: 640px; width: 1060px; display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+.s4b .weeks div { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 18px 20px; font-size: 21px; font-weight: 700; line-height: 1.3; }
+.s4b .weeks b { display: block; font-size: 14px; letter-spacing: .12em; text-transform: uppercase; color: var(--acc); margin-bottom: 6px; }
+.s4b .phone { right: 150px; top: 110px; }
+.prodb .kick { left: 120px; top: 170px; }
+.prodb h2 { left: 120px; top: 210px; width: 760px; font-size: 68px; }
+.prodb .copy { left: 120px; top: 470px; width: 700px; }
+.prodb .copy li { list-style: none; font-size: 27px; line-height: 1.42; color: var(--mute); padding: 18px 0; border-top: 1px solid var(--line); }
+.prodb .copy li b { color: var(--fg); }
+.prodb .phones { right: 110px; top: 100px; display: flex; gap: 48px; align-items: flex-start; }
+.prodb .phones .low { margin-top: 80px; }
+.s7b .kick { left: 120px; top: 170px; }
+.s7b h2 { left: 120px; top: 210px; width: 1500px; }
+.s7b table { left: 120px; top: 400px; width: 1680px; border-collapse: collapse; font-size: 25px; }
+.s7b th { text-align: left; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); font-weight: 700; padding: 0 22px 18px; }
+.s7b td { padding: 24px 22px; border-top: 1px solid var(--line); color: var(--mute); vertical-align: top; line-height: 1.35; }
+.s7b td:first-child { color: var(--fg); font-weight: 800; }
+.s7b .y { color: var(--ok); font-weight: 700; } .s7b .n { color: var(--warn); font-weight: 700; }
+.s7b tr.us td { background: rgba(91,108,246,.14); color: var(--fg); }
+.s7b tr.us td:first-child { border-radius: 18px 0 0 18px; } .s7b tr.us td:last-child { border-radius: 0 18px 18px 0; }
 </style>
 </head>
 <body>
+<!--icons-->
 
-<!-- 1 · COVER -->
+<!-- 1 · HOOK -->
 <section class="slide s1">
-  <div class="mark"><i></i>Parley</div>
-  <h1>Every text to your <span class="nw" style="color:inherit">co-parent</span> can end up in court. <span>Parley makes sure it helps you.</span></h1>
-  <p class="sub lead">Paste what the other parent sent. Parley writes a calm reply a judge would respect, flags what would hurt you in your own draft, and keeps a dated record for your lawyer.</p>
-  <div class="facts">
-    <div><b>Who</b>US parents, 25–45,<br>raising kids in two homes</div>
-    <div><b>Track</b>Skills · B2C · web</div>
-    <div><b>Live, no sign-up</b>parley.adiletfndr.com</div>
+  <div class="ghost g1"><div class="b out">f*** the judge and his order</div><small>Iowa · lost the kids</small></div>
+  <div class="ghost g2"><div class="b out">this means war</div><small>Wisconsin · lost custody</small></div>
+  <div class="ghost g3"><div class="b out">either u pay in full or take me to court</div><small>Iowa · −$12,000 in fees</small></div>
+  <div class="ghost g4"><div class="b out">The wrath of God is coming to you swiftly</div><small>Michigan · supervised visits</small></div>
+  <div class="chat front">
+    <div class="head"><div class="av">D</div><b>Dad</b><span>Real texts · New York</span></div>
+    <div class="th">
+      <div class="b in">Mom asks him to get their son to sleep in his own bed</div>
+      <div class="b out">f*** off and stop sending me these bullshit messages</div>
+      <div class="b in">Mom hasn't talked to her son in two days</div>
+      <div class="b out">…so f*** you</div>
+      <div class="b out hot">I will not coparent with you, get that straight</div>
+    </div>
   </div>
-  <div class="hero"><div class="iphone iphone--black" style="--s:0.96; --shift:72" data-shot="shots/reply-result.png"></div></div>
+  <div class="cost"><div class="kick k">The judge read it</div><h1>He had custody.<br><span>Now: 2 supervised visits a week.</span></h1></div>
+  <p class="src" style="bottom:90px">Quoted in L.W. v. J.U. (N.Y. Sup. Ct. 2024), Sheppard v. Reed (Iowa 2021), McGhee v. McGhee (Wis. 2023), In re Cowger (Iowa 2023), Crews v. Crews (Mich. 2019).</p>
   <div class="pg">1</div>
 </section>
 
 <!-- 2 · PROBLEM -->
-<section class="slide s2">
+<section class="slide s2b">
   <div class="mark"><i></i>Parley</div>
-  <div class="kick">The problem</div>
-  <h2 style="width:820px">One angry text can cost a parent time with their kids.</h2>
-  <div class="left">
-    <p class="lead">In a custody case, the texts between parents are read by the judge. Courts look at which parent keeps the peace for the kids. <b>A text written in anger can cost parenting time, a say in decisions, or legal fees.</b></p>
-    <p class="lead" style="margin-top:22px">And the other parent knows it. They provoke, at 10 pm, again and again.</p>
-  </div>
-  <div class="stage">
-    <div class="exhibit">EXHIBIT 12</div>
-    <div class="thread">
-      <span class="t">THE OTHER PARENT · 9:41 PM</span>
-      <div class="b in">ur seriously 40 min late AGAIN</div>
-      <div class="b in">emma is sitting here crying</div>
-      <div class="b in">hello??</div>
-      <span class="t" style="align-self:flex-end;margin-top:8px">WHAT THEY WANT TO SEND</span>
-      <div class="b out" style="position:relative">maybe if you didn't schedule pickup in rush hour i'd be on time. <span class="hl">stop using emma to guilt me</span>
-        <i class="ring" style="left:-26px;top:-6px;width:600px;height:140px"></i></div>
-    </div>
-    <div class="fix thread">
-      <span class="t" style="align-self:flex-end">WHAT PARLEY SUGGESTS</span>
-      <div class="b out good">On my way, about 10 min out. Tell Emma I'll be there soon.</div>
-    </div>
-  </div>
+  <div class="big num gradtxt">12.9M</div>
+  <div class="lab">parents raise kids in two homes.</div>
+  <div class="line2">Every text can end up <b>in court</b>.</div>
+  <div class="law"><div class="kick k">What the judge looks at · Michigan law</div>
+    <q>The willingness and ability of each of the parties to facilitate and encourage a close and continuing parent-child relationship…</q>
+    <small>MCL 722.23(j). Florida 61.13(3)(a) and Arizona 25-403(A)(6) say the same.</small></div>
   <div class="stats">
-    <div><div class="num">12.9M</div><div class="cap">custodial parents in the US</div></div>
-    <div><div class="num">663K</div><div class="cap">divorces a year, and counting</div></div>
+    <div><div class="num">663K</div><div class="cap">divorces a year</div></div>
+    <div><div class="num">1 in 4</div><div class="cap">US kids live with one parent</div></div>
     <div><div class="num">$349</div><div class="cap">an hour, average US lawyer</div></div>
   </div>
-  <p class="src" style="bottom:40px">US Census P60-269 · CDC/NCHS 2024 (excludes 5 states) · Clio Legal Trends 2025. "Friendly parent" factors are used in many states. Example texts are illustrative.</p>
+  <p class="src">US Census P60-269 and P60-285 · CDC/NCHS 2024 (excludes 5 states) · Clio Legal Trends 2025.</p>
   <div class="pg">2</div>
 </section>
 
-<!-- 3 · COMPETITORS -->
-<section class="slide s3">
+<!-- 3 · WHO -->
+<section class="slide s3b">
   <div class="mark"><i></i>Parley</div>
-  <div class="kick">What parents use today</div>
-  <h2>They already pay. <span>But the big apps only work if both parents sign up.</span></h2>
-  <table>
-    <tr><th style="width:250px">Option</th><th>Price</th><th>Needs the other parent</th><th>Writes the reply</th><th>Record for court</th><th>Teaches the skill</th></tr>
-    <tr><td>OurFamilyWizard</td><td>$110–300 / year, each parent</td><td class="n">Yes — they can just refuse</td><td>Tone check on top tiers</td><td class="y">Yes</td><td class="n">No</td></tr>
-    <tr><td>TalkingParents</td><td>$77–352 / year</td><td class="n">Yes</td><td>Top tier only</td><td class="y">Yes</td><td class="n">No</td></tr>
-    <tr><td>BestInterest</td><td>$10–30 / month</td><td class="y">No</td><td class="y">Yes</td><td>Partly</td><td class="n">No</td></tr>
-    <tr><td>ChatGPT</td><td>$0–20 / month</td><td class="y">No</td><td>Long and formal, reads passive-aggressive</td><td class="n">No</td><td class="n">No</td></tr>
-    <tr class="us"><td>Parley</td><td>$19.99 first 4 weeks</td><td class="y">No — works alone</td><td class="y">Yes, in their own texting voice</td><td class="y">Yes, PDF for the lawyer</td><td class="y">28-day practice</td></tr>
-  </table>
-  <p class="src">Prices from each product's pricing page, November 2026.</p>
+  <div class="kick">Who we sell to</div>
+  <h2>Meet Sarah.</h2>
+  <p class="niche lead"><b>Subscription web app for US parents in a custody fight</b> who need to answer the other parent without hurting their case.</p>
+  <div class="pains">
+    <div><div class="num">$349</div><div class="cap">an hour for her lawyer to read the texts</div></div>
+    <div><div class="num">$300</div><div class="cap">a year for OurFamilyWizard — if her ex ever joins</div></div>
+  </div>
+  <div class="trig"><div class="kick k">When she buys</div><p>The lawyer says <b>"document everything."</b> A hearing date is set. The ex refuses the co-parenting app.</p></div>
+  <div class="card">
+    <div class="who"><div class="face">S</div><div><b>Sarah, 36</b><span>Two kids, 6 and 9 · hearing in March</span></div></div>
+    <ul class="rows">
+      <li>20+ texts a week from her ex. <em>Most are bait.</em></li>
+      <li>Lawyer: <em>"document everything."</em></li>
+      <li>Rewrites every reply three times.</li>
+      <li>Still scared to hit send.</li>
+      <li><em>Already pays for</em> co-parenting apps and lawyer hours.</li>
+    </ul>
+  </div>
+  <p class="note">Sarah is a composite of the parents we studied, not a real person.</p>
   <div class="pg">3</div>
 </section>
 
-<!-- 4 · REPLY -->
-<section class="slide prod">
+<!-- 4 · SKILL -->
+<section class="slide s4b">
   <div class="mark"><i></i>Parley</div>
-  <div class="kick">The product · 1 of 3</div>
-  <h2 style="width:800px">A calm reply in 10 seconds.</h2>
+  <div class="kick">Skills track</div>
+  <h2>The skill: answer bait calmly.</h2>
+  <div class="cols">
+    <div class="col bad"><h3>What people do</h3>
+      <div class="b">wow so now it's my fault?? i was there at 10 and YOU never showed up</div>
+      <p>Reply fast. Defend. Over-explain. Fire back.</p></div>
+    <div class="col good"><h3>What works</h3>
+      <div class="b">I was at the school lot at 10. Sunday at 10 instead?</div>
+      <p>Short. Facts only. About the kids. No bait taken.</p></div>
+  </div>
+  <div class="weeks">
+    <div><b>Week 1</b>Brief and factual</div>
+    <div><b>Week 2</b>Don't take the bait</div>
+    <div><b>Week 3</b>Firm boundaries</div>
+    <div><b>Week 4</b>Court-ready habits</div>
+  </div>
+  <div class="steps">
+    <div>28 days<span>one path, four skills</span></div>
+    <div>2 minutes<span>a day, real texts</span></div>
+    <div>Fail, see why<span>every pick explained</span></div>
+    <div>Score goes up<span>your own draft, graded</span></div>
+  </div>
+  <div class="phone"><div class="iphone iphone--black" style="--s:0.95; --shift:72" data-shot="shots/drill-2.png"></div></div>
+  <div class="pg">4</div>
+</section>
+
+<!-- 5 · WHAT WE SELL -->
+<section class="slide prodb">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">What we sell</div>
+  <h2>Drop. Read. Reply.</h2>
   <ul class="copy">
     <li><b>Drop a screenshot</b> or paste their texts, even four in a row.</li>
-    <li><b>Parley strikes out the bait</b> and says the one thing that needs an answer.</li>
-    <li><b>Three tones</b> — brief, neutral, firm — written the way people actually text.</li>
-    <li><b>Wrote your own?</b> See every phrase a judge would read badly, and what to say instead.</li>
+    <li><b>The bait gets crossed out.</b> You see the one thing that needs an answer.</li>
+    <li><b>A calm reply</b> in three tones, written the way people text.</li>
+    <li><b>Wrote your own?</b> Every phrase a judge would read badly, and what to say instead.</li>
   </ul>
   <div class="phones">
     <div class="iphone iphone--black" style="--s:0.92; --shift:72" data-shot="shots/reply-result.png"></div>
     <div class="low"><div class="iphone iphone--black" style="--s:0.92" data-shot="shots/lens.png"></div></div>
   </div>
-  <div class="pg">4</div>
-</section>
-
-<!-- 5 · RECORD -->
-<section class="slide prod">
-  <div class="mark"><i></i>Parley</div>
-  <div class="kick">The product · 2 of 3</div>
-  <h2 style="width:800px">Every message, dated. One PDF for the lawyer.</h2>
-  <ul class="copy">
-    <li><b>Upload screenshots</b> or a WhatsApp export. The other parent never knows.</li>
-    <li><b>Threats and insults are flagged</b> right in the chat.</li>
-    <li><b>One click</b> gives the lawyer a dated, numbered PDF instead of 200 screenshots.</li>
-    <li><b>The longer they use it, the more it is worth.</b> That record is why they renew.</li>
-  </ul>
-  <div class="phones" style="align-items:center">
-    <div class="iphone iphone--black" style="--s:0.92; --shift:72" data-shot="shots/record.png"></div>
-    <img src="shots/pdf1.png" style="background:#fff;width:520px;border-radius:14px;box-shadow:0 50px 100px -30px rgba(0,0,0,.9);transform:rotate(2deg)">
-  </div>
   <div class="pg">5</div>
 </section>
 
-<!-- 6 · PRACTICE -->
-<section class="slide prod">
+<!-- 6 · WHY THEY COME BACK -->
+<section class="slide prodb">
   <div class="mark"><i></i>Parley</div>
-  <div class="kick">The product · 3 of 3 · Skills track</div>
-  <h2 style="width:800px">Staying calm is a skill. Two minutes a day.</h2>
-  <ul class="copy">
-    <li><b>5 real texts a day</b> from the other parent. Pick the reply you'd send.</li>
-    <li><b>All three choices sound human,</b> so the right one is earned, not guessed.</li>
-    <li><b>Wrong pick? See why,</b> then write your own and get graded like a judge would.</li>
-    <li><b>28-day path, streak, reminders.</b> They come back daily; they renew for the record.</li>
+  <div class="kick">Why they keep paying</div>
+  <h2>Every text, dated. One PDF for the lawyer.</h2>
+  <ul class="copy" style="top:520px">
+    <li><b>Upload screenshots</b> — threats and insults get flagged in the chat.</li>
+    <li><b>One click:</b> a dated, numbered PDF instead of 200 screenshots.</li>
+    <li><b>A case lasts months.</b> The record keeps growing, so they keep paying.</li>
   </ul>
-  <div class="phones">
-    <div class="iphone iphone--black" style="--s:0.92; --shift:72" data-shot="shots/drill-2.png"></div>
-    <div class="low"><div class="iphone iphone--black" style="--s:0.92; --shift:0" data-shot="shots/plan.png"></div></div>
+  <div class="phones" style="align-items:center">
+    <div class="iphone iphone--black" style="--s:0.92; --shift:72" data-shot="shots/record.png"></div>
+    <img src="shots/pdf1.png" style="background:#fff;width:500px;border-radius:14px;box-shadow:0 50px 100px -30px rgba(0,0,0,.9);transform:rotate(2deg)">
   </div>
   <div class="pg">6</div>
 </section>
 
-<!-- 7 · MARKETING -->
-<section class="slide s7">
+<!-- 7 · WHAT'S NEW -->
+<section class="slide s7b">
   <div class="mark"><i></i>Parley</div>
-  <div class="kick">How we get customers cheaply</div>
-  <h2 style="width:1500px">Competitors run polished ads. <span>We'll run the ads that convert, in a niche nobody runs them in.</span></h2>
-  <div class="cols">
-    <div class="col">
-      <h3>Competitors today</h3>
-      <p>Glossy, corporate, written for the judge. No quiz funnels.</p>
-      <div class="thumbs"><img src="research/img/cp-ofw-quote.jpg"><img src="research/img/cp-ofw-before.jpg"></div>
-    </div>
-    <div class="col">
-      <h3>Zimran's playbook</h3>
-      <p>Plain native statics, one message, dozens of tests a day.</p>
-      <div class="thumbs"><img src="research/img/fin-notes.jpg"><img src="research/img/fin-notebook.jpg"></div>
-    </div>
-    <div class="col">
-      <h3>Parley's ads</h3>
-      <p>The ad <i>is</i> the product: a real-looking text thread, fixed.</p>
-      <div class="thumbs">
-        <div class="ad notes"><small>‹ Notes</small><h4>Read it the way a judge will.</h4><p>Before you hit send.</p><p>Paste their text. Get a <mark>calm reply that holds up in court</mark> in 10 seconds.</p><u>TAP TO TRY</u></div>
-        <div class="ad imsg"><div class="who">Jordan</div><div class="m i">so ur not coming. wow.</div><div class="m o">here we go again 🙄</div><div class="m g">Running 10 min late, be there by 5:40.</div><div class="cta">Fix your reply in 10 sec →</div></div>
-      </div>
-    </div>
-  </div>
-  <div class="proof rule">
-    <div><div class="num">75 · 43 · 0</div><div class="cap">active Meta ads: OurFamilyWizard, TalkingParents, BestInterest. <b>None use a quiz.</b></div></div>
-    <div><div class="num">11.6% <span style="color:var(--dim);font-size:34px">vs 7.0%</span></div><div class="cap">hit rate of plain-text ads vs high-production ads on Meta</div></div>
-    <div><div class="num">5B</div><div class="cap">TikTok views on #coparenting. The audience is already watching.</div></div>
-    <div><div class="num">Share</div><div class="cap">Instagram Reels and TikTok Spark ads can be sent to a friend — free extra reach.</div></div>
-  </div>
-  <p class="src" style="bottom:40px">Meta Ad Library, US, active ads, 14 Nov 2026 · Motion Creative Benchmarks 2026 (550K ads) · hashtagradar · Meta & TikTok ad specs. Ads always say "the other parent", never "your ex" (Meta personal-attributes policy).</p>
+  <div class="kick">Is it new</div>
+  <h2>They need both parents. <span>Parley needs one.</span></h2>
+  <table>
+    <tr><th style="width:260px">Option</th><th>Price</th><th>Other parent must join</th><th>Writes the reply</th><th>Record for court</th><th>Teaches the skill</th></tr>
+    <tr><td>OurFamilyWizard</td><td>$110–300 / yr, each parent</td><td class="n">Yes — they can refuse</td><td>Tone check, top tiers</td><td class="y">Yes</td><td class="n">No</td></tr>
+    <tr><td>TalkingParents</td><td>$77–352 / yr</td><td class="n">Yes</td><td>Top tier only</td><td class="y">Yes</td><td class="n">No</td></tr>
+    <tr><td>BestInterest</td><td>$10–30 / mo</td><td class="y">No</td><td class="y">Filters texts</td><td>Partly</td><td class="n">No</td></tr>
+    <tr><td>ChatGPT</td><td>$0–20 / mo</td><td class="y">No</td><td>Sounds like a lawyer</td><td class="n">No</td><td class="n">No</td></tr>
+    <tr class="us"><td>Parley</td><td>$19.99 first 4 weeks</td><td class="y">No — works alone</td><td class="y">In your own voice</td><td class="y">PDF for the lawyer</td><td class="y">28-day practice</td></tr>
+  </table>
+  <p class="src">Prices from each product's pricing page, November 2026.</p>
   <div class="pg">7</div>
 </section>
 
-<!-- 8 · UNIT ECONOMICS -->
+<!-- 8 · CUSTOMERS -->
 <section class="slide s8">
   <div class="mark"><i></i>Parley</div>
-  <div class="kick">Unit economics · paid ads only</div>
-  <h2 style="width:1500px">Each customer costs $40 and brings $132.</h2>
-  <div class="funnel">
-    <div class="row"><span>1,000 ad views<small>CPM $15.06</small></span><span style="font-size:17px;color:var(--dim)">cost of 1,000 views</span><b>$15</b></div>
-    <div class="row"><span>Click the ad<small>CTR 1.77%</small></span><div class="bar"><i style="width:100%"></i></div><b>17.7</b></div>
-    <div class="row"><span>Start the quiz<small>55%</small></span><div class="bar"><i style="width:55%"></i></div><b>9.7</b></div>
-    <div class="row"><span>Finish it<small>60%</small></span><div class="bar"><i style="width:33%"></i></div><b>5.8</b></div>
-    <div class="row"><span>See the price<small>80%</small></span><div class="bar"><i style="width:26%"></i></div><b>4.7</b></div>
-    <div class="row"><span>Pay<small>8% · 1 in 47 clicks</small></span><div class="bar"><i style="width:2.1%"></i></div><b>0.37</b></div>
-    <p class="cap" style="font-size:17px">So 1,000 ad views ($15) make 0.37 customers → <b>$40 per customer (CAC)</b>.</p>
+  <div class="kick">How we get customers</div>
+  <h2>They run polished ads. <span>We run the ones that convert.</span></h2>
+  <div class="them"><img src="research/img/cp-ofw-quote.jpg"><img src="research/img/cp-ofw-before.jpg"></div>
+  <div class="vs">vs</div>
+  <div class="ours">
+    <div class="ad notes"><small>‹ Notes</small><h4>Read it the way a judge will.</h4><p>Before you hit send.</p><p>Paste their text. Get a <mark>calm reply that holds up in court.</mark></p><u>TAP TO TRY</u></div>
+    <div class="ad imsg"><div class="who">Jordan</div><div class="m i">so ur not coming. wow.</div><div class="m o">here we go again</div><div class="m g">Running 10 min late, there by 5:40.</div><div class="cta">Fix your reply in 10 sec →</div></div>
   </div>
-  <div class="big">
-    <div class="num">3.3×</div>
-    <p class="cap" style="font-size:24px;margin-top:6px">Lifetime value ÷ acquisition cost. Paid back in about 2 months.</p>
-    <div class="pair">
-      <div><div class="num">$40</div><div class="cap">CAC</div></div>
-      <div><div class="num">$132</div><div class="cap">LTV, after Stripe fees,<br>refunds and AI cost</div></div>
-    </div>
-    <table class="scen">
-      <tr class="main"><td>Market averages</td><td>$40</td><td>$132</td><td>3.3×</td></tr>
-      <tr><td>Below average at every step</td><td>$71</td><td>$103</td><td>1.45×</td></tr>
-      <tr><td>Bad case → we stop at $3K test spend</td><td>$620</td><td>$50</td><td>0.1×</td></tr>
-    </table>
+  <div class="facts">
+    <div><div class="num">0</div><p>competitors use a quiz funnel</p></div>
+    <div><div class="num">11.6%</div><p>hit rate of plain-text Meta ads, vs 7% for polished</p></div>
   </div>
-  <p class="src" style="bottom:40px">CPM: Triple Whale Aug 2025–Jul 2026 · CTR: LocaliQ/WordStream 2026 (Legal) · quiz steps: Adapty 2025 · renewals: RevenueCat 2025 (61.7% renew once; we use 50% for a web intro price), 89% kept each period after · LTV = $21 first payment + $29.99 renewals over ~5 paid months − 2.9%+30¢ Stripe − 5% refunds − AI ($0.06/reply). Model: pitch/model.mjs in the repo.</p>
+  <div class="proof">
+    <div><b>$100–500K / mo</b><span>Finelo on iOS alone — Zimran's quiz funnel</span></div>
+    <div><b>$100–500K / mo</b><span>OurFamilyWizard's iOS app. BestInterest: under $5K, no ads</span></div>
+    <div><b>$9.99</b><span>OFW already sells an AI tone checker — only inside OFW</span></div>
+    <div><b>3.8×</b><span>US searches for "co-parenting" since 2022</span></div>
+  </div>
+  <p class="src">Meta Ad Library (US, 14 Nov 2026): OFW ~75 ads, TalkingParents ~43, BestInterest 0 · Motion Creative Benchmarks 2026 · Sensor Tower (iOS, worldwide, Oct 2026 estimates; web billing not counted) · AppMagic · Google Trends (US, 5 yrs).</p>
   <div class="pg">8</div>
 </section>
 
-<!-- 9 · PATH TO $100M -->
+<!-- 9 · MONEY -->
 <section class="slide s9">
   <div class="mark"><i></i>Parley</div>
-  <div class="kick">Business model</div>
-  <h2 style="width:1500px">$100M a year is 2% of US custodial parents.</h2>
-  <div class="blocks">
-    <div class="blk"><div class="t">Paying parents needed</div><div class="num">257K</div><p>× $29.99 every 4 weeks × 13 = <b>$100M ARR</b>. Out of 12.9M custodial parents — the other parent is a second market.</p></div>
-    <div class="blk"><div class="t">Ad spend to hold it</div><div class="num">$2M<span style="font-size:36px;color:var(--mute)"> / mo</span></div><p>A customer stays ~5 months, so we add <b>~49K a month</b> at $40 each. Revenue is $8.3M a month.</p></div>
-    <div class="blk"><div class="t">Why they renew</div><div class="num">Record</div><p>The dated record is needed until the case ends — months, not days. <b>Leaving means losing the evidence trail.</b></p></div>
+  <div class="kick">Why it makes money · paid ads only</div>
+  <div class="trio">
+    <div><div class="num">$40</div><p>to get a customer</p></div>
+    <div class="eq">→</div>
+    <div><div class="num">$132</div><p>back over ~5 months</p></div>
+    <div class="eq">=</div>
+    <div><div class="num gradtxt">3.3×</div><p>paid back in ~2 months</p></div>
   </div>
-  <div class="price">
-    <div><b>Free</b><span>3 replies, no sign-up</span></div>
-    <div><b>$6.99</b><span>1 week, then $29.99 / 4 wks</span></div>
-    <div class="pop"><b>$19.99</b><span>4 weeks · most popular</span></div>
-    <div><b>$49.99</b><span>12 weeks, then $69.99</span></div>
-    <div><b>14 days</b><span>money back, cancel in one click</span></div>
+  <div class="flow">
+    <span>1,000 ad views<small>$15 · Triple Whale</small></span><i>→</i>
+    <span>18 clicks<small>1.77% · WordStream</small></span><i>→</i>
+    <span>quiz → price<small>55% · 60% · 80% · Adapty</small></span><i>→</i>
+    <span class="g">8% pay<small>$19.99, then $29.99 / 4 wks</small></span><i>→</i>
+    <span>50% renew<small>then 89% / period · RevenueCat</small></span>
   </div>
+  <div class="bottom">
+    <div>$100M a year = 257K parents<span>2% of US parents raising kids in two homes</span></div>
+    <div>Worst case? We stop at $3K<span>A $3K test shows CAC before we scale. Above $100 → new ads.</span></div>
+  </div>
+  <p class="src">LTV after Stripe fees, 5% refunds and AI cost ($0.06 per reply). Below-average inputs on every step still give 1.45×. Full model: pitch/model.mjs in the repo.</p>
   <div class="pg">9</div>
 </section>
 
-<!-- 10 · TRY IT -->
+<!-- 10 · LIVE -->
 <section class="slide s10">
   <div class="mark"><i></i>Parley</div>
-  <div class="kick" style="top:160px">Try it now · 2 minutes · no sign-up</div>
-  <h1>It's live. Try it on a real fight.</h1>
-  <div class="url">parley.adiletfndr.com<span>/demo</span></div>
-  <ol>
-    <li><b>Open the sample case</b> — labelled demo data, everything runs live.</li>
-    <li><b>Reply:</b> drop a sample screenshot, add a draft, see the judge's lens.</li>
-    <li><b>Record:</b> the chat with risky words flagged, then download the PDF.</li>
-    <li><b>Practice:</b> today's 5 texts on the 28-day path.</li>
-    <li><b>Pay:</b> test card 4242 4242 4242 4242, any date, any CVC.</li>
-  </ol>
-  <div class="hero"><div class="iphone iphone--black" style="--s:0.96" data-shot="shots/lens.png"></div></div>
-  <p class="src">github.com/adiletexe/parley · Parley is not a law firm and doesn't give legal advice.</p>
+  <div class="kick">Live now · no sign-up</div>
+  <h1>One calm text. <span>Parley writes it.</span></h1>
+  <div class="url">parley.adiletfndr.com<span class="gradtxt">/demo</span></div>
+  <div class="sub">Test card 4242 4242 4242 4242 · github.com/adiletexe/parley</div>
+  <div class="chat end">
+    <div class="head"><div class="av">D</div><b>Dad</b><span>With Parley</span></div>
+    <div class="th">
+      <div class="b in">Mom asks him to get their son to sleep in his own bed</div>
+      <div class="b out" style="opacity:.35;text-decoration:line-through">I will not coparent with you, get that straight</div>
+      <div class="b out good">Ok, I'll keep him in his own bed this week. Let's check in Sunday on how it went.</div>
+    </div>
+  </div>
+  <p class="src">Parley is not a law firm and doesn't give legal advice.</p>
   <div class="pg">10</div>
 </section>
 

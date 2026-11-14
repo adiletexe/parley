@@ -7,11 +7,26 @@ const path = require('path');
   const br = await puppeteer.launch({headless: 'new'});
   const p = await br.newPage();
   await p.setViewport({width: 1920, height: 1080, deviceScaleFactor: 1});
-  await p.goto('file://' + path.join(dir, 'deck.html'), {waitUntil: 'networkidle0'});
+  // The app's icon sprites are inlined the same way vite does it, so the deck uses the exact icons the product shows.
+  const fs = require('fs');
+  const root = path.join(dir, '..');
+  const sprites = fs.readFileSync(path.join(root, 'src/icons.svg.html'), 'utf8') + fs.readFileSync(path.join(root, 'src/icons-parley.svg.html'), 'utf8');
+  fs.writeFileSync(path.join(dir, 'deck.built.html'), fs.readFileSync(path.join(dir, 'deck.html'), 'utf8').replace('<!--icons-->', sprites));
+  await p.goto('file://' + path.join(dir, 'deck.built.html'), {waitUntil: 'networkidle0'});
   await p.evaluate(() => document.fonts.ready);
-  await p.pdf({path: path.join(dir, 'Parley-deck.pdf'), width: '1920px', height: '1080px', printBackground: true});
+  // The PDF is built from 2x screenshots, not Chrome's print: macOS Preview mangles blurred shadows and gradient
+  // text in printed PDFs (a pink box over slide 1, a clipped "12.9M"). Pictures look the same in every viewer.
+  await p.setViewport({width: 1920, height: 1080, deviceScaleFactor: 2});
+  await p.evaluate(() => document.fonts.ready);
+  const {PDFDocument} = require(path.join(root, 'node_modules/pdf-lib'));
+  const doc = await PDFDocument.create();
   const els = await p.$$('.slide');
-  for (let i = 0; i < els.length; i++) await els[i].screenshot({path: path.join(dir, 'check', `slide-${i + 1}.png`)});
+  for (let i = 0; i < els.length; i++) {
+    const img = await doc.embedJpg(await els[i].screenshot({type: 'jpeg', quality: 92}));
+    doc.addPage([1920, 1080]).drawImage(img, {x: 0, y: 0, width: 1920, height: 1080});
+    await els[i].screenshot({path: path.join(dir, 'check', `slide-${i + 1}.png`)});
+  }
+  fs.writeFileSync(path.join(dir, 'Parley-deck.pdf'), await doc.save());
   console.log('slides', els.length);
   await br.close();
 })().catch((e) => { console.error(e); process.exit(1); });

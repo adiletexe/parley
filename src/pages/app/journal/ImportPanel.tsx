@@ -17,13 +17,14 @@ interface Result { added: number; duplicates: number; skipped: number }
 const SOURCES: {id: Source; icon: IconId; title: string; sub: string; accept: string; multiple?: boolean; how: string[]}[] = [
   {id: 'whatsapp', icon: 'chat', title: 'WhatsApp chat', sub: 'The .txt or .zip from “Export chat”', accept: '.txt,.zip,text/plain,application/zip',
     how: ['Open the chat with the other parent.', 'iPhone: tap their name → Export Chat → Without Media. Android: ⋮ → More → Export chat → Without media.', 'Save the file, then choose it here. It’s read on our server and never shared.']},
-  {id: 'pdf', icon: 'download', title: 'OurFamilyWizard or TalkingParents', sub: 'A PDF message report', accept: 'application/pdf,.pdf',
+  {id: 'pdf', icon: 'pdf', title: 'OurFamilyWizard or TalkingParents', sub: 'A PDF message report', accept: 'application/pdf,.pdf',
     how: ['OurFamilyWizard: Message Board → Reports → Message Report → PDF.', 'TalkingParents: Records → Messages → choose a date range → Download PDF.', 'Big history? Export a few months at a time.']},
-  {id: 'screenshot', icon: 'upload', title: 'Screenshots', sub: 'Texts, iMessage, Messenger — up to 8', accept: 'image/*', multiple: true,
+  {id: 'screenshot', icon: 'camera', title: 'Screenshots', sub: 'Texts, iMessage, Messenger — up to 8', accept: 'image/*', multiple: true,
     how: ['Take screenshots of the conversation, oldest first.', 'Include the date headers if you can — we use them to date each message.', 'Messages on the right are treated as yours.']},
 ];
 
-export function ImportPanel({onImported}: {onImported: () => void}) {
+/** `bare`: no card and no heading, for a sheet that already has both. */
+export function ImportPanel({onImported, bare}: {onImported: () => void; bare?: boolean}) {
   const [source, setSource] = useState<Source | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -68,8 +69,8 @@ export function ImportPanel({onImported}: {onImported: () => void}) {
   const group = (preview?.senders.length ?? 0) > 2;
 
   return (
-    <section className="card jr-import">
-      <div className="card-h"><Icon id="upload" size={24} />Import messages</div>
+    <section className={bare ? 'jr-import' : 'card jr-import'}>
+      {!bare && <div className="card-h"><Icon id="upload" size={24} />Import messages</div>}
 
       {!source && (
         <>
@@ -139,7 +140,7 @@ export function ImportPanel({onImported}: {onImported: () => void}) {
           )}
           {error && <p className="jr-error" role="alert">{error}</p>}
           <button className="btn btn-primary btn-block" disabled={!other || busy} onClick={confirm}>
-            {busy ? <><span className="spin" /> Adding to your journal…</> : other ? `Import ${preview.total.toLocaleString('en-US')} messages` : 'Choose the other parent first'}
+            {busy ? <><span className="spin" /> Adding to your record…</> : other ? `Import ${preview.total.toLocaleString('en-US')} messages` : 'Choose the other parent first'}
           </button>
         </div>
       )}
@@ -150,7 +151,7 @@ export function ImportPanel({onImported}: {onImported: () => void}) {
           <div>
             <b>{result.added ? `${result.added.toLocaleString('en-US')} messages added` : 'Nothing new to add'}</b>
             <span>
-              {result.duplicates > 0 && `${result.duplicates} were already in your journal and were skipped. `}
+              {result.duplicates > 0 && `${result.duplicates} were already in your record and were skipped. `}
               {result.skipped > 0 && `${result.skipped} from other people were left out. `}
               {result.added > 0 && 'Patterns are updated.'}
             </span>

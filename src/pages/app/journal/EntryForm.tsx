@@ -132,7 +132,7 @@ export function EntryForm({preset, entry, now, onSaved, onCancel}: Props) {
       {error && <p className="jr-error" role="alert">{error}</p>}
 
       <div className="jr-form-actions">
-        <button className="btn btn-primary" disabled={busy !== ''}>{busy === 'save' ? <><span className="spin" /> Saving…</> : entry ? 'Save changes' : 'Add to journal'}</button>
+        <button className="btn btn-primary" disabled={busy !== ''}>{busy === 'save' ? <><span className="spin" /> Saving…</> : entry ? 'Save changes' : 'Add to record'}</button>
         <button type="button" className="btn btn-quiet" onClick={onCancel}>Cancel</button>
       </div>
     </form>

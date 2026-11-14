@@ -154,7 +154,7 @@ function Header({hasEntries}: {hasEntries?: boolean}) {
         <h1>Every handoff, <span className="gt">on the record</span>.</h1>
         <p className="jr-lede">A private, dated log of messages, incidents and expenses — kept in calm, factual language a judge can read.</p>
       </div>
-      {hasEntries && <Link to="/app/timeline" className="btn btn-ghost jr-tl"><Icon id="scale" size={26} />Court timeline</Link>}
+      {hasEntries && <Link to="/app/record" className="btn btn-ghost jr-tl"><Icon id="scale" size={26} />Court timeline</Link>}
     </header>
   );
 }

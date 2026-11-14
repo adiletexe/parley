@@ -1,5 +1,6 @@
-/* /app/plan — the 28-day calm-communication plan: day counter, calm-day streak, today's lesson and drill,
-   progress from the first drill to now, a calendar reminder, and (demo only) a clock the jury can push forward. */
+/* /app/plan (tab "Practice") — one task today, progress in numbers. Day N of 28 and the streak on top; today's drill
+   is the page; the skill line, the lesson, the 28 days and the reminder are one quiet row each that open in place.
+   Demo people get a small "Demo clock" menu by the header instead of a slab over the page. */
 import {useCallback, useEffect, useState} from 'react';
 import {Link, useSearchParams} from 'react-router-dom';
 import {Icon} from '../../components/Icon';
@@ -7,7 +8,7 @@ import {api, track} from '../../lib/api';
 import {useMe} from '../../lib/me';
 import type {PlanView} from '../../../server/plan-content';
 import {DrillCard} from './plan/Drill';
-import {DemoClock, Reminder, RenewalNote, Ring, Score, Trend} from './plan/parts';
+import {AllDays, DemoClock, Lesson, Reminder, RenewalNote, Ring, scoreTone, Spark} from './plan/parts';
 import './plan/plan.css';
 
 export default function Plan() {
@@ -26,43 +27,47 @@ export default function Plan() {
   useEffect(() => { track('plan_view'); }, []);
 
   if (err && !view) return (
-    <div className="pl card"><p>We couldn't load your plan. {err}</p><button className="btn btn-ghost" onClick={() => void load()}>Try again</button></div>
+    <div className="pl card"><p>We couldn't load your practice. {err}</p><button className="btn btn-ghost" onClick={() => void load()}>Try again</button></div>
   );
   if (!view) return <div className="pl-loading"><span className="spin" /></div>;
 
   const today = Math.min(view.day, view.total);
   const isToday = view.viewDay === today;
-  const week = Math.ceil(view.viewDay / 7);
-  const weekInfo = view.weeks[week - 1];
+  const done = view.day > view.total;
+  const todayWeek = view.weeks[Math.min(4, Math.ceil(today / 7)) - 1];
+  const viewWeek = view.weeks[Math.ceil(view.viewDay / 7) - 1];
   const nextDay = today < view.total ? today + 1 : null;
+  // The skill line is the week's skill when this week has drills (its first try → its latest best), else the whole run.
+  const wk = Math.ceil(view.viewDay / 7);
+  const weekTrend = view.trend.filter((t) => Math.ceil(t.day / 7) === wk);
+  const skill = weekTrend.length
+    ? {title: viewWeek?.title, from: weekTrend[0].first, to: weekTrend[weekTrend.length - 1].best, trend: weekTrend, n: weekTrend.length, scope: 'this week'}
+    : {title: view.trend.length ? 'Calm replies' : viewWeek?.title, from: view.firstScore, to: view.latestScore, trend: view.trend, n: view.trend.length, scope: 'so far'};
   const pick = (d: number) => { setParams(d === today ? {} : {day: String(d)}); window.scrollTo({top: 0, behavior: 'smooth'}); };
   const moved = () => { setParams({}); void load(); void refresh(); };
-  const doneDays = view.days.filter((d) => d.best !== undefined).length;
+  const minutes = view.lesson?.minutes ?? 2;
 
   return (
     <div className="pl fade-in">
-      {view.demo && <DemoClock now={view.now} onMoved={moved} />}
-
-      <header className="pl-head">
+      <header className="pl-top">
         <Ring value={today} total={view.total} />
-        <div className="pl-head-t">
-          <span className="pl-eyebrow">28-day calm plan · Week {Math.ceil(today / 7) > 4 ? 4 : Math.ceil(today / 7)}</span>
-          <h1>{view.day > view.total ? <>Plan <span className="gt">complete</span>.</> : <>Day {today} of {view.total}. <span className="gt">Keep it calm.</span></>}</h1>
-          <div className="pl-head-chips">
-            <span className="chip chip-ok"><Icon id="flame" size={18} />{view.streak} calm day{view.streak === 1 ? '' : 's'} in a row</span>
-            <span className="chip">{doneDays} drill{doneDays === 1 ? '' : 's'} done</span>
-            {view.access === 'free' && <span className="chip chip-amber">Free preview: days 1–2</span>}
-          </div>
+        <div className="pl-top-t">
+          <h1>{done ? 'Plan complete' : `Day ${today} of ${view.total}`}</h1>
+          <span className="pl-mute">{todayWeek?.title}{!done && <span className="pl-nw"> · {minutes} min</span>}{view.access === 'free' && <span className="pl-nw"> · free: days 1–2</span>}</span>
         </div>
+        <div className="pl-top-r">
+          <span className="chip chip-ok pl-streak" title={`${view.streak} calm day${view.streak === 1 ? '' : 's'} in a row`}>
+            <Icon id="flame" size={20} />{view.streak} day{view.streak === 1 ? '' : 's'}
+          </span>
+        </div>
+        {view.demo && <DemoClock now={view.now} onMoved={moved} />}
       </header>
 
       {view.renewal?.remind && <RenewalNote renewal={view.renewal} />}
 
       <div className="pl-grid">
         <div className="pl-main">
-          {!isToday && (
-            <button className="pl-back" onClick={() => pick(today)}>← Back to today (day {today})</button>
-          )}
+          {!isToday && <button className="pl-back" onClick={() => pick(today)}>← Back to today (day {today})</button>}
 
           {view.locked === 'paywall' && (
             <section className="card pl-lock">
@@ -84,25 +89,6 @@ export default function Plan() {
             </section>
           )}
 
-          {view.lesson && (
-            <section className="card pl-lesson">
-              <div className="card-h"><Icon id="book" size={24} />{isToday ? "Today's lesson" : `Day ${view.viewDay} lesson`} · {view.lesson.minutes} min
-                <span className="chip pl-chip-right">{view.lesson.skill}</span>
-              </div>
-              <span className="pl-week">Week {week} · {weekInfo?.title}</span>
-              <h2>{view.lesson.title}</h2>
-              <div className="pl-read">{view.lesson.read.map((p, i) => <p key={i}>{p}</p>)}</div>
-              <div className="pl-example">
-                <div className="pl-ex-them"><span>They wrote</span><p>{view.lesson.example.them}</p></div>
-                <div className="pl-ex-row">
-                  <div className="pl-ex-bad"><span>Instead of</span><p>{view.lesson.example.bad}</p></div>
-                  <div className="pl-ex-good"><span>Try</span><p>{view.lesson.example.good}</p></div>
-                </div>
-                <p className="pl-ex-why"><Icon id="scale" size={22} />{view.lesson.example.why}</p>
-              </div>
-            </section>
-          )}
-
           {view.drill && (
             <DrillCard day={view.viewDay} drill={view.drill} isToday={isToday} nextDay={nextDay}
               personal={view.personalised} triggerLabel={view.triggerLabel} onGraded={() => void load()} />
@@ -110,63 +96,22 @@ export default function Plan() {
         </div>
 
         <aside className="pl-side">
-          <div className="card pl-side-card">
-            <div className="card-h"><Icon id="flame" size={24} />Calm days</div>
-            <div className="pl-big"><b>{view.streak}</b><span>in a row{view.activeToday ? ', today included' : view.streak ? ' — practise today to keep it' : view.calmDays ? ` · ${view.calmDays} calm days so far. Today's drill starts a new run.` : " — today's drill starts it"}</span></div>
-            <div className="pl-dots" aria-label={`${view.calmDays} calm days so far`}>
-              {Array.from({length: view.total}, (_, i) => i + 1).map((d) => (
-                <i key={d} className={d > view.day ? 'up' : view.calmList.includes(d) ? 'on' : ''} title={`Day ${d}`} />
-              ))}
-            </div>
-            <p className="pl-mute pl-small">A calm day: you practised (a drill or the reply coach) and sent nothing a judge would flag.</p>
-          </div>
-
-          <div className="card pl-side-card">
-            <div className="card-h"><Icon id="target" size={24} />Your progress</div>
-            {view.firstScore !== null && view.latestScore !== null ? (
-              <>
-                <div className="pl-from">
-                  <div><span>First drill</span><Score value={view.firstScore} size="sm" /></div>
-                  <i>→</i>
-                  <div><span>Latest best</span><Score value={view.latestScore} size="sm" /></div>
-                </div>
-                <Trend trend={view.trend} total={view.total} />
-                <p className="pl-mute pl-small">Best score per day; dotted line is your first try that day.</p>
-              </>
-            ) : <p className="pl-mute">Do today's drill to see your score here — then watch it move.</p>}
-            <ul className="pl-weeks">
-              {view.weeks.map((w) => (
-                <li key={w.week} className={w.current ? 'on' : ''}>
-                  <div><b>Week {w.week}</b><span>{w.title}</span></div>
-                  <div className="pl-weeks-n">
-                    <span>{w.drills}/7 drills</span>
-                    {w.avgBest !== null && <span>avg {w.avgBest}</span>}
-                    {(w.replies > 0 || w.entries > 0) && <span>{w.replies} repl{w.replies === 1 ? 'y' : 'ies'} · {w.entries} logged</span>}
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <Reminder day={today} total={view.total} />
-
-          <div className="card pl-side-card">
-            <div className="card-h"><Icon id="calendar" size={24} />All 28 days</div>
-            {[1, 2, 3, 4].map((w) => (
-              <div key={w} className="pl-days">
-                <span className="pl-days-w">W{w}</span>
-                {view.days.filter((d) => d.week === w).map((d) => {
-                  return (
-                    <button key={d.day} className={`pl-day pl-day-${d.status}` + (d.day === view.viewDay ? ' sel' : '')}
-                      disabled={d.status === 'upcoming'} onClick={() => pick(d.day)}
-                      title={`Day ${d.day}: ${d.title}${d.best !== undefined ? ` — best ${d.best}` : d.status === 'locked' ? ' (full plan)' : d.status === 'upcoming' ? ' (upcoming)' : ''}`}>
-                      {d.status === 'locked' ? <svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V7a5 5 0 0110 0v3M5 10h14v11H5z" fill="none" stroke="currentColor" strokeWidth="2.4" /></svg> : d.day}
-                    </button>
-                  );
-                })}
+          <section className="card pl-skill">
+            <div className="pl-skill-top">
+              <div className="pl-skill-t">
+                <b>{skill.title}</b>
+                <span className="pl-mute">{skill.from !== null && skill.n ? `${skill.n} drill${skill.n === 1 ? '' : 's'} ${skill.scope} · first → best` : 'Your score shows up after today\'s drill'}</span>
               </div>
-            ))}
-          </div>
+              {skill.from !== null && skill.to !== null && skill.n > 0 && (
+                <span className="pl-skill-n" aria-label={`First try ${skill.from}, latest best ${skill.to}`}><span>{skill.from}</span><i>→</i><b className={`pl-tone-${scoreTone(skill.to)}`}>{skill.to}</b></span>
+              )}
+            </div>
+            {skill.trend.length > 1 && <Spark trend={skill.trend} />}
+            <AllDays view={view} onPick={pick} />
+          </section>
+
+          {view.lesson && <Lesson lesson={view.lesson} label={isToday ? `Today's ${view.lesson.minutes}-min lesson` : `Day ${view.viewDay} lesson · ${view.lesson.minutes} min`} />}
+          <Reminder day={today} total={view.total} />
         </aside>
       </div>
       <p className="pl-legal">Parley is not a law firm and doesn't give legal advice. Lessons are general communication skills.</p>

@@ -9,10 +9,10 @@ export interface JournalData { entries: Entry[]; stats: JournalStats; patterns: 
 
 export const KIND: Record<EntryKind, {label: string; plural: string; icon: IconId}> = {
   message_in: {label: 'Message received', plural: 'Received', icon: 'chat'},
-  message_out: {label: 'Message sent', plural: 'Sent', icon: 'scripts'},
+  message_out: {label: 'Message sent', plural: 'Sent', icon: 'reply'},
   incident: {label: 'Incident', plural: 'Incidents', icon: 'flag'},
-  note: {label: 'Note', plural: 'Notes', icon: 'book'},
-  expense: {label: 'Expense', plural: 'Expenses', icon: 'receipt'},
+  note: {label: 'Note', plural: 'Notes', icon: 'pencil'},
+  expense: {label: 'Expense', plural: 'Expenses', icon: 'dollar'},
 };
 
 export const CATEGORY: Record<Category, string> = {
@@ -38,17 +38,17 @@ export interface Preset {
 export const PRESETS: Preset[] = [
   {id: 'late', label: 'Late pickup', icon: 'clock', kind: 'incident', title: 'Pickup started late', category: 'schedule', tags: ['late_pickup', 'handoff'], channel: 'in_person', minutes: true,
     placeholder: 'Where the handoff was, the agreed time, when they arrived, and what the kids were doing while they waited.'},
-  {id: 'noshow', label: 'No-show', icon: 'timer', kind: 'incident', title: 'Other parent did not come to the handoff', category: 'schedule', tags: ['no_show', 'handoff'], channel: 'in_person',
+  {id: 'noshow', label: 'No-show', icon: 'noshow', kind: 'incident', title: 'Other parent did not come to the handoff', category: 'schedule', tags: ['no_show', 'handoff'], channel: 'in_person',
     placeholder: 'The agreed time and place, how long you waited, and any message you got before or after.'},
-  {id: 'kids', label: 'In front of the kids', icon: 'family', kind: 'incident', title: 'Conflict in front of the children', category: 'other', tags: ['in_front_of_kids'], channel: 'in_person',
+  {id: 'kids', label: 'In front of the kids', icon: 'kids', kind: 'incident', title: 'Conflict in front of the children', category: 'other', tags: ['in_front_of_kids'], channel: 'in_person',
     placeholder: 'The exact words, in quotes, if you remember them. Who was there, and how the kids reacted.'},
-  {id: 'payment', label: 'Missed payment', icon: 'receipt', kind: 'incident', title: 'Payment not received', category: 'money', tags: ['missed_payment'], channel: 'other', amount: true,
+  {id: 'payment', label: 'Missed payment', icon: 'dollarx', kind: 'incident', title: 'Payment not received', category: 'money', tags: ['missed_payment'], channel: 'other', amount: true,
     placeholder: 'What the payment was for, when it was due, and any message about it.'},
   {id: 'schedule', label: 'Schedule change', icon: 'calendar', kind: 'incident', title: 'Schedule changed at short notice', category: 'schedule', tags: ['schedule_change'], channel: 'sms',
     placeholder: 'What the schedule was, what changed, how much notice you got, and how it was sent.'},
-  {id: 'expense', label: 'Expense', icon: 'split', kind: 'expense', title: '', category: 'money', tags: [], channel: 'other', amount: true,
+  {id: 'expense', label: 'Expense', icon: 'dollar', kind: 'expense', title: '', category: 'money', tags: [], channel: 'other', amount: true,
     placeholder: 'What it was for and which child. Note who paid and whether you asked to split it.'},
-  {id: 'note', label: 'Note', icon: 'book', kind: 'note', title: '', category: 'other', tags: [], channel: 'in_person',
+  {id: 'note', label: 'Note', icon: 'pencil', kind: 'note', title: '', category: 'other', tags: [], channel: 'in_person',
     placeholder: 'What happened, when, and who was there. Stick to what you saw and heard.'},
 ];
 
@@ -76,4 +76,15 @@ export const fromLocalInput = (v: string) => new Date(v).toISOString();
 export function parseMoney(v: string): number | null {
   const n = Number(v.replace(/[$,\s]/g, ''));
   return v.trim() && isFinite(n) && n >= 0 ? Math.round(n * 100) : null;
+}
+
+/** What a row is, in a word and an icon that says the same thing: an incident is named by what happened
+ *  (its tag), not just "Incident". */
+const TAG_KIND: [string, string, IconId][] = [
+  ['late_pickup', 'Late pickup', 'clock'], ['no_show', 'No-show', 'noshow'], ['in_front_of_kids', 'In front of the kids', 'kids'],
+  ['missed_payment', 'Missed payment', 'dollarx'], ['schedule_change', 'Schedule change', 'calendar'],
+];
+export function entryKind(e: Entry): {label: string; icon: IconId} {
+  if (e.kind === 'incident') for (const [t, label, icon] of TAG_KIND) if (e.tags.includes(t)) return {label, icon};
+  return KIND[e.kind];
 }

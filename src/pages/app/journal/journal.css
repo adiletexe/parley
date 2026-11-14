@@ -1,4 +1,4 @@
-/* Journal (/app/journal). Every class is .jr-; shared atoms (.card .btn .field .chip) come from base.css. */
+/* Journal pieces, used by /app/record. Every class is .jr-; shared atoms (.card .btn .field .chip) come from base.css. */
 .jr { max-width: 1180px; margin: 0 auto; display: grid; gap: 18px; }
 
 .jr-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }

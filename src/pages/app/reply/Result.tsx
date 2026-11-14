@@ -1,167 +1,162 @@
-import {useEffect, useState} from 'react';
+/* The result has one job: hand over a reply that is safe to send. Their message with what we ignored struck out,
+   one line on what actually needs an answer, the reply, one verdict line, Copy. Everything else is a line you can
+   open, not a card that competes with the reply. */
+import {useLayoutEffect, useRef, useState} from 'react';
 import {Link} from 'react-router-dom';
 import type {Analysis, Channel} from '../../../../shared/types';
+import {ChannelTag} from '../../../components/ChannelIcon';
 import {Icon} from '../../../components/Icon';
 import {api, track} from '../../../lib/api';
-import {Highlighted, Lens} from './Lens';
+import {useMe} from '../../../lib/me';
+import {Highlighted, Lens, tone} from './Lens';
 
 export type AnalysisView = Analysis & {logged?: {exchange: boolean; incident: boolean}; freeRepliesLeft?: number | null};
 type Variant = 'brief' | 'neutral' | 'firm';
 
-const TABS: {k: Variant; label: string; tag: string; hint: string}[] = [
-  {k: 'brief', label: 'Brief', tag: 'Just the answer', hint: 'Just the answer'},
-  {k: 'neutral', label: 'Neutral', tag: 'BIFF', hint: 'BIFF: brief, informative, friendly, firm'},
-  {k: 'firm', label: 'Firm', tag: 'Boundary + next step', hint: 'A clear boundary and one next step'},
+const TABS: {k: Variant; label: string; hint: string}[] = [
+  {k: 'brief', label: 'Brief', hint: 'Just the answer'},
+  {k: 'neutral', label: 'Neutral', hint: 'BIFF: brief, informative, friendly, firm'},
+  {k: 'firm', label: 'Firm', hint: 'A clear boundary and one next step'},
 ];
-const CHANNELS: {k: Channel; label: string}[] = [
-  {k: 'sms', label: 'Text'}, {k: 'whatsapp', label: 'WhatsApp'}, {k: 'email', label: 'Email'},
-  {k: 'ofw', label: 'OurFamilyWizard'}, {k: 'talkingparents', label: 'TalkingParents'}, {k: 'other', label: 'Other'},
-];
-const ADVICE: Record<Analysis['advice'], {label: string; cls: string}> = {
-  reply: {label: 'Worth a reply', cls: 'chip'},
-  brief_ack: {label: 'A short acknowledgement is enough', cls: 'chip chip-amber'},
-  no_reply: {label: 'No reply needed', cls: 'chip chip-ok'},
-};
-const CAT: Record<Analysis['category'], string> = {
-  schedule: 'Schedule', money: 'Money', health: 'Health', school: 'School', new_partner: 'New partner',
-  accusation: 'Accusation', logistics: 'Logistics', other: 'Other',
-};
 
-function heatLabel(h: number) { return h >= 80 ? 'Hostile' : h >= 55 ? 'Heated' : h >= 30 ? 'Tense' : 'Calm'; }
 const words = (s: string) => (s.trim().match(/\S+/g) ?? []).length;
+// What a person's own edit can add back in. The model's replies are scored on the server; an edit is not, so the
+// verdict only has to catch the obvious things a judge underlines.
+const HOSTILE = /\b(you always|you never|typical|pathetic|ridiculous|stupid|liar|crazy|whatever|see you in court|you'?ll regret|lawyer)\b|!!|\?\?/i;
 
-/** Their message with the stripped words greyed and struck, so the user sees what we chose to ignore. */
-function Theirs({text, stripped}: {text: string; stripped: string[]}) {
-  const flags = stripped.map((p) => ({phrase: p, severity: 'medium' as const, issue: 'Left out', why: 'Insult, blame or old history — not something to answer.'}));
-  return <div className="rc-theirs"><Highlighted text={text} flags={flags} /></div>;
+function verdict(a: Analysis, tab: Variant, text: string, edited: boolean): {ok: boolean; text: string} {
+  if (edited && HOSTILE.test(text)) return {ok: false, text: 'Your edit has words a judge could read as hostile'};
+  if (edited && words(text) > 90) return {ok: false, text: 'Long replies read as arguing. A judge prefers short'};
+  const score = a.replyScore ?? 90;
+  if (score < 70) return {ok: false, text: 'A judge might still read this as tense. Brief is the safest'};
+  if (a.advice === 'no_reply') return {ok: true, text: "No reply needed. If you send one, a judge would read this as calm"};
+  if (tab === 'firm') return {ok: true, text: 'A judge would read this as calm, firm and child-focused'};
+  return {ok: true, text: 'A judge would read this as calm and child-focused'};
 }
 
-export function Result({a, onEdit, onUpdate}: {a: AnalysisView; onEdit: () => void; onUpdate: (a: AnalysisView) => void}) {
+/** The model writes asks as instructions ("Respond to refusal to split soccer cost") or questions. After "They need
+    an answer about:" only the topic should be left, starting lower-case. Acronyms stay as they are. */
+const askCase = (q: string) => {
+  const t = q.replace(/^(please\s+)?(respond|reply|answer)( to)?\s+|^address\s+|^(confirm|clarify)\s+(?=whether|if|who|what|when)/i, '').replace(/\.$/, '');
+  return /^[A-Z][a-z]/.test(t) ? t[0].toLowerCase() + t.slice(1) : t;
+};
+
+/** Their message with the stripped words struck, so the user sees what we chose to ignore. */
+function Theirs({text, stripped}: {text: string; stripped: string[]}) {
+  const flags = stripped.map((p) => ({phrase: p, severity: 'medium' as const, issue: 'Left out', why: 'Insult, blame or old history — not something to answer.'}));
+  return <Highlighted text={text} flags={flags} />;
+}
+
+export function Result({a, channel, onUpdate}: {a: AnalysisView; channel: Channel; onUpdate: (a: AnalysisView) => void}) {
+  const {me} = useMe();
   const [tab, setTab] = useState<Variant>(a.usedVariant ?? (a.advice === 'reply' ? 'neutral' : 'brief'));
   const [texts, setTexts] = useState<Record<Variant, string>>({brief: a.variants.brief.text, neutral: a.variants.neutral.text, firm: a.variants.firm.text});
-  const [channel, setChannel] = useState<Channel>('sms');
-  const [note, setNote] = useState<{kind: 'ok' | 'err'; text: string} | null>(null);
+  const [err, setErr] = useState('');
   const [busy, setBusy] = useState<'copy' | 'save' | 'incident' | null>(null);
-
-  useEffect(() => { if (!note || note.kind === 'err') return; const t = setTimeout(() => setNote(null), 5000); return () => clearTimeout(t); }, [note]);
+  const [savedAt, setSavedAt] = useState<Date | null>(null);
+  const [copied, setCopied] = useState(false);
+  const [lensOpen, setLensOpen] = useState(false);
 
   const text = texts[tab];
+  // The reply grows to fit: a scrolling box hides the end of the reply right where the date or amount usually is.
+  const box = useRef<HTMLTextAreaElement>(null);
+  useLayoutEffect(() => { const el = box.current; if (!el) return; el.style.height = 'auto'; el.style.height = el.scrollHeight + 2 + 'px'; }, [text]);
   const edited = text !== a.variants[tab].text;
-  const n = words(text);
+  const v = verdict(a, tab, text, edited);
+  // The demo case lives in its own zone and on its own clock (time travel); show "now" the way the server sees it.
+  const tz = me?.tz;
+  const skew = me ? Math.round((Date.parse(me.now) - Date.now()) / 3.6e6) * 3.6e6 : 0;
+  const fmt = (d: Date) => d.toLocaleDateString('en-US', {month: 'short', day: 'numeric', timeZone: tz}) + ', ' + d.toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit', timeZone: tz});
 
   async function log(kind: 'copy' | 'save') {
-    setBusy(kind);
+    setBusy(kind); setErr('');
     try {
       if (kind === 'copy') {
-        try { await navigator.clipboard.writeText(text); } catch {
+        try { await navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 2500); } catch {
           // Clipboard blocked (http, old Safari): select the text so a long-press / Cmd+C still works.
           (document.getElementById('rc-reply') as HTMLTextAreaElement | null)?.select();
         }
       }
-      const r = await api<{already?: boolean}>(`/api/reply/${a.id}/use`, {body: {variant: tab, text, channel}});
+      await api(`/api/reply/${a.id}/use`, {body: {variant: tab, text, channel}});
+      setSavedAt(new Date(Date.now() + skew));
       onUpdate({...a, usedVariant: tab, logged: {exchange: true, incident: !!a.logged?.incident}});
-      setNote({kind: 'ok', text: kind === 'copy'
-        ? (r.already ? 'Copied. Your journal entry is updated to this version.' : 'Copied. Both messages are saved to your journal.')
-        : (r.already ? 'Your journal entry is updated to this version.' : 'Saved. Both messages are in your journal.')});
-      track('reply_' + kind, {variant: tab, edited});
+      track('reply_' + kind, {variant: tab, edited, channel});
     } catch (e) {
-      setNote({kind: 'err', text: (e as Error).message || 'Could not save to your journal. Please try again.'});
+      setErr((e as Error).message || 'Could not save to your record. Please try again.');
     } finally { setBusy(null); }
   }
 
   async function logIncident() {
-    setBusy('incident');
+    setBusy('incident'); setErr('');
     try {
       await api(`/api/reply/${a.id}/incident`, {body: {channel}});
       onUpdate({...a, logged: {exchange: !!a.logged?.exchange, incident: true}});
     } catch (e) {
-      setNote({kind: 'err', text: (e as Error).message || 'Could not log it. Please try again.'});
+      setErr((e as Error).message || 'Could not log it. Please try again.');
     } finally { setBusy(null); }
   }
 
-  const adv = ADVICE[a.advice];
-  const when = new Date(a.createdAt);
+  const risky = a.lens.filter((f) => f.severity !== 'good').length;
+  const hasDraft = !!a.draft && a.draftScore !== undefined;
+  const saved = savedAt || a.logged?.exchange;
 
   return (
     <div className="rc-result">
-      <section className="card rc-they fade-in">
-        <div className="card-h rc-they-h">
-          <Icon id="chat" size={24} />They wrote · {when.toLocaleDateString('en-US', {month: 'short', day: 'numeric'})} {when.toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit'})}
-          <select className="rc-channel" value={channel} onChange={(e) => setChannel(e.target.value as Channel)} aria-label="Where they sent it">
-            {CHANNELS.map((c) => <option key={c.k} value={c.k}>{c.label}</option>)}
-          </select>
-        </div>
-        <Theirs text={a.incoming} stripped={a.stripped ?? []} />
-        <div className="rc-facts">
-          <span className="rc-facts-h">Just the facts</span>
-          <p>{a.facts}</p>
-          {a.asks.length > 0 && (
-            <ul className="rc-asks">{a.asks.map((q, i) => <li key={i}>{q}</li>)}</ul>
-          )}
-        </div>
-        <div className="rc-meta">
-          <span className={adv.cls}>{adv.label}</span>
-          <span className={'chip ' + (a.heat >= 55 ? 'chip-warn' : a.heat >= 30 ? 'chip-amber' : 'chip-ok')}>{heatLabel(a.heat)} · {a.heat}/100</span>
-          <span className="chip rc-chip-plain">{CAT[a.category]}</span>
-        </div>
-        {a.adviceWhy && <p className="rc-why">{a.adviceWhy}</p>}
-      </section>
+      <div className="rc-they fade-in">
+        <div className="rc-bubble"><Theirs text={a.incoming} stripped={a.stripped ?? []} /></div>
+        <p className="rc-bubble-meta"><ChannelTag channel={channel} /> · {fmt(new Date(a.createdAt))}</p>
+      </div>
+      <p className="rc-asks">
+        {a.asks.length > 0
+          ? <>They need an answer about: <b>{a.asks.map(askCase).join(' · ')}</b></>
+          : <>Nothing here needs an answer. {a.adviceWhy}</>}
+      </p>
 
       <section className="card rc-replycard fade-in">
-        <div className="rc-tabs-row">
-          <div className="rc-tabs" role="tablist">
-            {TABS.map((t) => (
-              <button key={t.k} role="tab" aria-selected={tab === t.k} className={'rc-tab' + (tab === t.k ? ' on' : '')} onClick={() => setTab(t.k)} title={t.hint}>{t.label}</button>
-            ))}
-          </div>
-          <span className="rc-count">{TABS.find((t) => t.k === tab)!.tag} · {n} words · reads in {Math.max(3, Math.round(n / 4))} s</span>
+        <div className="rc-seg" role="tablist" aria-label="Tone">
+          {TABS.map((t) => (
+            <button key={t.k} role="tab" aria-selected={tab === t.k} className={tab === t.k ? 'on' : ''} onClick={() => setTab(t.k)} title={t.hint}>{t.label}</button>
+          ))}
         </div>
-        {a.advice === 'no_reply' && <p className="rc-gray">You don't have to answer this. If you choose to, keep it this flat:</p>}
-        <textarea id="rc-reply" className="field rc-reply" value={text} rows={Math.min(8, Math.max(3, Math.ceil(text.length / 70)))}
+        <textarea ref={box} id="rc-reply" className="field rc-reply" value={text} rows={3}
           onChange={(e) => setTexts({...texts, [tab]: e.target.value})} aria-label="Your reply (you can edit it)" />
         {/\[[^\]]+\]/.test(text) && <p className="rc-fill">Fill in the <b>[brackets]</b> before you send — we never guess dates, times or amounts.</p>}
-        <div className="rc-actions">
-          <button className="btn btn-primary" onClick={() => log('copy')} disabled={!!busy || !text.trim()}>
-            {busy === 'copy' ? <span className="spin" /> : null}Copy reply
-          </button>
-          <button className="btn btn-ghost" onClick={() => log('save')} disabled={!!busy || !text.trim()}>
-            {busy === 'save' ? <span className="spin" /> : null}Save to journal
-          </button>
-          {edited && <button className="btn btn-quiet" onClick={() => setTexts({...texts, [tab]: a.variants[tab].text})}>Undo my edits</button>}
-          <span className="rc-auto">{a.logged?.exchange ? <><i className="rc-dot" />In your journal</> : 'Logged to your journal when copied'}</span>
+        <p className={'rc-verdict ' + (v.ok ? 'ok' : 'warn')}><Icon id="scale" size={22} />{v.text}</p>
+        <button className="btn btn-primary btn-lg rc-copy" onClick={() => log('copy')} disabled={!!busy || !text.trim()}>
+          {busy === 'copy' ? <span className="spin" /> : null}{copied ? 'Copied' : 'Copy reply'}
+        </button>
+        <div className="rc-under">
+          {saved
+            ? <span className="rc-saved" role="status">✓ Saved to your record{savedAt ? ` · ${fmt(savedAt)}` : ''} · <Link to="/app/record">View</Link></span>
+            : <span>Copying saves both messages to your record · <button className="rc-link" onClick={() => log('save')} disabled={!!busy}>Save without copying</button></span>}
+          {edited && <button className="rc-link" onClick={() => setTexts({...texts, [tab]: a.variants[tab].text})}>Undo my edits</button>}
         </div>
-        {note && <p className={'rc-note rc-note-' + note.kind} role="status">{note.text}</p>}
+        {err && <p className="rc-err-line" role="alert">{err}</p>}
       </section>
 
-      {a.incident?.worthLogging && (
-        <section className="card rc-incident fade-in">
-          <Icon id="flag" size={36} />
-          <div>
-            <b>Worth keeping on the record</b>
-            <p>{a.incident.title}. {a.incident.note}</p>
-          </div>
-          {a.logged?.incident
-            ? <Link className="btn btn-ghost" to="/app/journal">Logged · view</Link>
-            : <button className="btn btn-ghost" onClick={logIncident} disabled={!!busy}>{busy === 'incident' ? <span className="spin" /> : null}Log this as an incident</button>}
+      {hasDraft && (
+        <section className={'card rc-drafted' + (lensOpen ? ' open' : '')}>
+          <button className="rc-drafted-row" aria-expanded={lensOpen} onClick={() => { setLensOpen(!lensOpen); if (!lensOpen) track('reply_lens_open'); }}>
+            <span className="rc-drafted-h">Your draft</span>
+            <span className="rc-drafted-n">
+              <b className={'rc-' + tone(a.draftScore!)}>{a.draftScore}</b>
+              {a.replyScore !== undefined && <> → <b className={'rc-' + tone(a.replyScore)}>{a.replyScore}</b></>}
+            </span>
+            <span className="rc-drafted-s">{risky > 0 ? `${risky} phrase${risky === 1 ? '' : 's'} a judge would read badly` : 'Nothing a judge would hold against you'}</span>
+            <i className="rc-chev" aria-hidden="true" />
+          </button>
+          {lensOpen && <Lens draft={a.draft!} flags={a.lens} />}
         </section>
       )}
 
-      {a.draft && a.draftScore !== undefined
-        ? <Lens draft={a.draft} flags={a.lens} draftScore={a.draftScore} replyScore={a.replyScore} />
-        : a.lens.length > 0 && (
-          <section className="card rc-lens fade-in">
-            <div className="card-h"><Icon id="scale" size={24} />Judge's lens · why this reply holds up</div>
-            <ul className="rc-flags">
-              {a.lens.map((f, i) => (
-                <li key={i} className="rc-flag rc-flag-good">
-                  <span className="rc-flag-ic" aria-hidden="true">✓</span>
-                  <div><b>“{f.phrase}”</b> <span className="rc-flag-issue">{f.issue}</span><p>{f.why}</p></div>
-                </li>
-              ))}
-            </ul>
-            <button className="btn btn-quiet rc-try-draft" onClick={onEdit}>Paste your own draft to check it →</button>
-          </section>
-        )}
+      {a.incident?.worthLogging && (
+        <p className="rc-incident">
+          Worth logging: <b>{a.incident.title}</b> ·{' '}
+          {a.logged?.incident
+            ? <Link to="/app/record">Logged · View</Link>
+            : <button className="rc-link" onClick={logIncident} disabled={!!busy}>{busy === 'incident' ? <span className="spin" /> : null}Log it</button>}
+        </p>
+      )}
     </div>
   );
 }

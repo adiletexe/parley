@@ -9,11 +9,10 @@ import {useMe} from '../../lib/me';
 import './demo.css';
 
 const TRY: {icon: IconId; title: string; sub: string; to: string}[] = [
-  {icon: 'chat', title: 'Reply coach', sub: 'Paste a hostile message (or tap an example). Add a draft to see the Judge\'s lens.', to: '/app/reply'},
-  {icon: 'book', title: 'Journal patterns', sub: 'Six weeks of the case: late pickups, an unpaid soccer fee, a threat to tell the kids.', to: '/app/journal'},
-  {icon: 'scale', title: 'Court timeline PDF', sub: 'Pick a range and download the court-ready PDF with exhibit numbers.', to: '/app/timeline'},
-  {icon: 'target', title: 'Plan drill, then skip a week', sub: 'Day 12 of 28. Write a reply, get graded, retry. Use the demo clock to jump 7 days.', to: '/app/plan'},
-  {icon: 'receipt', title: 'Pricing & test checkout', sub: 'Test card 4242 4242 4242 4242, any future date, any CVC.', to: '/pricing'},
+  {icon: 'reply', title: 'Reply', sub: 'Tap a sample message, then add a draft of your own to see how a judge would read it.', to: '/app/reply'},
+  {icon: 'record', title: 'Record', sub: 'Six weeks on record: the patterns (late pickups, an unpaid fee), then the PDF for a lawyer.', to: '/app/record'},
+  {icon: 'target', title: 'Practice', sub: "Day 12 of 28: do today's drill, then use the Demo clock to jump +7 days.", to: '/app/plan'},
+  {icon: 'receipt', title: 'Pricing test checkout', sub: 'Test card 4242 4242 4242 4242, any future date, any CVC.', to: '/pricing'},
 ];
 
 export default function Demo() {

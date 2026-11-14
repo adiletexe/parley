@@ -2,9 +2,9 @@
 import type {Pattern} from '../../../../shared/types';
 import {Icon, type IconId} from '../../../components/Icon';
 
-const ICON = (label: string): IconId =>
-  /late|missed hand/i.test(label) ? 'clock' : /tense topic/i.test(label) ? 'flame' : /per week/i.test(label) ? 'bolt'
-    : /children/i.test(label) ? 'family' : /payment/i.test(label) ? 'receipt' : /schedule/i.test(label) ? 'calendar' : /reply time/i.test(label) ? 'timer' : 'target';
+export const ICON = (label: string): IconId =>
+  /late/i.test(label) ? 'clock' : /missed hand/i.test(label) ? 'noshow' : /tense topic/i.test(label) ? 'flame' : /per week/i.test(label) ? 'bolt'
+    : /children/i.test(label) ? 'kids' : /payment/i.test(label) ? 'dollarx' : /schedule/i.test(label) ? 'calendar' : /reply time/i.test(label) ? 'timer' : 'target';
 
 export function Patterns({patterns, entryCount, active, onPick}: {patterns: Pattern[]; entryCount: number; active: string | null; onPick: (p: Pattern | null) => void}) {
   return (

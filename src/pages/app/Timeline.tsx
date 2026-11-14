@@ -165,7 +165,7 @@ export default function Timeline() {
           <h2>Your timeline builds itself from your journal</h2>
           <p>Log a late pickup, import a WhatsApp chat, or copy a reply from the coach — each one lands here with a date and an exhibit number.</p>
           <div className="tl-empty-acts">
-            <Link to="/app/journal" className="btn btn-primary">Open the journal</Link>
+            <Link to="/app/record" className="btn btn-primary">Open the journal</Link>
             <Link to="/app/reply" className="btn btn-ghost">Write a reply</Link>
           </div>
         </div>

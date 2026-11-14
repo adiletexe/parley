@@ -120,7 +120,40 @@ function windowCount(sql: string, personId: string, from: number, to: number) {
   return (db.prepare(sql).get(personId, new Date(from).toISOString(), new Date(to).toISOString()) as {n: number}).n;
 }
 
-export function planView(p: PersonRow, wantDay?: number): PlanView {
+/** One stop on the Practice path. `state` is what the node looks like; the score is the BEST finished session of
+    that plan day (first-session scores stay on the skill line). A catch-up session counts here under its own day. */
+export interface PathDay {
+  day: number; week: number; title: string; milestone: boolean;
+  state: 'done' | 'today' | 'missed' | 'future' | 'paywall';
+  correct?: number; total?: number; rounds: number;
+}
+/** /api/plan as the Practice home gets it: the plan view plus the path and each week's skill. */
+export type PlanHome = PlanView & {
+  path: PathDay[];
+  /** Per plan week: the average first-session % over that week's days (the bank rotates its sets day by day, so
+      this is the week's days, not one pack's skill), null before any of them is practised. */
+  weekSkill: {week: number; pct: number | null; practised: number}[];
+};
+
+function pathOf(p: PersonRow, sessions: SessionRow[], day: number, full: boolean): Pick<PlanHome, 'path' | 'weekSkill'> {
+  const by = new Map<number, SessionRow[]>();
+  for (const r of sessions) by.set(r.day, [...(by.get(r.day) ?? []), r]);
+  const path: PathDay[] = LESSONS.map((l) => {
+    const rows = by.get(l.day) ?? [];
+    const best = rows.reduce<SessionRow | undefined>((a, r) => (!a || r.correct > a.correct ? r : a), undefined);
+    const state: PathDay['state'] = !full && l.day > FREE_DAYS ? 'paywall' : best ? 'done' : l.day === day ? 'today' : l.day < day ? 'missed' : 'future';
+    return {day: l.day, week: l.week, title: l.title, milestone: l.day % 7 === 0, state,
+      correct: best?.correct, total: best?.total, rounds: rows.length};
+  });
+  const weekSkill = WEEKS.map((w) => {
+    const firsts = path.filter((d) => d.week === w.week).map((d) => by.get(d.day)?.[0]).filter((r): r is SessionRow => !!r);
+    const pct = firsts.length ? Math.round(firsts.reduce((a, r) => a + r.correct / Math.max(1, r.total), 0) / firsts.length * 100) : null;
+    return {week: w.week, pct, practised: firsts.length};
+  });
+  return {path, weekSkill};
+}
+
+export function planView(p: PersonRow, wantDay?: number): PlanHome {
   const now = personNow(p);
   const day = planDay(p);
   const full = hasFullAccess(p);
@@ -180,6 +213,7 @@ export function planView(p: PersonRow, wantDay?: number): PlanView {
   const doneToday = sessions.filter((r) => r.day === day);
 
   return {
+    ...pathOf(p, sessions, day, full),
     session: sessionLocked ? null : sessionFor(p, day, todayPack),
     sessionToday: doneToday.length ? {correct: Math.max(...doneToday.map((r) => r.correct)), total: doneToday[0].total, rounds: doneToday.length} : null,
     skill: todayPack.skill, rule: todayPack.rule,
@@ -212,6 +246,17 @@ export default function register(app: Hono) {
     return c.json(planView(p, want));
   });
 
+  /* A past day's session, for "Catch up" on a missed day and "Practice again" on a finished one. Same pack as that
+     day had; the path asks for it, today's comes with /api/plan. */
+  app.get('/api/plan/session', (c) => {
+    const p = getPerson(c.get('person').id)!;
+    const day = Math.floor(Number(c.req.query('day')));
+    if (!(day >= 1 && day <= TOTAL_DAYS)) return c.json({error: 'That day is not part of the plan.'}, 400);
+    if (!hasFullAccess(p) && day > FREE_DAYS) return c.json({error: 'Days 3–28 are part of the full plan.', paywall: true}, 402);
+    if (day > planDay(p)) return c.json({error: `Day ${day} unlocks on its day.`}, 403);
+    return c.json(sessionFor(p, day, dayPack(day)));
+  });
+
   app.post('/api/plan/session', async (c) => {
     const p = getPerson(c.get('person').id)!;
     const b = await c.req.json().catch(() => ({})) as {day?: number; answers?: {id?: unknown; picked?: unknown}[]};
@@ -220,7 +265,7 @@ export default function register(app: Hono) {
     if (!(day >= 1)) return c.json({error: 'That day is not part of the plan.'}, 400);
     if (!hasFullAccess(p) && day > FREE_DAYS) return c.json({error: 'Days 3–28 are part of the full plan.', paywall: true}, 402);
     if (day > today) return c.json({error: `Day ${day} unlocks on its day.`}, 403);
-    if (day < today) return c.json({error: 'That session was for another day. Open today\'s.'}, 409);
+    // A past day is a catch-up or a repeat: it scores under its own day, and (stamped now) counts as today's practice.
 
     const pack = dayPack(day);
     const byId = new Map(pack.questions.map((q) => [q.id, q]));

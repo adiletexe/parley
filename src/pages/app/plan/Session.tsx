@@ -137,7 +137,7 @@ export function Session({session, onExit, onDone}: {
 
   return (
     // A tap anywhere skips the pacing: some people read faster than the dots.
-    <section className="card pl-sess fade-in" aria-label="Today's session" onClick={() => { if (!done) skip(); }}>
+    <section className="card pl-sess fade-in" aria-label={`Day ${session.day} session`} onClick={() => { if (!done) skip(); }}>
       <div className="pl-sess-top">
         <button className="pl-x" onClick={onExit} aria-label="Leave the session">
           <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" /></svg>
@@ -192,8 +192,9 @@ export function Session({session, onExit, onDone}: {
 
 const VERDICT = (c: number, t: number) => (c >= t ? 'Flawless' : c === t - 1 ? 'Calm' : c === t - 2 ? 'Getting there' : 'Tricky one');
 
-export function End({result, picks, streakBefore, onBonus, bonusOpen, hasBonus, onDone}: {
+export function End({result, picks, streakBefore, onBonus, bonusOpen, hasBonus, onDone, doneLabel = 'Done — see you tomorrow'}: {
   result: SessionResult; picks: Pick[]; streakBefore: number; onBonus: () => void; bonusOpen: boolean; hasBonus: boolean; onDone: () => void;
+  doneLabel?: string;
 }) {
   const t = result.skillTrend;
   const lastPt = t[t.length - 1], prevPt = t[t.length - 2];
@@ -213,9 +214,9 @@ export function End({result, picks, streakBefore, onBonus, bonusOpen, hasBonus, 
         )}
         <span className="chip chip-ok pl-streak"><Icon id="flame" size={20} />{result.streak} day{result.streak === 1 ? '' : 's'}{up ? ' · +1' : ''}</span>
       </div>
-      {!result.firstTimeToday && <p className="pl-mute pl-small">Practice round. Today's first score stays on your line.</p>}
+      {!result.firstTimeToday && <p className="pl-mute pl-small">Practice round. The day's first score stays on your line.</p>}
       <div className="pl-end-b">
-        <button className="btn btn-primary btn-lg" onClick={onDone}>Done — see you tomorrow</button>
+        <button className="btn btn-primary btn-lg" onClick={onDone}>{doneLabel}</button>
         {hasBonus && !bonusOpen && <button className="btn btn-ghost" onClick={onBonus}><Icon id="pencil" size={22} />Bonus: write your own reply</button>}
       </div>
     </section>

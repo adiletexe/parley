@@ -392,3 +392,6 @@
   .fn-rev-cta .btn { width: 100%; min-width: 0; }
   .fn-prof, .fn-chart-card, .fn-focus { padding: 18px; }
 }
+
+/* Source options show the real channel mark on a plain tile, so WhatsApp looks like WhatsApp. */
+.fn-chan { width: 44px; height: 44px; flex: none; border-radius: 14px; background: var(--side); border: 1px solid var(--line); display: grid; place-items: center; font-size: 15px; }

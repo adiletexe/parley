@@ -55,7 +55,7 @@ export default function Landing() {
           <p className="fn-hsub">Paste the other parent's message. Parley writes a calm, brief, court-safe reply in seconds and keeps every word on a private, dated record.</p>
 
           <form className={'fn-paste' + (hint ? ' hint' : '')} onSubmit={(e) => { e.preventDefault(); submit(); }}>
-            <Icon id="chat" size={36} className="fn-paste-ico" />
+            <Icon id="reply" size={36} className="fn-paste-ico" />
             <textarea
               ref={box} rows={1} value={text} aria-label="The other parent's message"
               placeholder="Paste what they sent…"
@@ -74,7 +74,7 @@ export default function Landing() {
 
         <div className="fn-hero-peek" aria-hidden="true">
           <div className="fn-peek">
-            <div className="fn-peek-h"><Icon id="chat" size={24} /><span>They wrote · Text</span></div>
+            <div className="fn-peek-h"><Icon id="reply" size={24} /><span>They wrote · Text</span></div>
             <div className="fn-peek-them">{EXAMPLE}</div>
             <div className="fn-peek-facts"><b>Just the facts</b> Doesn't want to split the soccer fee. Says they weren't asked first.</div>
             <div className="fn-peek-reply">
@@ -103,7 +103,7 @@ export default function Landing() {
         </div>
         <div className="fn-steps">
           {([
-            ['chat', 'Paste or screenshot', 'Drop in their text, WhatsApp, email or a screenshot. No need to explain the backstory.'],
+            ['reply', 'Paste or screenshot', 'Drop in their text, WhatsApp, email or a screenshot. No need to explain the backstory.'],
             ['scale', 'Read it like a judge', 'Get the facts without the insults, the actual asks, and a calm reply. Check your own draft for phrases a judge would read badly.'],
             ['book', 'Keep the record', 'Every exchange lands on a private, dated record. Turn it into a court-ready PDF timeline when you need it.'],
           ] as [IconId, string, string][]).map(([ic, h, p], i) => (
@@ -125,7 +125,7 @@ export default function Landing() {
         </div>
         <div className="fn-ex-grid">
           <div className="card fn-ex-them">
-            <div className="card-h"><Icon id="chat" size={24} />They wrote</div>
+            <div className="card-h"><Icon id="reply" size={24} />They wrote</div>
             <p className="fn-bubble">{EXAMPLE}</p>
             <div className="fn-ex-facts">
               <small>Just the facts</small>

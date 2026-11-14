@@ -120,7 +120,7 @@ export default function PlanReveal() {
             ))}
           </div>
           <div className="fn-tools">
-            {([['chat', 'Reply coach', 'Calm replies in seconds'], ['book', 'Private journal', 'Every exchange, dated'], ['scale', 'Court timeline', 'A clean PDF for your lawyer']] as [IconId, string, string][]).map(([ic, t, s]) => (
+            {([['reply', 'Reply coach', 'Calm replies in seconds'], ['record', 'Private record', 'Every exchange, dated'], ['pdf', 'PDF for your lawyer', 'Numbered, in date order']] as [IconId, string, string][]).map(([ic, t, s]) => (
               <div key={t} className="fn-tool"><Icon id={ic} size={36} /><span><b>{t}</b><small>{s}</small></span></div>
             ))}
           </div>

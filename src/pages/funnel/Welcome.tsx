@@ -99,7 +99,7 @@ export default function Welcome() {
               <h2 className="bl-h2">Your first <span className="gt">10 minutes</span></h2>
               <div className="bl-rows">
                 <div className="bl-row"><Icon id="target" size={40} /><div><b>Do Day 1</b><span>A 2-minute lesson on brief, factual replies, then one drill graded the way a judge would read it.</span></div></div>
-                <div className="bl-row"><Icon id="chat" size={40} /><div><b>Answer the message you're dreading</b><span>Paste it into the reply coach. Replies are unlimited now.</span></div></div>
+                <div className="bl-row"><Icon id="reply" size={40} /><div><b>Answer the message you're dreading</b><span>Paste it into the reply coach. Replies are unlimited now.</span></div></div>
                 <div className="bl-row"><Icon id="book" size={40} /><div><b>Start the record</b><span>Log the last incident or import a chat — the timeline builds itself from there.</span></div></div>
               </div>
             </section>

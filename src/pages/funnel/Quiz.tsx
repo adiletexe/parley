@@ -6,12 +6,14 @@ import {useEffect, useMemo, useRef, useState, type ReactNode} from 'react';
 import {Link, useNavigate, useParams} from 'react-router-dom';
 import {Icon, type IconId} from '../../components/Icon';
 import {Logo} from '../../components/Logo';
+import {ChannelIcon} from '../../components/ChannelIcon';
+import type {Channel} from '../../../shared/types';
 import {api, track} from '../../lib/api';
 import {useMe} from '../../lib/me';
 import type {QuizAnswers} from '../../../shared/types';
 import './funnel.css';
 
-type Opt = {id: string; label: string; sub?: string; icon: IconId};
+type Opt = {id: string; label: string; sub?: string; icon: IconId; channel?: Channel};
 type Q = {kind: 'q'; id: string; mode: 'one' | 'many'; title: ReactNode; sub?: string; options: Opt[]; side: string};
 type Insight = {kind: 'insight'; id: string};
 type Step = Q | Insight | {kind: 'name'; id: 'name'} | {kind: 'build'; id: 'build'};
@@ -35,12 +37,12 @@ const QS: Record<string, Q> = {
   channels: {kind: 'q', id: 'channels', mode: 'many', side: 'Messages on', title: <>Where do most messages with <span className="gt">the other parent</span> happen?</>,
     sub: 'Pick all that apply.',
     options: [
-      {id: 'sms', label: 'Text messages', sub: 'iMessage or SMS', icon: 'chat'},
-      {id: 'whatsapp', label: 'WhatsApp', sub: 'Chats and voice notes', icon: 'ask'},
-      {id: 'email', label: 'Email', sub: 'Longer back-and-forth', icon: 'scripts'},
-      {id: 'ofw', label: 'OurFamilyWizard', sub: 'Co-parenting app', icon: 'family'},
-      {id: 'talkingparents', label: 'TalkingParents', sub: 'Co-parenting app', icon: 'split'},
-      {id: 'in_person', label: 'In person or by phone', sub: 'Mostly at handoffs', icon: 'user'},
+      {id: 'sms', label: 'Text messages', sub: 'iMessage or SMS', icon: 'chat', channel: 'sms'},
+      {id: 'whatsapp', label: 'WhatsApp', sub: 'Chats and voice notes', icon: 'ask', channel: 'whatsapp'},
+      {id: 'email', label: 'Email', sub: 'Longer back-and-forth', icon: 'scripts', channel: 'email'},
+      {id: 'ofw', label: 'OurFamilyWizard', sub: 'Co-parenting app', icon: 'family', channel: 'ofw'},
+      {id: 'talkingparents', label: 'TalkingParents', sub: 'Co-parenting app', icon: 'split', channel: 'talkingparents'},
+      {id: 'in_person', label: 'In person or by phone', sub: 'Mostly at handoffs', icon: 'user', channel: 'in_person'},
     ]},
   tension: {kind: 'q', id: 'tension', mode: 'one', side: 'Tense messages', title: <>How often do messages <span className="gt">turn tense</span>?</>,
     options: [
@@ -207,7 +209,7 @@ function Question({q, value, onPick, onContinue}: {q: Q; value: QuizAnswers[stri
           const on = q.mode === 'one' ? (flash ?? value) === o.id : picked.includes(o.id);
           return (
             <button key={o.id} className={'fn-opt' + (on ? ' on' : '')} role={q.mode === 'one' ? 'radio' : 'checkbox'} aria-checked={on} onClick={() => tap(o.id)}>
-              <Icon id={o.icon} size={44} />
+              {o.channel ? <span className="fn-chan"><ChannelIcon channel={o.channel} size={26} /></span> : <Icon id={o.icon} size={44} />}
               <span className="fn-opt-t"><b>{o.label}</b>{o.sub && <small>{o.sub}</small>}</span>
               <i className={'fn-tick' + (q.mode === 'many' ? ' sq' : '')} aria-hidden="true" />
             </button>

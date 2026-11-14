@@ -8,7 +8,7 @@ import {api, ApiError, track} from '../../lib/api';
 import {useMe} from '../../lib/me';
 import {Compose, type ComposeValue} from './reply/Compose';
 import {Result, type AnalysisView} from './reply/Result';
-import type {Sample} from './reply/samples';
+import type {Sample, SampleShot} from './reply/samples';
 import './Reply.css';
 
 interface Recent { id: string; createdAt: string; facts: string; incoming: string; heat: number; advice: string; usedVariant: string | null }
@@ -20,7 +20,7 @@ function lastChannel(): Channel {
   try { const c = localStorage.getItem(CHANNEL_KEY); if (c === 'whatsapp' || c === 'sms' || c === 'email' || c === 'ofw') return c; } catch { /* private mode */ }
   return 'sms';
 }
-const blank = (): ComposeValue => ({incoming: '', draft: '', image: null, channel: lastChannel()});
+const blank = (): ComposeValue => ({incoming: '', draft: '', images: [], channel: lastChannel()});
 
 export default function Reply() {
   const {me, refresh} = useMe();
@@ -50,9 +50,9 @@ export default function Reply() {
     const tick = setInterval(() => setStep((s) => Math.min(s + 1, STEPS.length - 1 + (v.draft.trim() ? 1 : 0))), 1800);
     try {
       let a: AnalysisView;
-      if (v.image) {
+      if (v.images.length) {
         const fd = new FormData();
-        fd.append('image', v.image);
+        for (const f of v.images) fd.append('image', f);
         fd.append('incoming', v.incoming);
         fd.append('draft', v.draft);
         a = await api<AnalysisView>('/api/reply/analyze', {form: fd});
@@ -78,23 +78,36 @@ export default function Reply() {
     if (params.get('new')) { setResult(null); setEditing(true); setFormState(blank()); setError(''); setParams({}, {replace: true}); return; }
     if (text && text.trim()) { const v = {...blank(), incoming: text}; setFormState(v); void run(v); return; }
     if (id && id !== result?.id) {
-      api<AnalysisView>(`/api/reply/${id}`).then((a) => { setResult(a); setEditing(false); setFormState((f) => ({...f, incoming: a.incoming, draft: a.draft ?? '', image: null})); })
+      api<AnalysisView>(`/api/reply/${id}`).then((a) => { setResult(a); setEditing(false); setFormState((f) => ({...f, incoming: a.incoming, draft: a.draft ?? '', images: []})); })
         .catch(() => setParams({}, {replace: true}));
     }
   }, [params, run, setParams, result?.id]);
 
   function sample(s: Sample) {
-    const v = {incoming: s.incoming, draft: s.draft ?? '', image: null, channel: s.channel};
+    const v = {incoming: s.incoming, draft: s.draft ?? '', images: [], channel: s.channel};
     setForm(v);
     track('reply_sample', {label: s.label});
     void run(v);
+  }
+
+  // A sample screenshot goes through the same upload as one a person picks: fetched as a file, read by the model.
+  async function sampleShot(s: SampleShot) {
+    setError('');
+    try {
+      const blob = await fetch(s.src).then((r) => { if (!r.ok) throw new Error(); return r.blob(); });
+      const f = new File([blob], s.src.split('/').pop() || 'sample.png', {type: blob.type || 'image/png'});
+      const v: ComposeValue = {incoming: '', draft: '', images: [f], channel: 'sms'};
+      setForm(v);
+      track('reply_sample', {label: s.label, shot: true});
+      void run(v);
+    } catch { setError("The sample screenshot didn't load. Check your connection and try again."); }
   }
 
   const unlimited = !!me && (me.demo || me.plan.state === 'active');
   const left = me && !unlimited ? me.freeRepliesLeft : null;
   const steps = form.draft.trim() ? [...STEPS, 'Reading your draft like a judge'] : STEPS;
   const showResult = !!result && !editing;
-  const edit = () => { if (!result) return; setEditing(true); setFormState((f) => ({...f, incoming: result.incoming, draft: result.draft ?? '', image: null})); };
+  const edit = () => { if (!result) return; setEditing(true); setFormState((f) => ({...f, incoming: result.incoming, draft: result.draft ?? '', images: []})); };
 
   return (
     <div className="rc">
@@ -107,8 +120,7 @@ export default function Reply() {
           </header>
         ) : (
           <header className="rc-head">
-            <h1>What did they send?</h1>
-            <p className="rc-sub">Private. The other parent never sees Parley.</p>
+            <h1>What did they <span className="gt">send?</span></h1>
           </header>
         )}
 
@@ -126,7 +138,7 @@ export default function Reply() {
           <Result key={result!.id} a={result!} channel={form.channel} onUpdate={(next) => { setResult(next); loadSide(); }} />
         ) : (
           <>
-            <Compose value={form} onChange={setForm} onSubmit={() => run(form)} onSample={sample} busy={busy} />
+            <Compose value={form} onChange={setForm} onSubmit={() => run(form)} onSample={sample} onShot={(s) => void sampleShot(s)} busy={busy} />
             {busy && (
               <div className="card rc-loading fade-in" aria-live="polite">
                 {steps.map((s, i) => (
@@ -147,6 +159,7 @@ export default function Reply() {
 
         <p className="rc-foot">
           {left !== null && !paywall && <>{left > 0 ? `${left} free ${left === 1 ? 'reply' : 'replies'} left` : 'That was your last free reply'} · <Link to="/pricing">Unlimited with the plan</Link><br /></>}
+          {!showResult && <>Private. The other parent never sees Parley.<br /></>}
           Parley is not a law firm and doesn't give legal advice.
         </p>
       </div>

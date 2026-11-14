@@ -1,21 +1,20 @@
-/* /app/record — the journal and the court timeline as one screen: everything that happened, in order, numbered as
-   exhibits exactly as the PDF numbers them, ready for a lawyer.
-   Two reads: GET /api/timeline gives the entries of the current period + topics with their exhibit numbers (the same
-   list the PDF prints, so E-7 here is E-7 there); GET /api/journal gives the patterns of the whole record and the
-   person's "now" for the log form. Type, search and a pattern only narrow what is on screen — the PDF covers the
-   period and topics, which is why only those two travel in the PDF link. Filters live in the URL. */
-import {useCallback, useEffect, useMemo, useState, type ReactNode} from 'react';
+/* /app/record — the record as the chat it mostly is: the other parent's texts on the left (a burst is one entry with
+   a bubble per line), what you sent on the right, and everything else (late pickups, expenses, notes) as small
+   centred pills between them, each with its exhibit number. Exhibits are positions in the whole record, oldest = E-1,
+   from GET /api/timeline with no filters — the same list the PDF prints, so E-7 here is E-7 there.
+   It mostly fills itself: the reply coach logs both sides, and screenshots / exports are imported from here. Writing
+   an entry by hand is one row in the upload sheet, not a button over the chat.
+   The chat scrolls inside its own box (not the window), so the header, the calendar and the pattern chips stay put
+   while it moves; the box is sized to the screen in a layout effect. */
+import {useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode, type RefObject} from 'react';
 import {createPortal} from 'react-dom';
-import {useSearchParams} from 'react-router-dom';
-import type {Category, Entry, EntryKind, Pattern} from '../../../shared/types';
-import {Icon} from '../../components/Icon';
-import {ChannelTag} from '../../components/ChannelIcon';
+import type {Entry, Pattern} from '../../../shared/types';
+import {Icon, type IconId} from '../../components/Icon';
 import {api, ApiError, track} from '../../lib/api';
 import {useMe} from '../../lib/me';
 import {EntryForm} from './journal/EntryForm';
-import {ImportPanel} from './journal/ImportPanel';
-import {ICON as patternIcon} from './journal/Patterns';
-import {CATEGORY, PRESETS, SOURCE, TAG_LABEL, VISIBLE_TAGS, entryKind, fmtDate, fmtTime, money, type JournalData, type Preset} from './journal/util';
+import {ImportPanel, type Source} from './journal/ImportPanel';
+import {CATEGORY, CHANNEL, PRESETS, SOURCE, entryKind, fmtDate, fmtTime, money, type JournalData, type Preset} from './journal/util';
 import './journal/journal.css';
 import './Record.css';
 
@@ -27,325 +26,448 @@ interface TimelineRes {
   fingerprint: string;
   share: Share | null;
 }
+type Tone = 'amber' | 'pink' | 'green' | 'grey' | 'blue';
+type ReportKind = 'lawyer' | 'month' | 'patterns';
+interface Report { title: string; bullets: string[]; caution: string; from: string; to: string; entries: number; cached?: boolean }
 
-const TYPES: {id: string; label: string; kinds: EntryKind[]}[] = [
-  {id: 'all', label: 'All', kinds: []},
-  {id: 'messages', label: 'Messages', kinds: ['message_in', 'message_out']},
-  {id: 'incidents', label: 'Incidents', kinds: ['incident']},
-  {id: 'expenses', label: 'Expenses', kinds: ['expense']},
-  {id: 'notes', label: 'Notes', kinds: ['note']},
+const REPORTS: {id: ReportKind; icon: IconId; title: string; sub: string}[] = [
+  {id: 'lawyer', icon: 'scale', title: 'Summary for my lawyer', sub: 'The main facts, with exhibit numbers'},
+  {id: 'month', icon: 'calendar', title: 'This month in brief', sub: 'What happened in the last 30 days'},
+  {id: 'patterns', icon: 'target', title: 'Patterns & concerns', sub: 'What keeps repeating, and how often'},
 ];
-const CATS = Object.keys(CATEGORY) as Category[];
-const PERIODS = [['all', 'All time'], ['30', 'Last 30 days'], ['90', 'Last 90 days'], ['custom', 'Custom']] as const;
-type Period = (typeof PERIODS)[number][0];
-// The sheet's first screen: what just happened, one tap each. Note and import are the "something else" rows.
 const LOG_TILES = ['late', 'noshow', 'schedule', 'kids', 'expense', 'payment'];
 
-/** YYYY-MM-DD of an instant in the display zone (tz.ts makes toLocale* use it). */
-const ymd = (d: Date) => d.toLocaleDateString('en-CA');
-const fDay = (s: string) => new Date(s + 'T12:00:00').toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric'});
-const short = (iso: string) => fmtDate(iso, {month: 'short', day: 'numeric'});
-const monthOf = (iso: string) => fmtDate(iso, {month: 'long', year: 'numeric'});
+type SheetState =
+  | null | {kind: 'add'} | {kind: 'import'; start?: Source; only?: Source[]} | {kind: 'log'; preset?: Preset}
+  | {kind: 'share'} | {kind: 'report'; which?: ReportKind};
 
-type SheetState = null | {kind: 'log'; preset?: Preset} | {kind: 'import'} | {kind: 'filter'} | {kind: 'share'};
+/* ---------- dates: entries get a display-zone day (tz.ts patches toLocale*); calendar math is on plain YYYY-MM-DD ---------- */
+const ymd = (d: Date) => d.toLocaleDateString('en-CA');
+const dayOf = (iso: string) => ymd(new Date(iso));
+const kDate = (k: string) => { const [y, m, d] = k.split('-').map(Number); return new Date(Date.UTC(y, m - 1, d)); };
+const kAdd = (k: string, n: number) => new Date(kDate(k).getTime() + n * 86_400_000).toISOString().slice(0, 10);
+const kWeek = (k: string) => kAdd(k, -kDate(k).getUTCDay()); // US weeks start on Sunday
+const kMonth = (k: string) => k.slice(0, 8) + '01';
+const kMonthAdd = (k: string, n: number) => { const d = kDate(kMonth(k)); d.setUTCMonth(d.getUTCMonth() + n); return d.toISOString().slice(0, 10); };
+const kFmt = (k: string, o: Intl.DateTimeFormatOptions) => kDate(k).toLocaleDateString('en-US', {...o, timeZone: 'UTC'});
+
+/** What colour an entry is, on the calendar and on its pill: late / no-show amber, money green (unpaid pink),
+ *  conflict pink, messages grey. */
+function toneOf(e: Entry): Tone {
+  if (e.kind === 'expense') return 'green';
+  if (e.kind === 'message_in') return e.tags.includes('tense') ? 'pink' : 'grey';
+  if (e.kind === 'message_out') return 'grey';
+  if (e.kind === 'note') return 'blue';
+  if (e.tags.includes('missed_payment') || e.tags.includes('in_front_of_kids')) return 'pink';
+  if (e.tags.some((t) => ['late_pickup', 'no_show', 'schedule_change'].includes(t))) return 'amber';
+  return 'pink';
+}
+const DOT_ORDER: Tone[] = ['amber', 'pink', 'green', 'grey'];
+
+/** The other parent's name: the quiz if it ever asks, the sample case's Jordan, or the "Name:" the coach and the
+ *  demo put on received messages. Otherwise the page is just "Your record". */
+function otherName(entries: Entry[], quiz: Record<string, unknown> | undefined, demo: boolean): string | null {
+  const q = quiz?.otherName ?? quiz?.other_name;
+  if (typeof q === 'string' && q.trim()) return q.trim().slice(0, 24);
+  if (demo) return 'Jordan';
+  const n = new Map<string, number>();
+  for (const e of entries) {
+    const m = e.kind === 'message_in' ? /^([A-Z][\w'’-]{1,20}):\s/.exec(e.title) : null;
+    if (m && !['Them', 'Other', 'Me'].includes(m[1])) n.set(m[1], (n.get(m[1]) ?? 0) + 1);
+  }
+  const top = [...n.entries()].sort((a, b) => b[1] - a[1])[0];
+  return top && top[1] >= 2 ? top[0] : null;
+}
+
+/** A pattern as a chip: the number first, a few words, and exactly the entries it counts. */
+interface Chip { id: string; label: string; tone: Tone; ids: string[] }
+function chipsFrom(patterns: Pattern[], entries: Entry[]): Chip[] {
+  const out: Chip[] = [];
+  const plural = (n: number, one: string, many = one + 's') => `${n} ${n === 1 ? one : many}`;
+  for (const p of patterns) {
+    if (!p.entryIds.length) continue;
+    const ids = p.entryIds;
+    let label = '', tone: Tone = 'pink';
+    if (p.label === 'Late pickups') { const of = /of the last (\d+)/.exec(p.detail)?.[1]; label = of ? `${p.count}/${of} pickups late` : plural(p.count, 'late pickup'); tone = 'amber'; }
+    else if (p.label === 'Missed handoffs') { label = plural(p.count, 'no-show'); tone = 'amber'; }
+    else if (p.label.startsWith('Most tense topic')) label = `Tense topic: ${p.label.split(': ')[1]}`;
+    else if (p.label === 'Tense messages per week') label = plural(ids.length, 'tense text');
+    else if (p.label === 'Conflict in front of the children') label = `${p.count}× in front of the kids`;
+    else if (p.label === 'Missed payments') label = plural(p.count, 'missed payment');
+    else if (p.label === 'Schedule changes') { label = plural(p.count, 'schedule change'); tone = 'amber'; }
+    else label = p.label;
+    out.push({id: p.label, label, tone, ids});
+  }
+  const exp = entries.filter((e) => e.kind === 'expense' && e.amountCents);
+  if (exp.length) {
+    const chip: Chip = {id: 'expenses', label: `${money(exp.reduce((s, e) => s + (e.amountCents ?? 0), 0))} shared costs`, tone: 'green', ids: exp.map((e) => e.id)};
+    out.splice(Math.min(1, out.length), 0, chip);
+  }
+  return out;
+}
+
+/** The chat box fills the screen down to the tab bar (phones) or the page's bottom padding (computers). */
+function useFillHeight(ref: RefObject<HTMLElement>, deps: unknown[]) {
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const fit = () => {
+      const main = el.closest('.shell-main');
+      const pad = main ? parseFloat(getComputedStyle(main).paddingBottom) || 0 : 0;
+      const top = el.getBoundingClientRect().top + window.scrollY;
+      el.style.height = `${Math.max(460, window.innerHeight - top - pad)}px`;
+    };
+    fit();
+    window.addEventListener('resize', fit);
+    return () => window.removeEventListener('resize', fit);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps);
+}
 
 export default function Record() {
   const {me} = useMe();
-  const [sp, setSp] = useSearchParams();
   const tz = me?.tz || (() => { try { return Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'; } catch { return 'UTC'; } })();
-
-  // ---- filters (URL) ----
-  const period = (PERIODS.some(([k]) => k === sp.get('period')) ? sp.get('period') : 'all') as Period;
-  const cats = useMemo(() => (sp.get('categories') ?? '').split(',').filter((c): c is Category => c in CATEGORY), [sp]);
-  const type = TYPES.some((t) => t.id === sp.get('type')) ? sp.get('type')! : 'all';
-  const q = sp.get('q') ?? '';
-  const patternLabel = sp.get('pattern');
-  const customFrom = sp.get('from') ?? '';
-  const customTo = sp.get('to') ?? '';
-  const today = useMemo(() => (me?.now ? new Date(me.now) : new Date()), [me?.now]);
-  const {from, to} = useMemo(() => {
-    if (period === '30' || period === '90') return {from: ymd(new Date(today.getTime() - (Number(period) - 1) * 86_400_000)), to: ymd(today)};
-    if (period === 'custom') return {from: customFrom, to: customTo};
-    return {from: '', to: ''};
-  }, [period, customFrom, customTo, today]);
-  const query = useMemo(() => {
-    const x = new URLSearchParams({tz});
-    if (from) x.set('from', from);
-    if (to) x.set('to', to);
-    if (cats.length) x.set('categories', cats.join(','));
-    return x.toString();
-  }, [from, to, cats, tz]);
-  const set = useCallback((patch: Record<string, string | null>) => {
-    setSp((cur) => {
-      const next = new URLSearchParams(cur);
-      for (const [k, v] of Object.entries(patch)) { if (v) next.set(k, v); else next.delete(k); }
-      return next;
-    }, {replace: true});
-  }, [setSp]);
+  const today = useMemo(() => ymd(me?.now ? new Date(me.now) : new Date()), [me?.now]);
 
   // ---- data ----
   const [journal, setJournal] = useState<JournalData | null>(null);
   const [tl, setTl] = useState<TimelineRes | null>(null);
   const [error, setError] = useState('');
-  const [busy, setBusy] = useState(false);
-  const loadJournal = useCallback(async () => {
-    try { setJournal(await api<JournalData>('/api/journal')); } catch (e) { setError((e as Error).message); }
-  }, []);
-  const loadTl = useCallback(async (signal?: AbortSignal) => {
-    setBusy(true);
-    try { setTl(await api<TimelineRes>(`/api/timeline?${query}`, {signal})); setError(''); }
-    catch (e) { if (!signal?.aborted) setError((e as Error).message); }
-    finally { if (!signal?.aborted) setBusy(false); }
-  }, [query]);
-  useEffect(() => { void loadJournal(); track('record_view'); }, [loadJournal]);
-  useEffect(() => { const ac = new AbortController(); void loadTl(ac.signal); return () => ac.abort(); }, [loadTl]);
-  const reload = () => { void loadJournal(); void loadTl(); };
+  const load = useCallback(async () => {
+    try {
+      const [t, j] = await Promise.all([
+        api<TimelineRes>(`/api/timeline?${new URLSearchParams({tz})}`),
+        api<JournalData>('/api/journal'),
+      ]);
+      setTl(t); setJournal(j); setError('');
+      return t;
+    } catch (e) { setError((e as Error).message); return null; }
+  }, [tz]);
+  useEffect(() => { void load(); track('record_view'); }, [load]);
 
-  // ---- sheet ----
-  const [sheet, setSheet] = useState<SheetState>(() => {
-    const p = PRESETS.find((x) => x.id === sp.get('log'));
-    return p ? {kind: 'log', preset: p} : null;
-  });
-  const openSheet = (s: SheetState) => {
-    setSheet(s);
-    if (sp.has('log')) set({log: null});
+  const entries = useMemo(() => tl?.entries ?? [], [tl]);
+  const byId = useMemo(() => new Map(entries.map((e) => [e.id, e])), [entries]);
+  const days = useMemo(() => {
+    const g: {key: string; items: RdEntry[]}[] = [];
+    for (const e of entries) { const k = dayOf(e.occurredAt); if (g.at(-1)?.key !== k) g.push({key: k, items: []}); g.at(-1)!.items.push(e); }
+    return g;
+  }, [entries]);
+  const dots = useMemo(() => {
+    const m = new Map<string, Tone[]>();
+    for (const d of days) {
+      const set = new Set<Tone>(d.items.map(toneOf).map((t): Tone => (t === 'blue' ? 'grey' : t)));
+      m.set(d.key, DOT_ORDER.filter((t) => set.has(t)));
+    }
+    return m;
+  }, [days]);
+  const chips = useMemo(() => chipsFrom(journal?.patterns ?? [], entries), [journal, entries]);
+  const name = useMemo(() => otherName(entries, me?.quiz, !!me?.demo), [entries, me?.quiz, me?.demo]);
+  const firstDay = days[0]?.key ?? today, lastDay = days.at(-1)?.key ?? today;
+
+  // ---- the scroller ----
+  const rootRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  useFillHeight(rootRef, [!!tl, !!me?.demo]);
+  const [visibleDay, setVisibleDay] = useState<string | null>(null);
+  const [flashDay, setFlashDay] = useState<string | null>(null);
+  const [flashEntry, setFlashEntry] = useState<string | null>(null);
+  const firstScroll = useRef(false);
+  useLayoutEffect(() => { // a chat opens at the newest message
+    const s = scrollRef.current;
+    if (!s || !days.length || firstScroll.current) return;
+    firstScroll.current = true;
+    s.scrollTop = s.scrollHeight;
+    setVisibleDay(days.at(-1)!.key);
+  }, [days]);
+  const onScroll = useCallback(() => {
+    const s = scrollRef.current;
+    if (!s) return;
+    const secs = s.querySelectorAll<HTMLElement>('[data-day]');
+    let cur: string | null = null;
+    for (const el of secs) { if (el.offsetTop - s.scrollTop <= 60) cur = el.dataset.day!; else break; }
+    setVisibleDay(cur ?? secs[0]?.dataset.day ?? null);
+  }, []);
+  const rafRef = useRef(0);
+  const scrolled = () => { cancelAnimationFrame(rafRef.current); rafRef.current = requestAnimationFrame(onScroll); };
+
+  const jumpDay = useCallback((k: string, smooth = true) => {
+    const s = scrollRef.current;
+    const el = s?.querySelector<HTMLElement>(`[data-day="${k}"]`);
+    if (!s || !el) return;
+    s.scrollTo({top: Math.max(0, el.offsetTop - 8), behavior: smooth ? 'smooth' : 'auto'});
+    setFlashDay(null);
+    requestAnimationFrame(() => setFlashDay(k));
+  }, []);
+  const jumpEntry = useCallback((id: string) => {
+    const s = scrollRef.current;
+    const el = s?.querySelector<HTMLElement>(`[data-entry="${id}"]`);
+    if (!s || !el) return;
+    s.scrollTo({top: Math.max(0, el.offsetTop - s.clientHeight / 2 + el.offsetHeight / 2), behavior: 'smooth'});
+    setFlashEntry(null);
+    requestAnimationFrame(() => setFlashEntry(id));
+  }, []);
+  useEffect(() => { if (!flashDay) return; const t = setTimeout(() => setFlashDay(null), 1800); return () => clearTimeout(t); }, [flashDay]);
+  useEffect(() => { if (!flashEntry) return; const t = setTimeout(() => setFlashEntry(null), 1800); return () => clearTimeout(t); }, [flashEntry]);
+
+  // ---- a pattern chip highlights its entries; ‹ › steps through them ----
+  const [chipId, setChipId] = useState<string | null>(null);
+  const [hlAt, setHlAt] = useState(0);
+  const chip = chips.find((c) => c.id === chipId) ?? null;
+  const hits = useMemo(() => (chip ? chip.ids.filter((id) => byId.has(id)).sort((a, b) => byId.get(a)!.exhibit - byId.get(b)!.exhibit) : []), [chip, byId]);
+  const hitSet = useMemo(() => new Set(hits), [hits]);
+  const pickChip = (c: Chip) => {
+    if (chipId === c.id) { setChipId(null); return; }
+    setChipId(c.id);
+    const list = c.ids.filter((id) => byId.has(id)).sort((a, b) => byId.get(a)!.exhibit - byId.get(b)!.exhibit);
+    setHlAt(list.length - 1);
+    if (list.length) jumpEntry(list.at(-1)!);
+    track('record_chip', {chip: c.id});
   };
+  const stepHit = (d: number) => { const i = Math.min(hits.length - 1, Math.max(0, hlAt + d)); setHlAt(i); jumpEntry(hits[i]); };
+
+  // ---- calendar ----
+  const [calMonth, setCalMonth] = useState(false);
+  const [anchor, setAnchor] = useState<string | null>(null);
+  useEffect(() => { setAnchor(null); }, [visibleDay]);
+  const anchorDay = anchor ?? visibleDay ?? lastDay;
+  const pickDay = (k: string) => { jumpDay(k); setCalMonth(false); track('record_calendar_jump'); };
+
+  // ---- sheets ----
+  const [sheet, setSheet] = useState<SheetState>(null);
   const [flash, setFlash] = useState('');
   useEffect(() => { if (!flash) return; const t = setTimeout(() => setFlash(''), 3500); return () => clearTimeout(t); }, [flash]);
+  const reload = () => { void load(); };
 
-  // ---- what is on screen ----
-  const patterns = useMemo(() => (journal?.patterns ?? []).filter((p) => p.entryIds.length > 0), [journal]);
-  const pattern = patterns.find((p) => p.label === patternLabel) ?? null;
-  const shown = useMemo(() => {
-    let out = [...(tl?.entries ?? [])].reverse(); // newest first; exhibits stay oldest = E-1
-    if (pattern) { const ids = new Set(pattern.entryIds); out = out.filter((e) => ids.has(e.id)); }
-    const kinds = TYPES.find((t) => t.id === type)!.kinds;
-    if (kinds.length) out = out.filter((e) => kinds.includes(e.kind));
-    const words = q.toLowerCase().split(/\s+/).filter(Boolean);
-    if (words.length) out = out.filter((e) => { const h = `${e.title}\n${e.text}`.toLowerCase(); return words.every((w) => h.includes(w)); });
-    return out;
-  }, [tl, pattern, type, q]);
-  const months = useMemo(() => {
-    const g: {month: string; items: RdEntry[]}[] = [];
-    for (const e of shown) { const m = monthOf(e.occurredAt); if (g.at(-1)?.month !== m) g.push({month: m, items: []}); g.at(-1)!.items.push(e); }
-    return g;
-  }, [shown]);
-
-  const activeFilters = (period !== 'all' ? 1 : 0) + (cats.length ? 1 : 0) + (type !== 'all' ? 1 : 0) + (q ? 1 : 0);
-  const narrowed = activeFilters > 0 || !!pattern;
-  const clearAll = () => setSp(new URLSearchParams(), {replace: true});
-  const pickPattern = (p: Pattern) => { set({pattern: pattern?.label === p.label ? null : p.label}); };
-
+  // After an import: refresh, then scroll to the newest day the import brought in.
+  const imported = async () => {
+    const t = await load();
+    const fresh = (t?.entries ?? []).filter((e) => e.source === 'screenshot' || e.source === 'import_whatsapp' || e.source === 'import_pdf');
+    if (!fresh.length) return;
+    const newest = fresh.reduce((a, b) => (a.createdAt > b.createdAt ? a : b)).createdAt;
+    const batch = fresh.filter((e) => Math.abs(new Date(e.createdAt).getTime() - new Date(newest).getTime()) < 10_000);
+    const last = batch.reduce((a, b) => (a.occurredAt > b.occurredAt ? a : b));
+    setTimeout(() => jumpDay(dayOf(last.occurredAt)), 120);
+  };
   function saved(e: Entry, created: boolean) {
     if (created) { setSheet(null); setFlash(e.title || 'Entry saved'); }
-    reload();
+    void load().then(() => { if (created) setTimeout(() => jumpEntry(e.id), 120); });
   }
 
-  const pdfHref = `/api/timeline/pdf?${query}`;
-  const viewCount = tl?.entries.length ?? 0;
-  const pdfClick = () => track('timeline_pdf_click', {entries: viewCount, from: 'record'});
+  const pdfHref = `/api/timeline/pdf?${new URLSearchParams({tz})}`;
+  const pdfClick = () => track('timeline_pdf_click', {entries: entries.length, from: 'record'});
   const empty = tl && tl.range.total === 0;
-  const [firstD, lastD] = tl?.entries.length ? [short(tl.entries[0].occurredAt), short(tl.entries.at(-1)!.occurredAt)] : ['', ''];
-  const span = firstD === lastD ? firstD : `${firstD} – ${lastD}`;
-  const summary = narrowed
-    ? `${shown.length} of ${viewCount} ${viewCount === 1 ? 'entry' : 'entries'}`
-    : `${viewCount} ${viewCount === 1 ? 'entry' : 'entries'}${span ? ` · ${span}` : ''}`;
+  const sub = entries.length
+    ? `${entries.length} ${entries.length === 1 ? 'entry' : 'entries'} · ${kFmt(firstDay, {month: 'short', day: 'numeric'})}${firstDay === lastDay ? '' : ` – ${kFmt(lastDay, {month: 'short', day: 'numeric'})}`}`
+    : 'Fills itself from your replies and screenshots';
+  const openScreens = () => { setSheet({kind: 'import', start: 'screenshot'}); track('record_upload_open'); };
 
   // ---- render ----
   const header = (
     <header className="rd-head">
+      <span className="rd-ava" aria-hidden="true">{name ? name[0].toUpperCase() : <Icon id="record" size={30} />}</span>
       <div className="rd-head-t">
-        <h1>Record</h1>
-        <p>Everything that happened, in order — numbered for your lawyer.</p>
+        <h1>{name ?? 'Your record'}</h1>
+        <p>{sub}</p>
       </div>
-      {tl && !empty && (
-        <div className="rd-head-acts">
-          <button type="button" className="btn rd-share-btn" onClick={() => openSheet({kind: 'share'})}>
-            <Icon id="lock" size={22} />Share
-          </button>
-          <a className="btn rd-pdf-btn" href={pdfHref} download onClick={pdfClick} aria-disabled={!viewCount}>
-            <Icon id="pdf" size={22} />PDF for lawyer
-          </a>
-        </div>
+      {!empty && tl && (
+        <a className="btn rd-pdf-btn" href={pdfHref} download onClick={pdfClick} aria-disabled={!entries.length}>
+          <Icon id="pdf" size={22} />PDF
+        </a>
       )}
-      {tl && (
-        <button type="button" className="btn btn-primary rd-log-d" onClick={() => openSheet({kind: 'log'})}>
-          <span className="rd-plus" aria-hidden="true">+</span>Log what happened
-        </button>
-      )}
+      <button type="button" className="btn rd-icon-btn" onClick={() => setSheet({kind: 'add'})} aria-label="Add to your record: screenshots, exports or a note" title="Add screenshots, an export or a note">
+        <Icon id="upload" size={24} />
+      </button>
     </header>
   );
 
-  let body: ReactNode;
+  let chat: ReactNode;
   if (!tl && error) {
-    body = (
-      <div className="card rd-err">
-        <b>We couldn’t open your record.</b><span>{error}</span>
-        <button type="button" className="btn btn-ghost" onClick={reload}>Try again</button>
+    chat = (
+      <div className="rd-center">
+        <div className="card rd-err">
+          <b>We couldn’t open your record.</b><span>{error}</span>
+          <button type="button" className="btn btn-ghost" onClick={reload}>Try again</button>
+        </div>
       </div>
     );
   } else if (!tl) {
-    body = <div className="rd-loading"><span className="spin" /> Opening your record…</div>;
+    chat = <div className="rd-center rd-loading"><span className="spin" /> Opening your record…</div>;
   } else if (empty) {
-    body = (
-      <section className="card rd-empty fade-in">
-        <Icon id="record" size={56} />
-        <h2>Your record starts here</h2>
-        <p>Every late pickup, message and expense you add gets a date, a time and an exhibit number — E-1, E-2… — in calm,
-          factual language. When you need it, it becomes one PDF for your lawyer.</p>
-        <div className="rd-empty-acts">
-          <button type="button" className="btn btn-primary" onClick={() => openSheet({kind: 'log'})}><span className="rd-plus" aria-hidden="true">+</span>Log what happened</button>
-          <button type="button" className="btn btn-ghost" onClick={() => openSheet({kind: 'import'})}><Icon id="chat" size={24} />Import a chat</button>
-        </div>
-        <p className="rd-privacy"><Icon id="lock" size={20} />Private to you. The other parent never sees Parley.</p>
-      </section>
+    chat = (
+      <div className="rd-center">
+        <section className="rd-empty fade-in">
+          <Icon id="record" size={56} />
+          <h2>Your record fills itself</h2>
+          <p>Every reply you write with Parley lands here, dated, with their message next to it. Add screenshots of your chat
+            with the other parent and we’ll read them in too.</p>
+          <p>Each message and event gets an exhibit number — E-1, E-2… — so it’s one PDF for your lawyer when you need it.</p>
+          <div className="rd-empty-acts">
+            <button type="button" className="btn btn-primary" onClick={openScreens}><Icon id="camera" size={24} />Upload screenshots</button>
+            <button type="button" className="btn btn-ghost" onClick={() => setSheet({kind: 'import', only: ['whatsapp', 'pdf']})}><Icon id="chat" size={24} />WhatsApp or OFW export</button>
+          </div>
+          <button type="button" className="btn btn-quiet" onClick={() => setSheet({kind: 'log'})}>+ Write a note instead</button>
+          <p className="rd-privacy"><Icon id="lock" size={20} />Private to you. The other parent never sees Parley.</p>
+        </section>
+      </div>
     );
   } else {
-    const top = patterns.slice(0, 2);
-    body = (
-      <div className={'rd-grid' + (busy ? ' rd-busy' : '')}>
-        <div className="rd-main">
-          {top.length > 0 && (
-            <div className="rd-pats rd-pats-m">
-              {top.map((p) => <PatternCard key={p.label} p={p} on={pattern?.label === p.label} onPick={() => pickPattern(p)} />)}
-            </div>
-          )}
+    chat = (
+      <Chat days={days} name={name} now={journal?.now ?? new Date().toISOString()} onChanged={reload}
+        flashDay={flashDay} flashEntry={flashEntry} hits={chip ? hitSet : null} current={chip ? hits[hlAt] : null} tz={tz} />
+    );
+  }
 
-          <div className="rd-bar">
-            <span className="rd-sum">{summary}</span>
-            <button type="button" className={'btn rd-filter-btn' + (activeFilters ? ' on' : '')} onClick={() => openSheet({kind: 'filter'})} aria-haspopup="dialog">
-              <Icon id="search" size={22} />Filter{activeFilters ? <span className="rd-badge">{activeFilters}</span> : null}
-            </button>
-          </div>
-          {narrowed && (
-            <div className="rd-active">
-              {pattern && <ActiveChip onClear={() => set({pattern: null})}>{pattern.label}</ActiveChip>}
-              {period !== 'all' && <ActiveChip onClear={() => set({period: null, from: null, to: null})}>{period === 'custom' ? `${from ? fDay(from) : 'Start'} – ${to ? fDay(to) : 'today'}` : PERIODS.find(([k]) => k === period)![1]}</ActiveChip>}
-              {cats.length > 0 && <ActiveChip onClear={() => set({categories: null})}>{cats.map((c) => CATEGORY[c]).join(', ')}</ActiveChip>}
-              {type !== 'all' && <ActiveChip onClear={() => set({type: null})}>{TYPES.find((t) => t.id === type)!.label}</ActiveChip>}
-              {q && <ActiveChip onClear={() => set({q: null})}>“{q}”</ActiveChip>}
-              {activeFilters + (pattern ? 1 : 0) > 1 && <button type="button" className="rd-clear-all" onClick={clearAll}>Clear all</button>}
-            </div>
-          )}
-          {flash && <p className="rd-flash fade-in" role="status"><span className="chip chip-ok">Saved</span>{flash}</p>}
-          {error && <div className="card rd-err rd-err-inline"><span>{error}</span><button type="button" className="btn btn-ghost" onClick={reload}>Try again</button></div>}
+  const reportsCard = (
+    <section className="card rd-side-card">
+      <div className="card-h"><Icon id="bolt" size={24} />AI reports</div>
+      <div className="rd-rep-btns">
+        {REPORTS.map((r) => (
+          <button key={r.id} type="button" className="rd-opt" onClick={() => setSheet({kind: 'report', which: r.id})}>
+            <Icon id={r.icon} size={32} /><span><b>{r.title}</b><small>{r.sub}</small></span><i aria-hidden="true">›</i>
+          </button>
+        ))}
+      </div>
+      <p className="rd-foot">Written from your entries only, with exhibit numbers. Not legal advice.</p>
+    </section>
+  );
 
-          {shown.length === 0 ? (
-            <div className="card rd-none">
-              <Icon id="search" size={44} />
-              <b>Nothing matches</b>
-              <span>No entries in this view. Try another word or a longer period.</span>
-              <button type="button" className="btn btn-ghost" onClick={clearAll}>Show everything</button>
+  return (
+    <div className="rd fade-in" ref={rootRef}>
+      <div className="rd-col">
+        {header}
+        {tl && !empty && (
+          <>
+            <div className="rd-cal-m">
+              <Calendar mode={calMonth ? 'month' : 'week'} anchor={anchorDay} setAnchor={setAnchor} dots={dots} today={today}
+                selected={visibleDay} first={firstDay} last={lastDay} onPick={pickDay} onToggle={() => setCalMonth((m) => !m)} />
             </div>
-          ) : (
-            <Feed months={months} now={journal?.now ?? today.toISOString()} onChanged={reload} />
-          )}
-          <p className="rd-foot">Times in {tz.replace(/_/g, ' ')}. Exhibit numbers match the PDF: oldest = E-1. Parley is not a law firm and doesn’t give legal advice.</p>
+            <div className="rd-chips" role="toolbar" aria-label="Patterns in your record">
+              <button type="button" className="rd-chipb rd-chip-ai" onClick={() => setSheet({kind: 'report'})}>
+                <span aria-hidden="true">✦</span>Reports
+              </button>
+              {chips.map((c) => (
+                <button key={c.id} type="button" className={`rd-chipb t-${c.tone}` + (chipId === c.id ? ' on' : '')} aria-pressed={chipId === c.id} onClick={() => pickChip(c)}>
+                  {c.label}
+                </button>
+              ))}
+            </div>
+            {chip && (
+              <div className="rd-hl fade-in" role="status">
+                <span className="rd-hl-t"><b>{chip.label}</b> · {hits.length ? `${hlAt + 1} of ${hits.length}` : 'none here'}</span>
+                <button type="button" className="rd-hl-b" onClick={() => stepHit(-1)} disabled={hlAt <= 0} aria-label="Earlier">‹</button>
+                <button type="button" className="rd-hl-b" onClick={() => stepHit(1)} disabled={hlAt >= hits.length - 1} aria-label="Later">›</button>
+                <button type="button" className="rd-hl-x" onClick={() => setChipId(null)}>Done</button>
+              </div>
+            )}
+          </>
+        )}
+        <div className="rd-scroll" ref={scrollRef} onScroll={scrolled}>
+          {chat}
         </div>
+        {flash && <p className="rd-flash fade-in" role="status"><span className="chip chip-ok">Saved</span>{flash}</p>}
+        {tl && !empty && (
+          <div className="rd-compose">
+            <button type="button" className="rd-field" onClick={openScreens}>
+              <Icon id="camera" size={26} /><span>Upload screenshots of your chat</span>
+            </button>
+            <button type="button" className="rd-plus-btn" onClick={() => setSheet({kind: 'add'})} aria-label="More ways to add: export or a note">+</button>
+          </div>
+        )}
+      </div>
 
+      {tl && !empty && (
         <aside className="rd-side">
-          <section className="card rd-lawyer">
+          <section className="card rd-side-card rd-cal-card">
+            <Calendar mode="month" anchor={anchorDay} setAnchor={setAnchor} dots={dots} today={today}
+              selected={visibleDay} first={firstDay} last={lastDay} onPick={pickDay} />
+          </section>
+          {reportsCard}
+          <section className="card rd-side-card">
             <div className="card-h"><Icon id="scale" size={24} />For your lawyer</div>
-            <p className="rd-lawyer-p">{viewCount} {viewCount === 1 ? 'entry' : 'entries'}{from || to || cats.length ? ' in this view' : ''}, numbered E-1 to E-{Math.max(1, viewCount)}, with patterns and the full text of each.</p>
-            {viewCount > 0
-              ? <a className="btn btn-primary btn-block" href={pdfHref} download onClick={pdfClick}><Icon id="pdf" size={22} />Download PDF</a>
-              : <p className="rd-lawyer-none">Nothing to export in this view.</p>}
-            <button type="button" className="btn btn-ghost btn-block" onClick={() => openSheet({kind: 'share'})}><Icon id="lock" size={22} />{tl.share ? 'Share link is on' : 'Share a read-only link'}</button>
+            <p className="rd-lawyer-p">{entries.length} {entries.length === 1 ? 'entry' : 'entries'}, numbered E-1 to E-{entries.length}, with patterns and the full text of each.</p>
+            <a className="btn btn-primary btn-block" href={pdfHref} download onClick={pdfClick}><Icon id="pdf" size={22} />Download PDF</a>
+            <button type="button" className="btn btn-ghost btn-block" onClick={() => setSheet({kind: 'share'})}><Icon id="lock" size={22} />{tl.share ? 'Share link is on' : 'Share a read-only link'}</button>
             <p className="rd-fp" title="SHA-256 of exactly these entries. It is printed on every page of the PDF; any edit changes it.">
               <Icon id="shield" size={20} /><span>Fingerprint <code>{tl.fingerprint.slice(0, 10)}…{tl.fingerprint.slice(-6)}</code></span>
             </p>
           </section>
-          {patterns.length > 0 && (
-            <section className="card rd-sidepats">
-              <div className="card-h"><Icon id="target" size={24} />Patterns</div>
-              <div className="rd-pats">
-                {patterns.slice(0, 3).map((p) => <PatternCard key={p.label} p={p} on={pattern?.label === p.label} onPick={() => pickPattern(p)} />)}
-              </div>
-              <p className="rd-foot">Counted from your entries, not guessed. Tap one to see exactly which entries it counts.</p>
-            </section>
-          )}
+          <p className="rd-foot">Times in {tz.replace(/_/g, ' ')}. Exhibit numbers match the PDF: oldest = E-1. Parley is not a law firm and doesn’t give legal advice.</p>
         </aside>
-      </div>
-    );
-  }
-
-  return (
-    <div className="rd fade-in">
-      {header}
-      {body}
-
-      {/* Portalled: .fade-in leaves a transform on the page, which would pin "fixed" children to it, not the screen. */}
-      {tl && !empty && createPortal(
-        <button type="button" className="btn btn-primary rd-fab" onClick={() => openSheet({kind: 'log'})}>
-          <span className="rd-plus" aria-hidden="true">+</span>Log what happened
-        </button>, document.body,
       )}
 
-      {sheet?.kind === 'log' && (
-        <Sheet title={sheet.preset ? sheet.preset.label : 'What happened?'} onClose={() => setSheet(null)}
-          onBack={sheet.preset ? () => setSheet({kind: 'log'}) : undefined}>
-          {sheet.preset ? (
-            <EntryForm key={sheet.preset.id} preset={sheet.preset} now={journal?.now ?? today.toISOString()}
-              onSaved={saved} onCancel={() => setSheet({kind: 'log'})} />
-          ) : (
-            <LogPicker onPick={(p) => setSheet({kind: 'log', preset: p})} onImport={() => setSheet({kind: 'import'})} />
-          )}
+      {sheet?.kind === 'add' && (
+        <Sheet title="Add to your record" onClose={() => setSheet(null)}>
+          <div className="rd-rowopts">
+            <button type="button" className="rd-opt rd-opt-main" onClick={openScreens}>
+              <Icon id="camera" size={40} /><span><b>Screenshots of your chat</b><small>Texts, iMessage, Messenger — up to 8 at a time</small></span><i aria-hidden="true">›</i>
+            </button>
+            <button type="button" className="rd-opt" onClick={() => setSheet({kind: 'import', only: ['whatsapp', 'pdf']})}>
+              <Icon id="chat" size={40} /><span><b>WhatsApp export or OFW PDF</b><small>Also TalkingParents message reports</small></span><i aria-hidden="true">›</i>
+            </button>
+            <button type="button" className="rd-opt" onClick={() => setSheet({kind: 'log'})}>
+              <Icon id="pencil" size={40} /><span><b>+ Note</b><small>A late pickup, a no-show, an expense — by hand</small></span><i aria-hidden="true">›</i>
+            </button>
+            <button type="button" className="rd-opt" onClick={() => setSheet({kind: 'share'})}>
+              <Icon id="lock" size={40} /><span><b>Share with your lawyer</b><small>{tl?.share ? 'Your read-only link is on' : 'A read-only link to the PDF'}</small></span><i aria-hidden="true">›</i>
+            </button>
+          </div>
+          <p className="rd-privacy"><Icon id="lock" size={20} />Only you can see this. The other parent never sees Parley.</p>
         </Sheet>
       )}
       {sheet?.kind === 'import' && (
-        <Sheet title="Import a chat" onClose={() => setSheet(null)} onBack={() => setSheet({kind: 'log'})}>
-          <ImportPanel bare onImported={reload} />
+        <Sheet title={sheet.start === 'screenshot' ? 'Upload screenshots' : 'Import a chat'} onClose={() => setSheet(null)} onBack={() => setSheet({kind: 'add'})}>
+          <ImportPanel bare start={sheet.start} only={sheet.only} onImported={() => void imported()} />
         </Sheet>
       )}
-      {sheet?.kind === 'filter' && tl && (
-        <Sheet title="Filter" onClose={() => setSheet(null)}>
-          <FilterBody period={period} from={customFrom} to={customTo} cats={cats} type={type} q={q} set={set}
-            firstDay={tl.range.first ? ymd(new Date(tl.range.first)) : ymd(today)} today={ymd(today)} />
-          <div className="rd-sheet-foot">
-            <button type="button" className="btn btn-quiet" onClick={() => setSp((cur) => { const n = new URLSearchParams(); if (cur.get('pattern')) n.set('pattern', cur.get('pattern')!); return n; }, {replace: true})}>Reset</button>
-            <button type="button" className="btn btn-primary" onClick={() => setSheet(null)}>
-              {busy ? <span className="spin" /> : `Show ${shown.length} ${shown.length === 1 ? 'entry' : 'entries'}`}
-            </button>
-          </div>
+      {sheet?.kind === 'log' && (
+        <Sheet title={sheet.preset ? sheet.preset.label : 'Add a note'} onClose={() => setSheet(null)}
+          onBack={sheet.preset ? () => setSheet({kind: 'log'}) : () => setSheet({kind: 'add'})}>
+          {sheet.preset ? (
+            <EntryForm key={sheet.preset.id} preset={sheet.preset} now={journal?.now ?? new Date().toISOString()}
+              onSaved={saved} onCancel={() => setSheet({kind: 'log'})} />
+          ) : (
+            <LogPicker onPick={(p) => setSheet({kind: 'log', preset: p})} />
+          )}
         </Sheet>
       )}
       {sheet?.kind === 'share' && tl && (
         <Sheet title="Share with your lawyer" onClose={() => setSheet(null)}>
-          <ShareBody share={tl.share} query={query} onChange={(s) => setTl((d) => (d ? {...d, share: s} : d))} />
+          <ShareBody share={tl.share} query={new URLSearchParams({tz}).toString()} onChange={(s) => setTl((d) => (d ? {...d, share: s} : d))} />
+        </Sheet>
+      )}
+      {sheet?.kind === 'report' && (
+        <Sheet title={sheet.which ? REPORTS.find((r) => r.id === sheet.which)!.title : 'AI reports'} onClose={() => setSheet(null)}
+          onBack={sheet.which ? () => setSheet({kind: 'report'}) : undefined}>
+          {sheet.which
+            ? <ReportBody key={sheet.which} kind={sheet.which} tz={tz} onExhibit={(n) => { const e = entries.find((x) => x.exhibit === n); if (e) { setSheet(null); setTimeout(() => jumpEntry(e.id), 60); } }} />
+            : (
+              <div className="rd-rowopts">
+                {REPORTS.map((r) => (
+                  <button key={r.id} type="button" className="rd-opt" onClick={() => setSheet({kind: 'report', which: r.id})}>
+                    <Icon id={r.icon} size={40} /><span><b>{r.title}</b><small>{r.sub}</small></span><i aria-hidden="true">›</i>
+                  </button>
+                ))}
+                <p className="rd-foot">Written from your entries only, citing exhibit numbers. Parley doesn’t give legal advice.</p>
+              </div>
+            )}
         </Sheet>
       )}
     </div>
   );
 }
 
-function PatternCard({p, on, onPick}: {p: Pattern; on: boolean; onPick: () => void}) {
-  return (
-    <button type="button" className={'rd-pat' + (on ? ' on' : '')} onClick={onPick} aria-pressed={on}>
-      <Icon id={patternIcon(p.label)} size={36} />
-      <span className="rd-pat-t"><b>{p.label}</b><small>{p.detail}</small></span>
-      <em>{on ? 'Clear' : `See ${p.entryIds.length}`}</em>
-    </button>
-  );
-}
+/* ---------- the chat ---------- */
 
-function ActiveChip({children, onClear}: {children: ReactNode; onClear: () => void}) {
-  return (
-    <span className="rd-chip">
-      <span>{children}</span>
-      <button type="button" onClick={onClear} aria-label="Remove this filter">×</button>
-    </span>
-  );
-}
-
-/** The feed: month headings, one row per entry, a row opens to the full text with Edit / Delete. */
-function Feed({months, now, onChanged}: {months: {month: string; items: RdEntry[]}[]; now: string; onChanged: () => void}) {
+function Chat({days, name, now, onChanged, flashDay, flashEntry, hits, current, tz}: {
+  days: {key: string; items: RdEntry[]}[]; name: string | null; now: string; onChanged: () => void;
+  flashDay: string | null; flashEntry: string | null; hits: Set<string> | null; current: string | null; tz: string;
+}) {
   const [open, setOpen] = useState<string | null>(null);
   const [editing, setEditing] = useState<string | null>(null);
   const [confirmDel, setConfirmDel] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
-  const [limit, setLimit] = useState(150);
-  let left = limit;
+  const thisYear = new Date(now).getFullYear();
 
   async function del(id: string) {
     setBusy(true); setError('');
@@ -356,84 +478,201 @@ function Feed({months, now, onChanged}: {months: {month: string; items: RdEntry[
     }
     setBusy(false);
   }
-  const total = months.reduce((s, m) => s + m.items.length, 0);
+  const toggle = (id: string) => { setOpen(open === id ? null : id); setConfirmDel(null); setError(''); };
+  // An opened entry's details land under it; bring them into view when they open below the fold.
+  useEffect(() => {
+    if (!open) return;
+    requestAnimationFrame(() => document.querySelector(`[data-entry="${open}"] .rd-det`)?.scrollIntoView({block: 'nearest', behavior: 'smooth'}));
+  }, [open]);
+
+  const detail = (e: RdEntry) => (
+    <div className={'rd-det fade-in' + (e.kind === 'message_out' ? ' r' : e.kind === 'message_in' ? ' l' : '')}>
+      {!e.kind.startsWith('message') && e.text && <p className="rd-det-text">{e.text}</p>}
+      <p className="rd-det-meta">
+        <b>E-{e.exhibit}</b> · {fmtDate(e.occurredAt, {weekday: 'short', month: 'short', day: 'numeric', year: 'numeric'})}, {fmtTime(e.occurredAt)} · {CHANNEL[e.channel]} · {CATEGORY[e.category]}
+        {e.amountCents != null ? ` · ${money(e.amountCents)}` : ''}<br />{SOURCE[e.source]}
+      </p>
+      {confirmDel === e.id ? (
+        <div className="rd-confirm" role="alertdialog" aria-label="Delete this entry?">
+          <span>Delete this for good? It won’t be in the PDF anymore, and the exhibits after it renumber.</span>
+          <button type="button" className="btn rd-danger" disabled={busy} onClick={() => void del(e.id)}>{busy ? <span className="spin" /> : 'Delete'}</button>
+          <button type="button" className="btn btn-quiet" onClick={() => setConfirmDel(null)}>Keep it</button>
+        </div>
+      ) : (
+        <div className="rd-acts">
+          <button type="button" className="btn btn-ghost" onClick={() => setEditing(e.id)}><Icon id="pencil" size={20} />Edit</button>
+          <button type="button" className="btn btn-quiet" onClick={() => setConfirmDel(e.id)}><Icon id="trash" size={20} />Delete</button>
+        </div>
+      )}
+      {error && confirmDel === e.id && <p className="jr-error" role="alert">{error}</p>}
+    </div>
+  );
 
   return (
-    <div className="rd-feed">
-      {months.map((m) => {
-        if (left <= 0) return null;
-        const items = m.items.slice(0, left);
-        left -= items.length;
+    <div className={'rd-chat' + (hits ? ' rd-hlmode' : '')}>
+      {days.map((d) => {
+        const date = kDate(d.key);
+        const label = kFmt(d.key, {weekday: 'short', month: 'short', day: 'numeric', ...(date.getUTCFullYear() !== thisYear ? {year: 'numeric'} : {})});
         return (
-          <section key={m.month} className="rd-month">
-            <h2 className="rd-month-h">{m.month}<span>{m.items.length}</span></h2>
-            <ol className="card rd-rows">
-              {items.map((e) => {
-                const k = entryKind(e);
-                const isOpen = open === e.id;
-                const tags = e.tags.filter((t) => VISIBLE_TAGS.includes(t) && TAG_LABEL[t] !== k.label);
-                if (editing === e.id) return (
-                  <li key={e.id} className="rd-row editing">
-                    <EntryForm entry={e} now={now} onCancel={() => setEditing(null)} onSaved={() => { setEditing(null); onChanged(); }} />
-                  </li>
-                );
+          <section key={d.key} data-day={d.key} className={'rd-day' + (flashDay === d.key ? ' flash' : '')}>
+            <div className="rd-sep"><span>{label}</span></div>
+            {d.items.map((e) => {
+              const cls = (hits ? (hits.has(e.id) ? ' hit' : ' dim') : '') + (current === e.id || flashEntry === e.id ? ' cur' : '');
+              if (editing === e.id) return (
+                <div key={e.id} data-entry={e.id} className="rd-editing">
+                  <EntryForm entry={e} now={now} onCancel={() => setEditing(null)} onSaved={() => { setEditing(null); onChanged(); }} />
+                </div>
+              );
+              const isOpen = open === e.id;
+              if (e.kind === 'message_in' || e.kind === 'message_out') {
+                const inc = e.kind === 'message_in';
+                const lines = inc ? e.text.split(/\n+/).map((s) => s.trim()).filter(Boolean) : [e.text.trim()];
+                const bubbles = lines.length ? lines : [e.title];
                 return (
-                  <li key={e.id} id={`rd-e${e.exhibit}`} className={'rd-row' + (isOpen ? ' open' : '') + (e.kind === 'incident' ? ' inc' : '')}>
-                    <button type="button" className="rd-row-main" onClick={() => { setOpen(isOpen ? null : e.id); setConfirmDel(null); setError(''); }} aria-expanded={isOpen}>
-                      <Icon id={k.icon} size={40} />
-                      <span className="rd-row-b">
-                        <b className="rd-row-t">{e.title || k.label}</b>
-                        <span className="rd-row-m">
-                          <span className="rd-kind">{k.label}</span>
-                          <span className="rd-dot">·</span><ChannelTag channel={e.channel} />
-                        </span>
-                        <span className="rd-row-d">{fmtDate(e.occurredAt, {weekday: 'short', month: 'short', day: 'numeric'})}, {fmtTime(e.occurredAt)}</span>
-                        {/* No "Sample" chip per row: the shell's sample-case banner already says it once. */}
-                        {tags.length > 0 && (
-                          <span className="rd-tags">
-                            {tags.map((t) => <span key={t} className={'chip ' + (t === 'tense' || t === 'in_front_of_kids' ? 'chip-warn' : t === 'date_unknown' ? 'chip-amber' : 'rd-tag')}>{TAG_LABEL[t] ?? t}</span>)}
-                          </span>
-                        )}
-                      </span>
-                      <span className="rd-row-r">
-                        <span className="rd-ex" title="Exhibit number in the PDF">E-{e.exhibit}</span>
-                        {e.amountCents != null && <span className="rd-amt">{money(e.amountCents)}</span>}
-                      </span>
+                  <div key={e.id} data-entry={e.id} className={'rd-msg ' + (inc ? 'in' : 'out') + cls}>
+                    <button type="button" className="rd-bubbles" onClick={() => toggle(e.id)} aria-expanded={isOpen}
+                      aria-label={`${inc ? (name ?? 'The other parent') : 'You'}, ${fmtTime(e.occurredAt)}, exhibit E-${e.exhibit}`}>
+                      {bubbles.map((b, i) => <span key={i} className="rd-bub">{b}</span>)}
                     </button>
-                    {isOpen && (
-                      <div className="rd-detail fade-in">
-                        {e.text && <p className={e.kind.startsWith('message') ? 'rd-quote' : 'rd-text'}>{e.text}</p>}
-                        <p className="rd-prov">{CATEGORY[e.category]} · {SOURCE[e.source]} · logged {fmtDate(e.createdAt)}</p>
-                        {confirmDel === e.id ? (
-                          <div className="rd-confirm" role="alertdialog" aria-label="Delete this entry?">
-                            <span>Delete this entry for good? It won’t be in the PDF anymore, and the exhibits after it renumber.</span>
-                            <button type="button" className="btn rd-danger" disabled={busy} onClick={() => void del(e.id)}>{busy ? <span className="spin" /> : 'Delete'}</button>
-                            <button type="button" className="btn btn-quiet" onClick={() => setConfirmDel(null)}>Keep it</button>
-                          </div>
-                        ) : (
-                          <div className="rd-acts">
-                            <button type="button" className="btn btn-ghost" onClick={() => setEditing(e.id)}><Icon id="pencil" size={20} />Edit</button>
-                            <button type="button" className="btn btn-quiet" onClick={() => setConfirmDel(e.id)}><Icon id="trash" size={20} />Delete</button>
-                          </div>
-                        )}
-                        {error && confirmDel === e.id && <p className="jr-error" role="alert">{error}</p>}
-                      </div>
-                    )}
-                  </li>
+                    <span className="rd-meta">
+                      {e.tags.includes('tense') && inc && <i className="rd-tense">Tense</i>}
+                      {fmtTime(e.occurredAt)} · <b>E-{e.exhibit}</b>
+                    </span>
+                    {isOpen && detail(e)}
+                  </div>
                 );
-              })}
-            </ol>
+              }
+              const k = entryKind(e);
+              return (
+                <div key={e.id} data-entry={e.id} className={'rd-sys' + cls}>
+                  <button type="button" className={`rd-pill t-${toneOf(e)}`} onClick={() => toggle(e.id)} aria-expanded={isOpen}>
+                    <Icon id={k.icon} size={22} />
+                    <span className="rd-pill-t">{e.title || k.label}</span>
+                    {e.amountCents != null && <span className="rd-pill-a">{money(e.amountCents)}</span>}
+                    <span className="rd-pill-x">E-{e.exhibit}</span>
+                  </button>
+                  {isOpen && detail(e)}
+                </div>
+              );
+            })}
           </section>
         );
       })}
-      {total > limit && (
-        <button type="button" className="btn btn-ghost btn-block" onClick={() => setLimit((l) => l + 150)}>Show {Math.min(150, total - limit)} more ({total - limit} left)</button>
+      <p className="rd-foot rd-chat-foot">Times in {tz.replace(/_/g, ' ')}. Numbered as in the PDF: oldest = E-1.</p>
+    </div>
+  );
+}
+
+/* ---------- calendar: a week strip on phones (with a month toggle), a month grid beside the chat on computers ---------- */
+
+function Calendar({mode, anchor, setAnchor, dots, today, selected, first, last, onPick, onToggle}: {
+  mode: 'week' | 'month'; anchor: string; setAnchor: (k: string) => void; dots: Map<string, Tone[]>; today: string;
+  selected: string | null; first: string; last: string; onPick: (k: string) => void; onToggle?: () => void;
+}) {
+  const start = mode === 'week' ? kWeek(anchor) : kMonth(anchor);
+  const cells: (string | null)[] = [];
+  if (mode === 'week') for (let i = 0; i < 7; i++) cells.push(kAdd(start, i));
+  else {
+    const lead = kDate(start).getUTCDay();
+    for (let i = 0; i < lead; i++) cells.push(null);
+    const next = kMonthAdd(start, 1);
+    for (let k = start; k < next; k = kAdd(k, 1)) cells.push(k);
+    while (cells.length % 7) cells.push(null);
+  }
+  const prev = mode === 'week' ? kAdd(start, -7) : kMonthAdd(start, -1);
+  const next = mode === 'week' ? kAdd(start, 7) : kMonthAdd(start, 1);
+  const end = last > today ? last : today;
+  const canPrev = start > (mode === 'week' ? kWeek(first) : kMonth(first));
+  const canNext = next <= (mode === 'week' ? end : kMonth(end));
+  const title = mode === 'week'
+    ? `${kFmt(start, {month: 'short', day: 'numeric'})} – ${kFmt(kAdd(start, 6), {month: kAdd(start, 6).slice(5, 7) === start.slice(5, 7) ? undefined : 'short', day: 'numeric'})}`
+    : kFmt(start, {month: 'long', year: 'numeric'});
+
+  return (
+    <div className={'rd-cal ' + mode}>
+      <div className="rd-cal-h">
+        <button type="button" className="rd-cal-nav" onClick={() => setAnchor(prev)} disabled={!canPrev} aria-label={mode === 'week' ? 'Previous week' : 'Previous month'}>‹</button>
+        <b>{title}</b>
+        <button type="button" className="rd-cal-nav" onClick={() => setAnchor(next)} disabled={!canNext} aria-label={mode === 'week' ? 'Next week' : 'Next month'}>›</button>
+        {onToggle && (
+          <button type="button" className="rd-cal-tog" onClick={onToggle} aria-expanded={mode === 'month'}>
+            <Icon id="calendar" size={20} />{mode === 'month' ? 'Week' : 'Month'}
+          </button>
+        )}
+      </div>
+      <div className="rd-cal-g" role="grid">
+        {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((d, i) => <span key={i} className="rd-cal-wd" aria-hidden="true">{d}</span>)}
+        {cells.map((k, i) => {
+          if (!k) return <span key={i} />;
+          const ds = dots.get(k);
+          return (
+            <button key={k} type="button" disabled={!ds} onClick={() => onPick(k)}
+              className={'rd-cal-d' + (k === today ? ' today' : '') + (k === selected ? ' sel' : '') + (ds ? ' has' : '')}
+              aria-label={kFmt(k, {weekday: 'long', month: 'long', day: 'numeric'}) + (ds ? '' : ', nothing logged')} aria-current={k === selected ? 'date' : undefined}>
+              {mode === 'week' && <span className="wd">{kFmt(k, {weekday: 'short'})}</span>}
+              <span className="n">{Number(k.slice(8))}</span>
+              <span className="dots">{(ds ?? []).slice(0, 3).map((t) => <i key={t} className={'t-' + t} />)}</span>
+            </button>
+          );
+        })}
+      </div>
+      {mode === 'month' && (
+        <p className="rd-cal-key"><i className="t-amber" />Late / no-show <i className="t-green" />Money <i className="t-pink" />Conflict <i className="t-grey" />Messages</p>
       )}
     </div>
   );
 }
 
-function LogPicker({onPick, onImport}: {onPick: (p: Preset) => void; onImport: () => void}) {
+/* ---------- AI report ---------- */
+
+function ReportBody({kind, tz, onExhibit}: {kind: ReportKind; tz: string; onExhibit: (n: number) => void}) {
+  const [r, setR] = useState<Report | null>(null);
+  const [err, setErr] = useState('');
+  const [copied, setCopied] = useState(false);
+  const [n, setN] = useState(0);
+  useEffect(() => {
+    let live = true;
+    setR(null); setErr('');
+    api<Report>('/api/record/report', {body: {kind, tz}})
+      .then((x) => { if (live) { setR(x); track('record_report_view', {kind, cached: !!x.cached}); } })
+      .catch((e) => { if (live) setErr((e as Error).message); });
+    return () => { live = false; };
+  }, [kind, tz, n]);
+
+  const copy = async () => {
+    if (!r) return;
+    const text = `${r.title}\n${kFmt(r.from, {month: 'short', day: 'numeric', year: 'numeric'})} – ${kFmt(r.to, {month: 'short', day: 'numeric', year: 'numeric'})} · ${r.entries} entries\n\n${r.bullets.map((b) => `• ${b}`).join('\n')}\n\n${r.caution}`;
+    try { await navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 1800); }
+    catch { setErr('Copy did not work here — select the text and copy it by hand.'); }
+  };
+
+  if (err && !r) return (
+    <div className="rd-rep">
+      <p className="jr-error" role="alert">{err}</p>
+      <button type="button" className="btn btn-ghost" onClick={() => setN((x) => x + 1)}>Try again</button>
+    </div>
+  );
+  if (!r) return <div className="rd-rep rd-loading"><span className="spin" /> Reading your record…</div>;
+  // "(E-12)" and "E-3, E-9" become taps that close the sheet and show that entry in the chat.
+  const cite = (s: string) => s.split(/(E-\d+)/g).map((p, i) => (/^E-\d+$/.test(p)
+    ? <button key={i} type="button" className="rd-cite" onClick={() => onExhibit(Number(p.slice(2)))}>{p}</button>
+    : <span key={i}>{p}</span>));
+  return (
+    <div className="rd-rep fade-in">
+      <h3 className="rd-rep-h">{r.title}</h3>
+      <p className="rd-rep-sub">{kFmt(r.from, {month: 'short', day: 'numeric'})} – {kFmt(r.to, {month: 'short', day: 'numeric', year: 'numeric'})} · {r.entries} entries</p>
+      <ul className="rd-rep-l">{r.bullets.map((b, i) => <li key={i}>{cite(b)}</li>)}</ul>
+      <p className="rd-rep-c"><Icon id="shield" size={20} />{r.caution}</p>
+      <div className="rd-rep-acts">
+        <button type="button" className="btn btn-primary" onClick={() => void copy()}>{copied ? 'Copied' : 'Copy'}</button>
+        <span className="rd-foot">Tap an exhibit number to see it in the chat.</span>
+      </div>
+      {err && <p className="jr-error" role="alert">{err}</p>}
+    </div>
+  );
+}
+
+function LogPicker({onPick}: {onPick: (p: Preset) => void}) {
   const tiles = LOG_TILES.map((id) => PRESETS.find((p) => p.id === id)!).filter(Boolean);
   const note = PRESETS.find((p) => p.id === 'note')!;
   return (
@@ -445,62 +684,9 @@ function LogPicker({onPick, onImport}: {onPick: (p: Preset) => void; onImport: (
           </button>
         ))}
       </div>
-      <div className="rd-rowopts">
-        <button type="button" className="rd-opt" onClick={() => onPick(note)}>
-          <Icon id={note.icon} size={36} /><span><b>Something else — a note</b><small>Anything worth a date and a time</small></span><i aria-hidden="true">›</i>
-        </button>
-        <button type="button" className="rd-opt" onClick={onImport}>
-          <Icon id="chat" size={36} /><span><b>Import a chat</b><small>WhatsApp, OurFamilyWizard or TalkingParents PDF, screenshots</small></span><i aria-hidden="true">›</i>
-        </button>
-      </div>
-      <p className="rd-privacy"><Icon id="lock" size={20} />Only you can see this. The other parent never sees Parley.</p>
-    </div>
-  );
-}
-
-function FilterBody({period, from, to, cats, type, q, set, firstDay, today}: {
-  period: Period; from: string; to: string; cats: Category[]; type: string; q: string;
-  set: (p: Record<string, string | null>) => void; firstDay: string; today: string;
-}) {
-  const toggleCat = (c: Category) => {
-    const next = cats.includes(c) ? cats.filter((x) => x !== c) : [...cats, c];
-    set({categories: next.length && next.length < CATS.length ? next.join(',') : null});
-  };
-  return (
-    <div className="rd-fil">
-      <label className="rd-fil-g">
-        <span className="rd-fil-l">Search</span>
-        <input className="field" type="search" placeholder="Words, e.g. soccer" value={q} onChange={(e) => set({q: e.target.value || null})} />
-      </label>
-      <div className="rd-fil-g">
-        <span className="rd-fil-l">Type</span>
-        <div className="rd-seg" role="group" aria-label="Type">
-          {TYPES.map((t) => <button key={t.id} type="button" className={type === t.id ? 'on' : ''} aria-pressed={type === t.id} onClick={() => set({type: t.id === 'all' ? null : t.id})}>{t.label}</button>)}
-        </div>
-      </div>
-      <div className="rd-fil-g">
-        <span className="rd-fil-l">Period</span>
-        <div className="rd-seg" role="group" aria-label="Period">
-          {PERIODS.map(([k, l]) => (
-            <button key={k} type="button" className={period === k ? 'on' : ''} aria-pressed={period === k}
-              onClick={() => (k === 'custom' ? set({period: 'custom', from: from || firstDay, to: to || today}) : set({period: k === 'all' ? null : k, from: null, to: null}))}>{l}</button>
-          ))}
-        </div>
-        {period === 'custom' && (
-          <div className="rd-dates">
-            <label>From<input type="date" className="field" value={from} max={to || undefined} onChange={(e) => set({from: e.target.value || null})} /></label>
-            <label>To<input type="date" className="field" value={to} min={from || undefined} onChange={(e) => set({to: e.target.value || null})} /></label>
-          </div>
-        )}
-      </div>
-      <div className="rd-fil-g">
-        <span className="rd-fil-l">Topics</span>
-        <div className="rd-cats">
-          <button type="button" className={!cats.length ? 'on' : ''} aria-pressed={!cats.length} onClick={() => set({categories: null})}>All</button>
-          {CATS.map((c) => <button key={c} type="button" className={cats.includes(c) ? 'on' : ''} aria-pressed={cats.includes(c)} onClick={() => toggleCat(c)}>{CATEGORY[c]}</button>)}
-        </div>
-      </div>
-      <p className="rd-fil-note">Period and topics also shape the PDF and renumber its exhibits. Type and search only narrow this list.</p>
+      <button type="button" className="rd-opt" onClick={() => onPick(note)}>
+        <Icon id={note.icon} size={36} /><span><b>Something else</b><small>Anything worth a date and a time</small></span><i aria-hidden="true">›</i>
+      </button>
     </div>
   );
 }
@@ -531,14 +717,13 @@ function ShareBody({share, query, onChange}: {share: Share | null; query: string
     <div className="rd-shr">
       {share ? (
         <>
-          <p>Anyone with this link can open the PDF, read-only. It always shows your latest record, with the period and topics you had when you made it.</p>
+          <p>Anyone with this link can open the PDF, read-only. It always shows your latest record.</p>
           <div className="rd-link">
             <input className="field" readOnly value={link} onFocus={(e) => e.currentTarget.select()} aria-label="Share link" />
             <button type="button" className="btn btn-ghost" onClick={() => void copy()}>{copied ? 'Copied' : 'Copy'}</button>
           </div>
-          <p className="rd-shr-meta">Expires {short(share.expiresAt)} · opened {share.views} {share.views === 1 ? 'time' : 'times'}</p>
+          <p className="rd-shr-meta">Expires {fmtDate(share.expiresAt, {month: 'short', day: 'numeric'})} · opened {share.views} {share.views === 1 ? 'time' : 'times'}</p>
           <div className="rd-shr-acts">
-            <button type="button" className="btn btn-quiet" disabled={busy} onClick={() => void create()}>Update to this view</button>
             <button type="button" className="btn btn-quiet rd-off" disabled={busy} onClick={() => void revoke()}>Turn off link</button>
           </div>
         </>

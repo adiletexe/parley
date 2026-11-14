@@ -21,3 +21,14 @@ export const SAMPLES: Sample[] = [
   {label: 'Emma says u told her', channel: 'sms',
     incoming: "emma says u told her im the reason we split\nreally?? wow\nkeep the adult stuff out of it. and is she still going to grandmas sun or nah. lmk rq"},
 ];
+
+/* Two phone screenshots of a chat (public/samples/, drawn from these same bursts with a little history above them).
+   Tapping one fetches the PNG and sends it through the real upload — the model reads the bubbles off the picture. */
+export interface SampleShot { label: string; src: string; alt: string }
+
+export const SHOTS: SampleShot[] = [
+  {label: '40 min late AGAIN', src: '/samples/late.png',
+    alt: 'A text thread: "ur seriously 40 min late AGAIN", "emma is sitting here crying", then "hello?? wya".'},
+  {label: 'Emma says u told her', src: '/samples/grandma.png',
+    alt: 'A text thread: "emma says u told her im the reason we split", "really?? wow", "keep the adult stuff out of it.", "and is she still going to grandmas sun or nah. lmk rq".'},
+];

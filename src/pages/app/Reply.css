@@ -5,7 +5,6 @@
 
 .rc-head { display: grid; gap: 4px; margin-top: 8px; }
 .rc-head h1 { font-size: clamp(28px, 4vw, 38px); }
-.rc-sub { color: var(--faint); font-size: 14px; font-weight: 500; }
 
 .rc-link { border: 0; background: none; padding: 0; font: 600 14px var(--font); color: var(--acc); cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
 .rc-link:hover { text-decoration: underline; }
@@ -13,41 +12,126 @@
 .rc-link .spin { width: 12px; height: 12px; }
 .rc-err-line { color: var(--warn); font-size: 14px; font-weight: 600; }
 
-/* --- compose --- */
-.rc-compose { display: grid; gap: 12px; transition: box-shadow .15s; }
-.rc-compose.on { box-shadow: 0 0 0 2px var(--acc), var(--shadow); }
-.rc-in { min-height: 116px; font-size: 16px; }
-.rc-src { display: flex; flex-wrap: wrap; gap: 6px; }
-.rc-src-chip { display: inline-flex; align-items: center; gap: 6px; height: 32px; border: 1.5px solid var(--line); background: var(--card); border-radius: 999px;
-  padding: 0 12px 0 9px; font: 600 13px var(--font); color: var(--ink); cursor: pointer; transition: border-color .15s, background .15s; }
-.rc-src-chip:hover { border-color: color-mix(in srgb, var(--acc) 40%, var(--line)); }
-.rc-src-chip.on { border-color: var(--acc); background: var(--acc-bg); }
-.rc-src-chip .ico { margin: 0 -2px 0 -4px; }
-.rc-shot { cursor: default; padding-right: 4px; }
-.rc-shot img { width: 18px; height: 22px; object-fit: cover; border-radius: 4px; margin-left: -2px; }
-.rc-shot-x { border: 0; background: none; width: 22px; height: 22px; border-radius: 50%; font: 700 16px/1 var(--font); color: var(--mute); cursor: pointer; }
-.rc-shot-x:hover { background: var(--card); color: var(--ink); }
+/* --- compose ---
+   The screenshot is the front door: one big card that takes a drop, a tap or a paste. Typing is the quiet second door
+   below it, a messenger bar that opens into a field. */
+.rc-compose { display: grid; gap: 12px; }
+
+/* The drop zone. The dashes are the card's white border laid over the gradient behind it, so the GAPS are the
+   gradient — a dashed gradient border with no image and no extra element. */
+.rc-drop { position: relative; display: grid; justify-items: center; gap: 6px; width: 100%; min-height: 300px; align-content: center;
+  padding: 30px 20px 32px; border: 2.5px dashed var(--card); border-radius: 28px; cursor: pointer; color: var(--ink); text-align: center;
+  background: radial-gradient(80% 70% at 50% 0%, #f1efff, transparent 70%) padding-box, linear-gradient(#fdfdff, #f6f7fe) padding-box, var(--grad) border-box;
+  box-shadow: var(--shadow); font: inherit; transition: box-shadow .2s, transform .2s; -webkit-tap-highlight-color: transparent; }
+.rc-drop:hover { box-shadow: var(--shadow-lg); }
+.rc-drop:hover .rc-drop-art { transform: translateY(-3px); }
+.rc-drop:active { transform: scale(.99); }
+.rc-drop:focus-visible { outline: none; box-shadow: 0 0 0 4px color-mix(in srgb, var(--acc) 22%, transparent), var(--shadow); }
+.rc-drop.on { transform: scale(1.012); box-shadow: 0 0 0 6px color-mix(in srgb, var(--acc) 16%, transparent), 0 20px 60px var(--glow);
+  background: radial-gradient(90% 80% at 50% 10%, #e7e6ff, transparent 75%) padding-box, linear-gradient(#f9f9ff, #eef0ff) padding-box, var(--grad) border-box; }
+.rc-drop.on .rc-drop-art { transform: translateY(-6px) scale(1.04); }
+.rc-drop[disabled] { cursor: default; opacity: .7; }
+.rc-drop-art { width: 168px; height: 128px; margin-bottom: 10px; transition: transform .25s; overflow: visible; }
+.rc-drop-art g[class^="rc-art-b"] { animation: rcPop .45s cubic-bezier(.2, .9, .3, 1.3) both; transform-box: fill-box; transform-origin: left center; }
+.rc-art-b2 { animation-delay: .12s !important; } .rc-art-b3 { animation-delay: .24s !important; }
+.rc-art-b4 { animation-delay: .42s !important; transform-origin: right center !important; }
+.rc-art-up { animation: rcFloat 3.2s ease-in-out .9s infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes rcPop { from { opacity: 0; transform: scale(.4); } to { opacity: 1; transform: none; } }
+@keyframes rcFloat { 0%, 100% { transform: none; } 50% { transform: translateY(-3px); } }
+@media (prefers-reduced-motion: reduce) { .rc-drop-art g, .rc-art-up { animation: none !important; } }
+.rc-drop-t { font: 800 21px/1.25 var(--font); letter-spacing: -.02em; }
+.rc-drop-s { font: 500 14.5px var(--font); color: var(--mute); }
+
+/* After choosing: the screenshots themselves, small, each with a way out. */
+.rc-shots { display: grid; gap: 12px; padding: 16px; border-radius: 24px; background: var(--card); box-shadow: var(--shadow); transition: box-shadow .2s; }
+.rc-shots.on { box-shadow: 0 0 0 3px var(--acc), 0 20px 60px var(--glow); }
+.rc-thumbs { display: flex; gap: 10px; flex-wrap: wrap; }
+.rc-thumb { position: relative; margin: 0; width: 92px; aspect-ratio: 9 / 16; border-radius: 14px; overflow: hidden; background: var(--bg); box-shadow: 0 0 0 1px var(--line), 0 6px 16px rgba(20, 22, 40, .08); }
+.rc-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: bottom; display: block; }
+.rc-thumb-x { position: absolute; top: 5px; right: 5px; width: 26px; height: 26px; border-radius: 50%; border: 0; display: grid; place-items: center;
+  background: rgba(13, 14, 26, .62); color: #fff; cursor: pointer; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.rc-thumb-x:hover { background: rgba(13, 14, 26, .85); }
+.rc-thumb-add { display: grid; place-content: center; justify-items: center; gap: 4px; border: 2px dashed color-mix(in srgb, var(--acc) 35%, var(--line)); box-shadow: none;
+  background: var(--acc-bg); color: var(--acc); font: 700 13px var(--font); cursor: pointer; }
+.rc-thumb-add:hover { border-color: var(--acc); }
+.rc-shots-meta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px; font: 600 13.5px var(--font); color: var(--mute); }
+
+/* "Source: Text ▾" — a small native select, because a guess this cheap should cost one tap to fix. */
+.rc-srcpick { position: relative; display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 28px 0 10px; border-radius: 999px;
+  background: var(--bg); font: 600 13px var(--font); color: var(--mute); cursor: pointer; }
+.rc-srcpick::after { content: ""; position: absolute; right: 12px; top: 11px; width: 6px; height: 6px; border-right: 1.8px solid var(--mute); border-bottom: 1.8px solid var(--mute); transform: rotate(45deg); pointer-events: none; }
+.rc-srcpick select { field-sizing: content; appearance: none; -webkit-appearance: none; border: 0; background: transparent; font: 700 13px var(--font); color: var(--ink); cursor: pointer; padding: 0; outline: none; }
+.rc-srcpick:focus-within { box-shadow: 0 0 0 3px color-mix(in srgb, var(--acc) 22%, transparent); }
+
+.rc-try { justify-self: center; display: inline-flex; align-items: center; gap: 8px; border: 0; background: none; cursor: pointer; padding: 4px 6px; border-radius: 12px;
+  font: 500 13.5px var(--font); color: var(--mute); }
+.rc-try img { width: 20px; height: 30px; object-fit: cover; object-position: bottom; border-radius: 5px; box-shadow: 0 0 0 1px var(--line); }
+.rc-try b { color: var(--acc); font-weight: 700; }
+.rc-try:hover b { text-decoration: underline; }
+
+.rc-or { display: flex; align-items: center; gap: 12px; color: var(--faint); font: 600 13px var(--font); margin: 2px 0; }
+.rc-or::before, .rc-or::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+/* Typing: a messenger's input bar until it's needed, then a field. */
+.rc-bar { display: flex; align-items: flex-start; gap: 10px; background: var(--card); border: 1.5px solid var(--line); border-radius: 26px; padding: 0 16px; cursor: text;
+  transition: border-color .15s, box-shadow .15s, border-radius .2s; }
+.rc-bar:hover { border-color: color-mix(in srgb, var(--acc) 30%, var(--line)); }
+.rc-bar.open { border-radius: 20px; border-color: var(--acc); box-shadow: 0 0 0 4px color-mix(in srgb, var(--acc) 14%, transparent); }
+.rc-bar-ic { flex: none; color: var(--faint); margin-top: 14px; }
+.rc-bar.open .rc-bar-ic { color: var(--acc); }
+.rc-in { flex: 1; min-width: 0; border: 0; outline: none; background: transparent; resize: none; font: 500 16px/1.45 var(--font); color: var(--ink);
+  padding: 13px 0; height: 50px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.rc-bar.open .rc-in { height: auto; min-height: 120px; overflow: auto; white-space: pre-wrap; }
+.rc-in::placeholder { color: var(--faint); }
+.rc-bar-src { display: flex; }
+
 .rc-draft { display: grid; gap: 6px; }
 .rc-draft-l { font: 700 14px var(--font); }
 .rc-draft-l span { font-weight: 500; color: var(--faint); font-size: 13px; margin-left: 4px; }
 .rc-draft textarea { min-height: 84px; }
 /* The burst preview: what they pasted, as the separate texts we'll read. Only when there's more than one. */
-.rc-preview { display: grid; justify-items: start; gap: 4px; margin-top: -2px; }
+.rc-preview { display: grid; justify-items: start; gap: 4px; padding: 0 6px; }
 .rc-preview-h { font: 700 12px var(--font); color: var(--mute); margin-bottom: 2px; }
-.rc-preview-b { background: var(--bg); border-radius: 16px 16px 16px 5px; padding: 7px 12px; font-size: 14px; line-height: 1.4; max-width: 85%; white-space: pre-wrap; overflow-wrap: anywhere; }
+.rc-preview-b { background: #e9eaf1; border-radius: 16px 16px 16px 5px; padding: 7px 12px; font-size: 14px; line-height: 1.4; max-width: 85%; white-space: pre-wrap; overflow-wrap: anywhere; }
 .rc-preview-b + .rc-preview-b { border-top-left-radius: 5px; }
-.rc-go { width: 100%; margin-top: 2px; }
-.rc-compose > .rc-link { justify-self: center; font-size: 13.5px; }
+.rc-go { width: 100%; margin-top: 4px; }
+.rc-adddraft { justify-self: center; font-size: 13.5px; }
 
-.rc-samples { display: grid; gap: 8px; padding: 2px 4px 0; }
-.rc-samples-h { font: 700 13px var(--font); color: var(--ink); }
-.rc-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.rc-sample { display: inline-flex; align-items: center; gap: 6px; height: 34px; border: 1.5px solid var(--line); background: var(--card); border-radius: 999px;
-  padding: 0 13px; font: 600 13.5px var(--font); color: var(--ink); cursor: pointer; transition: border-color .15s, transform .12s; }
-.rc-sample:hover { border-color: color-mix(in srgb, var(--acc) 45%, var(--line)); }
-.rc-sample:active { transform: scale(.98); }
-.rc-sample[disabled] { opacity: .5; cursor: default; }
-.rc-sample em { font-style: normal; font-size: 11px; font-weight: 700; color: var(--warn); background: var(--warn-bg); border-radius: 999px; padding: 1px 7px; }
+/* Examples: one quiet row; the list opens in a sheet. */
+.rc-ex { justify-self: center; display: inline-flex; align-items: center; gap: 8px; border: 0; background: none; cursor: pointer; padding: 6px 10px; border-radius: 999px;
+  font: 700 14px var(--font); color: var(--mute); }
+.rc-ex:hover { color: var(--ink); background: var(--card); }
+.rc-chev-r { width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(-45deg); display: inline-block; flex: none; }
+
+.rc-sheet-bg { position: fixed; inset: 0; z-index: 50; background: rgba(13, 14, 26, .38); display: grid; align-items: end; justify-items: center; animation: rcFade .2s both; }
+.rc-sheet { width: 100%; max-height: 86vh; overflow: auto; background: var(--card); border-radius: 24px 24px 0 0; padding: 18px 16px calc(18px + var(--safe-b));
+  box-shadow: var(--shadow-lg); animation: rcUp .28s cubic-bezier(.2, .8, .2, 1) both; }
+@keyframes rcFade { from { opacity: 0; } }
+@keyframes rcUp { from { transform: translateY(40px); opacity: 0; } }
+.rc-sheet-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.rc-sheet-top h2 { font: 800 19px var(--font); letter-spacing: -.01em; }
+.rc-sheet-x { width: 34px; height: 34px; border-radius: 50%; border: 0; background: var(--bg); color: var(--mute); display: grid; place-items: center; cursor: pointer; }
+.rc-sheet-x:hover { color: var(--ink); }
+.rc-sheet-h { font: 700 12px var(--font); letter-spacing: .06em; text-transform: uppercase; color: var(--faint); margin: 14px 2px 8px; }
+.rc-sheet-shots { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.rc-sheet-shot { display: grid; gap: 8px; border: 0; background: var(--bg); border-radius: 18px; padding: 10px; cursor: pointer; text-align: left; font: 700 13.5px/1.3 var(--font); color: var(--ink);
+  transition: box-shadow .15s, transform .12s; }
+.rc-sheet-shot img { width: 100%; height: 150px; object-fit: cover; object-position: bottom; border-radius: 12px; box-shadow: 0 0 0 1px var(--line); background: #fff; }
+.rc-sheet-shot:hover { box-shadow: 0 0 0 2px var(--acc); }
+.rc-sheet-shot:active { transform: scale(.98); }
+.rc-sheet-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.rc-sheet-list button { width: 100%; display: flex; align-items: center; gap: 10px; border: 0; background: none; border-radius: 14px; padding: 12px 10px; cursor: pointer; text-align: left;
+  font: 600 15px var(--font); color: var(--ink); }
+.rc-sheet-list button:hover { background: var(--bg); }
+.rc-sheet-list span { flex: 1; min-width: 0; }
+.rc-sheet-list em { font-style: normal; font-size: 11px; font-weight: 700; color: var(--warn); background: var(--warn-bg); border-radius: 999px; padding: 2px 8px; white-space: nowrap; }
+.rc-sheet-list .rc-chev-r { color: var(--faint); }
+@media (min-width: 600px) {
+  .rc-sheet-bg { align-items: center; padding: 24px; }
+  .rc-sheet { max-width: 440px; border-radius: 24px; padding: 20px; }
+}
+/* No mouse, no ⌘V: on a phone the hint would be noise. */
+@media (pointer: coarse) { .rc-drop-k { display: none; } }
 
 .rc-loading { display: grid; gap: 10px; }
 .rc-step { display: flex; align-items: center; gap: 10px; color: var(--faint); font-weight: 600; font-size: 14px; }
@@ -170,9 +254,11 @@
 @media (max-width: 560px) {
   .rc-head { margin-top: 0; }
   .rc-head h1 { font-size: 28px; }
-  .rc-compose, .rc-replycard { padding: 14px; }
-  .rc-in { min-height: 104px; }
-  .rc-src-chip { height: 30px; padding: 0 10px 0 8px; font-size: 12.5px; }
+  .rc-replycard { padding: 14px; }
+  .rc-drop { min-height: 280px; padding: 26px 16px 28px; }
+  .rc-drop-t { font-size: 19px; }
+  .rc-thumb { width: calc((100% - 30px) / 4); min-width: 64px; }
+  .rc-shots { padding: 14px; }
   .rc-drafted-row { grid-template-columns: auto minmax(0, 1fr) auto; padding: 14px; }
   .rc-drafted-s { grid-column: 1 / 3; grid-row: 2; }
   .rc-chev { grid-column: 3; grid-row: 1 / 3; }

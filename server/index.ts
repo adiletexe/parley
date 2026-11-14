@@ -14,6 +14,7 @@ import journal from './routes/journal.js';
 import timeline from './routes/timeline.js';
 import plan from './routes/plan.js';
 import demo from './routes/demo.js';
+import report from './routes/report.js';
 
 const app = new Hono();
 // A lawyer opening a shared timeline link isn't a Parley user: no guest row, no cookie.
@@ -27,7 +28,7 @@ app.post('/api/event', async (c) => {
 });
 app.get('/api/me', (c) => c.json(toMe(getPerson(c.get('person').id)!)));
 
-for (const register of [quiz, billing, reply, journal, timeline, plan, demo]) register(app);
+for (const register of [quiz, billing, reply, journal, timeline, plan, demo, report]) register(app);
 
 app.notFound((c) => (c.req.path.startsWith('/api/') ? c.json({error: 'Not found'}, 404) : spa(c)));
 app.onError((err, c) => {

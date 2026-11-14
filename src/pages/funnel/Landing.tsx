@@ -8,10 +8,18 @@ import {Logo} from '../../components/Logo';
 import {track} from '../../lib/api';
 import './funnel.css';
 
-// A real burst (docs/VOICE.md): three texts in a row, lowercase, a jab and an eye-roll.
-const BURST = ['im not paying half of soccer', 'u signed her up without even asking me', 'typical. 🙄'];
-const ANGRY = 'wow. u ALWAYS do this. pay ur half or im taking it to my lawyer';
-const CALM = "fall soccer is $180, sent you the receipt. can you do your $90 by friday?";
+// Real-sounding bursts (docs/VOICE.md): texts in a row, lowercase, jabs. Each shows the reply you want to send
+// (crossed out) and the one you send instead, in plain texting voice.
+const CHATS: {who: string; when: string; burst: string[]; angry: string; calm: string}[] = [
+  {who: 'Jordan', when: 'Tue 9:41 PM', burst: ['im not paying half of soccer', 'u signed her up without even asking me', 'typical. 🙄'],
+    angry: 'wow. u ALWAYS do this. pay ur half or im taking it to my lawyer', calm: 'fall soccer is $180, sent you the receipt. can you do your $90 by friday?'},
+  {who: 'Sam', when: 'Fri 5:42 PM', burst: ['ur seriously 40 min late AGAIN', 'emma is sitting here crying', 'hello??'],
+    angry: 'maybe if u didnt set pickup in rush hour id be on time', calm: "on my way, 10 min out. tell emma i'm almost there"},
+  {who: 'Alex', when: 'Wed 8:15 PM', burst: ['so ur new bf is picking the kids up now??', 'i never agreed to that'],
+    angry: "who i date is none of ur business. get over it", calm: "got it. i'll do pickup myself on saturday at 10."},
+  {who: 'Jordan', when: 'Thu 11:48 PM', burst: ['im keeping them this weekend', 'u can take it up with the judge'],
+    angry: 'try it and see what happens', calm: "the schedule has them with me this weekend. i'll be there friday at 5."},
+];
 
 const FAQ: [string, string, string?][] = [
   ['Is Parley legal advice?', "No. Parley is not a law firm and doesn't give legal advice. It helps you write calmer messages and keep your texts in order. For advice about your case, talk to a family-law attorney."],
@@ -55,20 +63,18 @@ export default function Landing() {
 
         {/* One chat, the way it looks on a phone: their burst, the reply you almost sent (crossed out in pen),
             the one you sent instead. Labels are handwritten notes, not UI chrome. */}
-        <div className="fn-chat" aria-label="An example chat">
-          <div className="fn-chat-top"><span className="fn-chat-av">J</span><b>Jordan</b><small>Tue 9:41 PM</small></div>
-          <div className="fn-chat-body">
-            {BURST.map((b, i) => <p key={i} className="fn-chat-in">{b}</p>)}
-            <div className="fn-chat-row">
-              <span className="fn-chat-note bad">what you want to send</span>
-              <p className="fn-chat-out struck">{ANGRY}</p>
+        <div className="fn-chats" aria-label="Examples">
+          {CHATS.map((c, k) => (
+            <div className="fn-chat" key={k}>
+              <div className="fn-chat-top"><span className="fn-chat-av">{c.who[0]}</span><b>{c.who}</b><small>{c.when}</small></div>
+              <div className="fn-chat-body">
+                {c.burst.map((b, i) => <p key={i} className="fn-chat-in">{b}</p>)}
+                <div className="fn-chat-row"><span className="fn-chat-note bad">what you want to send</span><p className="fn-chat-out struck">{c.angry}</p></div>
+                <div className="fn-chat-row"><span className="fn-chat-note">what you send instead</span><p className="fn-chat-out">{c.calm}</p></div>
+                <small className="fn-chat-meta">Delivered</small>
+              </div>
             </div>
-            <div className="fn-chat-row">
-              <span className="fn-chat-note">what you send instead</span>
-              <p className="fn-chat-out">{CALM}</p>
-            </div>
-            <small className="fn-chat-meta">Delivered</small>
-          </div>
+          ))}
         </div>
       </section>
 

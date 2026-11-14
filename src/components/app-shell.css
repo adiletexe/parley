@@ -28,7 +28,12 @@
 }
 
 /* Demo notice sits in the page flow at the top, never over content. */
-.shell-demo { position: relative; z-index: 1; margin: 0 0 16px; padding: 8px 12px; border-radius: 12px; background: var(--amber-bg); color: var(--amber); font: 600 12.5px var(--font); }
+/* As wide as the page under it, so its edges line up with the content instead of the whole main column. */
+.shell-demo { position: relative; z-index: 1; max-width: 1060px; margin: 0 auto 16px; padding: 8px 12px; border-radius: 12px; background: var(--amber-bg); color: var(--amber); font: 600 12.5px var(--font); }
+.shell-main:has(.rc) .shell-demo { max-width: 908px; }
+.shell-main:has(.bl-settings) .shell-demo { max-width: 760px; }
+.shell-main:has(.pl) .shell-demo { max-width: 520px; }
+@media (max-width: 1100px) { .shell-main:has(.rc) .shell-demo { max-width: 640px; } }
 .shell-demo b { color: var(--ink); }
 .shell-demo a { color: inherit; font-weight: 700; }
 

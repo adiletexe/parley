@@ -33,6 +33,7 @@ export default function Reply() {
   const [paywall, setPaywall] = useState(false);
   const [recent, setRecent] = useState<Recent[]>([]);
   const [editing, setEditing] = useState(true);
+  const [wantDraft, setWantDraft] = useState(false);
   const started = useRef<string | null>(null);
 
   const setForm = useCallback((v: ComposeValue) => {
@@ -75,7 +76,7 @@ export default function Reply() {
     if (started.current === key) return;
     started.current = key;
     const text = params.get('text'), id = params.get('id');
-    if (params.get('new')) { setResult(null); setEditing(true); setFormState(blank()); setError(''); setParams({}, {replace: true}); return; }
+    if (params.get('new')) { setResult(null); setEditing(true); setWantDraft(false); setFormState(blank()); setError(''); setParams({}, {replace: true}); return; }
     if (text && text.trim()) { const v = {...blank(), incoming: text}; setFormState(v); void run(v); return; }
     if (id && id !== result?.id) {
       api<AnalysisView>(`/api/reply/${id}`).then((a) => { setResult(a); setEditing(false); setFormState((f) => ({...f, incoming: a.incoming, draft: a.draft ?? '', images: []})); })
@@ -105,7 +106,7 @@ export default function Reply() {
 
   const steps = form.draft.trim() ? [...STEPS, 'Reading your draft like a judge'] : STEPS;
   const showResult = !!result && !editing;
-  const edit = () => { if (!result) return; setEditing(true); setFormState((f) => ({...f, incoming: result.incoming, draft: result.draft ?? '', images: []})); };
+  const edit = () => { if (!result) return; setWantDraft(true); setEditing(true); setFormState((f) => ({...f, incoming: result.incoming, draft: result.draft ?? '', images: []})); };
 
   return (
     <div className="rc">
@@ -114,7 +115,7 @@ export default function Reply() {
           <header className="rc-top">
             <button className="rc-back" onClick={() => setParams({new: '1'})}>‹ New message</button>
             <h1 className="rc-sr">Your calm reply</h1>
-            <button className="rc-link" onClick={edit}>{result!.draft ? 'Edit and check again' : '+ Check my own draft'}</button>
+            {me?.demo && <Link to="/demo" className="rc-sample">Sample case</Link>}
           </header>
         ) : (
           <header className="rc-head">
@@ -133,10 +134,10 @@ export default function Reply() {
         )}
 
         {showResult ? (
-          <Result key={result!.id} a={result!} channel={form.channel} onUpdate={(next) => { setResult(next); loadSide(); }} />
+          <Result key={result!.id} a={result!} channel={form.channel} onUpdate={(next) => { setResult(next); loadSide(); }} onDraft={edit} />
         ) : (
           <>
-            <Compose value={form} onChange={setForm} onSubmit={() => run(form)} onSample={sample} onShot={(s) => void sampleShot(s)} busy={busy} />
+            <Compose value={form} onChange={setForm} onSubmit={() => run(form)} onSample={sample} onShot={(s) => void sampleShot(s)} busy={busy} openDraft={wantDraft} />
             {busy && (
               <div className="card rc-loading fade-in" aria-live="polite">
                 {steps.map((s, i) => (

@@ -16,7 +16,8 @@
 .pl-icon-btn:hover { border-color: color-mix(in srgb, var(--acc) 40%, var(--line)); }
 .pl-icon-btn[aria-expanded="true"] { border-color: var(--acc); background: var(--acc-bg); }
 .pl-icon-btn svg { width: 28px; height: 28px; }
-.pl-remind-menu { width: 260px; gap: 10px; padding: 14px; }
+/* doubled class: .pl-clock-menu comes later in this file and was overriding this width and padding (content sat 8px off the edges) */
+.pl-clock-menu.pl-remind-menu { width: 260px; gap: 10px; padding: 14px; }
 .pl-remind-h { font: 800 15px var(--font); padding: 0 2px; }
 .pl-remind-menu .pl-clock-now { padding: 0 2px; }
 .pl-line { color: var(--mute); font-size: 15px; margin-top: -4px; }

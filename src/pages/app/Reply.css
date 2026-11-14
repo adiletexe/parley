@@ -149,7 +149,13 @@
 .rc-back:hover { border-color: color-mix(in srgb, var(--acc) 40%, var(--line)); }
 .rc-top .rc-link { font-size: 13.5px; }
 
-.rc-result { display: grid; gap: 12px; }
+/* The result reads like the chat: their texts, our blue bubble, and a dock at the bottom of the screen with the
+   choices. The column fills the screen so the dock sits low (where the thumb is) and sticks above the tab bar. */
+.rc-sample { font: 700 12px var(--font); color: #9a6a00; background: #fff3c9; border-radius: 999px; padding: 5px 11px; text-decoration: none; }
+.rc-sample:hover { background: #ffeaa6; }
+.shell-main:has(.rc-result) .shell-demo { display: none; }   /* the pill above says it here */
+.rc-result { display: flex; flex-direction: column; gap: 12px; min-height: calc(100dvh - 96px); }
+.rc-day { text-align: center; font: 600 12px var(--font); color: var(--faint); margin: 0 0 -2px; }
 .rc-they { display: grid; gap: 4px; justify-items: start; }
 /* Their burst: stacked grey bubbles, the tail only on the last, like a phone draws a run from one sender. */
 .rc-bubble { background: #e9eaf1; border-radius: 20px 20px 20px 6px; padding: 10px 15px; max-width: 88%; white-space: pre-wrap; overflow-wrap: anywhere; }
@@ -157,33 +163,48 @@
 .rc-bubble + .rc-bubble { border-top-left-radius: 6px; }
 .rc-bubble .rc-hl-text { font-size: 15.5px; }
 .rc-bubble .rc-hl { background: none; color: var(--warn); text-decoration: line-through; text-decoration-color: var(--warn); text-decoration-thickness: 1.5px; opacity: .75; cursor: default; }
-.rc-bubble-meta { font-size: 12px; color: var(--faint); font-weight: 600; padding-left: 6px; margin-top: 2px; }
-.rc-asks { font-size: 14.5px; color: var(--mute); padding: 0 4px; }
-.rc-asks b { color: var(--ink); font-weight: 700; }
+.rc-why { align-self: center; text-align: center; max-width: 92%; font-size: 13.5px; color: var(--mute); }
 
-.rc-replycard { display: grid; gap: 12px; }
-.rc-seg { display: flex; background: var(--bg); border-radius: 12px; padding: 3px; gap: 2px; }
-.rc-seg button { flex: 1; border: 0; background: transparent; border-radius: 10px; height: 34px; font: 700 14px var(--font); color: var(--mute); cursor: pointer; }
-.rc-seg button.on { background: var(--card); color: var(--ink); box-shadow: 0 1px 3px rgba(20, 22, 40, .1); }
-/* Our reply: one outgoing blue bubble on the right, and it IS the field — edit it in place. */
-.rc-out { display: grid; justify-items: end; gap: 4px; }
-.rc-reply { display: block; width: 88%; max-width: 88%; min-width: min(220px, 88%); field-sizing: content; font: 500 16px/1.45 var(--font); color: #fff; caret-color: #fff;
-  background: #3f7ff5; border: 0; border-radius: 20px 20px 6px 20px; padding: 11px 15px; resize: none; overflow: hidden; outline: none; box-shadow: 0 6px 18px rgba(63, 127, 245, .22); }
-.rc-reply:focus { box-shadow: 0 0 0 3px color-mix(in srgb, #3f7ff5 30%, transparent), 0 6px 18px rgba(63, 127, 245, .22); }
-.rc-reply::selection { background: rgba(255, 255, 255, .35); }
-.rc-out-meta { font-size: 12px; color: var(--faint); font-weight: 600; padding-right: 6px; }
-.rc-fill { font-size: 13px; color: var(--amber); margin-top: -4px; }
-.rc-fill b { font-weight: 700; }
-.rc-verdict { display: flex; align-items: center; gap: 10px; border-radius: 14px; padding: 9px 12px; font: 700 14px/1.35 var(--font); }
-.rc-verdict .ico { flex: none; }
-.rc-verdict.ok { background: var(--ok-bg); color: #137a4f; }
-.rc-verdict.warn { background: var(--warn-bg); color: #b5326c; }
+/* Our reply: one outgoing blue bubble on the right. Tap it to edit; the dashed chips are the blanks to fill. */
+.rc-mine { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; margin-top: 8px; }
+.rc-me { display: block; max-width: 88%; background: #3f86f2; color: #fff; border: 0; border-radius: 22px 22px 6px 22px;
+  padding: 12px 16px; font: 500 17px/1.5 var(--font); white-space: pre-wrap; overflow-wrap: anywhere; text-align: left; cursor: text; outline: none;
+  box-shadow: 0 6px 18px rgba(63, 134, 242, .22); }
+.rc-me:focus-visible, .rc-me-edit:focus { box-shadow: 0 0 0 3px color-mix(in srgb, #3f86f2 30%, transparent), 0 6px 18px rgba(63, 134, 242, .22); }
+.rc-me-edit { width: 88%; resize: none; overflow: hidden; caret-color: #fff; field-sizing: content; }
+.rc-me-edit::selection, .rc-me::selection { background: rgba(255, 255, 255, .35); }
+.rc-slot { display: inline-flex; align-items: center; gap: 4px; margin: 1px 0; padding: 0 9px; border-radius: 10px; border: 1.5px dashed rgba(255, 255, 255, .8);
+  background: rgba(255, 255, 255, .18); color: #fff; font-family: inherit; font-weight: 700; font-size: .94em; line-height: 1.5; vertical-align: 1px; cursor: pointer; }
+.rc-slot::before { content: "+"; font-weight: 800; opacity: .85; }
+.rc-slot:hover { background: rgba(255, 255, 255, .28); }
+.rc-slot.rc-slot-in { cursor: text; outline: none; border-style: solid; background: #fff; color: var(--ink); width: auto; max-width: 100%; padding: 0 8px; }
+.rc-slot-in::placeholder { color: var(--faint); }
+.rc-check { display: inline-flex; align-items: flex-start; gap: 7px; max-width: 92%; font: 700 13.5px/18px var(--font); padding-right: 2px; }
+.rc-check i { width: 18px; height: 18px; border-radius: 50%; position: relative; flex: none; }
+.rc-check.ok { color: var(--ok); } .rc-check.ok i { background: var(--ok); }
+.rc-check.ok i::after { content: ""; position: absolute; left: 6px; top: 3.5px; width: 4px; height: 8px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.rc-check.warn { color: var(--warn); } .rc-check.warn i { background: var(--warn); }
+.rc-check.warn i::after { content: "!"; position: absolute; inset: 0; display: grid; place-items: center; color: #fff; font: 800 12px/18px var(--font); text-align: center; }
+
+/* The dock: tone, your own draft, Copy. White card pinned to the bottom of the screen (above the tab bar on phones). */
+.rc-dock { position: sticky; bottom: 16px; z-index: 5; margin-top: auto; display: grid; gap: 12px; background: var(--card); border-radius: 24px;
+  padding: 12px 14px 12px; box-shadow: 0 -6px 24px rgba(20, 22, 40, .06), 0 10px 30px rgba(20, 22, 40, .07); }
+.rc-dock-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.rc-tone { display: inline-flex; background: #eef0f6; border-radius: 999px; padding: 3px; gap: 2px; }
+.rc-tone button { border: 0; background: transparent; border-radius: 999px; padding: 6px 12px; font: 700 13px var(--font); color: var(--mute); cursor: pointer; }
+.rc-tone button.on { background: var(--card); color: var(--ink); box-shadow: 0 1px 3px rgba(20, 22, 40, .12); }
+.rc-owndraft { font-size: 13.5px; white-space: nowrap; }
 .rc-copy { width: 100%; }
 .rc-copy .spin { width: 16px; height: 16px; }
-.rc-under { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 14px; font-size: 13px; color: var(--faint); }
-.rc-under .rc-link { font-size: 13px; }
+.rc-under { text-align: center; font-size: 12px; color: var(--faint); margin-top: -4px; }
+.rc-under .rc-link { font-size: 12px; }
 .rc-saved { color: var(--ok); font-weight: 700; }
 .rc-saved a { color: var(--ok); }
+.rc-dock .rc-err-line { text-align: center; font-size: 13px; }
+@media (max-width: 860px) {
+  .rc-result { min-height: calc(100dvh - 150px - var(--safe-t) - var(--safe-b)); }
+  .rc-dock { bottom: calc(80px + var(--safe-b)); }
+}
 
 .rc-drafted { padding: 0; overflow: hidden; }
 .rc-drafted-row { width: 100%; display: grid; grid-template-columns: auto auto minmax(0, 1fr) auto; align-items: center; gap: 4px 12px; border: 0; background: none;
@@ -254,7 +275,6 @@
 @media (max-width: 560px) {
   .rc-head { margin-top: 0; }
   .rc-head h1 { font-size: 28px; }
-  .rc-replycard { padding: 14px; }
   .rc-drop { min-height: 280px; padding: 26px 16px 28px; }
   .rc-drop-t { font-size: 19px; }
   .rc-thumb { width: calc((100% - 30px) / 4); min-width: 64px; }

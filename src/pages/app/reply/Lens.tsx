@@ -47,7 +47,7 @@ export function Lens({draft, flags}: {draft: string; flags: LensFlag[]}) {
           </li>
         ))}
       </ul>
-      <p className="rc-fine">How a judge might read it — general information, not legal advice.</p>
+      <p className="rc-fine">How a judge might read it. General information, not legal advice.</p>
     </div>
   );
 }

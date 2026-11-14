@@ -46,7 +46,8 @@
 .fn-hquiz:hover { border-color: #fff; }
 
 /* the product peeking up out of the hero */
-.fn-hero-peek { position: relative; max-width: 760px; margin: 56px auto 0; height: 250px; overflow: hidden; }
+/* clip only the bottom edge: overflow:hidden also clipped the card's glow at the sides into a square box */
+.fn-hero-peek { position: relative; max-width: 760px; margin: 56px auto 0; height: 250px; clip-path: inset(-80px -80px 0 -80px); }
 .fn-peek { background: var(--bg); color: var(--ink); border-radius: 24px 24px 0 0; padding: 18px; box-shadow: 0 -10px 60px rgba(91, 108, 246, .35); text-align: left;
   display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .fn-peek-h { grid-column: 1 / -1; display: flex; align-items: center; gap: 8px; font: 700 11px var(--font); letter-spacing: .08em; text-transform: uppercase; color: var(--mute); }
@@ -130,7 +131,7 @@
 /* pricing teaser */
 .fn-price { display: grid; grid-template-columns: repeat(3, minmax(0, 320px)); justify-content: center; gap: 18px; }
 .fn-price-c { position: relative; padding: 28px; display: grid; gap: 8px; align-content: start; }
-.fn-price-c.hot { box-shadow: 0 0 0 2px var(--acc), var(--shadow-lg); }
+.fn-price-c.hot { box-shadow: inset 0 0 0 2px var(--acc), var(--shadow-lg); }
 .fn-price-c h3 { font-size: 20px; margin-top: 8px; }
 .fn-price-n { font: 800 34px var(--font); letter-spacing: -.03em; }
 .fn-price-n small { font-size: 14px; color: var(--mute); font-weight: 600; letter-spacing: 0; }

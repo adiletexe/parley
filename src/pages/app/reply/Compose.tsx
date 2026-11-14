@@ -18,15 +18,16 @@ const SOURCES: {k: Channel; label: string}[] = [
 ];
 const PASTE_KEY = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform) ? '⌘V' : 'Ctrl+V';
 
-export function Compose({value, onChange, onSubmit, onSample, onShot, busy}: {
+export function Compose({value, onChange, onSubmit, onSample, onShot, busy, openDraft}: {
   value: ComposeValue;
   onChange: (v: ComposeValue) => void;
   onSubmit: () => void;
   onSample: (s: Sample) => void;
   onShot: (s: SampleShot) => void;
   busy: boolean;
+  openDraft?: boolean;   // arrived from the result's "My own draft": the draft field is what they came for
 }) {
-  const [showDraft, setShowDraft] = useState(!!value.draft);
+  const [showDraft, setShowDraft] = useState(!!value.draft || !!openDraft);
   const [imgErr, setImgErr] = useState('');
   const [drag, setDrag] = useState(false);
   const [typing, setTyping] = useState(false);

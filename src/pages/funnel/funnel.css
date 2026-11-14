@@ -100,12 +100,9 @@
 .fn-flags li::before { content: ""; position: absolute; left: 0; top: 7px; width: 7px; height: 7px; border-radius: 50%; background: var(--warn); }
 .fn-flags.ok li::before { background: var(--ok); }
 .fn-flags b { color: var(--ink); font-size: 14px; }
-.fn-score { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; margin-bottom: 18px; font-weight: 700; font-size: 13px; color: var(--mute); }
-.fn-score > i { height: 8px; border-radius: 9px; background: var(--line); overflow: hidden; }
-.fn-score > i > i { display: block; height: 100%; border-radius: 9px; background: var(--ok); animation: fnGrow .7s ease both; transform-origin: left; }
-.fn-score.bad > i > i { background: var(--warn); }
-.fn-score b { font-size: 22px; color: var(--ok); letter-spacing: -.02em; }
-.fn-score.bad b { color: var(--warn); }
+.fn-score { display: flex; align-items: center; gap: 9px; margin: 0 0 18px; font: 800 15px/1.3 var(--font); color: var(--ok); }
+.fn-score > i { width: 10px; height: 10px; border-radius: 50%; background: currentColor; flex: none; }
+.fn-score.bad { color: var(--warn); }
 @keyframes fnGrow { from { transform: scaleX(0); } }
 
 /* why not chatgpt */

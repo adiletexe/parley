@@ -95,7 +95,7 @@ export default function Landing() {
             <div className="fn-peek-reply">
               <div className="fn-peek-tabs"><span className="on">Brief</span><span>Neutral</span><span>Firm</span></div>
               <p>{REPLY}</p>
-              <div className="fn-peek-foot"><span className="chip chip-ok">Court-safety 94</span><span className="fn-peek-w">{REPLY_WORDS} words</span></div>
+              <div className="fn-peek-foot"><span className="chip chip-ok">A judge would read this well</span><span className="fn-peek-w">{REPLY_WORDS} words</span></div>
             </div>
           </div>
         </div>
@@ -160,13 +160,13 @@ export default function Landing() {
               <div className="fn-ex-body fade-in" key="d">
                 <p className="fn-draft">{DRAFT_PARTS.map((p, i) => p.flag ? <mark key={i} title={p.flag}>{p.t}</mark> : <span key={i}>{p.t}</span>)}</p>
                 <ul className="fn-flags">{DRAFT_PARTS.filter((p) => p.flag).map((p) => <li key={p.t}><b>"{p.t}"</b>{p.flag}</li>)}</ul>
-                <Score n={28} bad />
+                <JudgeRead bad />
               </div>
             ) : (
               <div className="fn-ex-body fade-in" key="p">
                 <p className="fn-draft good">{REPLY}</p>
                 <ul className="fn-flags ok"><li><b>{REPLY_WORDS} words</b>Brief, plain, sounds like a person.</li><li><b>One clear ask, one date</b>Firm without a threat.</li><li><b>No history, no labels</b>Nothing to argue with.</li></ul>
-                <Score n={94} />
+                <JudgeRead />
               </div>
             )}
             <Link to="/quiz" className="btn btn-primary btn-block" onClick={() => toQuiz('example')}>Get replies like this</Link>
@@ -281,12 +281,7 @@ export default function Landing() {
   );
 }
 
-function Score({n, bad}: {n: number; bad?: boolean}) {
-  return (
-    <div className={'fn-score' + (bad ? ' bad' : '')}>
-      <span>Court-safety</span>
-      <i><i style={{width: `${n}%`}} /></i>
-      <b>{n}</b>
-    </div>
-  );
+/** The judge's read in words, the way the app gives it. No numbers: the founder's rule. */
+function JudgeRead({bad}: {bad?: boolean}) {
+  return <p className={'fn-score' + (bad ? ' bad' : '')}><i aria-hidden="true" />{bad ? 'A judge would read this badly' : 'A judge would read this well'}</p>;
 }

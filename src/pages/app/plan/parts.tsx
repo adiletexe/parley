@@ -1,16 +1,15 @@
-/* Small pieces of the Practice page: the score badge, the reminder sheet,
+/* Small pieces of the Practice page: the judge's verdict, the reminder sheet,
    the renewal note and the demo clock menu. */
 import {useEffect, useRef, useState, type RefObject} from 'react';
 import {Link} from 'react-router-dom';
 import {Icon} from '../../../components/Icon';
 import {api, track} from '../../../lib/api';
+import {VERDICT_TEXT, VERDICT_TONE, type Verdict} from '../../../lib/verdict';
 import type {PlanView} from '../../../../server/plan-content';
 
-export const scoreTone = (s: number) => (s >= 80 ? 'ok' : s >= 60 ? 'amber' : 'warn');
-export const scoreWord = (s: number) => (s >= 80 ? 'Court-safe' : s >= 60 ? 'Getting there' : 'A judge would wince');
-
-export function Score({value, size = 'lg'}: {value: number; size?: 'lg' | 'sm'}) {
-  return <span className={`pl-score pl-score-${size} pl-${scoreTone(value)}`}>{value}</span>;
+/** The judge's read of a draft as one coloured line: a dot, then the words. Never a number. */
+export function VerdictLine({v}: {v: Verdict}) {
+  return <b className={`pl-verdict pl-tone-${VERDICT_TONE[v]}`}><i aria-hidden="true" />{VERDICT_TEXT[v]}</b>;
 }
 
 /** "Remind me daily": a calendar button in the top bar that opens a small sheet with the time and the .ics link. */

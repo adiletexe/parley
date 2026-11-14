@@ -113,7 +113,7 @@ export default function Settings() {
             <b id="bl-del-t">Delete everything for good?</b>
             <ul>
               <li>Every reply, journal entry, incident and timeline is removed.</li>
-              <li>Your 28-day plan progress and drill scores are removed.</li>
+              <li>Your 28-day plan progress and drill answers are removed.</li>
               {st?.state === 'active' && <li>Your plan ends now and never renews.</li>}
               <li>Download your data first if you might need it for court.</li>
             </ul>

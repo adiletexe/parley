@@ -1,6 +1,6 @@
-/* /app/plan (tab "Practice"). Home: a path of the 28 days in four week sections — done days green with their
-   score, today big with "Start · 2 min", missed days to catch up, later days locked. The session: five messages,
-   tap the reply you'd send. The end: the score, one word, the streak; back home today's node has turned green.
+/* /app/plan (tab "Practice"). Home: a path of the 28 days in four week sections: done days green and marked
+   "Done", today big with "Start · 2 min", missed days to catch up, later days locked. The session: five messages,
+   tap the reply you'd send. The end: a verdict in words, never a number, and the streak; back home today's node has turned green.
    Writing your own reply is a bonus after that, never the page. Demo people get a small "Demo clock" pill. */
 import {useCallback, useEffect, useState} from 'react';
 import {Icon} from '../../components/Icon';
@@ -87,7 +87,7 @@ export default function Plan() {
           <End result={mode.result} picks={mode.picks} streakBefore={mode.streakBefore}
             hasBonus={!!view.drill && mode.session.day === view.day}
             bonusOpen={bonus} onBonus={() => { setBonus(true); track('plan_bonus_open', {day: view.day}); }}
-            doneLabel={mode.session.day === view.day ? 'Done — see you tomorrow' : 'Back to my path'}
+            doneLabel={mode.session.day === view.day ? 'Done, see you tomorrow' : 'Back to my path'}
             onDone={() => home(mode.session.day)} />
           {bonusCard}
         </>

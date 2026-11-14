@@ -74,9 +74,9 @@ export default function Pricing() {
           <h2 className="bl-h2">What you <span className="gt">get</span></h2>
           <div className="bl-rows">
             <Row icon="reply" title="Unlimited calm replies" sub="Paste their message, get a brief, neutral or firm reply in seconds — BIFF, child-focused, no bait taken." />
-            <Row icon="judge-lens" title="The judge's lens on every draft" sub="Risky phrases underlined before you send, with why and a safer wording, and a court-safety score." />
+            <Row icon="judge-lens" title="The judge's lens on every draft" sub="Risky phrases underlined before you send, with why and a safer wording, and how a judge would read it." />
             <Row icon="record" title="A dated record and a court-ready PDF" sub="Every exchange and incident on a private timeline, exported with exhibit numbers for your lawyer." />
-            <Row icon="path" title="All 28 days of the calm plan" sub="A 2-minute lesson and a real drill each day — write, get graded, try again, and watch the score climb." />
+            <Row icon="path" title="All 28 days of the calm plan" sub="A 2-minute lesson and a real drill each day: write it, see how a judge would read it, try again." />
           </div>
         </section>
 

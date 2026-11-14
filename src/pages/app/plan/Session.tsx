@@ -7,6 +7,7 @@ import {useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState} from
 import {Icon} from '../../../components/Icon';
 import {api, track} from '../../../lib/api';
 import type {SessionResult, SessionView} from '../../../../server/plan-content';
+import {VERDICT_TONE, type Verdict} from '../../../lib/verdict';
 
 export type Pick = {id: string; picked: number; good: boolean};
 
@@ -190,31 +191,34 @@ export function Session({session, onExit, onDone}: {
   );
 }
 
-const VERDICT = (c: number, t: number) => (c >= t ? 'Flawless' : c === t - 1 ? 'Calm' : c === t - 2 ? 'Getting there' : 'Tricky one');
+/* The end says how it went in words: a headline and the judge's read of the picks. The count of right picks only
+   chooses the words, it is never shown (the founder's rule: no scores in the app). */
+const HEADLINE = (c: number, t: number) => (c >= t ? 'Calm all the way' : c === t - 1 ? 'Mostly calm' : c === t - 2 ? 'Getting there' : 'A tricky one');
+const READ = (c: number, t: number): Verdict => (c >= t - 1 ? 'good' : c === t - 2 ? 'risky' : 'bad');
+const READ_TEXT: Record<Verdict, string> = {
+  good: 'A judge would read your replies well',
+  risky: 'A judge might read some of these badly',
+  bad: 'A judge would read most of these badly',
+};
 
-export function End({result, picks, streakBefore, onBonus, bonusOpen, hasBonus, onDone, doneLabel = 'Done — see you tomorrow'}: {
+export function End({result, picks, onBonus, bonusOpen, hasBonus, onDone, doneLabel = 'Done, see you tomorrow'}: {
   result: SessionResult; picks: Pick[]; streakBefore: number; onBonus: () => void; bonusOpen: boolean; hasBonus: boolean; onDone: () => void;
   doneLabel?: string;
 }) {
   const t = result.skillTrend;
   const lastPt = t[t.length - 1], prevPt = t[t.length - 2];
-  const delta = result.firstTimeToday && lastPt && prevPt ? lastPt.pct - prevPt.pct : null;
-  const up = result.streak > streakBefore;
-  const verdict = VERDICT(result.correct, result.total);
+  const better = !!(result.firstTimeToday && lastPt && prevPt && lastPt.pct > prevPt.pct);
+  const read = READ(result.correct, result.total);
   return (
     <section className="card pl-end fade-in" aria-label="Session result">
       <Dots total={result.total} picks={picks} />
-      <p className="pl-end-n"><b>{result.correct}</b><span> / {result.total}</span></p>
-      <h2 className={'pl-end-v' + (result.correct >= result.total - 1 ? ' gt' : '')}>{verdict}</h2>
+      <h2 className={'pl-end-v' + (read === 'good' ? ' gt' : '')}>{HEADLINE(result.correct, result.total)}</h2>
+      <b className={`pl-verdict pl-tone-${VERDICT_TONE[read]}`}><i aria-hidden="true" />{READ_TEXT[read]}</b>
       <div className="pl-end-chips">
-        {delta ? (
-          <span className={'chip ' + (delta >= 0 ? 'chip-ok' : 'chip-warn')}>{delta >= 0 ? '+' : '−'}{Math.abs(delta)}% {result.skill}</span>
-        ) : (
-          <span className="chip">{result.skill} · {lastPt?.pct ?? Math.round((result.correct / result.total) * 100)}%</span>
-        )}
-        <span className="chip chip-ok pl-streak"><Icon id="flame" size={20} />{result.streak} day{result.streak === 1 ? '' : 's'}{up ? ' · +1' : ''}</span>
+        <span className={'chip' + (better ? ' chip-ok' : '')}>{result.skill}{better ? ' · better than last time' : ''}</span>
+        <span className="chip chip-ok pl-streak"><Icon id="flame" size={20} />{result.streak}-day streak</span>
       </div>
-      {!result.firstTimeToday && <p className="pl-mute pl-small">Practice round. The day's first score stays on your line.</p>}
+      {!result.firstTimeToday && <p className="pl-mute pl-small">Practice round. Your first try today is the one that stays on your path.</p>}
       <div className="pl-end-b">
         <button className="btn btn-primary btn-lg" onClick={onDone}>{doneLabel}</button>
         {hasBonus && !bonusOpen && <button className="btn btn-ghost" onClick={onBonus}><Icon id="pencil" size={22} />Bonus: write your own reply</button>}

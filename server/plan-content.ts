@@ -582,7 +582,7 @@ export const LESSONS: Lesson[] = [
   L({day: 28, week: 4, title: 'Your playbook', skill: 'Everything together', minutes: 3,
     read: [
       'Four weeks: brief, factual, friendly, firm. Spot the hook, gray rock, one topic, no history. Boundaries, dates, the plan as referee, kids out of the middle. Confirmations, precise details, receipts, a record that speaks for you.',
-      'Today\'s drill is the hardest kind of message. Compare your score with your day-1 drill. That difference is the skill you built.',
+      'Today\'s drill is the hardest kind of message. Compare how a judge reads it with your day-1 drill. That difference is the skill you built.',
       'Keep going: every message from here is practice, and every calm reply is one more page of a record you will be glad to have.',
     ],
     example: {

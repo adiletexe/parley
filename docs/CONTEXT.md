@@ -92,7 +92,7 @@ There are three tabs.
   - "They need an answer about…".
   - Three tones: Brief, Neutral, Firm.
   - An editable reply bubble and a Copy button. Copying saves both messages to the record.
-- **Judge's lens:** add your own draft to see every risky phrase underlined, why a judge would read it badly, what to say instead, and a score from your draft to ours (e.g. 21 → 98).
+- **Judge's lens:** add your own draft to see every risky phrase underlined, why a judge would read it badly, what to say instead, and a verdict in words (good / risky / bad). No numeric score is shown anywhere in the app.
 - **No free tier:** without an active plan every paid call returns 402 and the app shows a locked card that leads to /pricing. The demo case is the exception.
 
 ### Record (`/app/record`)

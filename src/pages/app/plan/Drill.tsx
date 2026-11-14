@@ -4,7 +4,8 @@ import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {api, ApiError} from '../../../lib/api';
 import type {DrillAttempt, PlanView} from '../../../../server/plan-content';
-import {Score, scoreTone, scoreWord} from './parts';
+import {judge, RANK} from '../../../lib/verdict';
+import {VerdictLine} from './parts';
 import {Burst, bubblesOf} from './Session';
 
 type Drill = NonNullable<PlanView['drill']>;
@@ -17,7 +18,9 @@ export function BonusDrill({day, drill}: {day: number; drill: Drill}) {
   useEffect(() => { setTries([]); setDraft(''); setErr(null); }, [day]);
 
   const last = tries[tries.length - 1];
-  const first = tries[0];
+  const lastV = last ? judge(last.score, last.lens) : null;
+  // Said in words when a retry reads better than the first try; no "first → best" numbers.
+  const better = !!lastV && tries.length > 1 && RANK[lastV] > RANK[judge(tries[0].score, tries[0].lens)];
 
   async function check() {
     const text = draft.trim();
@@ -40,15 +43,14 @@ export function BonusDrill({day, drill}: {day: number; drill: Drill}) {
       {last && (
         <div className="pl-result fade-in" key={last.id}>
           <div className="pl-result-top">
-            <Score value={last.score} />
-            <b className={`pl-tone-${scoreTone(last.score)}`}>{scoreWord(last.score)}</b>
-            {tries.length > 1 && last.score > first.score && <span className="pl-gain"><span>{first.score}</span><i>→</i><b>{last.score}</b></span>}
+            <VerdictLine v={lastV!} />
+            {better && <span className="pl-gain">Better than your first try</span>}
           </div>
           <p className="pl-yours">{last.draft}</p>
           {last.lens.filter((f) => f.severity !== 'good').length > 0 && (
             <ul className="pl-flags">
               {last.lens.filter((f) => f.severity !== 'good').map((f, i) => (
-                <li key={i}><b>“{f.phrase}”</b><span>{f.issue}{f.fix ? ` · ${f.fix}` : ''}</span></li>
+                <li key={i}><b>“{f.phrase}”</b><span>{f.issue}. {f.why}</span>{f.fix && <span className="pl-fix"><em>Instead:</em> {f.fix}</span>}</li>
               ))}
             </ul>
           )}

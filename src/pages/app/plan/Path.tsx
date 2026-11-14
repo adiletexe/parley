@@ -1,5 +1,5 @@
 /* The Practice home: four weeks as a path of days, Duolingo-shaped but quieter. Each week opens with a tinted
-   banner (its skill and %, or seven dots when folded); the days sit on a gentle sine with a dotted line between
+   banner (its skill in a word, or seven dots when folded; never a %); the days sit on a gentle sine with a dotted line between
    them. A node tells its state by shape and colour before anyone reads it: green check = done, big gradient with
    a bubble = today, grey outline = missed (tap to catch up), grey lock = later, lilac lock = needs a plan (unreachable now: the shell locks the whole page without one).
    Positions are computed here, not by CSS, so the line and the nodes are drawn from the same numbers. */
@@ -14,6 +14,11 @@ const BUBBLE = 40;     // extra room above today for its "Start · 2 min" bubble
 const WEEK_ICON: Record<number, IconId> = {1: 'brief', 2: 'no-bait', 3: 'boundary', 4: 'timeline'};
 
 const reduced = () => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/** A week's first tries in a word. The % stays on the server; the founder's rule is no scores on screen. */
+const weekWord = (pct: number) => (pct >= 80 ? 'Going well' : pct >= 60 ? 'Getting there' : 'Keep at it');
+/** A done day's picks in words, not "4 of 5 right". */
+const dayWord = (c: number, t: number) => (c >= t ? 'All calm picks' : c >= t - 1 ? 'Mostly calm picks' : 'Worth another go');
 
 export type PathAct = {k: 'start'} | {k: 'day'; day: number} | {k: 'bonus'};
 
@@ -73,10 +78,7 @@ export function PathHome({view, onAct, celebrate, hasBonus}: {
                   </span>
                 )}
               </span>
-              <span className="pl-banner-pct" title={skill?.practised ? `First tries on ${skill.practised} day${skill.practised === 1 ? '' : 's'}` : 'Not started'}>
-                <b>{skill?.pct != null ? `${skill.pct}%` : '—'}</b>
-                <small>skill</small>
-              </span>
+              <span className="pl-banner-v">{skill?.pct != null ? weekWord(skill.pct) : ''}</span>
               <i className="pl-chev" aria-hidden="true">›</i>
             </button>
             {isOpen && (
@@ -152,13 +154,12 @@ function Node({d, size, big, x, y, w, today, now, tipOpen, setTip, onAct, pop, h
   tipOpen: boolean; setTip: (d: number | null) => void; onAct: (a: PathAct) => void; pop: boolean; hasBonus: boolean;
 }) {
   const isToday = d.day === today;
-  const score = d.correct != null ? `${d.correct}/${d.total}` : '';
-  const label = d.state === 'done' ? `Day ${d.day} · ${score}`
+  const label = d.state === 'done' ? `Day ${d.day} · Done`
     : d.state === 'today' ? `Day ${d.day} · today`
     : d.state === 'missed' ? `Day ${d.day} · catch up`
     : d.state === 'paywall' ? 'With a plan'
     : `Day ${d.day}`;
-  const aria = d.state === 'done' ? `Day ${d.day}, done, ${d.correct} of ${d.total} right`
+  const aria = d.state === 'done' ? `Day ${d.day}, done`
     : d.state === 'today' ? `Day ${d.day}, today. Start the 2-minute session`
     : d.state === 'missed' ? `Day ${d.day}, missed. Catch up`
     : d.state === 'paywall' ? `Day ${d.day}, with a plan`
@@ -199,7 +200,7 @@ function Node({d, size, big, x, y, w, today, now, tipOpen, setTip, onAct, pop, h
           <b>Day {d.day} · {d.title}</b>
           {d.state === 'done' && (
             <>
-              <span className="pl-tip-score"><Check />{d.correct} of {d.total} right{d.rounds > 1 ? ` · best of ${d.rounds}` : ''}</span>
+              <span className="pl-tip-score"><Check />{d.correct != null ? dayWord(d.correct, d.total ?? 5) : 'Done'}</span>
               <button className="btn btn-primary" onClick={() => { setTip(null); onAct(isToday ? {k: 'start'} : {k: 'day', day: d.day}); }}>Practice again</button>
               {isToday && hasBonus && <button className="btn btn-ghost" onClick={() => { setTip(null); onAct({k: 'bonus'}); }}><Icon id="pencil" size={22} />Write your own reply</button>}
             </>

@@ -25,8 +25,6 @@ export function Highlighted({text, flags}: {text: string; flags: LensFlag[]}) {
   return <p className="rc-hl-text">{out}</p>;
 }
 
-export function tone(score: number) { return score >= 85 ? 'ok' : score >= 60 ? 'amber' : 'warn'; }
-
 /** The draft with its flags: inline underlines, then the list with why and what to say instead. Shown inside the
     result's collapsed "Your draft" row, so it carries no card or header of its own. */
 export function Lens({draft, flags}: {draft: string; flags: LensFlag[]}) {

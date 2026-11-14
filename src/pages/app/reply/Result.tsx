@@ -8,7 +8,8 @@ import type {Analysis, Channel} from '../../../../shared/types';
 import {CHANNEL_LABEL} from '../../../components/ChannelIcon';
 import {api, track} from '../../../lib/api';
 import {useMe} from '../../../lib/me';
-import {Highlighted, Lens, tone} from './Lens';
+import {judge, VERDICT_TEXT, VERDICT_TONE} from '../../../lib/verdict';
+import {Highlighted, Lens} from './Lens';
 
 export type AnalysisView = Analysis & {logged?: {exchange: boolean; incident: boolean}};
 type Variant = 'brief' | 'neutral' | 'firm';
@@ -153,9 +154,10 @@ export function Result({a, channel, onUpdate, onDraft}: {a: AnalysisView; channe
   const lastTime = a.bubbleTimes?.[bubbles.length - 1] || '';
   const who = sender(me?.quiz, !!me?.demo);
 
-  const risky = a.lens.filter((f) => f.severity !== 'good').length;
   const hasDraft = !!a.draft && a.draftScore !== undefined;
   const saved = savedAt || a.logged?.exchange;
+  // The draft's score stays on the server's side of the screen: the person gets the judge's word for it.
+  const dv = hasDraft ? judge(a.draftScore!, a.lens) : null;
 
   return (
     <div className="rc-result">
@@ -174,11 +176,7 @@ export function Result({a, channel, onUpdate, onDraft}: {a: AnalysisView; channe
         <section className={'card rc-drafted' + (lensOpen ? ' open' : '')}>
           <button className="rc-drafted-row" aria-expanded={lensOpen} onClick={() => { setLensOpen(!lensOpen); if (!lensOpen) track('reply_lens_open'); }}>
             <span className="rc-drafted-h">Your draft</span>
-            <span className="rc-drafted-n">
-              <b className={'rc-' + tone(a.draftScore!)}>{a.draftScore}</b>
-              {a.replyScore !== undefined && <> → <b className={'rc-' + tone(a.replyScore)}>{a.replyScore}</b></>}
-            </span>
-            <span className="rc-drafted-s">{risky > 0 ? `${risky} phrase${risky === 1 ? '' : 's'} a judge would read badly` : 'Nothing a judge would hold against you'}</span>
+            {dv && <span className={'rc-drafted-s rc-' + VERDICT_TONE[dv]}><i aria-hidden="true" />{VERDICT_TEXT[dv]}</span>}
             <i className="rc-chev" aria-hidden="true" />
           </button>
           {lensOpen && <Lens draft={a.draft!} flags={a.lens} />}

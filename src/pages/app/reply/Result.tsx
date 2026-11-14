@@ -29,9 +29,11 @@ function verdict(a: Analysis, tab: Variant, text: string, edited: boolean): {ok:
   if (edited && words(text) > 90) return {ok: false, text: 'Long replies read as arguing. A judge prefers short'};
   const score = a.replyScore ?? 90;
   if (score < 70) return {ok: false, text: 'A judge might still read this as tense. Brief is the safest'};
-  if (a.advice === 'no_reply') return {ok: true, text: "No reply needed. If you send one, a judge would read this as calm"};
-  if (tab === 'firm') return {ok: true, text: 'A judge would read this as calm, firm and child-focused'};
-  return {ok: true, text: 'A judge would read this as calm and child-focused'};
+  // A friendly message isn't a court moment: say it plainly instead of invoking a judge.
+  if (a.heat < 25) return {ok: true, text: 'Friendly and easy. Good to send'};
+  if (a.advice === 'no_reply') return {ok: true, text: "You don't have to answer. If you do, this reads calm"};
+  if (tab === 'firm') return {ok: true, text: 'Calm and firm. A judge would read it well'};
+  return {ok: true, text: 'Calm and about the kids. A judge would read it well'};
 }
 
 /** The model writes asks as instructions ("Respond to refusal to split soccer cost") or questions. After "They need
@@ -114,7 +116,7 @@ export function Result({a, channel, onUpdate}: {a: AnalysisView; channel: Channe
       <p className="rc-asks">
         {a.asks.length > 0
           ? <>They need an answer about: <b>{a.asks.map(askCase).join(' · ')}</b></>
-          : <>Nothing here needs an answer. {a.adviceWhy}</>}
+          : <>{a.adviceWhy}</>}
       </p>
 
       <section className="card rc-replycard fade-in">

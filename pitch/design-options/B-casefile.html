@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Parley — Case file</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="iphone.css">
+<style>
+  :root {
+    --paper: #ede5d4;
+    --sheet: #faf7f0;
+    --ink: #1e1b16;
+    --mute: #7b7262;
+    --rule: #c8bca4;
+    --red: #b5302a;
+    --display: "Libre Caslon Display", "Libre Caslon Text", Georgia, serif;
+    --serif: "Libre Caslon Text", Georgia, serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #cfc6b3; color: var(--ink); -webkit-font-smoothing: antialiased; font-family: var(--serif); }
+  .slide {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden; margin: 0 auto 40px;
+    background:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35  0 0 0 0 .28  0 0 0 0 .18  0 0 0 .07 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),
+      var(--paper);
+  }
+  /* pleading paper: numbered lines in the gutter and the double rule beside them */
+  .gutter {
+    position: absolute; left: 0; top: 0; bottom: 0; width: 112px;
+    border-right: 1px solid var(--rule);
+    font: 400 13px/1 var(--mono); color: #a99d86;
+    padding-top: 150px;
+  }
+  .gutter::after { content: ""; position: absolute; right: 4px; top: 0; bottom: 0; border-right: 1px solid var(--rule); }
+  .gutter span { display: block; height: 30px; text-align: right; padding-right: 22px; }
+  .meta {
+    position: absolute; left: 172px; right: 96px; top: 56px; height: 40px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+    font: 500 15px/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--mute);
+    border-bottom: 1px solid var(--ink);
+  }
+  .meta b { color: var(--ink); font-weight: 500; }
+  .foot {
+    position: absolute; left: 172px; right: 96px; bottom: 44px;
+    display: flex; justify-content: space-between;
+    font: 400 13px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--mute);
+  }
+  .tag { font: 500 15px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--mute); }
+  .tag b { color: var(--red); font-weight: 500; }
+  .pen { position: absolute; overflow: visible; pointer-events: none; }
+  .pen path { fill: none; stroke: var(--red); stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; opacity: .92; }
+
+  /* ---------- 1. cover ---------- */
+  .cover h1 {
+    position: absolute; left: 172px; top: 210px; width: 880px;
+    font-family: var(--display); font-weight: 400; font-size: 104px; line-height: 1.02; letter-spacing: -.01em;
+  }
+  .cover .sub {
+    position: absolute; left: 172px; top: 690px; width: 820px;
+    font-family: var(--serif); font-style: italic; font-size: 44px; line-height: 1.2;
+  }
+  .cover .sub span { position: relative; white-space: nowrap; }
+  .cover .who {
+    position: absolute; left: 172px; bottom: 112px; width: 760px;
+    font: 400 16px/1.6 var(--mono); color: var(--mute); letter-spacing: .02em;
+  }
+  .cover .who b { color: var(--ink); font-weight: 500; }
+
+  .sheet {
+    position: absolute; left: 1150px; top: 170px; width: 620px; height: 770px;
+    background: var(--sheet);
+    transform: rotate(1.6deg);
+    box-shadow: 0 1px 1px rgba(60,45,20,.12), 0 14px 30px -10px rgba(60,45,20,.28), 0 40px 70px -40px rgba(60,45,20,.30);
+    padding: 44px 48px;
+  }
+  .sheet .shead { display: flex; justify-content: space-between; font: 400 13px/1.4 var(--mono); color: #8c8473; letter-spacing: .05em; text-transform: uppercase; border-bottom: 1px solid #ddd5c4; padding-bottom: 14px; }
+  .thread { margin-top: 34px; display: flex; flex-direction: column; gap: 12px; font-family: "Inter", sans-serif; font-size: 24px; line-height: 1.42; }
+  .stamp-time { align-self: center; font: 400 13px/1 var(--mono); color: #8c8473; letter-spacing: .05em; margin: 8px 0 6px; }
+  .b { max-width: 430px; padding: 14px 20px; border-radius: 22px; position: relative; }
+  .b.them { align-self: flex-start; background: #e6e2da; color: #24221d; }
+  .b.me { align-self: flex-end; background: #3d3a35; color: #f7f4ee; max-width: 524px; }
+  .b .hl { position: relative; display: inline-block; white-space: nowrap; }
+  .sender { font: 400 13px/1 var(--mono); color: #8c8473; letter-spacing: .05em; text-transform: uppercase; }
+  .sender.r { align-self: flex-end; margin-top: 10px; }
+  .sheet .sfoot { position: absolute; left: 48px; right: 48px; bottom: 34px; font: 400 13px/1.4 var(--mono); color: #8c8473; letter-spacing: .05em; text-transform: uppercase; display: flex; justify-content: space-between; }
+
+  /* exhibit sticker: the white label with the coloured band every courtroom uses */
+  .exhibit {
+    position: absolute; width: 168px; background: #fff; text-align: center;
+    box-shadow: 0 1px 2px rgba(0,0,0,.18);
+    transform: rotate(-3deg);
+  }
+  .exhibit .band { background: var(--red); color: #fff; font: 500 15px/1 var(--mono); letter-spacing: .32em; padding: 9px 0 8px 6px; }
+  .exhibit .id { font-family: var(--display); font-size: 58px; line-height: 1; padding: 12px 0 10px; color: var(--ink); }
+  .exhibit .id small { display: block; font: 400 11px/1 var(--mono); letter-spacing: .1em; color: var(--mute); margin-top: 8px; }
+
+  /* ---------- 2. product ---------- */
+  .product .text { position: absolute; left: 172px; top: 150px; width: 700px; }
+  .product h2 { font-family: var(--display); font-weight: 400; font-size: 84px; line-height: 1.04; margin-top: 30px; }
+  .brief { margin-top: 56px; display: grid; gap: 30px; }
+  .brief p { display: grid; grid-template-columns: 60px 1fr; font-size: 23px; line-height: 1.5; }
+  .brief p .no { font: 500 17px/2 var(--mono); color: var(--mute); }
+  .brief p b { font-weight: 700; }
+  .phones { position: absolute; left: 980px; top: 140px; display: flex; gap: 76px; }
+  .ph { position: relative; }
+  .ph .iphone { --shadow: 0 1px 2px rgba(60,45,20,.14), 0 18px 34px -12px rgba(60,45,20,.32), 0 46px 70px -40px rgba(60,45,20,.35); }
+  .ph .lab { margin-top: 26px; display: flex; gap: 14px; align-items: baseline; font: 500 14px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--mute); border-top: 1px solid var(--rule); padding-top: 14px; }
+  .ph .lab b { color: var(--red); font-weight: 500; }
+
+  /* ---------- 3. numbers ---------- */
+  .numbers .text { position: absolute; left: 172px; top: 150px; width: 1100px; }
+  .numbers h2 { font-family: var(--display); font-weight: 400; font-size: 76px; line-height: 1.05; margin-top: 28px; }
+  .ledger { position: absolute; left: 172px; top: 470px; width: 900px; font-family: var(--mono); }
+  .ledger .hd, .ledger .r { display: grid; grid-template-columns: 300px 1fr 130px 110px; align-items: center; }
+  .ledger .hd { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--mute); padding-bottom: 12px; border-bottom: 1px solid var(--ink); }
+  .ledger .r { height: 84px; border-bottom: 1px solid var(--rule); font-size: 18px; }
+  .ledger .r .bar i { display: block; height: 18px; background: repeating-linear-gradient(135deg, var(--ink) 0 2px, transparent 2px 6px); border: 1px solid var(--ink); }
+  .ledger .r.paid .bar i { background: var(--ink); }
+  .ledger .num { text-align: right; font-family: var(--serif); font-size: 32px; }
+  .ledger .pct { text-align: right; color: var(--mute); font-size: 16px; }
+  .finding { position: absolute; left: 1200px; top: 470px; width: 600px; }
+  .finding .row { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--rule); padding: 18px 0; font-family: var(--mono); font-size: 16px; letter-spacing: .06em; text-transform: uppercase; color: var(--mute); }
+  .finding .row span:last-child { font-family: var(--serif); font-size: 44px; letter-spacing: 0; text-transform: none; color: var(--ink); }
+  .finding .ratio { position: relative; margin-top: 40px; display: flex; align-items: baseline; gap: 28px; }
+  .finding .ratio b { position: relative; font-family: var(--display); font-weight: 400; font-size: 168px; line-height: 1; }
+  .finding .ratio span { font: 500 16px/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--mute); }
+  .rubber {
+    position: absolute; right: 120px; top: 168px;
+    border: 3px solid var(--red); outline: 1px solid var(--red); outline-offset: 4px;
+    color: var(--red); padding: 12px 20px 10px; transform: rotate(-5deg);
+    font: 500 22px/1.25 var(--mono); letter-spacing: .14em; text-transform: uppercase; text-align: center;
+    opacity: .82;
+    -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='.55' numOctaves='2'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.2 1.75'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+  .rubber small { display: block; font-size: 13px; letter-spacing: .1em; margin-top: 4px; }
+  .note { position: absolute; left: 172px; bottom: 96px; width: 1650px; font: 400 14px/1.6 var(--mono); color: var(--mute); letter-spacing: .02em; }
+</style>
+</head>
+<body>
+
+<!-- 1 · cover -->
+<section class="slide cover">
+  <div class="gutter"></div>
+  <div class="meta"><span><b>Parley</b> · Case file</span><span>Business Cup 2.0 · Skills track</span><span>Doc. 01</span></div>
+  <h1>Every text to your <span style="white-space:nowrap">co-parent</span> can end up in court.</h1>
+  <p class="sub">Parley makes sure it <span>helps you.<svg class="pen" style="left:-6px; bottom:-14px; width:212px; height:16px" viewBox="0 0 212 16" preserveAspectRatio="none"><path d="M3 9 C 50 4, 110 12, 160 7 S 205 5, 209 8"/></svg></span></p>
+  <p class="who"><b>An AI coach for US parents raising kids in two homes.</b><br>Calm replies · a dated record for the lawyer · 2 minutes of practice a day<br>parley.adiletfndr.com — no sign-up</p>
+
+  <div class="sheet">
+    <div class="shead"><span>Messages · Dana R. · exported 03/02/2027 · p. 14</span></div>
+    <div class="thread">
+      <span class="stamp-time">Thu, Nov 14 · 9:02 AM</span>
+      <span class="sender">Dana</span>
+      <div class="b them">Soccer camp is $240. Your half is due Friday.</div>
+      <span class="sender r">Sent by you · 9:06 AM</span>
+      <div class="b me">omg here we go. maybe if you weren't<br><span class="hl">blowing money on your new boyfriend<svg class="pen" style="left:-4px; bottom:-8px; width:calc(100% + 8px); height:14px" viewBox="0 0 300 14" preserveAspectRatio="none"><path d="M2 7 C 60 3, 120 11, 180 6 S 270 4, 298 8"/></svg></span><br>you'd have it covered.<br><span class="hl">i'll pay when i feel like it<svg class="pen" style="left:-20px; top:-9px; width:calc(100% + 38px); height:calc(100% + 20px)" viewBox="0 0 300 100" preserveAspectRatio="none"><path d="M44 16 C 120 0, 262 4, 290 38 C 306 70, 226 96, 146 95 C 64 94, 6 80, 10 52 C 13 28, 62 10, 128 8"/></svg></span></div>
+      <span class="sender">Dana · 9:11 AM</span>
+      <div class="b them">Noted. Forwarding this to my attorney.</div>
+    </div>
+    <div class="sfoot"><span>Case 24-FL-0193</span><span>Filed with motion to modify</span></div>
+    <div class="exhibit" style="right:-40px; top:-34px; transform:rotate(4deg)"><div class="band">EXHIBIT</div><div class="id">E-12<small>Respondent</small></div></div>
+  </div>
+  <div class="foot"><span>Parley — pitch</span><span>Illustration: composite case</span></div>
+</section>
+
+<!-- 2 · product -->
+<section class="slide product">
+  <div class="gutter"></div>
+  <div class="meta"><span><b>Parley</b> · Case file</span><span>Exhibits P-1, P-2 · The product</span><span>Doc. 04</span></div>
+  <div class="text">
+    <div class="tag"><b>§ 4</b>&ensp;How it works</div>
+    <h2>Before it is evidence, it is a draft.</h2>
+    <div class="brief">
+      <p><span class="no">1.</span><span><b>Reply.</b> Paste what they sent. Parley writes one calm answer about the kids — brief, neutral or firm — and saves both messages to the record.</span></p>
+      <p><span class="no">2.</span><span><b>Lens.</b> Check your own draft first. Every phrase a judge would read badly is marked, with what to write instead.</span></p>
+      <p><span class="no">3.</span><span><b>Record.</b> The dated log becomes one PDF for the lawyer.</span></p>
+    </div>
+  </div>
+  <div class="phones">
+    <div class="ph">
+      <div class="iphone iphone--natural" style="--s:.84; --shift:72" data-shot="../shots/reply-result.png"></div>
+      <div class="lab"><b>P-1</b>Reply · the calm answer</div>
+    </div>
+    <div class="ph">
+      <div class="iphone iphone--natural" style="--s:.84" data-shot="../shots/lens.png"></div>
+      <!-- red pen round the 21 → 98 score, in the phone's own points × .84 -->
+      <svg class="pen" style="left:101px; top:64px; width:72px; height:38px" viewBox="0 0 300 100" preserveAspectRatio="none"><path d="M44 16 C 120 0, 262 4, 290 38 C 306 70, 226 96, 146 95 C 64 94, 6 80, 10 52 C 13 28, 62 10, 128 8"/></svg>
+      <div class="lab"><b>P-2</b>Lens · read like a judge</div>
+    </div>
+  </div>
+  <div class="foot"><span>Parley — pitch</span><span>Screens from the live product</span></div>
+</section>
+
+<!-- 3 · numbers -->
+<section class="slide numbers">
+  <div class="gutter"></div>
+  <div class="meta"><span><b>Parley</b> · Case file</span><span>Schedule A · Unit economics</span><span>Doc. 07</span></div>
+  <div class="text">
+    <div class="tag"><b>§ 7</b>&ensp;Unit economics</div>
+    <h2>What a parent costs to reach,<br>and what a parent is worth.</h2>
+  </div>
+  <div class="rubber">Placeholder<small>Figures not final</small></div>
+
+  <div class="ledger">
+    <div class="hd"><span>Step</span><span>Of 1,000 visitors</span><span style="text-align:right">Count</span><span style="text-align:right">Rate</span></div>
+    <div class="r"><span>Visit from paid social</span><span class="bar"><i style="width:100%"></i></span><span class="num">1,000</span><span class="pct">—</span></div>
+    <div class="r"><span>Try one reply, no sign-up</span><span class="bar"><i style="width:32%"></i></span><span class="num">320</span><span class="pct">32%</span></div>
+    <div class="r"><span>Start a trial</span><span class="bar"><i style="width:6%"></i></span><span class="num">60</span><span class="pct">19%</span></div>
+    <div class="r paid"><span>Pay</span><span class="bar"><i style="width:1.5%"></i></span><span class="num">15</span><span class="pct">25%</span></div>
+  </div>
+
+  <div class="finding">
+    <div class="row"><span>CAC · cost to acquire</span><span>$38</span></div>
+    <div class="row"><span>LTV · $12 × 8 months</span><span>$96</span></div>
+    <div class="ratio"><b>2.5×<svg class="pen" style="left:-26px; top:-6px; width:calc(100% + 52px); height:calc(100% + 18px)" viewBox="0 0 300 100" preserveAspectRatio="none"><path d="M44 16 C 120 0, 262 4, 290 38 C 306 70, 226 96, 146 95 C 64 94, 6 80, 10 52 C 13 28, 62 10, 128 8"/></svg></b><span>LTV / CAC</span></div>
+  </div>
+  <p class="note">CAC = paid-social spend ÷ paying parents ($570 ÷ 15). LTV = $12 a month × 8 months average stay. Every figure on this page is a placeholder until the pilot.</p>
+  <div class="foot"><span>Parley — pitch</span><span>Schedule A</span></div>
+</section>
+
+<script>
+  // pleading-paper line numbers
+  for (const g of document.querySelectorAll('.gutter')) g.innerHTML = Array.from({length: 28}, (_, i) => `<span>${i + 1}</span>`).join('');
+</script>
+<script src="iphone.js"></script>
+</body>
+</html>

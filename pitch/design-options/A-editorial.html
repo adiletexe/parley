@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Parley — Editorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="iphone.css">
+<style>
+  :root {
+    --paper: #f3efe6;
+    --ink: #161513;
+    --mute: #6f6a60;
+    --rule: #cdc6b6;
+    --accent: #3d4fe6;
+    --serif: "Instrument Serif", Georgia, serif;
+    --sans: "Inter Tight", "Helvetica Neue", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #d9d4c9; font-family: var(--sans); color: var(--ink); -webkit-font-smoothing: antialiased; }
+  .slide {
+    position: relative; width: 1920px; height: 1080px; overflow: hidden;
+    background: var(--paper);
+    margin: 0 auto 40px;
+  }
+  /* running head: the same on every page, like a book */
+  .head {
+    position: absolute; left: 120px; right: 120px; top: 64px; height: 44px;
+    display: flex; align-items: flex-start; justify-content: space-between;
+    border-bottom: 1px solid var(--ink);
+    font-size: 17px; letter-spacing: .01em;
+  }
+  .head b { font-family: var(--serif); font-weight: 400; font-size: 30px; line-height: 1; letter-spacing: -.01em; margin-top: -4px; }
+  .head span { color: var(--mute); }
+  .folio {
+    position: absolute; left: 120px; right: 120px; bottom: 56px;
+    display: flex; justify-content: space-between; font-size: 15px; color: var(--mute);
+  }
+  .label { font-size: 17px; font-weight: 500; letter-spacing: .02em; color: var(--mute); }
+  .label em { font-style: normal; color: var(--accent); }
+
+  /* ---------- 1. cover ---------- */
+  .cover h1 {
+    position: absolute; left: 120px; top: 228px; width: 1560px;
+    font-family: var(--serif); font-weight: 400;
+    font-size: 156px; line-height: .96; letter-spacing: -.025em;
+  }
+  .cover h1 i { color: var(--accent); }
+  .cover .colophon {
+    position: absolute; left: 120px; right: 120px; bottom: 120px;
+    display: grid; grid-template-columns: repeat(4, 1fr); column-gap: 40px;
+  }
+  .colophon div { border-top: 1px solid var(--rule); padding-top: 18px; font-size: 21px; line-height: 1.4; }
+  .colophon dt { font-size: 15px; color: var(--mute); letter-spacing: .02em; margin-bottom: 8px; }
+
+  /* ---------- 2. product ---------- */
+  .product .text { position: absolute; left: 120px; top: 190px; width: 700px; }
+  .product h2 {
+    font-family: var(--serif); font-weight: 400; font-size: 96px; line-height: .98; letter-spacing: -.02em;
+    margin-top: 26px;
+  }
+  .product h2 i { color: var(--accent); }
+  .figs { margin-top: 64px; display: grid; gap: 34px; }
+  .fig { display: grid; grid-template-columns: 110px 1fr; border-top: 1px solid var(--rule); padding-top: 18px; }
+  .fig .n { font-family: var(--serif); font-size: 26px; font-style: italic; color: var(--mute); }
+  .fig h3 { font-size: 24px; font-weight: 600; letter-spacing: -.01em; margin-bottom: 6px; }
+  .fig p { font-size: 21px; line-height: 1.42; color: #3b3832; max-width: 500px; }
+  .phones { position: absolute; left: 976px; top: 150px; display: flex; gap: 64px; align-items: flex-start; }
+  .phones .iphone { --shadow: 0 1px 2px rgba(60,45,20,.12), 0 20px 40px -12px rgba(60,45,20,.28), 0 50px 80px -40px rgba(60,45,20,.35); }
+  .cap { position: absolute; font-size: 15px; color: var(--mute); }
+  .cap i { font-family: var(--serif); font-size: 19px; color: var(--ink); margin-right: 6px; }
+
+  /* ---------- 3. numbers ---------- */
+  .numbers h2 {
+    position: absolute; left: 120px; top: 190px; width: 1200px;
+    font-family: var(--serif); font-weight: 400; font-size: 84px; line-height: 1; letter-spacing: -.02em;
+  }
+  .placeholder-note {
+    position: absolute; right: 120px; top: 206px; width: 330px;
+    font-size: 16px; line-height: 1.45; color: var(--ink);
+    border-left: 2px solid var(--accent); padding-left: 16px;
+  }
+  .placeholder-note b { display: block; font-weight: 600; letter-spacing: .02em; color: var(--accent); margin-bottom: 4px; }
+  .funnel { position: absolute; left: 120px; top: 470px; width: 860px; }
+  .funnel .row { display: grid; grid-template-columns: 250px 1fr; align-items: center; height: 92px; border-top: 1px solid var(--rule); }
+  .funnel .row:last-child { border-bottom: 1px solid var(--rule); }
+  .funnel .lab { font-size: 20px; line-height: 1.25; }
+  .funnel .lab small { display: block; font-size: 15px; color: var(--mute); }
+  .funnel .bar { position: relative; height: 92px; display: flex; align-items: center; }
+  .funnel .bar i { display: block; height: 34px; background: var(--ink); }
+  .funnel .bar span { font-family: var(--serif); font-size: 46px; margin-left: 18px; line-height: 1; }
+  .funnel .row.paid .bar i { background: var(--accent); }
+  .funnel .row.paid .bar span { color: var(--accent); }
+  .econ { position: absolute; left: 1100px; top: 470px; width: 700px; }
+  .econ .ratio { font-family: var(--serif); font-size: 280px; line-height: .8; letter-spacing: -.04em; color: var(--accent); }
+  .econ .ratio-lab { font-size: 20px; margin-top: 18px; color: var(--mute); }
+  .econ .pair { margin-top: 52px; display: grid; gap: 18px; }
+  .econ .pair div { display: grid; grid-template-columns: 90px 1fr; align-items: center; }
+  .econ .pair b { font-size: 17px; font-weight: 600; letter-spacing: .04em; }
+  .econ .pair p { display: flex; align-items: center; gap: 16px; font-family: var(--serif); font-size: 40px; line-height: 1; }
+  .econ .pair p i { display: block; height: 14px; background: var(--ink); }
+  .econ .pair .ltv p i { background: var(--accent); }
+  .assume { position: absolute; left: 120px; bottom: 104px; font-size: 15px; color: var(--mute); width: 1100px; line-height: 1.5; }
+</style>
+</head>
+<body>
+
+<!-- 1 · cover -->
+<section class="slide cover">
+  <div class="head"><b>Parley</b><span>Business Cup 2.0 · Skills track · November 2026</span></div>
+  <h1>Every text to your <span style="white-space:nowrap">co-parent</span> can end up in court. <i>Parley makes sure it helps&nbsp;you.</i></h1>
+  <dl class="colophon">
+    <div><dt>What it is</dt>An AI coach for the texts between parents in two homes.</div>
+    <div><dt>Who it is for</dt>US parents, 25–45, sharing custody of their kids.</div>
+    <div><dt>What it does</dt>Calm replies, a dated record for the lawyer, two minutes of practice a day.</div>
+    <div><dt>Try it</dt>parley.adiletfndr.com<br>No sign-up.</div>
+  </dl>
+</section>
+
+<!-- 2 · product -->
+<section class="slide product">
+  <div class="head"><b>Parley</b><span>The product</span></div>
+  <div class="text">
+    <div class="label"><em>04</em>&ensp;How it works</div>
+    <h2>It reads the text the way a <i>judge</i> would.</h2>
+    <div class="figs">
+      <div class="fig"><span class="n">Fig. 1</span><div><h3>Reply</h3><p>Paste what they sent. Get back one calm answer that sticks to the kids — brief, neutral or firm.</p></div></div>
+      <div class="fig"><span class="n">Fig. 2</span><div><h3>Lens</h3><p>Check your own draft first. Every phrase a judge would read badly is marked, with what to say instead.</p></div></div>
+    </div>
+  </div>
+  <div class="phones">
+    <div class="iphone iphone--natural" style="--s:.86; --shift:72" data-shot="../shots/reply-result.png"></div>
+    <div class="iphone iphone--natural" style="--s:.86; margin-top:56px" data-shot="../shots/lens.png"></div>
+  </div>
+  <div class="folio"><span>Parley — pitch</span><span>4</span></div>
+</section>
+
+<!-- 3 · numbers -->
+<section class="slide numbers">
+  <div class="head"><b>Parley</b><span>Unit economics</span></div>
+  <h2>A paying parent returns 2.5× what it cost to reach them.</h2>
+  <p class="placeholder-note"><b>Placeholder figures</b>Shape of the model, not results. Replaced with pilot data before the final.</p>
+
+  <div class="funnel">
+    <div class="row"><div class="lab">Visit the page<small>from paid social</small></div><div class="bar"><i style="width:460px"></i><span>1,000</span></div></div>
+    <div class="row"><div class="lab">Try one reply<small>no sign-up</small></div><div class="bar"><i style="width:147px"></i><span>320</span></div></div>
+    <div class="row"><div class="lab">Start a trial</div><div class="bar"><i style="width:28px"></i><span>60</span></div></div>
+    <div class="row paid"><div class="lab">Pay</div><div class="bar"><i style="width:7px"></i><span>15</span></div></div>
+  </div>
+
+  <div class="econ">
+    <div class="ratio">2.5×</div>
+    <div class="ratio-lab">Lifetime value to acquisition cost</div>
+    <div class="pair">
+      <div><b>CAC</b><p><i style="width:158px"></i>$38</p></div>
+      <div class="ltv"><b>LTV</b><p><i style="width:400px"></i>$96</p></div>
+    </div>
+  </div>
+  <p class="assume">LTV = $12 a month × 8 months average stay. CAC = paid-social spend ÷ paying parents ($570 ÷ 15). All numbers placeholder.</p>
+  <div class="folio"><span>Parley — pitch</span><span>7</span></div>
+</section>
+
+<script src="iphone.js"></script>
+</body>
+</html>

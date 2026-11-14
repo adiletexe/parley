@@ -1,0 +1,169 @@
+/* iPhone 15/16 Pro mockup, drawn in CSS. Reusable: link this file, paste the markup.
+
+   <div class="iphone iphone--natural" style="--s:1.1; --shift:70">
+     <div class="iphone__body">
+       <i class="iphone__btn iphone__btn--action"></i><i class="iphone__btn iphone__btn--volup"></i>
+       <i class="iphone__btn iphone__btn--voldn"></i><i class="iphone__btn iphone__btn--power"></i>
+       <div class="iphone__frame"></div>
+       <div class="iphone__bezel"></div>
+       <div class="iphone__screen">
+         <img class="iphone__content" src="shot.png">
+         <div class="iphone__tabbar"><img src="shot.png"></div>
+         <div class="iphone__status"> …see STATUS below… </div>
+         <div class="iphone__island"></div>
+         <div class="iphone__home"></div>
+         <div class="iphone__glare"></div>
+       </div>
+     </div>
+   </div>
+
+   The device is drawn at its real point size (433 x 892, screen 393 x 852, radius 55)
+   and scaled with --s, so every proportion stays a phone's.
+   The screenshots are 390x844 web-app captures with no status bar, so the screen is built
+   the way iOS builds it: a status bar on top, the app content in the middle, and the
+   app's own tab bar (the bottom --tab points of the same image) pinned to the bottom
+   with the home-indicator strip under it. Content that does not fit scrolls under the
+   tab bar, exactly as it would on the device.
+   --shift  : points of the screenshot's top to scroll away (e.g. a demo banner)
+   --tab    : height of the app's tab bar in the screenshot (66 for Parley; 0 = none)
+   --status-bg / --tab-bg : the app's own colours behind the status bar / home strip
+   Variants: iphone--natural (natural titanium), iphone--black (black titanium),
+             iphone--white (white titanium). */
+
+.iphone {
+  --s: 1;
+  --shift: 0;
+  --tab: 66;
+  --status-h: 54px;
+  --status-bg: #f4f5fa;
+  --tab-bg: #fefefe;
+  --ink: #0b0b0c;
+  --shadow: 0 2px 4px rgba(0,0,0,.10), 0 18px 36px -8px rgba(0,0,0,.22), 0 60px 90px -30px rgba(0,0,0,.30);
+  /* natural titanium */
+  --ti-1: #d9d6cf; --ti-2: #a29e96; --ti-3: #ecebe6; --ti-4: #807c74; --ti-5: #c4c0b8;
+  position: relative;
+  flex: none;
+  width: calc(433px * var(--s));
+  height: calc(892px * var(--s));
+}
+.iphone--black {
+  --ti-1: #55555a; --ti-2: #2b2b2e; --ti-3: #6e6e73; --ti-4: #1f1f21; --ti-5: #47474b;
+  --shadow: 0 2px 6px rgba(0,0,0,.5), 0 30px 60px -10px rgba(0,0,0,.6);
+}
+.iphone--white {
+  --ti-1: #f1f0ec; --ti-2: #c9c7c1; --ti-3: #fbfaf7; --ti-4: #aeaca6; --ti-5: #e2e0db;
+}
+
+.iphone__body {
+  position: absolute; left: 0; top: 0;
+  width: 433px; height: 892px;
+  transform: scale(var(--s)); transform-origin: 0 0;
+  border-radius: 72px;
+}
+
+/* titanium band: a brushed ring with a lit chamfer outside and a dark seam inside */
+.iphone__frame {
+  position: absolute; inset: 0;
+  border-radius: 72px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,0) 18%, rgba(0,0,0,0) 82%, rgba(0,0,0,.18)),
+    linear-gradient(90deg, var(--ti-4) 0%, var(--ti-1) 1.6%, var(--ti-2) 4%, var(--ti-5) 50%, var(--ti-2) 96%, var(--ti-3) 98.4%, var(--ti-4) 100%);
+  box-shadow:
+    var(--shadow),
+    inset 0 0 0 .75px rgba(0,0,0,.45),
+    inset 0 0 0 1.75px rgba(255,255,255,.38),
+    inset 0 0 0 3px rgba(0,0,0,.10);
+}
+/* antenna bands: the small plastic breaks in the rim */
+.iphone__frame::before, .iphone__frame::after {
+  content: ""; position: absolute; height: 3px; width: 7px;
+  background: color-mix(in srgb, var(--ti-4) 70%, #000);
+  opacity: .55;
+}
+.iphone__frame::before { left: 0; top: 118px; }
+.iphone__frame::after  { right: 0; bottom: 120px; }
+
+/* black glass border between the band and the pixels */
+.iphone__bezel {
+  position: absolute; inset: 6px;
+  border-radius: 66px;
+  background: #050506;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.07), inset 0 0 2px 2px rgba(0,0,0,.9);
+}
+
+.iphone__screen {
+  position: absolute; left: 20px; top: 20px;
+  width: 393px; height: 852px;
+  border-radius: 55px;
+  overflow: hidden;
+  background: var(--status-bg);
+  isolation: isolate;
+}
+.iphone__content {
+  position: absolute; left: 0; right: 0;
+  top: var(--status-h);
+  bottom: calc(var(--tab) * 1px + 22px);
+  width: 100%; height: calc(852px - var(--status-h) - var(--tab) * 1px - 22px);
+  object-fit: cover;
+  object-position: 50% calc(var(--shift) * -1px);
+  display: block;
+}
+.iphone__tabbar {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: calc(var(--tab) * 1px + 22px);
+  background: var(--tab-bg);
+  overflow: hidden;
+}
+.iphone__tabbar img {
+  position: absolute; left: 0; top: 0;
+  width: 100%; height: calc(var(--tab) * 1px);
+  object-fit: cover; object-position: 50% 100%;
+  display: block;
+}
+.iphone__home {
+  position: absolute; bottom: 8px; left: 50%;
+  width: 139px; height: 5px; margin-left: -69.5px;
+  border-radius: 3px; background: var(--ink);
+}
+.iphone__island {
+  position: absolute; top: 11px; left: 50%;
+  width: 126px; height: 37px; margin-left: -63px;
+  border-radius: 20px; background: #000;
+}
+/* the front camera, barely there */
+.iphone__island::after {
+  content: ""; position: absolute; right: 13px; top: 11px; width: 15px; height: 15px; border-radius: 50%;
+  background: radial-gradient(circle at 40% 38%, #2b3348 0, #121522 35%, #040406 70%);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+}
+
+.iphone__status {
+  position: absolute; left: 0; right: 0; top: 0; height: var(--status-h);
+  background: var(--status-bg);
+  color: var(--ink);
+  font: 600 17px/1 -apple-system, "SF Pro Text", "Inter", system-ui, sans-serif;
+  letter-spacing: -.2px;
+}
+.iphone__time { position: absolute; left: 52px; top: 19px; width: 54px; text-align: center; }
+.iphone__icons { position: absolute; right: 30px; top: 21px; display: flex; gap: 6px; align-items: center; color: var(--ink); }
+.iphone__icons svg { display: block; fill: var(--ink); }
+
+/* glass: one soft diagonal sheen and a hairline where the glass meets the bezel */
+.iphone__glare {
+  position: absolute; inset: 0; border-radius: 55px; pointer-events: none;
+  background: linear-gradient(118deg, rgba(255,255,255,.16) 0%, rgba(255,255,255,.05) 34%, rgba(255,255,255,0) 34.2%);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.55);
+  mix-blend-mode: normal;
+}
+
+/* side buttons, sticking 3px out of the band */
+.iphone__btn {
+  position: absolute; width: 4px; border-radius: 2px;
+  background: linear-gradient(90deg, var(--ti-4), var(--ti-1) 45%, var(--ti-2));
+  box-shadow: 0 0 0 .5px rgba(0,0,0,.25);
+}
+.iphone__btn--action { left: -3px; top: 168px; height: 34px; }
+.iphone__btn--volup  { left: -3px; top: 232px; height: 62px; }
+.iphone__btn--voldn  { left: -3px; top: 308px; height: 62px; }
+.iphone__btn--power  { right: -3px; top: 262px; height: 100px;
+  background: linear-gradient(270deg, var(--ti-4), var(--ti-1) 45%, var(--ti-2)); }

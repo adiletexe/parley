@@ -275,7 +275,27 @@ h2 span, h1 span { color: var(--mute); }
 .s10p .closeline i { font-style: normal; font-size: 36px; font-weight: 800; }
 .s10p .closeline i u { text-decoration: none; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .s10p .closeline small { font-size: 18px; color: var(--mute); width: 100%; }
+
+/* 7 · layout D */
+.s7d .them { left: 120px; top: 300px; width: 440px; height: 600px; border-radius: 24px; background: var(--card); border: 1px solid var(--line); padding: 24px 26px; display: flex; flex-direction: column; gap: 8px; }
+.s7d .hd { font-size: 26px; font-weight: 800; letter-spacing: -.02em; }
+.s7d .them .hd { color: var(--fg); }
+.s7d .them p { font-size: 17px; color: var(--mute); line-height: 1.35; }
+.s7d .thx { display: flex; flex-direction: row; gap: 10px; margin-top: 4px; }
+.s7d .thx img { height: 170px; width: auto; display: block; border-radius: 10px; border: 1px solid var(--line); }
+.s7d .thx.dim img { opacity: .5; filter: saturate(.5); }
+.s7d .vs { left: 576px; top: 572px; width: 64px; height: 64px; border-radius: 50%; background: var(--night); border: 1px solid var(--line); font-weight: 800; font-size: 20px; color: var(--mute); display: grid; place-items: center; z-index: 2; }
+.s7d .us { left: 652px; top: 300px; }
+.s7d .us .hd span { font-size: 17px; font-weight: 500; color: var(--mute); letter-spacing: 0; margin-left: 12px; }
+.s7d .us .grid { display: grid; grid-template-columns: repeat(4, 232px); gap: 14px 30px; margin-top: 12px; }
+.s7d .us .grid > div { zoom: .55; }
+.s7d .proofs { left: 120px; top: 922px; width: 1680px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 34px; border-top: 1px solid var(--line); padding-top: 14px; }
+.s7d .proofs b { display: block; font-size: 34px; font-weight: 800; letter-spacing: -.03em; }
+.s7d .proofs b small { font-size: 22px; color: var(--dim); }
+.s7d .proofs span { display: block; font-size: 16px; color: var(--mute); line-height: 1.35; margin-top: 4px; }
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Courier+Prime:wght@400;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ux/ads/creatives.css">
 </head>
 <body>
 
@@ -398,35 +418,31 @@ h2 span, h1 span { color: var(--mute); }
   <div class="pg">6</div>
 </section>
 
-<!-- 7 · MARKETING: AI STATIC ADS -->
-<section class="slide s7m">
+<!-- 7 · MARKETING: AI STATIC ADS (layout D) -->
+<section class="slide s7d">
   <div class="mark"><i></i>Parley</div>
   <div class="kick">Marketing strategy · AI static ads, Zimran's playbook</div>
-  <h2 style="width:1700px;font-size:58px">They run polished brand ads. <span>We run dozens of wild ones a day.</span></h2>
-  <div class="cols3">
-    <div class="c"><h3>Competitors</h3><p>Glossy, corporate. No quiz.</p>
-      <div class="thumbs dim"><img src="research/img/cp-ofw-quote.jpg"><img src="research/img/cp-ofw-before.jpg"></div></div>
-    <div class="c"><h3>Zimran</h3><p>Plain statics, tested daily.</p>
-      <div class="thumbs"><img src="research/img/fin-notes.jpg"><img src="research/img/fin-notebook.jpg"></div></div>
-    <div class="c us"><h3>Parley</h3><p>Same format. A niche full of drama.</p>
-      <div class="hooks">
-        <span>"Rate my reply to my ex"</span>
-        <span>$698 for a lawyer to read 2 texts</span>
-        <span>POV: the other parent texts at 11:48 pm</span>
-        <span>Wrong answers only: "ur late AGAIN"</span>
-        <span>Read it the way a judge will</span>
-        <span>He typed "k." A judge read it.</span>
-        <span>3 replies. 1 keeps your kids out of it.</span>
-        <span>Screenshot it before you send it</span>
-      </div></div>
+  <h2 style="width:1700px;font-size:56px">They run polished brand ads. <span>We run dozens of wild ones a day.</span></h2>
+  <div class="them">
+    <div class="hd">Competitors</div>
+    <p>Glossy, corporate, written for the judge. No quiz.</p>
+    <div class="thx dim"><img src="research/img/cp-ofw-quote.jpg"><img src="research/img/cp-ofw-before.jpg"></div>
+    <div class="hd" style="margin-top:14px">Zimran</div>
+    <p>Plain native statics, one message, tested daily.</p>
+    <div class="thx"><img src="research/img/fin-notes.jpg"><img src="research/img/fin-notebook.jpg"></div>
   </div>
-  <div class="proof rule">
-    <div><div class="num">0</div><div class="cap">competitors run quiz funnels or plain statics (OFW ~75 ads, TalkingParents ~43)</div></div>
-    <div><div class="num">11.6% <span style="color:var(--dim);font-size:34px">vs 7.0%</span></div><div class="cap">plain-text ads win more often than polished ones on Meta</div></div>
-    <div><div class="num">5B</div><div class="cap">TikTok views on #coparenting. The drama already gets watched.</div></div>
-    <div><div class="num">AI</div><div class="cap">writes and draws new variants every day, so creatives never run out</div></div>
+  <div class="vs">vs</div>
+  <div class="us">
+    <div class="hd">Parley <span>Zimran's format, in a niche full of drama. AI makes new ones every day.</span></div>
+    <div class="grid"><div data-ad="1"></div><div data-ad="2"></div><div data-ad="3"></div><div data-ad="4"></div><div data-ad="5"></div><div data-ad="6"></div><div data-ad="7"></div><div data-ad="8"></div></div>
   </div>
-  <p class="src" style="bottom:40px">Meta Ad Library (US, 14 Nov 2026) · Motion Creative Benchmarks 2026 (550K ads) · hashtagradar. Ads speak as "me" or "the other parent", never call the viewer divorced (Meta policy). Hooks are our examples.</p>
+  <div class="proofs">
+    <div><b>0</b><span>competitors run quiz funnels or plain statics (OFW ~75 ads, TalkingParents ~43)</span></div>
+    <div><b>11.6% <small>vs 7.0%</small></b><span>plain-text ads win more often than polished ones on Meta</span></div>
+    <div><b>5B</b><span>TikTok views on #coparenting. The drama already gets watched.</span></div>
+    <div><b>AI</b><span>writes and draws new variants every day, so creatives never run out</span></div>
+  </div>
+  <p class="src" style="bottom:28px">Meta Ad Library (US, 14 Nov 2026) · Motion Creative Benchmarks 2026 (550K ads) · hashtagradar. Ads speak as "me" or "the other parent", never call the viewer divorced (Meta policy). Ads are our examples.</p>
   <div class="pg">7</div>
 </section>
 
@@ -436,10 +452,10 @@ h2 span, h1 span { color: var(--mute); }
   <div class="kick">The onboarding · built and live</div>
   <h2 style="width:900px;font-size:58px">By the price screen, <span>they've told us their story.</span></h2>
   <div class="steps">
-    <div class="s"><b>11</b><span>questions about their kids, their ex and their case</span></div>
-    <div class="s"><b>4</b><span>"good to know" screens that answer a fear</span></div>
+    <div class="s"><b>8</b><span>questions about them, their ex and their case</span></div>
+    <div class="s"><b>2</b><span>"good to know" screens that answer a fear</span></div>
     <div class="s"><b>1</b><span>personal plan built from their answers</span></div>
-    <div class="s"><b>~1 min</b><span>about 19 screens, then the price</span></div>
+    <div class="s"><b>~1 min</b><span>about 12 screens, then the price</span></div>
   </div>
   <div class="quotes">
     <div class="q">"Your messages are <em>already a record.</em>"</div>
@@ -501,5 +517,6 @@ h2 span, h1 span { color: var(--mute); }
   <div class="pg">10</div>
 </section>
 <script src="design-options/iphone.js"></script>
+<script src="ux/ads/creatives.js"></script>
 </body>
 </html>

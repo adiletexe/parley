@@ -4,7 +4,7 @@ const puppeteer = require('puppeteer');
 const path = require('path');
 (async () => {
   const dir = __dirname;
-  const br = await puppeteer.launch({headless: 'new'});
+  const br = await puppeteer.launch({headless: 'new', protocolTimeout: 600000});
   const p = await br.newPage();
   await p.setViewport({width: 1920, height: 1080, deviceScaleFactor: 1});
   // The app's icon sprites are inlined the same way vite does it, so the deck uses the exact icons the product shows.

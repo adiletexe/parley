@@ -1,0 +1,104 @@
+/* Eight Parley static ads, each 400x500 (4:5, a Meta feed static). Scaled into the slide with `zoom`.
+   Every piece of text is >= 26px here so it stays >= 16px at the smallest zoom a layout uses (0.62). */
+.ad { width: 400px; height: 500px; position: relative; overflow: hidden; flex: none;
+  font-family: -apple-system, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; color: #111; line-height: 1.2;
+  border-radius: 14px; box-shadow: 0 30px 60px -24px rgba(0,0,0,.7); text-align: left; box-sizing: border-box; }
+.ad * { box-sizing: border-box; margin: 0; padding: 0; }
+.ad .cta { position: absolute; left: 0; right: 0; bottom: 22px; text-align: center; font-size: 26px; font-weight: 700; }
+
+/* 1 · iPhone Notes */
+.ad-notes { background: #fff; padding: 22px 30px; }
+.ad-notes .bar { display: flex; justify-content: space-between; color: #d9a400; font-size: 26px; font-weight: 500; }
+.ad-notes h4 { font-size: 36px; font-weight: 800; letter-spacing: -.01em; line-height: 1.08; margin: 26px 0 16px; }
+.ad-notes p { font-size: 26px; line-height: 1.3; margin-bottom: 12px; }
+.ad-notes s { color: #8e8e93; text-decoration-color: #e0342b; text-decoration-thickness: 3px; }
+.ad-notes mark { background: #ffe36b; padding: 0 3px; }
+.ad-notes .cta { text-align: left; left: 30px; bottom: 26px; }
+.ad-notes .cta span { background: #ffe36b; padding: 2px 6px; font-weight: 800; letter-spacing: .02em; }
+
+/* 2 · iMessage, bad reply crossed out in red pen */
+.ad-imsg { background: #fff; padding: 18px 18px; }
+.ad-imsg .hd { text-align: center; margin-bottom: 12px; }
+.ad-imsg .av { width: 46px; height: 46px; border-radius: 50%; background: linear-gradient(#a9adb8,#868a96); margin: 0 auto 4px; color: #fff; font-size: 26px; font-weight: 600; line-height: 46px; }
+.ad-imsg .hd b { font-size: 26px; font-weight: 500; color: #111; }
+.ad-imsg .m { font-size: 26px; line-height: 1.22; padding: 9px 16px; border-radius: 22px; max-width: 82%; margin-bottom: 7px; width: fit-content; }
+.ad-imsg .i { background: #e9e9eb; }
+.ad-imsg .o { background: #0a84ff; color: #fff; margin-left: auto; }
+.ad-imsg .x { position: relative; opacity: .85; }
+.ad-imsg .x svg { position: absolute; left: -10px; top: -8px; width: calc(100% + 20px); height: calc(100% + 16px); overflow: visible; }
+.ad-imsg .pen { font-family: "Caveat", cursive; color: #d81e1e; font-size: 34px; font-weight: 700; line-height: 1; }
+.ad-imsg .row { display: flex; align-items: center; justify-content: flex-end; gap: 14px; } .ad-imsg .row .m { margin-left: 0; }
+.ad-imsg .row .pen { transform: rotate(-6deg); }
+.ad-imsg .pen.r { text-align: right; transform: rotate(-3deg); margin-right: 10px; }
+.ad-imsg .o:not(.x) { max-width: 92%; }
+.ad-imsg .cta { color: #0a84ff; }
+
+/* 3 · lawyer's receipt */
+.ad-receipt { background: #c9b79a; background-image: radial-gradient(120% 80% at 30% 20%, #d8c8ac, #b29e7f); }
+.ad-receipt .hook { position: absolute; left: 24px; right: 24px; top: 18px; font-family: "Caveat", cursive; font-size: 46px; font-weight: 700; line-height: .95; color: #1a1a1a; transform: rotate(-2deg); }
+.ad-receipt .paper { position: absolute; left: 44px; top: 130px; width: 312px; height: 232px; background: #fbfaf5; transform: rotate(2.5deg);
+  font-family: "Courier Prime", "Courier New", monospace; color: #222; font-size: 26px; padding: 16px 18px; line-height: 1.12;
+  box-shadow: 0 14px 24px -10px rgba(0,0,0,.45);
+  -webkit-mask: linear-gradient(#000 0 0) top/100% calc(100% - 10px) no-repeat, conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom/20px 10px repeat-x; }
+.ad-receipt .paper .c { text-align: center; font-weight: 700; }
+.ad-receipt .paper .r { display: flex; justify-content: space-between; }
+.ad-receipt .paper hr { border: 0; border-top: 2px dashed #888; margin: 6px 0; }
+.ad-receipt .paper .tot { font-weight: 700; }
+.ad-receipt .circle { position: absolute; left: 196px; top: 280px; width: 176px; height: 64px; border: 3px solid #d81e1e; border-radius: 50%; transform: rotate(-4deg); }
+.ad-receipt .cta { background: #1a1a1a; color: #fff; left: 24px; right: 24px; bottom: 18px; padding: 10px 0; border-radius: 10px; font-size: 26px; }
+
+/* 4 · TikTok POV, lock screen at night */
+.ad-pov { background: radial-gradient(90% 60% at 50% 30%, #2a2f45, #07080d 75%); color: #fff; }
+.ad-pov .cap { position: absolute; left: 22px; right: 22px; top: 24px; text-align: center; }
+.ad-pov .cap span { background: #fff; color: #000; font-family: "Montserrat", sans-serif; font-weight: 800; font-size: 28px; line-height: 1.5; padding: 3px 9px; border-radius: 7px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.ad-pov .clock { position: absolute; left: 0; right: 0; top: 140px; text-align: center; font-size: 92px; font-weight: 600; letter-spacing: -.02em; color: rgba(255,255,255,.92); }
+.ad-pov .noti { position: absolute; left: 18px; right: 18px; top: 268px; background: rgba(120,124,140,.38); border-radius: 22px; padding: 12px 16px; backdrop-filter: blur(6px); }
+.ad-pov .noti .t { display: flex; justify-content: space-between; font-size: 26px; color: rgba(255,255,255,.7); } .ad-pov .noti .t b { color: #fff; }
+
+.ad-pov .noti p { font-size: 26px; line-height: 1.2; }
+.ad-pov .typing { position: absolute; left: 34px; top: 404px; font-size: 26px; color: rgba(255,255,255,.6); }
+.ad-pov .cta { bottom: 16px; font-family: "Montserrat", sans-serif; font-weight: 700; }
+.ad-pov .cta::after { content: " \203A"; }
+
+/* 5 · Rate my reply quiz */
+.ad-quiz { background: #f2f2f7; padding: 20px 22px; }
+.ad-quiz h4 { font-size: 33px; line-height: 1.05; font-weight: 800; letter-spacing: -.01em; }
+.ad-quiz .m { background: #e3e3e8; display: table; font-size: 26px; padding: 8px 15px; border-radius: 20px; margin: 18px 0 18px; }
+.ad-quiz .o { background: #fff; border: 2px solid #d9d9df; border-radius: 14px; font-size: 26px; padding: 12px 14px; margin-bottom: 12px; }
+.ad-quiz .o b { color: #8e8e93; margin-right: 6px; }
+.ad-quiz .cta { left: 22px; right: 22px; bottom: 18px; background: #111; color: #fff; padding: 10px 0; border-radius: 30px; }
+
+/* 6 · notebook page */
+.ad-book { background: #fdfcf6; background-image: linear-gradient(90deg, transparent 58px, #e9a3a3 58px, #e9a3a3 60px, transparent 60px), repeating-linear-gradient(transparent 0 43px, #b9cde6 43px 45px); background-position: 0 0, 0 20px;
+  font-family: "Caveat", cursive; color: #1d2a6b; font-weight: 700; padding: 22px 18px 0 74px; }
+.ad-book::before { content: ""; position: absolute; left: 18px; top: 30px; bottom: 30px; width: 22px; background: radial-gradient(circle, #6d6a5f 8px, transparent 9px) 0 0/22px 62px repeat-y; opacity: .45; }
+.ad-book .l { font-size: 36px; line-height: 45px; white-space: nowrap; }
+.ad-book .l.h { font-size: 40px; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.ad-book s { text-decoration-color: #d81e1e; text-decoration-thickness: 3px; color: #555; }
+.ad-book .ok { color: #11603f; }
+.ad-book .cta { left: 74px; text-align: left; font-family: "Caveat", cursive; font-size: 40px; color: #1d2a6b; text-decoration: underline; bottom: 14px; }
+
+/* 7 · court exhibit sticker on a dark-mode screenshot */
+.ad-exhibit { background: #000; color: #fff; }
+.ad-exhibit .hook { position: absolute; left: 24px; right: 24px; top: 22px; font-size: 34px; font-weight: 800; letter-spacing: -.01em; line-height: 1.1; }
+.ad-exhibit .shot { position: absolute; left: 22px; right: 22px; top: 140px; height: 250px; background: #1c1c1e; border-radius: 16px; padding: 16px 14px; }
+.ad-exhibit .shot .ts { text-align: center; font-size: 26px; color: #8e8e93; margin-bottom: 10px; }
+.ad-exhibit .shot .m { background: #0a84ff; color: #fff; font-size: 26px; line-height: 1.22; padding: 9px 15px; border-radius: 20px; width: 84%; margin-left: auto; }
+.ad-exhibit .shot .d { text-align: right; font-size: 26px; color: #8e8e93; margin-top: 4px; }
+.ad-exhibit .stk { position: absolute; left: 34px; top: 312px; width: 150px; background: #f7d93a; color: #111; text-align: center; border-radius: 6px; padding: 6px 0 4px; transform: rotate(-7deg); box-shadow: 0 6px 14px rgba(0,0,0,.5); font-family: "Courier Prime", monospace; }
+.ad-exhibit .stk b { display: block; font-size: 26px; letter-spacing: .12em; }
+.ad-exhibit .stk i { display: block; font-style: normal; font-size: 40px; font-weight: 700; border-top: 2px solid #111; margin: 2px 14px 0; }
+.ad-exhibit .cta { color: #fff; bottom: 26px; font-weight: 600; }
+.ad-exhibit .cta u { text-underline-offset: 4px; }
+
+/* 8 · search box with autocomplete */
+.ad-search { background: #fff; padding: 26px 20px; }
+.ad-search .box { border: 2px solid #dfe1e5; border-radius: 26px 26px 0 0; border-bottom: 0; padding: 12px 18px; font-size: 26px; display: flex; gap: 10px; align-items: center; box-shadow: 0 2px 8px rgba(32,33,36,.18); }
+.ad-search .box i { width: 22px; height: 22px; border: 3px solid #9aa0a6; border-radius: 50%; position: relative; flex: none; }
+.ad-search .box i::after { content: ""; position: absolute; width: 3px; height: 10px; background: #9aa0a6; right: -6px; bottom: -8px; transform: rotate(-45deg); }
+.ad-search .box span::after { content: ""; display: inline-block; width: 2px; height: 28px; background: #1a73e8; vertical-align: -5px; margin-left: 2px; }
+.ad-search ul { list-style: none; border: 2px solid #dfe1e5; border-top: 1px solid #e8eaed; border-radius: 0 0 26px 26px; padding: 6px 0 10px; box-shadow: 0 6px 10px rgba(32,33,36,.18); }
+.ad-search li { font-size: 26px; padding: 7px 14px 7px 50px; color: #222; line-height: 1.2; }
+.ad-search li b { font-weight: 700; }
+.ad-search .cta span { color: #111; font-weight: 500; }
+.ad-search .cta { color: #1a0dab; text-align: left; left: 22px; line-height: 1.3; }

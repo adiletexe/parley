@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Slide 7 layouts</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=Caveat:wght@600;700&family=Courier+Prime:wght@400;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="creatives.css">
+<style>
+/* copied from pitch/final.html */
+:root {
+  --night: #0d0e1a; --night-2: #121427; --card: #161829; --line: #262a40;
+  --fg: #f4f5fb; --mute: #a9abc0; --dim: #62667e;
+  --acc: #7d8bff; --acc-2: #5b6cf6; --lilac: #9b84ff;
+  --grad: linear-gradient(118deg, #7c5cf0 0%, #5b6cf6 45%, #3f8df5 100%);
+  --warn: #ff5fa0; --warn-bg: rgba(226,80,143,.14);
+  --ok: #34d399; --ok-bg: rgba(31,165,114,.16);
+  --font: "Plus Jakarta Sans", system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #000; color: var(--fg); font-family: var(--font); -webkit-font-smoothing: antialiased; }
+.slide { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--night); margin-bottom: 40px; }
+.slide::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(70% 60% at 85% -10%, rgba(91,108,246,.20), rgba(91,108,246,0) 70%); }
+.slide > * { position: absolute; }
+.mark { left: 120px; top: 84px; font-size: 24px; font-weight: 800; letter-spacing: -.02em; display: flex; align-items: center; gap: 12px; }
+.mark i { width: 26px; height: 26px; border-radius: 8px; background: var(--grad); display: block; }
+.kick { left: 120px; top: 168px; font-size: 22px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--acc); }
+h2 { font-weight: 800; letter-spacing: -.035em; line-height: 1.04; left: 120px; top: 212px; width: 1680px; font-size: 56px; }
+h2 span { color: var(--mute); }
+.pg { right: 120px; bottom: 30px; font-size: 18px; color: var(--dim); font-weight: 600; }
+.src { left: 120px; bottom: 30px; width: 1500px; font-size: 15px; line-height: 1.5; color: var(--dim); }
+
+/* shared bits */
+.z { position: absolute; }
+.lbl { font-size: 17px; font-weight: 700; color: var(--mute); letter-spacing: .02em; }
+.lbl b { color: var(--fg); }
+.th { display: flex; gap: 10px; }
+.th img { display: block; border-radius: 10px; border: 1px solid var(--line); }
+.th.dim img { opacity: .5; filter: saturate(.5); }
+.pf .n { font-weight: 800; letter-spacing: -.04em; line-height: 1; font-size: 40px; }
+.pf .n small { font-size: 24px; color: var(--dim); }
+.pf .c { font-size: 16px; line-height: 1.35; color: var(--mute); margin-top: 6px; }
+
+/* A · grid of ours, a thin "vs" strip of theirs on the right */
+.A .grid { left: 120px; top: 316px; display: grid; grid-template-columns: repeat(4, 264px); gap: 20px; }
+.A .grid > div { zoom: .66; }
+.A .strip { left: 1310px; top: 316px; width: 490px; height: 680px; border-left: 1px solid var(--line); padding-left: 36px; display: flex; flex-direction: column; gap: 14px; }
+.A .vs { font-size: 22px; font-weight: 800; color: var(--dim); letter-spacing: .12em; }
+.A .th img { height: 150px; }
+.A .proofs { margin-top: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 22px 24px; padding-top: 18px; border-top: 1px solid var(--line); }
+
+/* B · a tilted wall, theirs and the numbers on one line underneath */
+.B .wall > div { position: absolute; } .B .wall [data-ad] { zoom: .64; }
+.B .tape { position: absolute; width: 90px; height: 26px; background: rgba(240,236,220,.55); left: 50%; top: -12px; transform: translateX(-50%) rotate(-3deg); z-index: 2; }
+.B .foot { left: 120px; top: 966px; width: 1680px; display: flex; gap: 34px; align-items: center; }
+.B .foot .th img { height: 78px; border-radius: 6px; }
+.B .foot .pf .n { font-size: 32px; }
+.B .foot .pf .c { font-size: 16px; margin-top: 4px; max-width: 260px; }
+.B .foot { align-items: flex-end; }
+
+/* C · ours as a phone feed */
+.C .kick { width: 520px; line-height: 1.4; }
+.C h2 { top: 262px; width: 500px; font-size: 48px; }
+.C .left { left: 120px; top: 540px; width: 500px; }
+.C .th img { height: 128px; }
+.C .proofs { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 26px; margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--line); }
+.C .phones { left: 650px; top: 100px; display: flex; gap: 16px; }
+.C .ph { width: 280px; height: 880px; border-radius: 44px; background: #1b1c22; padding: 8px; box-shadow: 0 40px 80px -30px #000, inset 0 0 0 2px #34363f; }
+.C .scr { width: 100%; height: 100%; border-radius: 36px; background: #fff; overflow: hidden; padding-top: 34px; position: relative; }
+.C .scr::before { content: ""; position: absolute; left: 50%; top: 9px; width: 78px; height: 20px; border-radius: 12px; background: #000; transform: translateX(-50%); }
+.C .post { color: #111; font-family: -apple-system, "Helvetica Neue", Arial, sans-serif; margin-bottom: 10px; }
+.C .post .phd { display: flex; align-items: center; gap: 8px; padding: 6px 10px; font-size: 16px; }
+.C .post .phd i { width: 26px; height: 26px; border-radius: 50%; background: var(--grad); }
+.C .post .phd b { font-weight: 700; } .C .post .phd span { color: #737373; }
+.C .post .ad { border-radius: 0; box-shadow: none; zoom: .66; }
+.C .post .more { display: flex; justify-content: space-between; padding: 8px 10px; font-size: 16px; font-weight: 600; background: #efefef; border-bottom: 1px solid #ddd; }
+
+/* D · split: them small on the left, us big on the right */
+.D .them { left: 120px; top: 316px; width: 440px; height: 658px; border-radius: 24px; background: var(--card); border: 1px solid var(--line); padding: 26px 26px; display: flex; flex-direction: column; gap: 10px; }
+.D .them .big, .D .us .big { font-size: 34px; font-weight: 800; letter-spacing: -.02em; }
+.D .them .big { color: var(--dim); }
+.D .th img { height: 218px; }
+.D .them p { font-size: 17px; color: var(--mute); margin-bottom: 8px; }
+.D .vs { left: 576px; top: 612px; width: 64px; height: 64px; border-radius: 50%; background: var(--night); border: 1px solid var(--line); font-weight: 800; font-size: 20px; color: var(--mute); display: grid; place-items: center; z-index: 2; }
+.D .us { left: 652px; top: 316px; }
+.D .us .grid { display: grid; grid-template-columns: repeat(4, 256px); gap: 18px 18px; margin-top: 0; }
+.D .us .grid > div { zoom: .64; }
+.D .proofs { left: 120px; top: 1004px; width: 1680px; display: flex; gap: 40px; align-items: baseline; }
+.D .proofs .pf { display: flex; gap: 12px; align-items: baseline; } .D .proofs .pf .n { font-size: 32px; white-space: nowrap; } .D .proofs .pf .c { margin: 0; }
+
+/* E · a pin board with sticky labels */
+.E .board { left: 100px; top: 296px; width: 1488px; height: 724px; border-radius: 26px; background: radial-gradient(#22253a 1.2px, transparent 1.4px) 0 0/22px 22px, #121427; border: 1px solid var(--line); }
+.E .it { position: absolute; }
+.E .st { position: absolute; z-index: 3; font-family: "Caveat", cursive; font-weight: 700; font-size: 24px; line-height: 1; color: #2a2410; background: #ffe36b; padding: 2px 14px 4px; box-shadow: 0 6px 12px rgba(0,0,0,.4); white-space: nowrap; }
+.E .st.p { background: #ffb4d0; } .E .st.g { background: #a7f3d0; } .E .st.b { background: #bcd0ff; }
+.E .pbox { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px; }
+.E .pbox .th img { height: 172px; }
+.E .proofs { left: 1624px; top: 316px; width: 196px; height: 700px; display: flex; flex-direction: column; justify-content: space-between; }
+.E .proofs .pf .n { font-size: 38px; }
+</style>
+</head>
+<body>
+
+<!-- A -->
+<section class="slide A">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">Marketing strategy · AI static ads, Zimran's playbook</div>
+  <h2>They run polished brand ads. <span>We run dozens of wild ones a day.</span></h2>
+  <div class="grid"><div data-ad="1"></div><div data-ad="2"></div><div data-ad="3"></div><div data-ad="4"></div><div data-ad="5"></div><div data-ad="6"></div><div data-ad="7"></div><div data-ad="8"></div></div>
+  <div class="strip">
+    <div class="vs">VS. THEM</div>
+    <div class="lbl"><b>Competitors</b> · glossy, no quiz</div>
+    <div class="th dim"><img src="../../research/img/cp-ofw-quote.jpg"><img src="../../research/img/cp-ofw-before.jpg"></div>
+    <div class="lbl" style="margin-top:6px"><b>Zimran</b> · plain statics, tested daily</div>
+    <div class="th"><img src="../../research/img/fin-notes.jpg"><img src="../../research/img/fin-notebook.jpg"></div>
+    <div class="proofs">
+      <div class="pf"><div class="n">0</div><div class="c">competitors run quizzes or plain statics</div></div>
+      <div class="pf"><div class="n">11.6% <small>vs 7.0%</small></div><div class="c">plain beats polished on Meta</div></div>
+      <div class="pf"><div class="n">5B</div><div class="c">TikTok views on #coparenting</div></div>
+      <div class="pf"><div class="n">AI</div><div class="c">makes new variants every day</div></div>
+    </div>
+  </div>
+  <p class="src">Meta Ad Library (US, 14 Nov 2026) · Motion Creative Benchmarks 2026 (550K ads) · hashtagradar. Ads are our examples.</p>
+  <div class="pg">7</div>
+</section>
+
+<!-- B -->
+<section class="slide B">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">Marketing strategy · AI static ads, Zimran's playbook</div>
+  <h2>They run polished brand ads. <span>We run dozens of wild ones a day.</span></h2>
+  <div class="wall" style="left:0;top:0;width:1920px;height:1080px">
+    <div style="left:120px;top:296px;transform:rotate(-4deg)"><i class="tape"></i><div data-ad="1"></div></div>
+    <div style="left:530px;top:296px;transform:rotate(3deg)"><i class="tape"></i><div data-ad="2"></div></div>
+    <div style="left:940px;top:296px;transform:rotate(-2deg)"><i class="tape"></i><div data-ad="3"></div></div>
+    <div style="left:1350px;top:296px;transform:rotate(4deg)"><i class="tape"></i><div data-ad="4"></div></div>
+    <div style="left:325px;top:640px;transform:rotate(2.5deg)"><i class="tape"></i><div data-ad="5"></div></div>
+    <div style="left:735px;top:640px;transform:rotate(-3deg)"><i class="tape"></i><div data-ad="6"></div></div>
+    <div style="left:1145px;top:640px;transform:rotate(2deg)"><i class="tape"></i><div data-ad="7"></div></div>
+    <div style="left:1555px;top:640px;transform:rotate(-3.5deg)"><i class="tape"></i><div data-ad="8"></div></div>
+  </div>
+  <div class="foot">
+    <div><div class="lbl" style="margin-bottom:6px"><b>Them</b> · OFW</div><div class="th dim"><img src="../../research/img/cp-ofw-quote.jpg"><img src="../../research/img/cp-ofw-before.jpg"></div></div>
+    <div><div class="lbl" style="margin-bottom:6px"><b>Playbook</b> · Zimran</div><div class="th"><img src="../../research/img/fin-notes.jpg"><img src="../../research/img/fin-notebook.jpg"></div></div>
+    <div class="pf"><div class="n">0</div><div class="c">competitors run quizzes or plain statics</div></div>
+    <div class="pf"><div class="n">11.6% <small>vs 7.0%</small></div><div class="c">plain beats polished on Meta</div></div>
+    <div class="pf"><div class="n">5B</div><div class="c">TikTok views on #coparenting</div></div>
+    <div class="pf"><div class="n">AI</div><div class="c">new variants every day</div></div>
+  </div>
+  <div class="pg">7</div>
+</section>
+
+<!-- C -->
+<section class="slide C">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">Marketing strategy · AI static ads, Zimran's playbook</div>
+  <h2>They run polished brand ads. <span>We run dozens of wild ones a day.</span></h2>
+  <div class="left">
+    <div style="display:flex;gap:22px">
+      <div><div class="lbl" style="margin-bottom:8px"><b>Them</b> · glossy</div><div class="th dim"><img src="../../research/img/cp-ofw-quote.jpg"><img src="../../research/img/cp-ofw-before.jpg"></div></div>
+      <div><div class="lbl" style="margin-bottom:8px"><b>Zimran</b> · plain</div><div class="th"><img src="../../research/img/fin-notes.jpg"><img src="../../research/img/fin-notebook.jpg"></div></div>
+    </div>
+    <div class="proofs">
+      <div class="pf"><div class="n">0</div><div class="c">competitors run quizzes or plain statics</div></div>
+      <div class="pf"><div class="n">11.6% <small>vs 7.0%</small></div><div class="c">plain beats polished on Meta</div></div>
+      <div class="pf"><div class="n">5B</div><div class="c">TikTok views on #coparenting</div></div>
+      <div class="pf"><div class="n">AI</div><div class="c">makes new variants every day</div></div>
+    </div>
+  </div>
+  <div class="phones" id="feed"></div>
+  <div class="pg">7</div>
+</section>
+
+<!-- D -->
+<section class="slide D">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">Marketing strategy · AI static ads, Zimran's playbook</div>
+  <h2>They run polished brand ads. <span>We run dozens of wild ones a day.</span></h2>
+  <div class="them">
+    <div class="big">Them</div>
+    <div class="th dim"><img src="../../research/img/cp-ofw-quote.jpg"><img src="../../research/img/cp-ofw-before.jpg"></div>
+    <p>OurFamilyWizard: glossy, corporate, no quiz.</p>
+    <div class="th"><img src="../../research/img/fin-notes.jpg"><img src="../../research/img/fin-notebook.jpg"></div>
+    <p>Zimran's playbook: plain statics, tested daily.</p>
+  </div>
+  <div class="vs">vs</div>
+  <div class="us"><div class="grid"><div data-ad="1"></div><div data-ad="2"></div><div data-ad="3"></div><div data-ad="4"></div><div data-ad="5"></div><div data-ad="6"></div><div data-ad="7"></div><div data-ad="8"></div></div></div>
+  <div class="proofs">
+    <div class="pf"><div class="n">0</div><div class="c">competitors run quizzes or plain statics</div></div>
+    <div class="pf"><div class="n">11.6% <small>vs 7.0%</small></div><div class="c">plain beats polished on Meta</div></div>
+    <div class="pf"><div class="n">5B</div><div class="c">TikTok views on #coparenting</div></div>
+    <div class="pf"><div class="n">AI</div><div class="c">makes new variants every day</div></div>
+  </div>
+</section>
+
+<!-- E -->
+<section class="slide E">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">Marketing strategy · AI static ads, Zimran's playbook</div>
+  <h2>They run polished brand ads. <span>We run dozens of wild ones a day.</span></h2>
+  <div class="board"></div>
+  <div class="it" style="left:120px;top:346px"><div style="zoom:.78" data-ad="1"></div></div>
+  <div class="st" style="left:136px;top:312px;transform:rotate(-3deg)">Notes app</div>
+  <div class="it pbox" style="left:120px;top:762px;width:312px"><div class="lbl" style="margin-bottom:10px"><b>Them</b> · glossy, no quiz</div><div class="th dim"><img src="../../research/img/cp-ofw-quote.jpg"><img src="../../research/img/cp-ofw-before.jpg"></div></div>
+  <div class="it" style="left:452px;top:346px"><div style="zoom:.62" data-ad="2"></div></div>
+  <div class="st p" style="left:470px;top:312px;transform:rotate(2deg)">red pen</div>
+  <div class="it" style="left:452px;top:696px"><div style="zoom:.62" data-ad="5"></div></div>
+  <div class="st g" style="left:470px;top:662px;transform:rotate(-2deg)">quiz</div>
+  <div class="it" style="left:720px;top:346px"><div style="zoom:.78" data-ad="3"></div></div>
+  <div class="st b" style="left:736px;top:312px;transform:rotate(-2deg)">invoice</div>
+  <div class="it pbox" style="left:720px;top:762px;width:312px"><div class="lbl" style="margin-bottom:10px"><b>Zimran</b> · our playbook</div><div class="th"><img src="../../research/img/fin-notes.jpg"><img src="../../research/img/fin-notebook.jpg"></div></div>
+  <div class="it" style="left:1052px;top:346px"><div style="zoom:.62" data-ad="4"></div></div>
+  <div class="st" style="left:1068px;top:312px;transform:rotate(3deg)">POV</div>
+  <div class="it" style="left:1052px;top:696px"><div style="zoom:.62" data-ad="6"></div></div>
+  <div class="st p" style="left:1068px;top:662px;transform:rotate(-3deg)">notebook</div>
+  <div class="it" style="left:1320px;top:346px"><div style="zoom:.62" data-ad="7"></div></div>
+  <div class="st b" style="left:1336px;top:312px;transform:rotate(-2deg)">exhibit</div>
+  <div class="it" style="left:1320px;top:696px"><div style="zoom:.62" data-ad="8"></div></div>
+  <div class="st g" style="left:1336px;top:662px;transform:rotate(2deg)">search</div>
+  <div class="proofs">
+    <div class="pf"><div class="n">0</div><div class="c">competitors run quizzes or plain statics</div></div>
+    <div class="pf"><div class="n">11.6% <small>vs 7.0%</small></div><div class="c">plain beats polished on Meta</div></div>
+    <div class="pf"><div class="n">5B</div><div class="c">TikTok views on #coparenting</div></div>
+    <div class="pf"><div class="n">AI</div><div class="c">makes new variants every day</div></div>
+  </div>
+  <p class="src">Meta Ad Library (US, 14 Nov 2026) · Motion Creative Benchmarks 2026 (550K ads) · hashtagradar. Ads are our examples.</p>
+  <div class="pg">7</div>
+</section>
+
+<script>
+// C: four phones, two sponsored posts each
+document.getElementById('feed').innerHTML = [[1, 4], [2, 5], [3, 6], [7, 8]].map((pair) => `<div class="ph"><div class="scr">${pair.map((n) =>
+  `<div class="post"><div class="phd"><i></i><b>parley</b><span>Sponsored</span></div><div data-ad="${n}"></div><div class="more"><span>Learn more</span><span>&rsaquo;</span></div></div>`).join('')}</div></div>`).join('');
+</script>
+<script src="creatives.js"></script>
+</body>
+</html>

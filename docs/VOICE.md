@@ -7,7 +7,9 @@ and the replies we suggest — must read like a real phone, not a worksheet.
 - **Bursts, not letters.** One "message" is usually 2–4 bubbles sent seconds or minutes apart, sometimes a follow-up
   much later ("hello??" at 10:14 after nothing since 9:41). Model it as an ordered list of bubbles, each with a time.
 - **Lowercase, little punctuation, run-ons.** "ur late again" · "so ur not coming" · "i literally told u this yesterday"
-- **Texting shorthand:** u, ur, r, idk, idc, rn, tbh, ngl, fr, smh, omw, wya, bc/cuz, prob, tmrw, pls/plz, thx, k, kk, ok?, lol / lmao (often passive-aggressive), "seriously", "unreal", "wow".
+- **Texting shorthand — use a wide mix, not the same five:** u, ur, r, ik, idk, idc, ikr, rn, tbh, ngl, fr, istg, smh, omw, wya, wyd, hbu, lmk, nvm, ofc, wtv/whatev, bc/cuz/bcuz, prob/prolly, tmrw/tmr, tn (tonight), wknd, rq, pls/plz, ty/thx, k/kk, ok?, ya/yea/yeah/nah, gonna/wanna/gotta/kinda, bout, 'bout, w/ (with), b4, 2 (to/too) occasionally, lol / lmao / lmfao (often passive-aggressive), imo, dw, np, "seriously", "unreal", "wow", "bruh".
+  Meaning matters: `lmk` / `lmk asap` = a real ASK; `ik` / `ikr` = "I know"; `wtv` / `k.` / `fine.` = dismissive;
+  `istg` = escalation; `nvm` = they withdrew the ask (or are guilt-tripping); `dw` = "don't worry" (often sarcastic).
 - **Emphasis by CAPS and punctuation:** "AGAIN", "???", "!!", "…", "hello??", "answer me", "?" alone as a bubble.
 - **Emoji, sparingly and pointed:** 🙄 🙃 😂 🤦‍♀️ 👍 (a lone 👍 or "k." can be hostile).
 - **Typos happen** (dont, cant, im, thier, alot) — not in every message, but some.

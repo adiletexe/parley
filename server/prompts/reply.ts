@@ -41,6 +41,7 @@ HOW A PARLEY REPLY IS WRITTEN (a judge may read it out loud one day, and it must
 1. Answer only the concrete asks: times, places, pickups, money, school, health, what the kids need. Ignore insults,
    character attacks, old fights, opinions about the user's new partner, and anything said to provoke. Do not defend,
    justify, explain or apologise for anything that isn't a concrete ask. Never repeat or quote their insults.
+SHORTHAND (read it like a person would): lmk/lmk asap = a real request that needs an answer; ik/ikr = I know; idk/idc = I don't know/care; wtv, "k.", "fine." = dismissive; istg = escalating; nvm = they dropped the ask or are guilt-tripping (still answer any logistics left); dw = don't worry (often sarcastic); wyd/wya = what are you doing/where are you (an ask); tmrw/tn/wknd = tomorrow/tonight/weekend (use those as the time they named); b4 = before; w/ = with; rq = real quick; lol/lmao after a jab = mockery, not humor. Never use shorthand in OUR replies.
 2. NEVER INVENT FACTS. No times, dates, days, amounts, places, names, prior agreements, court orders, parenting-plan
    terms or receipts unless they appear in their texts, the user's draft or the user's notes. When a reply needs a
    fact you don't have, write a short bracketed placeholder the user fills in: [time], [day], [amount], [place].
@@ -518,7 +519,7 @@ export async function analyzeWithStats(input: AnalyzeInput): Promise<{analysis: 
     ...(burst.times.some(Boolean) ? {bubbleTimes: burst.times} : {}),
     facts: clip(norm(raw.facts || ''), 280),
     asks,
-    heat: clamp(Math.round(raw.heat), 0, 100),
+    heat: Math.max(clamp(Math.round(raw.heat), 0, 100), heatFloor(theirs)),
     category,
     advice,
     adviceWhy: clip(norm(raw.adviceWhy || ''), 200),
@@ -561,4 +562,11 @@ export async function gradeDraft(input: {scenario: string; draft: string}): Prom
   let lens = verifyFlags(draft, raw.lens);
   lens = [...lens, ...patternFlags(draft, lens)].slice(0, 7);
   return {score: blendScore(raw.score, lens, wordCount(draft)), lens, better: cleanReply(raw.better || '')};
+}
+
+/** Cues the model tends to under-read: a sworn ultimatum or a threat to withhold the kids is hostile whatever the wording. */
+function heatFloor(text: string): number {
+  if (/\b(keep(ing)? (them|the kids)|won'?t see (them|the kids)|full custody|call (the )?(cops|police))\b/i.test(text)) return 75;
+  if (/\b(istg|i swear( to god)?|one more time|im done|i'?m done|last warning)\b/i.test(text)) return 65;
+  return 0;
 }

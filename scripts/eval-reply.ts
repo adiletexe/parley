@@ -1,4 +1,4 @@
-/* Runs the reply coach against the live model on 26 realistic bursts (docs/VOICE.md: lowercase, shorthand, double and
+/* Runs the reply coach against the live model on 29 realistic bursts (docs/VOICE.md: lowercase, shorthand, double and
    triple texts, cold "k.", sugar-coated 🙂, midnight essays, kids as messengers) and checks, in code, the rules a reply
    must keep — including that it sounds like a person, not HR.
    Usage: npx tsx scripts/eval-reply.ts [--only 3,7] [--quiet]
@@ -9,6 +9,10 @@ import {analyzeWithStats, CONCEDE, EMOJI, HOSTILE_PATTERNS, SHORTHAND, STIFF} fr
 interface Case {
   name: string; incoming: string; bubbles?: number; draft?: string; context?: string;
   expectFlags?: string[]; expectIncident?: boolean; expectAdvice?: string[]; minHeat?: number;
+  /** Shorthand that carries meaning: an ask the model must find (`lmk asap`), and the neutral reply must answer it. */
+  expectAsk?: RegExp; replyAnswers?: RegExp;
+  /** A withdrawn ask with a guilt jab (`nvm`): the reply may offer logistics but must not grovel. */
+  noOverApology?: boolean;
 }
 
 const CASES: Case[] = [
@@ -72,6 +76,15 @@ const CASES: Case[] = [
     draft: "lol sorry some of us actually work. yes im coming to the recital, i already told emma"},
   {name: 'therapist', bubbles: 3,
     incoming: "[11/10, 4:15 PM] Sam: found a therapist for emma\n[11/10, 4:15 PM] Sam: first session thurs at 4\n[11/10, 4:16 PM] Sam: i dont need ur permission and i dont want u calling her"},
+  // Shorthand that carries the meaning (VOICE.md §1): `lmk asap` is the real ask, `nvm` withdraws it with a guilt
+  // jab, `istg` is escalation.
+  {name: 'lmk asap is the ask', bubbles: 3,
+    incoming: "ugh they moved my shift again\ncan u take them tmrw b4 school\nlmk asap",
+    expectAsk: /tomorrow|tmrw|before school|b4 school|morning|take them/i, replyAnswers: /tomorrow|before school|morning|drop|take them|\[/i},
+  {name: 'nvm withdrawal + guilt', bubbles: 2, noOverApology: true,
+    incoming: "was gonna ask u to switch wknds\nnvm ik ur 'busy'"},
+  {name: 'istg escalation', bubbles: 3, minHeat: 60,
+    incoming: "istg if ur late one more time…\nim done sitting in that parking lot w/ them\nnot gonna keep doing this"},
 ];
 
 const BANNED = /\b(you always|you never|as usual|per my last|as i(?:'ve| have)? (?:already )?(?:said|told you)|obviously|clearly|frankly|for the record|just so you know|with all due respect|i hear that you|lawyer|attorney|court|judge|police)\b|!/i;
@@ -184,6 +197,14 @@ for (const {c, i, a, stats, ms} of results) {
     const words = a.asks.join(' ').toLowerCase().match(/[a-z]{4,}/g)?.filter((w) => !STOP.has(w)) ?? [];
     const hit = words.some((w) => a.variants.neutral.text.toLowerCase().includes(w.slice(0, 5)));
     check(c.name, hit, 'neutral reply addresses an ask (shares a keyword)');
+  }
+  if (c.expectAsk) check(c.name, a.asks.some((q) => c.expectAsk!.test(q)), `asks include ${c.expectAsk}`);
+  if (c.replyAnswers) check(c.name, c.replyAnswers.test(a.variants.neutral.text), `neutral reply answers it (${c.replyAnswers})`);
+  if (c.noOverApology) {
+    const all = (['brief', 'neutral', 'firm'] as const).map((k) => a.variants[k].text);
+    const grovel = all.find((t) => /apolog|my fault|i feel (?:bad|terrible|awful)|so sorry|sorry.*sorry/i.test(t));
+    check(c.name, !grovel, `no over-apology${grovel ? ` ("${grovel}")` : ''}`);
+    check(c.name, all.filter((t) => /\bsorry\b/i.test(t)).length <= 1, 'at most one variant says sorry');
   }
   if (c.expectAdvice) check(c.name, c.expectAdvice.includes(a.advice), `advice in ${c.expectAdvice.join('/')}`);
   if (c.expectIncident !== undefined) check(c.name, !!a.incident?.worthLogging === c.expectIncident, `incident worthLogging = ${c.expectIncident}`);

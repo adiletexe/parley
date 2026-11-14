@@ -237,6 +237,44 @@ h2 span, h1 span { color: var(--mute); }
 .s10c .close .s { font-size: 19px; color: var(--mute); margin-top: 8px; }
 .s10c .chat.mini { width: 640px; padding: 26px 30px; }
 .s10c .chat.mini .b { font-size: 21px; }
+
+/* 7 · three columns + hook wall */
+.s7m .cols3 { left: 120px; top: 330px; width: 1680px; display: grid; grid-template-columns: 1fr 1fr 1.35fr; gap: 40px; }
+.s7m .c h3 { font-size: 26px; font-weight: 800; letter-spacing: -.02em; }
+.s7m .c p { font-size: 19px; color: var(--mute); margin-top: 6px; }
+.s7m .thumbs { display: flex; gap: 14px; margin-top: 20px; }
+.s7m .thumbs img { height: 300px; border-radius: 14px; display: block; border: 1px solid var(--line); }
+.s7m .thumbs.dim { opacity: .45; filter: saturate(.5); }
+.s7m .hooks { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; }
+.s7m .hooks span { background: #fbf6e6; color: #1b1b1b; font-weight: 800; font-size: 18px; line-height: 1.2; padding: 12px 14px; border-radius: 12px; }
+.s7m .hooks span:nth-child(3n+2) { background: #fff; transform: rotate(-1.5deg); }
+.s7m .hooks span:nth-child(3n) { background: #111; color: #fff; border: 1px solid #333; transform: rotate(1.2deg); }
+.s7m .proof { left: 120px; bottom: 100px; width: 1680px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; padding-top: 24px; }
+.s7m .proof .num { font-size: 50px; } .s7m .proof .cap { font-size: 18px; }
+/* 8 · onboarding numbers */
+.s8w .steps { left: 120px; top: 380px; width: 900px; display: grid; grid-template-columns: 1fr 1fr; gap: 34px 50px; }
+.s8w .steps b { display: block; font-size: 76px; font-weight: 800; letter-spacing: -.04em; line-height: 1; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.s8w .steps span { display: block; font-size: 21px; color: var(--mute); margin-top: 8px; line-height: 1.35; }
+.s8w .quotes { left: 120px; top: 790px; width: 900px; display: flex; flex-direction: column; gap: 10px; }
+.s8w .quotes .q { font-size: 24px; font-weight: 700; color: var(--fg); }
+.s8w .quotes em { font-style: normal; color: var(--acc); }
+.s8w .phones2 { right: 130px; top: 100px; display: flex; gap: 40px; align-items: flex-start; }
+.s8w .phones2 .low { margin-top: 90px; }
+/* 10 · staircase */
+.s10p .stairs { left: 120px; top: 290px; width: 1680px; height: 440px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; align-items: end; }
+.s10p .st { background: var(--card); border: 1px solid var(--line); border-radius: 26px 26px 10px 10px; padding: 20px 24px; display: flex; flex-direction: column; justify-content: flex-start; overflow: hidden; }
+.s10p .st.top { background: linear-gradient(160deg, rgba(124,92,240,.35), rgba(63,141,245,.18)); border-color: rgba(124,92,240,.6); }
+.s10p .when { font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: var(--acc); font-weight: 700; }
+.s10p .what { font-size: 24px; font-weight: 800; margin-top: 4px; }
+.s10p .n { font-size: 38px; font-weight: 800; letter-spacing: -.03em; margin-top: 6px; }
+.s10p .r { font-size: 17px; color: var(--mute); margin-top: 6px; line-height: 1.35; }
+.s10p .r b { color: var(--fg); }
+.s10p .closeline { left: 120px; top: 790px; width: 1680px; display: flex; align-items: baseline; gap: 36px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 26px; }
+.s10p .closeline b { font-size: 44px; font-weight: 800; letter-spacing: -.03em; }
+.s10p .closeline b span { color: var(--mute); }
+.s10p .closeline i { font-style: normal; font-size: 36px; font-weight: 800; }
+.s10p .closeline i u { text-decoration: none; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.s10p .closeline small { font-size: 18px; color: var(--mute); width: 100%; }
 </style>
 </head>
 <body>
@@ -360,50 +398,59 @@ h2 span, h1 span { color: var(--mute); }
   <div class="pg">6</div>
 </section>
 
-<!-- 7 · WHY ADS ARE CHEAP -->
-<section class="slide s7b">
+<!-- 7 · MARKETING: AI STATIC ADS -->
+<section class="slide s7m">
   <div class="mark"><i></i>Parley</div>
-  <div class="kick">How we get customers cheaply</div>
-  <h2 style="width:1700px;font-size:58px">Every angry text is a free ad. <span>This niche writes its own creatives.</span></h2>
-  <div class="wall">
-    <div class="ad notes"><small>‹ Notes</small><h4>Read it the way a judge will.</h4><p>Before you hit send.</p><p>Paste their text. Get a <mark>calm reply</mark> in 10 seconds.</p><u>TAP TO TRY</u></div>
-    <div class="ad imsg"><div class="who">Jordan</div><div class="m i">so ur not coming. wow.</div><div class="m o">here we go again</div><div class="m g">Running 10 min late, there by 5:40.</div><div class="cta">Fix your reply in 10 sec</div></div>
-    <div class="ad poll"><div class="q">Rate my reply to my ex</div><div class="opt">A · "k."</div><div class="opt">B · "wow, again??"</div><div class="opt on">C · "Got it, I'll be there at 5."</div><div class="foot">Tap to see what a judge picks</div></div>
-    <div class="ad bill"><div class="hd">LAW OFFICE · INVOICE</div><div class="ln"><span>Read 1 text from ex</span><span>$349</span></div><div class="ln"><span>Read your reply</span><span>$349</span></div><div class="tot"><span>TOTAL</span><span>$698</span></div><div class="ft">Or answer it right the first time.</div></div>
-    <div class="ad pov"><div class="tag">POV</div><div class="big">your ex texts you at 11:48 pm</div><div class="bub">istg if he shows up saturday</div><div class="ft">what do you send?</div></div>
+  <div class="kick">Marketing strategy · AI static ads, Zimran's playbook</div>
+  <h2 style="width:1700px;font-size:58px">They run polished brand ads. <span>We run dozens of wild ones a day.</span></h2>
+  <div class="cols3">
+    <div class="c"><h3>Competitors</h3><p>Glossy, corporate. No quiz.</p>
+      <div class="thumbs dim"><img src="research/img/cp-ofw-quote.jpg"><img src="research/img/cp-ofw-before.jpg"></div></div>
+    <div class="c"><h3>Zimran</h3><p>Plain statics, tested daily.</p>
+      <div class="thumbs"><img src="research/img/fin-notes.jpg"><img src="research/img/fin-notebook.jpg"></div></div>
+    <div class="c us"><h3>Parley</h3><p>Same format. A niche full of drama.</p>
+      <div class="hooks">
+        <span>"Rate my reply to my ex"</span>
+        <span>$698 for a lawyer to read 2 texts</span>
+        <span>POV: the other parent texts at 11:48 pm</span>
+        <span>Wrong answers only: "ur late AGAIN"</span>
+        <span>Read it the way a judge will</span>
+        <span>He typed "k." A judge read it.</span>
+        <span>3 replies. 1 keeps your kids out of it.</span>
+        <span>Screenshot it before you send it</span>
+      </div></div>
   </div>
-  <div class="wall-note">Zimran's format (plain native statics, dozens of tests a day) fits a fight everyone recognizes.</div>
   <div class="proof rule">
-    <div><div class="num">0</div><div class="cap">competitors run a quiz funnel. OFW ~75 ads, TalkingParents ~43, BestInterest 0.</div></div>
+    <div><div class="num">0</div><div class="cap">competitors run quiz funnels or plain statics (OFW ~75 ads, TalkingParents ~43)</div></div>
     <div><div class="num">11.6% <span style="color:var(--dim);font-size:34px">vs 7.0%</span></div><div class="cap">plain-text ads win more often than polished ones on Meta</div></div>
-    <div><div class="num">5B</div><div class="cap">TikTok views on #coparenting. People already watch these fights.</div></div>
-    <div><div class="num">Share</div><div class="cap">Reels and Spark ads can be sent to a friend: reach we don't pay for</div></div>
+    <div><div class="num">5B</div><div class="cap">TikTok views on #coparenting. The drama already gets watched.</div></div>
+    <div><div class="num">AI</div><div class="cap">writes and draws new variants every day, so creatives never run out</div></div>
   </div>
-  <p class="src" style="bottom:40px">Meta Ad Library (US, 14 Nov 2026) · Motion Creative Benchmarks 2026 (550K ads) · hashtagradar · Meta and TikTok ad specs. Ads say "the other parent", never "your ex" (Meta policy). Ad ideas are ours, examples only.</p>
+  <p class="src" style="bottom:40px">Meta Ad Library (US, 14 Nov 2026) · Motion Creative Benchmarks 2026 (550K ads) · hashtagradar. Ads speak as "me" or "the other parent", never call the viewer divorced (Meta policy). Hooks are our examples.</p>
   <div class="pg">7</div>
 </section>
 
 <!-- 8 · FUNNEL -->
-<section class="slide s8f">
+<section class="slide s8w">
   <div class="mark"><i></i>Parley</div>
-  <div class="kick">From ad to paid plan · built and live</div>
-  <h2 style="width:1700px;font-size:58px">One minute from an ad to a paid plan. <span>Zimran's quiz funnel.</span></h2>
-  <div class="flow">
-    <div class="st"><div class="ad notes mini"><small>‹ Notes</small><h4>Read it the way a judge will.</h4><p>Paste their text. Get a <mark>calm reply</mark>.</p><u>TAP TO TRY</u></div><b>1 · Plain ad</b><span>dozens tested a day</span></div>
-    <div class="ar">→</div>
-    <div class="st"><div class="iphone iphone--black" style="--s:.5; --tab:0" data-shot="shots/onb-quiz.png"></div><b>2 · 11 questions</b><span>their kids, their ex, their case</span></div>
-    <div class="ar">→</div>
-    <div class="st"><div class="iphone iphone--black" style="--s:.5; --tab:0" data-shot="shots/onb-insight.png"></div><b>3 · 4 "good to know"</b><span>a fact after every few answers</span></div>
-    <div class="ar">→</div>
-    <div class="st"><div class="iphone iphone--black" style="--s:.5; --tab:0" data-shot="shots/onb-plan.png"></div><b>4 · Their own plan</b><span>built from their answers</span></div>
-    <div class="ar">→</div>
-    <div class="st"><div class="iphone iphone--black" style="--s:.5; --tab:0" data-shot="shots/onb-pricing.png"></div><b>5 · Price</b><span>$19.99 first 4 weeks</span></div>
+  <div class="kick">The onboarding · built and live</div>
+  <h2 style="width:900px;font-size:58px">By the price screen, <span>they've told us their story.</span></h2>
+  <div class="steps">
+    <div class="s"><b>11</b><span>questions about their kids, their ex and their case</span></div>
+    <div class="s"><b>4</b><span>"good to know" screens that answer a fear</span></div>
+    <div class="s"><b>1</b><span>personal plan built from their answers</span></div>
+    <div class="s"><b>~1 min</b><span>about 19 screens, then the price</span></div>
   </div>
-  <div class="why">
-    <div><div class="num">~19</div><div class="cap">screens, about a minute</div></div>
-    <div><div class="num">0</div><div class="cap">sign-up or free tier: they pay for the plan they just built</div></div>
-    <div class="live"><div class="cap">Try the whole funnel now</div><div class="u">parley.adiletfndr.com</div></div>
+  <div class="quotes">
+    <div class="q">"Your messages are <em>already a record.</em>"</div>
+    <div class="q">"Alex, here's your <em>calm plan.</em>"</div>
+    <div class="q">"$19.99 for your first 4 weeks"</div>
   </div>
+  <div class="phones2">
+    <div class="iphone iphone--black" style="--s:.82; --tab:0" data-shot="shots/onb-insight.png"></div>
+    <div class="low"><div class="iphone iphone--black" style="--s:.82; --tab:0" data-shot="shots/onb-plan.png"></div></div>
+  </div>
+  <p class="src" style="bottom:40px">Quiz funnels: paywall to purchase 8% to 12% for the best funnels (Adapty 2025). Try it: parley.adiletfndr.com</p>
   <div class="pg">8</div>
 </section>
 
@@ -438,25 +485,19 @@ h2 span, h1 span { color: var(--mute); }
   <div class="pg">9</div>
 </section>
 
-<!-- 10 · $100M AND CLOSE -->
-<section class="slide s10c">
+<!-- 10 · PLAN TO $100M AND CLOSE -->
+<section class="slide s10p">
   <div class="mark"><i></i>Parley</div>
-  <div class="kick">Business model</div>
-  <h2 style="width:1500px">$100M a year is 1% of parents in two homes.</h2>
-  <div class="blocks">
-    <div class="blk"><div class="t">Paying parents needed</div><div class="num">257K</div><p>× $29.99 every 4 weeks × 13 = <b>$100M a year</b>. Out of ~25M parents raising kids in two homes.</p></div>
-    <div class="blk"><div class="t">Ad spend to hold it</div><div class="num">$2M<span style="font-size:36px;color:var(--mute)"> / mo</span></div><p>A customer stays ~5 months, so we add <b>~49K a month</b> at $40 each. Revenue is $8.3M a month.</p></div>
+  <div class="kick">Plan to $100M a year</div>
+  <h2 style="width:1700px;font-size:58px">Start with $3K. Scale only what pays back.</h2>
+  <div class="stairs">
+    <div class="st" style="height:200px"><div class="when">Month 1</div><div class="what">Test</div><div class="n">$3K ads</div><div class="r">~75 buyers. Real CAC known. Stop if over $100.</div></div>
+    <div class="st" style="height:250px"><div class="when">Months 2 to 6</div><div class="what">Find winners</div><div class="n">$30K / mo</div><div class="r">~750 new a month → <b>$1.5M ARR</b></div></div>
+    <div class="st" style="height:320px"><div class="when">Year 2</div><div class="what">Scale Meta + TikTok</div><div class="n">$300K / mo</div><div class="r">~7.5K new a month → <b>$15M ARR</b></div></div>
+    <div class="st top" style="height:420px"><div class="when">Year 3</div><div class="what">$100M</div><div class="n">$2M / mo</div><div class="r">~49K new a month → <b>257K paying parents</b>, 1% of 25M</div></div>
   </div>
-  <div class="close">
-    <div class="l"><div class="h">One calm text. <span>Parley writes it.</span></div><div class="u">parley.adiletfndr.com<span>/demo</span></div><div class="s">No sign-up · test card 4242 4242 4242 4242 · github.com/adiletexe/parley</div></div>
-    <div class="chat mini">
-      <div class="th">
-        <div class="b out" style="opacity:.4;text-decoration:line-through">I will not coparent with you, get that straight</div>
-        <div class="b out good">Ok, I'll keep him in his own bed this week. Let's check in Sunday.</div>
-      </div>
-    </div>
-  </div>
-  <p class="src" style="bottom:40px">~25M = 12.9M custodial parents (US Census P60-269) and the other parent. Parley is not a law firm and doesn't give legal advice.</p>
+  <div class="closeline"><b>One calm text. <span>Parley writes it.</span></b><i>parley.adiletfndr.com<u>/demo</u></i><small>No sign-up · test card 4242 4242 4242 4242 · github.com/adiletexe/parley</small></div>
+  <p class="src" style="bottom:40px">From pitch/model.mjs: $40 CAC, ~5.2 paid months, $29.99 / 4 weeks, so every $1 of monthly ad spend holds ~$51 of ARR; ads pay back in ~2 months, so growth funds itself. 25M = 12.9M custodial parents (Census) and the other parent. Parley is not a law firm and doesn't give legal advice.</p>
   <div class="pg">10</div>
 </section>
 <script src="design-options/iphone.js"></script>

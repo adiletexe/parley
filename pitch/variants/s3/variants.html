@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Slide 3 variants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#555;font-family:'Plus Jakarta Sans',sans-serif}
+.slide{width:1920px;height:1080px;position:relative;overflow:hidden;margin:0 auto 40px}
+.pen{font-family:'Caveat',cursive}
+.foot{position:absolute;bottom:40px;font-size:18px}
+
+/* shared texting bubbles */
+.b{display:block;width:fit-content;max-width:100%;padding:14px 22px;border-radius:26px;font-size:28px;line-height:1.3;margin-bottom:8px;font-family:'Inter',sans-serif}
+.ts{font-family:'JetBrains Mono',monospace;font-size:18px;letter-spacing:.02em}
+
+/* ============ A: dark, one thread annotated ============ */
+.a{background:#0d0e1a;color:#f3f3fa}
+.a .brand{position:absolute;left:110px;top:80px;display:flex;gap:14px;align-items:center;font-weight:700;font-size:26px}
+.a .brand i{width:30px;height:30px;border-radius:9px;background:#5b6cf6}
+.a .eyebrow{position:absolute;left:110px;top:180px;font-size:22px;font-weight:700;letter-spacing:.16em;color:#8f9bff;text-transform:uppercase}
+.a h1{position:absolute;left:110px;top:222px;width:860px;font-size:64px;line-height:1.04;font-weight:800;letter-spacing:-.035em}
+.a .who{position:absolute;left:110px;top:450px;width:800px}
+.a .who .age{font-size:116px;font-weight:800;letter-spacing:-.05em;line-height:.9}
+.a .who .age span{color:#7d82a8;font-weight:600;font-size:46px;letter-spacing:-.01em;margin-left:18px;vertical-align:middle}
+.a .who p{font-size:28px;line-height:1.45;color:#c9cbe0;margin-top:22px}
+.a .who p b{color:#fff;font-weight:700}
+.a .money{position:absolute;left:110px;top:850px;display:flex;gap:70px}
+.a .money div{font-size:22px;color:#9a9cb8;line-height:1.4;width:330px}
+.a .money b{display:block;font-size:64px;color:#fff;font-weight:800;letter-spacing:-.03em;line-height:1.05}
+.a .phone{position:absolute;left:1040px;top:70px;width:560px;height:850px;background:#16182b;border-radius:48px;padding:46px 40px;border:1px solid #262a45}
+.a .phone .ts{color:#6e7290;text-align:center;margin:18px 0 14px}
+.a .phone .b{font-size:24px;padding:12px 20px;border-radius:22px}.a .phone .in{background:#262a42;color:#eef}.a .hit{position:relative}.a .hit::after{content:"";position:absolute;left:-16px;right:-16px;top:-12px;bottom:-12px;border:3px solid #e2508f;border-radius:50%;transform:rotate(-2deg)}
+.a .phone .name{text-align:center;font-size:22px;color:#a6a9c7;font-weight:600;padding-bottom:20px;border-bottom:1px solid #262a45}
+.a .ann{position:absolute;color:#ff6fa8;font-size:40px;line-height:1.05;width:290px}
+.a .ann svg{position:absolute}
+.a .circ{position:absolute;border:3px solid #e2508f;border-radius:50%;transform:rotate(-3deg)}
+.a .draft{background:#2b3270;color:#d9dcff;margin-left:auto;opacity:.95;border:2px dashed #6b77ff}
+.a .typing{text-align:right;color:#8f9bff;font-size:20px;margin-top:4px}
+
+/* ============ B: magazine profile, light ============ */
+.bb{background:#f5f1e8;color:#1b1a17}
+.bb .kick{position:absolute;left:120px;top:90px;font-family:'Inter';font-size:20px;letter-spacing:.2em;font-weight:600;text-transform:uppercase;color:#a0432d}
+.bb .rule{position:absolute;left:120px;right:120px;top:132px;border-top:2px solid #1b1a17}
+.bb h1{position:absolute;left:120px;top:165px;font-family:'Newsreader',serif;font-weight:500;font-size:92px;letter-spacing:-.025em;line-height:1}
+.bb .dek{position:absolute;left:120px;top:290px;width:880px;font-family:'Newsreader',serif;font-size:36px;line-height:1.35;color:#4a463d}
+.bb .quote{position:absolute;left:120px;top:480px;width:900px;font-family:'Newsreader',serif;font-style:italic;font-size:64px;line-height:1.16;letter-spacing:-.01em}
+.bb .quote::before{content:'\201C';position:absolute;left:-58px;top:-26px;font-size:150px;color:#a0432d;font-style:normal}
+.bb .attr{position:absolute;left:120px;top:730px;font-family:'Inter';font-size:26px;color:#6c665a;width:900px;line-height:1.5}
+.bb .attr b{color:#1b1a17}
+.bb .side{position:absolute;left:1120px;top:180px;width:680px;font-family:'Inter'}
+.bb .side h3{font-size:20px;letter-spacing:.18em;text-transform:uppercase;color:#a0432d;font-weight:700;margin-bottom:18px}
+.bb .side .row{display:flex;gap:26px;align-items:baseline;padding:20px 0;border-top:1px solid #cfc7b5}
+.bb .side .row .n{font-family:'Newsreader',serif;font-size:66px;font-weight:500;letter-spacing:-.03em;width:290px;white-space:nowrap;flex:none;line-height:1}
+.bb .side .row p{font-size:24px;line-height:1.4;color:#3b382f}
+.bb .side ol{list-style:none;counter-reset:k}
+.bb .side li{counter-increment:k;font-size:26px;line-height:1.38;padding:14px 0 14px 56px;position:relative;border-top:1px solid #cfc7b5}
+.bb .side li::before{content:counter(k);position:absolute;left:0;top:10px;font-family:'Newsreader',serif;font-size:40px;color:#a0432d}
+.bb .foot{left:120px;color:#7a7364;font-family:'Inter'}
+
+/* ============ C: a week in her phone ============ */
+.c{background:#fbfaf7;color:#16161a}
+.c .eyebrow{position:absolute;left:100px;top:76px;font-size:22px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#5b6cf6}
+.c h1{position:absolute;left:100px;top:116px;font-size:68px;font-weight:800;letter-spacing:-.035em;line-height:1.06;width:1300px}
+.c .who{position:absolute;right:100px;top:84px;text-align:right;font-size:24px;color:#55556a;line-height:1.45;width:430px}
+.c .who b{display:block;font-size:56px;color:#16161a;letter-spacing:-.03em;font-weight:800}
+.c .week{position:absolute;left:100px;right:100px;top:340px;height:470px;display:grid;grid-template-columns:1.25fr .7fr 1.1fr .7fr 1.15fr .65fr .65fr;border-top:2px solid #16161a}
+.c .day{border-right:1px solid #e3e1da;padding:18px 18px 0 18px;position:relative}
+.c .day:last-child{border-right:none}
+.c .day .d{font-size:20px;font-weight:700;letter-spacing:.12em;color:#8a8a9a;margin-bottom:16px}
+.c .in{background:#eceaf2;color:#1d1d26;font-size:24px;padding:11px 18px;border-radius:22px}
+.c .me{font-size:22px;color:#c03d72;line-height:1.35;margin-top:14px;font-weight:600}
+.c .quiet{font-size:22px;color:#a3a3b2;line-height:1.35;font-style:italic}
+.c .day .ts{color:#9a9aa8;font-size:17px;display:block;margin:6px 0 8px}
+.c .bottom{position:absolute;left:100px;right:100px;top:850px;display:flex;gap:0;border-top:1px solid #d6d4cc;padding-top:28px}
+.c .bottom .lbl{width:300px;font-size:22px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#5b6cf6;padding-top:6px}
+.c .bottom .t{flex:1;font-size:30px;line-height:1.4;color:#2a2a35}
+.c .bottom .t b{font-weight:800}
+.c .stat{position:absolute;right:100px;top:270px;font-size:20px;color:#8a8a9a}
+
+/* ============ D: Mom and Dad, split ============ */
+.dd{background:#0d0e1a;color:#f2f2f8}
+.dd .top{position:absolute;left:0;right:0;top:70px;text-align:center}
+.dd .top .eyebrow{font-size:22px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#8f9bff}
+.dd .top h1{font-size:66px;font-weight:800;letter-spacing:-.035em;margin-top:14px;line-height:1.08}
+.dd .half{position:absolute;top:290px;width:760px;height:600px}
+.dd .half.l{left:110px}
+.dd .half.r{right:110px;text-align:right}
+.dd .half .age{font-size:120px;font-weight:800;letter-spacing:-.05em;line-height:.9}
+.dd .half .sit{font-size:28px;color:#b8bad3;line-height:1.45;margin-top:18px}
+.dd .half .sit b{color:#fff}
+.dd .half .tx{margin-top:34px}
+.dd .half .in{background:#23263d;color:#eef}
+.dd .half.r .b{margin-left:auto}
+.dd .half .trig{margin-top:30px;font-size:26px;line-height:1.4;color:#ff7fb0}
+.dd .half .trig span{display:block;font-size:18px;letter-spacing:.16em;text-transform:uppercase;color:#7e819e;font-weight:700;margin-bottom:6px}
+.dd .mid{position:absolute;left:910px;top:300px;width:100px;height:560px;display:flex;justify-content:center}
+.dd .mid i{width:2px;background:linear-gradient(#0d0e1a,#3a3f66 20%,#3a3f66 80%,#0d0e1a)}
+.dd .shared{position:absolute;left:110px;right:110px;bottom:62px;display:flex;align-items:baseline;gap:40px;border-top:1px solid #2a2d48;padding-top:26px;font-size:26px;color:#b8bad3}
+.dd .shared b{color:#fff;font-size:44px;font-weight:800;letter-spacing:-.02em;margin-right:10px}
+
+/* ============ E: what she already pays, receipt ============ */
+.e{background:#eef3ee;color:#13201a}
+.e .eyebrow{position:absolute;left:110px;top:90px;font-size:22px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#1f7a55}
+.e h1{position:absolute;left:110px;top:132px;width:880px;font-size:74px;font-weight:800;letter-spacing:-.035em;line-height:1.05}
+.e .pf{position:absolute;left:110px;top:400px;width:830px}
+.e .pf .age{font-size:44px;font-weight:800;letter-spacing:-.02em}
+.e .pf ul{list-style:none;margin-top:16px}
+.e .pf li{font-size:30px;line-height:1.4;padding:16px 0;border-top:1px solid #c9d6cc;color:#2c3a33}
+.e .pf li b{color:#13201a}
+.e .rc{position:absolute;left:1080px;top:120px;width:700px;background:#fff;padding:52px 56px 46px;font-family:'JetBrains Mono',monospace;color:#1a1a1a;box-shadow:0 30px 60px -30px rgba(20,50,30,.35);transform:rotate(1.2deg)}
+.e .rc::after{content:'';position:absolute;left:0;right:0;bottom:-18px;height:18px;background:radial-gradient(circle at 10px -2px,transparent 12px,#fff 13px) 0 0/20px 18px repeat-x}
+.e .rc h4{font-size:22px;letter-spacing:.08em;text-align:center;font-weight:500;color:#555}
+.e .rc .line{display:flex;justify-content:space-between;align-items:baseline;padding:22px 0;border-bottom:1px dashed #bbb;gap:20px}
+.e .rc .line .what{font-size:22px;line-height:1.4;color:#333;flex:1}
+.e .rc .line .amt{font-size:46px;font-weight:500;white-space:nowrap;flex:none}
+.e .rc .note{font-family:'Caveat';font-size:36px;color:#c2374f;line-height:1.05}
+.e .rc .tot{display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding-top:22px;font-size:22px;color:#555}
+.e .rc .tot b{font-size:30px}
+.e .buy{position:absolute;left:110px;right:110px;bottom:60px;display:flex;align-items:flex-start;gap:36px}
+.e .buy .lbl{font-size:22px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#1f7a55;width:220px;padding-top:4px;flex:none}
+.e .buy p{font-size:28px;line-height:1.4;color:#2c3a33}
+.e .buy p b{color:#13201a}
+</style>
+</head>
+<body>
+
+<!-- ===================== A ===================== -->
+<section class="slide a">
+  <div class="brand"><i></i>Parley</div>
+  <div class="eyebrow">Our ideal customer</div>
+  <h1>A parent in a custody fight who dreads the next text</h1>
+  <div class="who">
+    <div class="age">Mom, 36<span>(or Dad, 38)</span></div>
+    <p><b>Two kids at home and a custody case with a high-conflict ex.</b> Her lawyer told her to <b>"document everything."</b> Every text she sends could be read out in court, so she rewrites each reply three times and still feels like she's walking on eggshells.</p>
+  </div>
+  <div class="money">
+    <div><b>$349</b>an hour for her lawyer, who bills to read these texts</div>
+    <div><b>$110–300</b>a year for OurFamilyWizard, if her ex ever agrees to join</div>
+  </div>
+
+  <div class="phone">
+    <div class="name">the other parent</div>
+    <div class="ts">TUE 9:41 PM</div>
+    <div class="b in hit">im not paying half of soccer</div>
+    <div class="b in">u signed her up without even asking me. typical</div>
+    <div class="b in">want her in every activity under the sun? then u pay for it lol</div>
+    <div class="ts">THU 7:02 AM</div>
+    <div class="b in">dont tell me how to run my house</div>
+    <div class="b in">shes tired bc u let her stay up on ur wknds</div>
+    <div class="ts">THU 11:48 PM</div>
+    <div class="b draft hit">Maybe if you spent less on your new boyfriend you could afford HALF</div>
+    <div class="typing">her draft, not sent yet</div>
+  </div>
+  
+  <div class="ann pen" style="left:1640px;top:205px">a $120 bill turns into a fight</div>
+  <svg style="position:absolute;left:1592px;top:240px" width="56" height="30"><path d="M54 6 C 34 4, 18 12, 4 22" stroke="#ff6fa8" stroke-width="3" fill="none"/><path d="M4 22 l12 -2 M4 22 l6 -10" stroke="#ff6fa8" stroke-width="3"/></svg>
+  <div class="ann pen" style="left:1640px;top:730px">the one that would hurt her in court</div>
+  <svg style="position:absolute;left:1596px;top:765px" width="50" height="30"><path d="M48 4 C 30 6, 16 14, 4 24" stroke="#ff6fa8" stroke-width="3" fill="none"/><path d="M4 24 l12 -1 M4 24 l5 -11" stroke="#ff6fa8" stroke-width="3"/></svg>
+  <div class="foot" style="left:110px;bottom:34px;color:#6e7290">Texts in the style of the sample case. "Mom, 36" is a composite, not a real person.</div>
+</section>
+
+<!-- ===================== B ===================== -->
+<section class="slide bb">
+  <div class="kick">Who we're building this for</div>
+  <div class="rule"></div>
+  <h1>Our ideal customer</h1>
+  <div class="dek">A mom or dad, 25 to 45, with kids at home and a custody case or modification against an ex who picks a fight in every text.</div>
+  <div class="quote">I rewrite every reply three times, and I'm still scared to hit send.</div>
+  <div class="attr"><b>Mom, 36.</b> Two kids, a hearing date on the calendar, and texts every week that are mostly bait. Her lawyer told her to document everything, but her record is scattered across SMS, WhatsApp and email.</div>
+  <div class="side">
+    <h3>She already pays to get through this</h3>
+    <div class="row"><div class="n">$349</div><p>an hour for a lawyer, who bills her to read the texts</p></div>
+    <div class="row" style="border-bottom:1px solid #cfc7b5"><div class="n">$110–300</div><p>a year for OurFamilyWizard, per parent, and it only works if her ex signs up too</p></div>
+    <h3 style="margin-top:54px">The week she starts looking for help</h3>
+    <ol>
+      <li>Her lawyer says <b>"document everything."</b></li>
+      <li>A hearing date is set.</li>
+      <li style="border-bottom:1px solid #cfc7b5">Her ex refuses to use the co-parenting app.</li>
+    </ol>
+  </div>
+  <div class="foot">The quote and "Mom, 36" are a composite of what parents in custody cases say, not a real person. Rates: Clio 2025, OurFamilyWizard pricing.</div>
+</section>
+
+<!-- ===================== C ===================== -->
+<section class="slide c">
+  <div class="eyebrow">Our ideal customer</div>
+  <h1>Her ex texts all week, and every reply<br>could end up in front of a judge</h1>
+  <div class="who"><b>Mom, 36</b>two kids, custody modification in progress, a lawyer at $349 an hour</div>
+  <div class="week">
+    <div class="day"><div class="d">MON</div>
+      <div class="b in">every week its another bill from u</div>
+      <div class="b in">im not a bank</div>
+      <span class="ts">8:14 PM</span>
+      <div class="me">Writes a reply, deletes it, writes it again.</div>
+    </div>
+    <div class="day"><div class="d">TUE</div>
+      <div class="quiet">Nothing. She checks her phone anyway.</div>
+    </div>
+    <div class="day"><div class="d">WED</div>
+      <div class="b in">ur 40 min late AGAIN</div>
+      <div class="b in">emma is sitting here crying</div>
+      <span class="ts">5:41 PM</span>
+      <div class="me">She was 10 minutes late. Doesn't know if she should say so.</div>
+    </div>
+    <div class="day"><div class="d">THU</div>
+      <div class="quiet">Forwards the thread to her lawyer. That's billed.</div>
+    </div>
+    <div class="day"><div class="d">FRI</div>
+      <div class="b in">emma says ur 'friend' sam came to her game??</div>
+      <span class="ts">11:52 PM</span>
+      <div class="me">Up until 1 am drafting. Sends nothing.</div>
+    </div>
+    <div class="day"><div class="d">SAT</div>
+      <div class="quiet">Screenshots it all for the record.</div>
+    </div>
+    <div class="day"><div class="d">SUN</div>
+      <div class="quiet">Dreads Monday.</div>
+    </div>
+  </div>
+  <div class="bottom">
+    <div class="lbl">When she buys</div>
+    <div class="t">The day her lawyer says <b>"document everything,"</b> a hearing date gets set, or her ex refuses OurFamilyWizard, which she'd already pay $110–300 a year for.</div>
+  </div>
+</section>
+
+<!-- ===================== D ===================== -->
+<section class="slide dd">
+  <div class="top">
+    <div class="eyebrow">Our ideal customer</div>
+    <h1>Moms and dads, 25 to 45, in a custody case<br>with an ex who baits them every week</h1>
+  </div>
+  <div class="half l">
+    <div class="age">Mom, 36</div>
+    <div class="sit">Two kids at home. <b>Modifying custody</b> after her ex moved in with a new partner. She rewrites every reply and still dreads hitting send.</div>
+    <div class="tx">
+      <div class="b in">dont tell me how to run my house</div>
+      <div class="b in">shes tired bc u let her stay up on ur wknds</div>
+    </div>
+    <div class="trig"><span>What made her look for help</span>Her lawyer said "document everything." At $349 an hour, she can't send him every text.</div>
+  </div>
+  <div class="mid"><i></i></div>
+  <div class="half r">
+    <div class="age">Dad, 38</div>
+    <div class="sit">Every other weekend and a <b>hearing date set</b>. Long angry texts at night. He's never sure whether to answer at all.</div>
+    <div class="tx">
+      <div class="b in">u ALWAYS make me look like the bad parent</div>
+      <div class="b in">ik u told them stuff about me</div>
+    </div>
+    <div class="trig"><span>What made him look for help</span>His ex refused OurFamilyWizard, so the app he'd pay <b style="white-space:nowrap;font-weight:inherit;color:inherit">$110–300</b> a year for doesn't work.</div>
+  </div>
+  <div class="shared"><span><b>$349</b>an hour for the lawyer</span><span><b>$110–300</b>a year per parent for co-parenting apps</span><span style="margin-left:auto;font-size:20px;color:#6e7290">Composites, not real people</span></div>
+</section>
+
+<!-- ===================== E ===================== -->
+<section class="slide e">
+  <div class="eyebrow">Our ideal customer</div>
+  <h1>A parent who already pays to survive every text from their ex</h1>
+  <div class="pf">
+    <div class="age">Mom, 36, or Dad, 38</div>
+    <ul>
+      <li><b>Kids at home</b> and a custody case or modification going on</li>
+      <li><b>A high-conflict ex</b> who texts every week, mostly to provoke</li>
+      <li><b>Rewrites every reply</b> because a judge might read it</li>
+      <li style="border-bottom:1px solid #c9d6cc"><b>Dreads the next message</b>, and the next bill for it</li>
+    </ul>
+  </div>
+  <div class="rc">
+    <h4>WHAT ONE BAD WEEK COSTS HER</h4>
+    <div class="line"><div class="what">Lawyer reads the thread<br>and drafts a reply, 1 hour</div><div class="amt">$349</div></div>
+    <div class="line"><div class="what">OurFamilyWizard,<br>per parent, per year</div><div class="amt">$110–300</div></div>
+    <div class="note" style="padding:10px 0 4px">her ex never signed up, so it does nothing</div>
+    <div class="line" style="border-bottom:none"><div class="what">Still rewriting<br>one reply at</div><div class="amt">1:12 AM</div></div>
+    <div class="tot"><span>What she needs</span><b>one calm reply</b></div>
+  </div>
+  <div class="buy">
+    <div class="lbl">When she buys</div>
+    <p>Her lawyer says <b>"document everything."</b> A hearing date gets set. Her ex refuses the co-parenting app. Each one is the moment she realises her texts are now evidence.</p>
+  </div>
+</section>
+
+</body>
+</html>

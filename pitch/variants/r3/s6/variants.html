@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Parley slide 6 variants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../design-options/iphone.css">
+<style>
+:root {
+  --night: #0d0e1a; --card: #161829; --line: #262a40;
+  --fg: #f4f5fb; --mute: #a9abc0; --dim: #7a7e96;
+  --acc: #7d8bff; --acc-2: #5b6cf6;
+  --grad: linear-gradient(118deg, #7c5cf0 0%, #5b6cf6 45%, #3f8df5 100%);
+  --warn: #ff5fa0; --ok: #34d399;
+  --paper: #f4f5fa; --ink: #1d1f2b; --ink-mute: #8a8da6;
+  --font: "Plus Jakarta Sans", system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #000; color: var(--fg); font-family: var(--font); -webkit-font-smoothing: antialiased; }
+.slide { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--night); margin-bottom: 40px; }
+.slide::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(70% 60% at 85% -10%, rgba(91,108,246,.20), rgba(91,108,246,0) 70%); }
+.slide > * { position: absolute; }
+.mark { left: 120px; top: 84px; font-size: 24px; font-weight: 800; letter-spacing: -.02em; display: flex; align-items: center; gap: 12px; }
+.mark i { width: 26px; height: 26px; border-radius: 8px; background: var(--grad); display: block; }
+.kick { left: 120px; top: 168px; font-size: 22px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--acc); }
+h2 { left: 120px; top: 212px; width: 1180px; font-size: 68px; font-weight: 800; letter-spacing: -.035em; line-height: 1.04; }
+h2 span { color: var(--mute); }
+.pg { right: 120px; bottom: 50px; font-size: 18px; color: var(--dim); font-weight: 600; }
+.src { left: 120px; bottom: 50px; font-size: 18px; color: var(--dim); font-weight: 500; }
+.num { font-weight: 800; letter-spacing: -.04em; line-height: 1; }
+.gradtext { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lbl { font-size: 22px; font-weight: 600; color: var(--mute); line-height: 1.3; }
+.lbl b { color: var(--fg); font-weight: 800; }
+.chip { font-size: 22px; font-weight: 700; padding: 10px 18px; border-radius: 999px; white-space: nowrap; }
+.chip.bad { background: rgba(226,80,143,.16); color: var(--warn); }
+.chip.good { background: rgba(31,165,114,.18); color: var(--ok); }
+.chip.acc { background: rgba(91,108,246,.18); color: var(--acc); }
+.paper { background: #fff; border-radius: 12px; display: block; }
+.iphone { --status-bg: #f4f5fa; --tab-bg: #fefefe; }
+.iphone--black { --ti-1: #5f6170; --ti-2: #2b2c35; --ti-3: #8d8fa0; --ti-4: #1d1e26; --ti-5: #454757;
+  --shadow: 0 50px 100px -30px rgba(0,0,0,.9), 0 0 0 1px rgba(255,255,255,.02); }
+svg.over { left: 0; top: 0; width: 1920px; height: 1080px; pointer-events: none; overflow: visible; }
+
+/* light slides */
+.slide.light { background: var(--paper); color: var(--ink); }
+.slide.light::before { background: radial-gradient(70% 60% at 85% -10%, rgba(91,108,246,.13), rgba(91,108,246,0) 70%); }
+.light h2 span { color: var(--ink-mute); }
+.light .kick { color: var(--acc-2); }
+.light .lbl { color: #5d6078; } .light .lbl b { color: var(--ink); }
+.light .pg, .light .src { color: #9a9db3; }
+.light .chip.bad { background: #fde6ef; color: #c9306f; }
+.light .chip.good { background: #dcf3e9; color: #12805a; }
+.card { background: #fff; border-radius: 28px; box-shadow: 0 2px 6px rgba(29,31,43,.05), 0 30px 60px -30px rgba(29,31,43,.22); }
+
+/* A: before / after */
+.a .pile { left: 110px; top: 420px; width: 640px; height: 420px; }
+.tile { position: absolute; width: 118px; height: 226px; border-radius: 16px; background: #fff; padding: 22px 10px 10px; display: flex; flex-direction: column; gap: 7px;
+  box-shadow: 0 10px 24px -8px rgba(0,0,0,.7); }
+.tile i { display: block; height: 15px; border-radius: 8px; background: #e3e4ec; }
+.tile i.o { background: #2f6bff; align-self: flex-end; }
+.tile::before { content: ""; position: absolute; left: 44px; top: 8px; width: 30px; height: 6px; border-radius: 3px; background: #111; }
+
+/* B: bars */
+.bars { left: 120px; top: 0; }
+.bar { position: absolute; width: 64px; border-radius: 14px 14px 4px 4px; background: var(--grad); }
+.bar.first { background: #1d1f2b; }
+.blab { position: absolute; width: 64px; text-align: center; font-size: 19px; font-weight: 700; color: #8a8da6; }
+.bval { position: absolute; width: 90px; text-align: center; font-size: 26px; font-weight: 800; letter-spacing: -.02em; }
+
+/* D: waffles */
+.waf { position: absolute; display: grid; grid-template-columns: repeat(10, 9px); gap: 2px; }
+.waf i { width: 9px; height: 9px; border-radius: 2px; background: #dfe1ec; display: block; }
+.waf i.on { background: #5b6cf6; }
+.waf.first i.on { background: #1d1f2b; }
+.wlab { position: absolute; width: 108px; text-align: center; font-size: 22px; font-weight: 800; letter-spacing: -.02em; }
+
+/* E: loop */
+.node { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.crop { border-radius: 22px; background-color: #fff; background-image: url(../../../shots/record.png); background-repeat: no-repeat; box-shadow: 0 30px 60px -20px rgba(0,0,0,.8); }
+</style>
+</head>
+<body>
+
+<!-- A · DARK · before / after: a pile of screenshots becomes one PDF -->
+<section class="slide a">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">Why they keep paying</div>
+  <h2 style="width:1100px">No more 200 screenshots. <span>One clean PDF for the lawyer.</span></h2>
+  <div class="pile" id="pile"></div>
+  <div class="chip bad" style="left:300px;top:600px;font-size:30px;padding:14px 26px;background:#2a1626;box-shadow:0 0 0 2px #ff5fa0">200 screenshots</div>
+  <img class="paper" src="../../../shots/pdf1.png" style="left:975px;top:330px;width:520px;transform:rotate(2deg);box-shadow:0 50px 100px -30px rgba(0,0,0,.95)">
+  <svg class="over">
+    <defs><linearGradient id="ga" x1="0" x2="1"><stop offset="0" stop-color="#7c5cf0"/><stop offset="1" stop-color="#3f8df5"/></linearGradient></defs>
+    <path d="M790 640 L 930 640" stroke="url(#ga)" stroke-width="10" stroke-linecap="round" fill="none"/>
+    <path d="M905 612 L 940 640 L 905 668" stroke="#3f8df5" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <g stroke="#34d399" stroke-width="3" fill="none">
+      <path d="M1330 556 L 1580 442"/><circle cx="1330" cy="556" r="7" fill="#34d399"/>
+      <path d="M1170 690 L 1580 642"/><circle cx="1170" cy="690" r="7" fill="#34d399"/>
+    </g>
+  </svg>
+  <div class="chip good" style="left:1590px;top:418px">Every message dated</div>
+  <div class="chip good" style="left:1590px;top:618px">Threats flagged</div>
+  <div style="left:120px;top:905px;display:flex;gap:56px;align-items:baseline">
+    <div><span class="num" style="font-size:52px">50%</span> <span class="lbl">renew once</span></div>
+    <div><span class="num" style="font-size:52px">89%</span> <span class="lbl">each period after</span></div>
+  </div>
+  <div style="left:1590px;top:830px"><div class="num gradtext" style="font-size:96px">~5</div><div class="lbl" style="margin-top:6px"><b>paid months</b><br>case lasts months</div></div>
+  <div class="src">RevenueCat 2025 renewal medians, first renewal cut to 50%. pitch/model.mjs</div>
+  <div class="pg">6</div>
+</section>
+
+<!-- B · LIGHT · retention bars drawn to scale, the record beside them -->
+<section class="slide light b">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">Why they keep paying</div>
+  <h2 style="width:1320px">The case lasts months,<br><span>so they keep paying.</span></h2>
+  <div id="bars" class="bars"></div>
+  <svg class="over">
+    <path d="M 196 452 C 230 410, 260 410, 285 700" stroke="#c9306f" stroke-width="3" fill="none" stroke-dasharray="7 7"/>
+    <path d="M 274 690 L 285 712 L 298 692" stroke="#c9306f" stroke-width="3" fill="none" stroke-linecap="round"/>
+  </svg>
+  <div class="chip bad" style="left:300px;top:400px">50% renew once</div>
+  <div class="chip good" style="left:520px;top:640px">then 89% stay each time</div>
+  <div style="left:820px;top:430px"><div class="num gradtext" style="font-size:150px">~5</div><div class="lbl" style="margin-top:8px"><b>paid months</b> per buyer</div></div>
+  <div class="lbl" style="left:120px;top:1000px;font-size:19px">4-week periods</div>
+  <div style="left:1440px;top:150px"><div class="iphone iphone--black" style="--s:0.88; --shift:66" data-shot="../../../shots/record.png"></div></div>
+  <svg class="over"><g stroke-width="3" fill="none"><path d="M1400 400 L 1630 398" stroke="#c9306f"/><circle cx="1630" cy="398" r="7" fill="#c9306f"/><path d="M1400 520 L 1585 517" stroke="#12805a"/><circle cx="1585" cy="517" r="7" fill="#12805a"/></g></svg>
+  <div class="chip bad" style="left:1205px;top:378px;box-shadow:0 10px 30px -10px rgba(29,31,43,.3)">Threat flagged</div>
+  <div class="chip good" style="left:1160px;top:498px;box-shadow:0 10px 30px -10px rgba(29,31,43,.3)">Saved with its date</div>
+  <div class="src" style="left:1440px;bottom:50px">RevenueCat 2025, pitch/model.mjs</div>
+  <div class="pg">6</div>
+</section>
+
+<!-- C · DARK · annotated record screen -->
+<section class="slide c">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">Why they keep paying</div>
+  <h2 style="width:640px">Every message saved. <span>Every threat flagged.</span></h2>
+  <img class="paper" src="../../../shots/pdf1.png" style="left:1105px;top:190px;width:330px;transform:rotate(7deg);box-shadow:0 40px 80px -20px rgba(0,0,0,.9)">
+  <div style="left:760px;top:110px"><div class="iphone iphone--black" style="--s:1; --shift:66" data-shot="../../../shots/record.png"></div></div>
+  <svg class="over">
+    <g stroke-width="3" fill="none">
+      <path d="M 330 522 L 900 398" stroke="#ff5fa0"/><circle cx="900" cy="398" r="7" fill="#ff5fa0"/>
+      <path d="M 390 642 L 930 528" stroke="#34d399"/><circle cx="930" cy="528" r="7" fill="#34d399"/>
+      <path d="M 330 860 L 820 846" stroke="#7d8bff"/><circle cx="820" cy="846" r="7" fill="#7d8bff"/>
+      <path d="M 1290 290 L 1400 160" stroke="#34d399"/><circle cx="1290" cy="300" r="7" fill="#34d399"/>
+    </g>
+  </svg>
+  <div class="chip bad" style="left:120px;top:498px">Threats flagged</div>
+  <div class="chip good" style="left:120px;top:618px">Every message dated</div>
+  <div class="lbl" style="left:120px;top:830px;width:400px"><b>Keeps growing</b><br>for the whole case</div>
+  <div class="chip good" style="left:1330px;top:110px">One PDF, not 200 screenshots</div>
+  <div style="left:1500px;top:440px">
+    <div class="num" style="font-size:80px">50%</div><div class="lbl">renew once</div>
+    <div class="num" style="font-size:80px;margin-top:34px">89%</div><div class="lbl">each period after</div>
+    <div class="num gradtext" style="font-size:128px;margin-top:34px">~5</div><div class="lbl"><b>paid months</b></div>
+  </div>
+  <div class="src">RevenueCat 2025, first renewal cut to 50%. pitch/model.mjs</div>
+  <div class="pg">6</div>
+</section>
+
+<!-- D · LIGHT · 100 buyers as waffles, one per 4-week period -->
+<section class="slide light d">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">Why they keep paying</div>
+  <h2 style="width:940px">Half renew once. <span>Then 89% stay each time.</span></h2>
+  <div style="left:120px;top:440px"><span class="num gradtext" style="font-size:120px">~5</span><span class="lbl" style="margin-left:18px;font-size:30px"><b>paid months</b> per buyer</span></div>
+  <img class="paper" src="../../../shots/pdf1.png" style="left:1400px;top:120px;width:380px;transform:rotate(4deg);box-shadow:0 30px 60px -20px rgba(29,31,43,.35)">
+  <div style="left:1150px;top:96px"><div class="iphone iphone--black" style="--s:0.6; --shift:66" data-shot="../../../shots/record.png"></div></div>
+  <div class="chip good" style="left:1430px;top:610px;box-shadow:0 10px 30px -10px rgba(29,31,43,.3)">One PDF for the lawyer</div>
+  <div id="waffles"></div>
+  <div class="lbl" style="left:120px;top:960px;font-size:19px">100 buyers, every 4 weeks</div>
+  <div class="src" style="left:auto;right:200px">RevenueCat 2025, pitch/model.mjs</div>
+  <div class="pg">6</div>
+</section>
+
+<!-- E · DARK · the loop: the case goes on, the record grows, they renew -->
+<section class="slide e">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">Why they keep paying</div>
+  <h2 style="width:780px">The longer the case, <span>the more the record is worth.</span></h2>
+  <div style="left:120px;top:640px;display:flex;gap:70px">
+    <div><div class="num" style="font-size:88px">50%</div><div class="lbl">renew once</div></div>
+    <div><div class="num" style="font-size:88px">89%</div><div class="lbl">each period after</div></div>
+  </div>
+  <svg class="over">
+    <defs>
+      <linearGradient id="ge" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#7c5cf0"/><stop offset=".5" stop-color="#5b6cf6"/><stop offset="1" stop-color="#3f8df5"/></linearGradient>
+      <marker id="ah" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#5b6cf6"/></marker>
+    </defs>
+    <circle cx="1360" cy="590" r="300" stroke="#262a40" stroke-width="2" fill="none"/>
+    <g id="arcs" stroke="url(#ge)" stroke-width="8" fill="none" stroke-linecap="round" marker-end="url(#ah)"></g>
+  </svg>
+  <div style="left:1260px;top:510px;width:200px;text-align:center"><div class="num gradtext" style="font-size:120px">~5</div><div class="lbl"><b>paid months</b></div></div>
+  <!-- top: saved with its date -->
+  <div class="node" style="left:1190px;top:96px">
+    <div class="crop" style="width:340px;height:140px;background-size:452px auto;background-position:-29px -452px"></div>
+    <div class="chip good">Saved with its date</div>
+  </div>
+  <!-- right: threat flagged -->
+  <div class="node" style="left:1515px;top:500px">
+    <div class="crop" style="width:285px;height:68px;background-size:400px auto;background-position:-26px -248px"></div>
+    <div class="chip bad">Threats flagged</div>
+  </div>
+  <!-- bottom: one pdf -->
+  <div style="left:1250px;top:780px;display:flex;align-items:center;gap:22px">
+    <img class="paper" src="../../../shots/pdf1.png" style="width:150px;transform:rotate(-3deg);box-shadow:0 30px 60px -20px rgba(0,0,0,.9)">
+    <div class="chip acc">One PDF for the lawyer</div>
+  </div>
+  <!-- left: the case goes on -->
+  <div class="node" style="left:780px;top:540px;align-items:flex-start">
+    <div style="display:flex;gap:6px">
+      <span class="chip acc" style="padding:8px 12px;font-size:19px">Oct</span><span class="chip acc" style="padding:8px 12px;font-size:19px">Nov</span><span class="chip acc" style="padding:8px 12px;font-size:19px;opacity:.6">Dec</span><span class="chip acc" style="padding:8px 12px;font-size:19px;opacity:.35">Jan</span>
+    </div>
+    <div class="lbl"><b>The case goes on</b></div>
+  </div>
+  <div class="src">RevenueCat 2025, first renewal cut to 50%. pitch/model.mjs</div>
+  <div class="pg">6</div>
+</section>
+
+<script>
+// A: the pile, seeded so every render is the same
+(function () {
+  let s = 7; const r = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  const pile = document.getElementById('pile');
+  for (let k = 0; k < 34; k++) {
+    const t = document.createElement('div'); t.className = 'tile';
+    t.style.left = (r() * 520) + 'px'; t.style.top = (r() * 200) + 'px';
+    t.style.transform = `rotate(${(r() - .5) * 40}deg)`;
+    const n = 6 + Math.floor(r() * 4);
+    for (let j = 0; j < n; j++) { const i = document.createElement('i'); if (r() < .3) i.className = 'o'; i.style.width = (40 + r() * 55) + '%'; t.appendChild(i); }
+    pile.appendChild(t);
+  }
+})();
+// share of buyers still paying, per 4-week period (model.mjs market column: 50% first renewal, then 89%)
+const keep = [1]; { let a = .5; for (let i = 1; i < 13; i++) { keep.push(a); a *= .89; } }
+// B: bars to scale
+(function () {
+  const host = document.getElementById('bars'), base = 960, H = 520, W = 64, G = 24;
+  keep.forEach((p, i) => {
+    const x = i * (W + G), h = Math.round(H * p);
+    const b = document.createElement('div'); b.className = 'bar' + (i === 0 ? ' first' : '');
+    Object.assign(b.style, {left: x + 'px', top: (base - h) + 'px', height: h + 'px'}); host.appendChild(b);
+    if (i === 0 || i === 1 || i === 12) {
+      const v = document.createElement('div'); v.className = 'bval'; v.textContent = Math.round(p * 100) + '%';
+      Object.assign(v.style, {left: (x - 13) + 'px', top: (base - h - 38) + 'px'}); host.appendChild(v);
+    }
+  });
+})();
+// D: 100 buyers per period
+(function () {
+  const host = document.getElementById('waffles'), top = 740, step = 128;
+  keep.forEach((p, i) => {
+    const n = Math.round(p * 100), x = 120 + i * step;
+    const w = document.createElement('div'); w.className = 'waf' + (i === 0 ? ' first' : '');
+    Object.assign(w.style, {left: x + 'px', top: top + 'px'});
+    // fill from the bottom row up, the way a level drops
+    for (let c = 0; c < 100; c++) { const q = document.createElement('i'); if (99 - c < n) q.className = 'on'; w.appendChild(q); }
+    host.appendChild(w);
+    const l = document.createElement('div'); l.className = 'wlab'; l.textContent = n;
+    Object.assign(l.style, {left: (x - 2) + 'px', top: (top + 124) + 'px', color: i === 0 ? '#1d1f2b' : '#5b6cf6'}); host.appendChild(l);
+  });
+  const m = document.createElement('div'); m.className = 'chip bad';
+  Object.assign(m.style, {position: 'absolute', left: (120 + step - 40) + 'px', top: (top - 62) + 'px'}); m.textContent = '50% renew once'; host.appendChild(m);
+  const g = document.createElement('div'); g.className = 'chip good';
+  Object.assign(g.style, {position: 'absolute', left: (120 + step * 4) + 'px', top: (top - 62) + 'px'}); g.textContent = '89% stay each time'; host.appendChild(g);
+})();
+</script>
+<script>
+// E: four arcs between the four nodes, clockwise
+(function () {
+  const g = document.getElementById('arcs'), cx = 1360, cy = 590, r = 300, P = (d) => [cx + r * Math.cos(d * Math.PI / 180), cy + r * Math.sin(d * Math.PI / 180)];
+  for (const a of [-90, 0, 90, 180]) {
+    const [x1, y1] = P(a + 30), [x2, y2] = P(a + 62);
+    const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    p.setAttribute('d', `M ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2}`); g.appendChild(p);
+  }
+})();
+</script>
+<script src="../../../design-options/iphone.js"></script>
+</body>
+</html>

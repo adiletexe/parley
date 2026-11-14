@@ -1,0 +1,218 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../design-options/iphone.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#888}
+.slide{width:1920px;height:1080px;position:relative;overflow:hidden;font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:20px}
+.b{border-radius:30px;padding:16px 28px;font-size:32px;line-height:1.3;display:inline-block}
+.abs{position:absolute}
+
+/* ===== A: dark, one bait, two answers ===== */
+#A{background:#0d0e1a;color:#fff}
+#A h1{left:110px;top:92px;font-size:76px;font-weight:800;letter-spacing:-.03em;line-height:1.05}
+#A .bait{left:110px;top:330px;display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+#A .bait .b{background:#262838;color:#e8e9f3}
+#A .from{left:110px;top:282px;font-size:24px;font-weight:700;color:#7d82a8;letter-spacing:.1em;text-transform:uppercase}
+#A svg.fork{left:560px;top:300px}
+#A .rep{left:900px;width:640px}
+#A .rep .lab{font-size:26px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:14px}
+#A .rep .lab i{font-style:normal;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:28px;color:#0d0e1a}
+#A .bad{top:236px}
+#A .bad .lab{color:#e2508f}.bad .lab i{background:#e2508f}
+#A .bad .b{background:#3a1d2c;color:#ffd5e6;border:3px solid #e2508f}
+#A .good{top:520px}
+#A .good .lab{color:#2fd193}.good .lab i{background:#2fd193}
+#A .good .b{background:#12382b;color:#d4ffe9;border:3px solid #1fa572}
+#A .sc{right:110px;font-size:150px;font-weight:800;letter-spacing:-.05em;line-height:1}
+#A .sc small{display:block;font-size:24px;letter-spacing:.06em;font-weight:700;text-transform:uppercase;color:#7d82a8;text-align:right;margin-top:6px}
+#A .strip{left:110px;right:110px;bottom:84px;display:flex;align-items:center;gap:32px}
+#A .dots{display:flex;gap:10px;flex:1}
+#A .dots i{flex:1;height:34px;border-radius:8px;background:#23253a}
+#A .dots i.d{background:#1fa572}
+#A .dots i.t{background:#5b6cf6;box-shadow:0 0 0 4px #0d0e1a,0 0 0 7px #5b6cf6}
+#A .strip b{font-size:34px;font-weight:800;white-space:nowrap}
+#A .strip b span{color:#8d98ff}
+
+/* ===== B: white, 21 -> 98 dominates ===== */
+#B{background:#fbfbfd;color:#14152a}
+#B h1{left:110px;top:96px;width:1150px;font-size:72px;font-weight:800;letter-spacing:-.03em;line-height:1.06}
+#B .big{left:96px;top:270px;font-size:400px;font-weight:800;letter-spacing:-.07em;line-height:1;display:flex;align-items:center}
+#B .big .a{color:#e2508f}
+#B .big .ar{color:#d2d4e2;font-size:220px;font-weight:500;margin:0 30px 30px 20px}
+#B .big .c{color:#1fa572}
+#B .q{font-size:30px;line-height:1.3;width:440px}
+#B .q1{left:110px;top:700px}
+#B .q2{left:720px;top:700px}
+#B .q .lab{font-size:24px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+#B .q1 .lab{color:#e2508f}.q2 .lab{color:#1fa572}
+#B .q1 .b{background:#fde8f0;color:#7a1f45;text-decoration:line-through;text-decoration-color:#e2508f;text-decoration-thickness:3px}
+#B .q2 .b{background:#e3f6ee;color:#0f5a3c;border:3px solid #1fa572}
+#B .ph{right:130px;top:94px}
+#B .strip{left:110px;width:1100px;bottom:72px;display:flex;align-items:center;gap:24px}
+#B .strip .dots{display:flex;gap:7px}
+#B .strip .dots i{width:24px;height:24px;border-radius:50%;background:#1fa572}
+#B .strip b{font-size:30px;font-weight:700;color:#14152a;white-space:nowrap}
+
+/* ===== C: the loop ===== */
+#C{background:#f4f5fa;color:#14152a}
+#C h1{left:110px;top:96px;width:620px;font-size:72px;font-weight:800;letter-spacing:-.03em;line-height:1.06}
+#C .ring{left:820px;top:60px;width:960px;height:960px}
+#C .hub{left:1150px;top:390px;width:300px;height:300px;text-align:center;display:flex;flex-direction:column;justify-content:center}
+#C .hub b{font-size:92px;font-weight:800;letter-spacing:-.04em;line-height:1;color:#5b6cf6}
+#C .hub span{font-size:30px;font-weight:700;color:#4a4d66;margin-top:8px}
+#C .node{position:absolute}
+#C .node .n{font-size:30px;font-weight:800;margin-bottom:12px;display:flex;gap:12px;align-items:center}
+#C .node .n i{font-style:normal;width:46px;height:46px;border-radius:50%;background:#14152a;color:#fff;display:grid;place-items:center;font-size:24px}
+#C .crop{border-radius:26px;background-repeat:no-repeat;box-shadow:0 18px 40px -16px rgba(20,21,42,.35);background-color:#fff}
+#C .n1{left:1060px;top:60px}
+#C .n1 .crop{width:304px;height:270px;background-image:url(../../shots/drill-2.png);background-size:390px auto;background-position:-58px -372px}
+#C .n2{left:1490px;top:390px}
+#C .n2 .crop{width:330px;height:192px;background-image:url(../../shots/lens.png);background-size:390px auto;background-position:-30px -204px}
+#C .n3{left:1080px;top:770px}
+#C .n3 .crop{width:420px;padding:22px 26px;font-size:26px;line-height:1.35;color:#14152a;border:3px solid #5b6cf6}
+#C .n3 .crop u{display:inline-block;width:3px;height:30px;background:#5b6cf6;vertical-align:-6px;text-decoration:none}
+#C .n4{left:780px;top:420px}
+#C .n4 .crop{width:250px;padding:20px 26px;text-align:center}
+#C .n4 .crop b{font-size:96px;font-weight:800;letter-spacing:-.04em;color:#1fa572;line-height:1}
+#C .n4 .crop s{font-size:44px;font-weight:800;color:#e2508f;margin-right:12px}
+#C .bait{left:110px;top:430px;display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+#C .bait .b{background:#fff;color:#14152a;box-shadow:0 6px 20px -10px rgba(0,0,0,.3)}
+#C .bait .t{font-size:24px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7d82a8;margin-bottom:4px}
+#C .foot{left:110px;bottom:84px;font-size:30px;font-weight:700;color:#4a4d66}
+
+/* ===== D: editorial cream, the 28 days ===== */
+#D{background:#f4efe4;color:#1b1a17;font-family:'Newsreader',serif}
+#D h1{left:110px;top:90px;width:1160px;font-size:92px;font-weight:500;letter-spacing:-.02em;line-height:1.02}
+#D h1 em{color:#b8322a}
+#D .cal{left:110px;top:400px;display:grid;grid-template-columns:330px repeat(7,92px);column-gap:14px;row-gap:22px;align-items:center}
+#D .wk{font-family:'Inter',sans-serif;font-size:26px;font-weight:600;line-height:1.2;color:#1b1a17}
+#D .wk small{display:block;font-size:20px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#8b8373;margin-bottom:4px}
+#D .d{width:92px;height:92px;border-radius:18px;border:2px solid #cfc5b1;display:grid;place-items:center;font-family:'Inter',sans-serif;font-size:26px;font-weight:600;color:#a69d8b}
+#D .d.ok{background:#1fa572;border-color:#1fa572;color:#fff}
+#D .d.today{background:#5b6cf6;border-color:#5b6cf6;color:#fff;box-shadow:0 0 0 6px #f4efe4,0 0 0 9px #5b6cf6}
+#D .note{left:1050px;top:350px;font-family:'Caveat',cursive;font-size:46px;color:#b8322a;transform:rotate(-5deg);line-height:1}
+#D .eq{left:110px;bottom:70px;font-family:'Inter',sans-serif;font-size:30px;font-weight:600;color:#6d665a}
+#D .eq b{color:#1b1a17;font-weight:800}
+#D .ph{right:120px;top:94px}
+
+/* ===== E: the real drill, marked up with a red pen ===== */
+#E{background:#fff;color:#14152a;font-family:'Inter',sans-serif}
+#E h1{left:110px;top:96px;width:720px;font-size:76px;font-weight:800;letter-spacing:-.035em;line-height:1.04}
+#E .ph{left:820px;top:96px}
+#E .ph2{left:1450px;top:200px;transform:rotate(4deg);transform-origin:50% 50%}
+#E .pen{font-family:'Caveat',cursive;color:#d6332b;font-size:46px;line-height:1}
+#E .angry{left:110px;top:400px;width:600px}
+#E .angry .b{background:#e9ecf3;color:#5b5f78;font-size:30px;position:relative}
+#E .angry .x{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
+#E .angry .lab{margin-top:14px;font-size:26px;font-weight:700;color:#d6332b;letter-spacing:.04em}
+#E svg.ann{left:0;top:0;width:1920px;height:1080px;pointer-events:none}
+#E .src{left:110px;bottom:56px;font-size:20px;color:#9a9db0}
+</style></head><body>
+
+<!-- A -->
+<section class="slide" id="A">
+  <h1 class="abs">We teach parents to answer calmly</h1>
+  <div class="abs from">Their ex texts</div>
+  <div class="abs bait">
+    <span class="b">u didnt even show up sat</span>
+    <span class="b">the kids waited an HOUR</span>
+    <span class="b">unreal</span>
+  </div>
+  <svg class="abs fork" width="320" height="420" viewBox="0 0 320 420">
+    <path d="M10 210 C 140 210, 160 70, 300 70" fill="none" stroke="#e2508f" stroke-width="5" stroke-dasharray="2 14" stroke-linecap="round"/>
+    <path d="M10 210 C 140 210, 160 340, 300 340" fill="none" stroke="#2fd193" stroke-width="6" stroke-linecap="round"/>
+    <path d="M286 328 L304 340 L286 352" fill="none" stroke="#2fd193" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <div class="abs rep bad"><div class="lab"><i>✗</i>Angry reply</div><span class="b">wow so now it's my fault?? YOU never showed up</span></div>
+  <div class="abs sc" style="top:250px;color:#e2508f">21<small>score</small></div>
+  <div class="abs rep good"><div class="lab"><i>✓</i>Calm, short reply</div><span class="b">i was at the school lot at 10 and texted u at 10:05. sunday instead?</span></div>
+  <div class="abs sc" style="top:540px;color:#2fd193">98<small>score</small></div>
+  <div class="abs strip">
+    <div class="dots"><i class="d"></i><i class="d"></i><i class="d"></i><i class="d"></i><i class="d"></i><i class="d"></i><i class="d"></i><i class="d"></i><i class="d"></i><i class="d"></i><i class="d"></i><i class="t"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <b><span>2 min</span> a day, 28 days</b>
+  </div>
+</section>
+
+<!-- B -->
+<section class="slide" id="B">
+  <h1 class="abs">Practice turns an angry draft into a calm reply</h1>
+  <div class="abs big"><span class="a">21</span><span class="ar">→</span><span class="c">98</span></div>
+  <div class="abs q q1"><div class="lab">✗ Angry draft</div><span class="b">maybe if you weren't blowing money on your new boyfriend</span></div>
+  <div class="abs q q2"><div class="lab">✓ Calm reply</div><span class="b">i'll send my $120 half by friday.</span></div>
+  <div class="abs iphone iphone--natural ph" data-shot="../../shots/lens.png" style="--s:1.0;--shift:0"></div>
+  <div class="abs strip">
+    <div class="dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <b>28 days, 2 minutes each</b>
+  </div>
+</section>
+
+<!-- C -->
+<section class="slide" id="C">
+  <h1 class="abs">Two minutes a day builds the calm reply</h1>
+  <div class="abs bait">
+    <div class="t">Today's text</div>
+    <span class="b">u didnt even show up sat</span>
+    <span class="b">the kids waited an HOUR</span>
+    <span class="b">unreal</span>
+  </div>
+  <svg class="abs ring" viewBox="0 0 960 960">
+    <defs><marker id="ah" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#5b6cf6"/></marker></defs>
+    <circle cx="530" cy="480" r="330" fill="none" stroke="#dfe2f0" stroke-width="4"/>
+    <path d="M 700 197 A 330 330 0 0 1 840 370" fill="none" stroke="#5b6cf6" stroke-width="7" marker-end="url(#ah)"/>
+    <path d="M 845 600 A 330 330 0 0 1 700 762" fill="none" stroke="#5b6cf6" stroke-width="7" marker-end="url(#ah)"/>
+    <path d="M 330 742 A 330 330 0 0 1 222 610" fill="none" stroke="#5b6cf6" stroke-width="7" marker-end="url(#ah)"/>
+    <path d="M 212 370 A 330 330 0 0 1 330 218" fill="none" stroke="#5b6cf6" stroke-width="7" marker-end="url(#ah)"/>
+  </svg>
+  <div class="abs hub"><b>2 min</b><span>a day, for 28 days</span></div>
+  <div class="node n1"><div class="n"><i>1</i>Pick a reply</div><div class="crop"></div></div>
+  <div class="node n2"><div class="n"><i>2</i>See why</div><div class="crop"></div></div>
+  <div class="node n3"><div class="n"><i>3</i>Write your own</div><div class="crop">i was there at 10. can we do sunday instead?<u></u></div></div>
+  <div class="node n4"><div class="n"><i>4</i>Get graded</div><div class="crop"><s>21</s><b>98</b></div></div>
+</section>
+
+<!-- D -->
+<section class="slide" id="D">
+  <h1 class="abs">Staying calm becomes a habit in <em>28 days</em></h1>
+  <div class="abs cal">
+    <div class="wk"><small>Week 1</small>Brief &amp; facts</div>
+    <div class="d ok">1</div><div class="d ok">2</div><div class="d ok">3</div><div class="d ok">4</div><div class="d ok">5</div><div class="d ok">6</div><div class="d ok">7</div>
+    <div class="wk"><small>Week 2</small>Don't take the bait</div>
+    <div class="d ok">8</div><div class="d ok">9</div><div class="d ok">10</div><div class="d ok">11</div><div class="d today">12</div><div class="d">13</div><div class="d">14</div>
+    <div class="wk"><small>Week 3</small>Firm boundaries</div>
+    <div class="d">15</div><div class="d">16</div><div class="d">17</div><div class="d">18</div><div class="d">19</div><div class="d">20</div><div class="d">21</div>
+    <div class="wk"><small>Week 4</small>Court-ready habits</div>
+    <div class="d">22</div><div class="d">23</div><div class="d">24</div><div class="d">25</div><div class="d">26</div><div class="d">27</div><div class="d">28</div>
+  </div>
+  <div class="abs note">today ↓</div>
+  <div class="abs eq">Each day: <b>2 minutes</b>, five texts</div>
+  <div class="abs iphone iphone--white ph" data-shot="../../shots/plan.png" style="--s:1.0;--shift:0"></div>
+</section>
+
+<!-- E -->
+<section class="slide" id="E">
+  <h1 class="abs">We teach parents not to take the bait</h1>
+  <div class="abs angry">
+    <span class="b">wow so now it's my fault?? YOU never showed up<svg class="x" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M4 12 L96 88 M96 12 L4 88" stroke="#d6332b" stroke-width="2.2" vector-effect="non-scaling-stroke" fill="none" style="stroke-width:5px"/></svg></span>
+    <div class="lab">✗ what anger sends</div>
+  </div>
+  <div class="abs iphone iphone--natural ph2" data-shot="../../shots/lens.png" style="--s:0.8;--shift:0"></div>
+  <div class="abs iphone iphone--black ph" data-shot="../../shots/drill-2.png" style="--s:1.0;--shift:64"></div>
+  <svg class="abs ann" viewBox="0 0 1920 1080">
+    <!-- circle around the bait on the phone -->
+    <ellipse cx="985" cy="374" rx="150" ry="82" fill="none" stroke="#d6332b" stroke-width="5" transform="rotate(-3 985 374)"/>
+    <path d="M1132 360 C 1180 345, 1220 335, 1262 335" fill="none" stroke="#d6332b" stroke-width="4" stroke-linecap="round"/>
+    <!-- arrow to the calm choice -->
+    <path d="M600 690 C 720 690, 820 560, 900 530" fill="none" stroke="#1fa572" stroke-width="5" stroke-linecap="round"/>
+    <path d="M884 520 L903 529 L889 545" fill="none" stroke="#1fa572" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <div class="abs pen" style="left:1268px;top:310px">the bait</div>
+  <div class="abs pen" style="left:330px;top:664px;color:#1fa572;font-size:54px">✓ calm, short</div>
+  <div class="abs pen" style="left:1470px;top:96px;font-size:50px">graded: 21 → 98</div>
+  <div class="abs src">Screens from the live product, sample case</div>
+</section>
+
+<script src="../../design-options/iphone.js"></script>
+</body></html>

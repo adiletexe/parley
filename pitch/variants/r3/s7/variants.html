@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Parley slide 7 variants</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../design-options/iphone.css">
+<style>
+:root {
+  --night: #0d0e1a; --card: #161829; --line: #262a40;
+  --fg: #f4f5fb; --mute: #a9abc0; --dim: #62667e;
+  --acc: #7d8bff; --acc-2: #5b6cf6;
+  --grad: linear-gradient(118deg, #7c5cf0 0%, #5b6cf6 45%, #3f8df5 100%);
+  --warn: #ff5fa0; --pink: #e2508f; --ok: #34d399; --green: #1fa572;
+  --paper: #f4f5fa; --ink: #1d1f2b; --pmute: #8a8da3; --pline: #e2e4ee;
+  --font: "Plus Jakarta Sans", system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #000; font-family: var(--font); -webkit-font-smoothing: antialiased; }
+.slide { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--night); color: var(--fg); margin-bottom: 20px; }
+.slide::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(70% 60% at 85% -10%, rgba(91,108,246,.20), rgba(91,108,246,0) 70%); }
+.slide > * { position: absolute; }
+.slide.light { background: var(--paper); color: var(--ink); }
+.slide.light::before { background: radial-gradient(70% 60% at 85% -10%, rgba(124,92,240,.13), rgba(124,92,240,0) 70%); }
+.mark { left: 120px; top: 84px; font-size: 24px; font-weight: 800; letter-spacing: -.02em; display: flex; align-items: center; gap: 12px; }
+.mark i { width: 26px; height: 26px; border-radius: 8px; background: var(--grad); display: block; }
+.kick { left: 120px; top: 168px; font-size: 22px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--acc); }
+.light .kick { color: var(--acc-2); }
+h2 { left: 120px; top: 212px; font-size: 68px; font-weight: 800; letter-spacing: -.035em; line-height: 1.04; }
+h2 span { color: var(--mute); }
+.light h2 span { color: var(--pmute); }
+.src { left: 120px; bottom: 44px; font-size: 18px; color: var(--dim); font-weight: 500; }
+.light .src { color: #a2a5b8; }
+.pg { right: 120px; bottom: 44px; font-size: 18px; color: var(--dim); font-weight: 600; }
+.num { font-weight: 800; letter-spacing: -.045em; line-height: .95; }
+.gtext { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lab { font-size: 22px; font-weight: 600; color: var(--mute); line-height: 1.3; }
+.light .lab { color: var(--pmute); }
+.lab b { color: var(--fg); font-weight: 700; }
+.light .lab b { color: var(--ink); }
+.wcard { background: #fff; border-radius: 28px; box-shadow: 0 2px 6px rgba(29,31,43,.05), 0 30px 70px -30px rgba(29,31,43,.25); }
+.tagp { display: inline-block; font-size: 18px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--pink); border: 2px solid var(--pink); border-radius: 8px; padding: 3px 10px; }
+.hero-pill { background: var(--grad); color: #fff; border-radius: 28px; box-shadow: 0 30px 70px -25px rgba(91,108,246,.65); }
+
+/* drawn chat inside an iPhone */
+.chat { position: absolute; left: 0; right: 0; top: 54px; bottom: 0; background: #fff; padding: 18px 18px; display: flex; flex-direction: column; gap: 12px; }
+.chat .who { text-align: center; padding-bottom: 14px; border-bottom: 1px solid #ececf1; margin-bottom: 8px; }
+.chat .who i { display: block; width: 58px; height: 58px; border-radius: 50%; background: #c9cbd6; margin: 0 auto 8px; }
+.chat .who b { font-size: 20px; color: #1b1b1f; font-weight: 700; }
+.chat .ts { text-align: center; font-size: 18px; color: #8a8a8e; font-weight: 600; margin: 6px 0; }
+.chat .m { align-self: flex-start; max-width: 300px; background: #e9e9eb; color: #111; font-size: 22px; line-height: 1.3; padding: 12px 16px; border-radius: 22px; border-bottom-left-radius: 6px; font-weight: 500; }
+.chat .m u { text-decoration: none; box-shadow: inset 0 -3px 0 var(--pink); }
+.chat .draft { margin-top: auto; border: 1.5px solid #d8d9e0; border-radius: 22px; padding: 14px 16px; display: flex; flex-direction: column; gap: 9px; }
+.bar { height: 12px; border-radius: 6px; background: #d7d9e2; position: relative; }
+.bar.x::after { content: ""; position: absolute; left: -6px; right: -6px; top: 5px; height: 2.5px; background: var(--pink); }
+.status-lite { position: absolute; top: 0; left: 0; right: 0; height: 54px; background: #fff; font: 600 17px/54px -apple-system, system-ui, sans-serif; color: #000; padding-left: 62px; }
+
+/* ===== A · dossier (light) ===== */
+.A h2 { width: 760px; }
+.A .bign { left: 120px; top: 520px; }
+.A .bign .num { font-size: 170px; }
+.A .bign .lab { margin-top: 18px; width: 640px; font-size: 26px; }
+.A .file { left: 960px; top: 96px; width: 840px; padding: 40px 48px 34px; }
+.A .file .hd { display: flex; justify-content: space-between; align-items: center; padding-bottom: 22px; }
+.A .file .hd span { font-size: 18px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--acc-2); }
+.A .row { display: grid; grid-template-columns: 210px 1fr; align-items: center; padding: 19px 0; border-top: 1px solid var(--pline); }
+.A .row .k { font-size: 18px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--pmute); }
+.A .row .v { font-size: 30px; font-weight: 700; letter-spacing: -.02em; }
+.A .row .v small { font-size: 20px; color: var(--pmute); font-weight: 600; margin-left: 10px; letter-spacing: 0; }
+.A .row .bub { display: inline-block; background: #e9e9eb; font-size: 22px; font-weight: 500; padding: 9px 16px; border-radius: 20px; border-bottom-left-radius: 6px; margin-right: 12px; }
+.A .buy { margin-top: 18px; padding: 26px 32px; display: grid; grid-template-columns: 178px 1fr; align-items: center; border-radius: 22px; }
+.A .buy .k { font-size: 18px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.8); }
+.A .buy .v { font-size: 32px; font-weight: 800; letter-spacing: -.02em; line-height: 1.2; }
+
+/* ===== B · circles to scale (light) ===== */
+.B h2 { width: 880px; }
+.B svg.c { left: 0; top: 0; width: 1920px; height: 1080px; }
+.B .l { text-align: right; width: 760px; left: 160px; }
+.B .l .num { font-size: 76px; }
+.B .l .lab { margin-top: 6px; }
+.B .who { left: 120px; top: 560px; width: 800px; padding: 30px 36px; display: flex; gap: 28px; flex-wrap: wrap; }
+.B .who div { font-size: 24px; font-weight: 700; }
+.B .who div small { display: block; font-size: 18px; color: var(--pmute); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; }
+
+/* ===== C · timeline (dark) ===== */
+.C h2 { width: 1600px; }
+.C .line { left: 160px; top: 700px; width: 1600px; height: 4px; border-radius: 2px; background: linear-gradient(90deg, #2a2e48 0%, #2a2e48 60%, #5b6cf6 72%, #3f8df5 100%); }
+.C .dot { width: 26px; height: 26px; border-radius: 50%; background: var(--night); border: 4px solid #4a4f6e; top: 689px; }
+.C .dot.hot { width: 46px; height: 46px; top: 679px; border: none; background: var(--grad); box-shadow: 0 0 0 10px rgba(91,108,246,.18), 0 0 50px rgba(91,108,246,.6); }
+.C .st { top: 740px; width: 300px; text-align: center; }
+.C .st b { display: block; font-size: 26px; font-weight: 800; letter-spacing: -.02em; }
+.C .st span { font-size: 20px; color: var(--mute); font-weight: 600; }
+.C .ab { width: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.C .bubd { background: #262839; color: #eceef7; font-size: 24px; font-weight: 500; padding: 14px 20px; border-radius: 24px; border-bottom-left-radius: 7px; }
+.C .bubd u { text-decoration: none; box-shadow: inset 0 -3px 0 var(--warn); }
+.C .drafts { width: 230px; background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+.C .drafts .bar { background: #3a3e58; }
+.C .drafts .bar.x::after { background: var(--warn); }
+.C .quote { left: 1040px; top: 400px; width: 600px; padding: 34px 40px; text-align: center; }
+.C .quote small { display: block; font-size: 20px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.8); margin-bottom: 8px; }
+.C .quote b { font-size: 58px; font-weight: 800; letter-spacing: -.035em; line-height: 1.05; }
+.C .stem { left: 1340px; top: 600px; width: 3px; height: 78px; background: linear-gradient(#5b6cf6, rgba(91,108,246,.2)); }
+.C .strip { left: 120px; top: 880px; width: 1680px; display: flex; gap: 90px; padding-top: 30px; border-top: 1px solid var(--line); }
+.C .strip .num { font-size: 54px; }
+.C .strip .lab { margin-top: 8px; font-size: 20px; }
+
+/* ===== D · charts (light) ===== */
+.D h2 { width: 1500px; }
+.D .age { left: 120px; top: 410px; width: 700px; height: 540px; padding: 44px 48px; }
+.D .money { left: 860px; top: 410px; width: 940px; height: 540px; padding: 44px 52px; }
+.D .ct { font-size: 18px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--acc-2); }
+.D .who { font-size: 44px; font-weight: 800; letter-spacing: -.03em; margin-top: 18px; }
+.D .who span { color: var(--pmute); }
+.D .axis { position: relative; margin-top: 70px; height: 150px; }
+.D .axis .base { position: absolute; left: 0; right: 0; top: 70px; height: 2px; background: var(--pline); }
+.D .axis .tick { position: absolute; top: 110px; font-size: 18px; color: var(--pmute); font-weight: 600; transform: translateX(-50%); }
+.D .axis .band { position: absolute; top: 44px; height: 54px; border-radius: 14px; background: rgba(91,108,246,.14); }
+.D .axis .core { position: absolute; top: 44px; height: 54px; border-radius: 14px; background: var(--grad); color: #fff; font-size: 20px; font-weight: 800; display: grid; place-items: center; }
+.D .axis .bl { position: absolute; top: 0; font-size: 20px; font-weight: 700; color: var(--acc-2); }
+.D .forty { margin-top: 40px; display: flex; align-items: baseline; gap: 18px; }
+.D .forty .num { font-size: 64px; }
+.D .forty .lab { font-size: 22px; }
+.D .mrow { margin-top: 44px; }
+.D .mrow .mh { display: flex; justify-content: space-between; align-items: baseline; }
+.D .mrow .mh b { font-size: 40px; font-weight: 800; letter-spacing: -.03em; }
+.D .mrow .mh span { font-size: 22px; font-weight: 600; color: var(--pmute); }
+.D .track { margin-top: 14px; height: 40px; position: relative; }
+.D .track i { position: absolute; top: 0; height: 40px; border-radius: 12px; display: block; }
+.D .buy { left: 1310px; top: 300px; width: 490px; padding: 22px 30px; font-size: 24px; font-weight: 700; line-height: 1.3; }
+.D .buy b { font-weight: 800; }
+
+/* ===== E · overlapping phones (dark) ===== */
+.E h2 { width: 820px; }
+.E .bign { left: 120px; top: 470px; }
+.E .bign .num { font-size: 180px; }
+.E .bign .lab { margin-top: 16px; font-size: 26px; }
+.E .facts { left: 120px; top: 760px; display: flex; gap: 56px; }
+.E .facts .num { font-size: 50px; }
+.E .facts .lab { font-size: 20px; margin-top: 8px; }
+.E .p1 { left: 1010px; top: 110px; transform: rotate(-4deg); }
+.E .p2 { left: 1370px; top: 150px; transform: rotate(3.5deg); }
+.E .bt { font-size: 18px; }
+.E .tagp { background: var(--night); color: var(--warn); border-color: var(--warn); }
+.E .arrow { left: 1180px; top: 905px; width: 560px; padding: 20px 28px; font-size: 24px; font-weight: 700; text-align: center; }
+</style>
+</head>
+<body>
+
+<!-- A · the customer's file (light) -->
+<section class="slide light A">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">Who we sell to</div>
+  <h2>Our ideal customer. <span>One parent, one hard ex.</span></h2>
+  <div class="bign">
+    <div class="num gtext">1 to 2M</div>
+    <div class="lab"><b>US families</b> with a high-conflict ex. 10 to 15% of separations.</div>
+  </div>
+  <div class="file wcard">
+    <div class="hd"><span>Customer profile</span><span style="color:var(--pmute)">ICP</span></div>
+    <div class="row"><div class="k">Who</div><div class="v">Mom or dad, 25 to 45<small>core 30 to 45</small></div></div>
+    <div class="row"><div class="k">Their ex</div><div class="v">High-conflict</div></div>
+    <div class="row"><div class="k">Inbox</div><div class="v"><span class="bub">this means war</span><span class="tagp">mostly bait</span></div></div>
+    <div class="row"><div class="k">Habit</div><div class="v">Rewrites every reply</div></div>
+    <div class="row"><div class="k">Lawyer</div><div class="v">$349 an hour</div></div>
+    <div class="row"><div class="k">Already pays</div><div class="v">$110 to $300 a year<small>co-parenting apps</small></div></div>
+    <div class="buy hero-pill"><div class="k">Buys when</div><div class="v">The lawyer says "document everything," or a hearing is set.</div></div>
+  </div>
+  <p class="src">Census P60-269 · Johnston 1994 via Justice Canada · Clio 2025 · OurFamilyWizard pricing · text: McGhee v. McGhee, Wis. App. 2023</p>
+  <div class="pg">7</div>
+</section>
+
+<!-- B · the market drawn to scale (light) -->
+<section class="slide light B">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">Who we sell to</div>
+  <h2>Our ideal customer: <span>a parent with a hard ex.</span></h2>
+  <!-- areas to scale, in families: 12.9M r=400 · 2M r=157 · 1M r=111 · 100K r=35; all sit on y=990 -->
+  <svg class="c" viewBox="0 0 1920 1080">
+    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7c5cf0"/><stop offset=".45" stop-color="#5b6cf6"/><stop offset="1" stop-color="#3f8df5"/></linearGradient></defs>
+    <circle cx="1390" cy="590" r="400" fill="#fff" stroke="#d9dbe7" stroke-width="2"/>
+    <circle cx="1390" cy="833" r="157" fill="rgba(91,108,246,.10)" stroke="#5b6cf6" stroke-width="2.5" stroke-dasharray="8 8"/>
+    <circle cx="1390" cy="879" r="111" fill="url(#g)"/>
+    <circle cx="1390" cy="955" r="35" fill="#1d1f2b"/>
+    <!-- leaders -->
+    <g stroke="#b9bccc" stroke-width="2" fill="none">
+      <path d="M935 470 H1010"/>
+      <path d="M935 845 H1233"/>
+      <path d="M935 955 H1355" stroke="#1d1f2b"/>
+    </g>
+    <circle cx="1010" cy="470" r="5" fill="#b9bccc"/><circle cx="1233" cy="845" r="5" fill="#5b6cf6"/><circle cx="1355" cy="955" r="5" fill="#fff"/>
+    <text x="1390" y="300" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="22" font-weight="700" fill="#a2a5b8" letter-spacing="2">PARENTS IN TWO HOMES</text>
+    <text x="1390" y="1040" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="18" font-weight="600" fill="#a2a5b8">circles drawn to scale, by area</text>
+  </svg>
+  <div class="l" style="top:425px"><div class="num">25M</div><div class="lab">parents, 12.9M families</div></div>
+  <div class="who wcard">
+    <div><small>Who</small>Mom or dad, 25 to 45</div>
+    <div><small>Lawyer</small>$349 an hour</div>
+    <div><small>Buys when lawyer says</small>"Document everything"</div>
+  </div>
+  <div class="l" style="top:790px"><div class="num gtext">1 to 2M</div><div class="lab"><b>high-conflict families</b>, 10 to 15%</div></div>
+  <div class="l" style="top:925px;"><div class="lab" style="font-size:24px"><b style="font-size:30px">~100K</b> in court now (est.)</div></div>
+  <p class="src">Census P60-269 · Johnston 1994 via Justice Canada · Clio 2025</p>
+  <div class="pg">7</div>
+</section>
+
+<!-- C · the moment they buy (dark) -->
+<section class="slide C">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">Who we sell to</div>
+  <h2>Our ideal customer <span>buys on one sentence.</span></h2>
+
+  <div class="quote hero-pill"><small>Their lawyer, $349/hr</small><b>"Document everything."</b></div>
+  <div class="stem"></div>
+
+  <div class="ab" style="left:400px;top:560px"><div class="bubd"><u>this means war</u></div></div>
+  <div class="ab" style="left:740px;top:520px"><div class="drafts"><div class="bar x" style="width:92%"></div><div class="bar x" style="width:70%"></div><div class="bar x" style="width:84%"></div></div></div>
+
+  <div class="line"></div>
+  <div class="dot" style="left:247px"></div>
+  <div class="dot" style="left:537px"></div>
+  <div class="dot" style="left:877px"></div>
+  <div class="dot hot" style="left:1318px"></div>
+  <div class="dot" style="left:1677px;border-color:#5b6cf6"></div>
+
+  <div class="st" style="left:110px"><b>Splits up</b><span>mom or dad, 25 to 45</span></div>
+  <div class="st" style="left:400px"><b>Texts turn to bait</b><span>high-conflict ex</span></div>
+  <div class="st" style="left:740px"><b>Rewrites every reply</b><span>scared to send</span></div>
+  <div class="st" style="left:1191px"><b class="gtext" style="font-size:30px">Buys Parley</b><span>the day the lawyer says it</span></div>
+  <div class="st" style="left:1540px"><b>Hearing set</b><span>or buys here</span></div>
+
+  <div class="strip">
+    <div><div class="num gtext">1 to 2M</div><div class="lab">high-conflict US families</div></div>
+    <div><div class="num">$110 to $300</div><div class="lab">a year, already paid for apps</div></div>
+    <div><div class="num">$349</div><div class="lab">an hour for the lawyer</div></div>
+  </div>
+  <p class="src">Text: McGhee v. McGhee, Wis. App. 2023 · Johnston 1994 via Justice Canada · OurFamilyWizard pricing · Clio 2025</p>
+  <div class="pg">7</div>
+</section>
+
+<!-- D · age and money, to scale (light) -->
+<section class="slide light D">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">Who we sell to</div>
+  <h2>Our ideal customer <span>already pays for this fight.</span></h2>
+  <div class="buy hero-pill">Buys when the lawyer says <b>"document everything."</b></div>
+
+  <div class="age wcard">
+    <div class="ct">Who</div>
+    <div class="who">Mom or dad, <span>high-conflict ex</span></div>
+    <!-- axis 20 to 60 over 604px: 15.1px per year -->
+    <div class="axis">
+      <div class="base"></div>
+      <div class="band" style="left:75px;width:302px"></div>
+      <div class="core" style="left:151px;width:226px">core 30 to 45</div>
+      <div class="bl" style="left:75px">25 to 45</div>
+      <div class="tick" style="left:0">20</div>
+      <div class="tick" style="left:151px">30</div>
+      <div class="tick" style="left:302px">40</div>
+      <div class="tick" style="left:453px">50</div>
+      <div class="tick" style="left:604px">60</div>
+    </div>
+    <div class="forty"><div class="num gtext">40%+</div><div class="lab">of custodial parents<br>are 40 or older</div></div>
+  </div>
+
+  <div class="money wcard">
+    <div class="ct">What they already pay</div>
+    <!-- $1 = 2.4px -->
+    <div class="mrow">
+      <div class="mh"><b>$349</b><span>one hour of their lawyer</span></div>
+      <div class="track"><i style="left:0;width:838px;background:#1d1f2b"></i></div>
+    </div>
+    <div class="mrow">
+      <div class="mh"><b>$110 to $300</b><span>a whole year of a co-parenting app</span></div>
+      <div class="track"><i style="left:0;width:264px;background:var(--grad)"></i><i style="left:0;width:720px;background:rgba(91,108,246,.18);border:2px dashed #5b6cf6"></i></div>
+    </div>
+    <div class="mrow" style="margin-top:50px">
+      <div class="mh"><b class="gtext">1 to 2M</b><span>US families like this</span></div>
+    </div>
+  </div>
+  <p class="src">Census P60-269 · Clio 2025 · OurFamilyWizard pricing · Johnston 1994 via Justice Canada · bars drawn to scale</p>
+  <div class="pg">7</div>
+</section>
+
+<!-- E · their phone, then what the lawyer wants (dark) -->
+<section class="slide E">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">Who we sell to</div>
+  <h2>Our ideal customer <span>has an ex who baits.</span></h2>
+  <div class="bign">
+    <div class="num gtext">1 to 2M</div>
+    <div class="lab"><b>US families</b>, mom or dad, 25 to 45</div>
+  </div>
+  <div class="facts">
+    <div><div class="num">$349</div><div class="lab">an hour, their lawyer</div></div>
+    <div><div class="num">$110 to $300</div><div class="lab">a year, already on apps</div></div>
+  </div>
+
+  <div class="iphone iphone--black p1" style="--s:0.94" data-draw>
+    <div class="status-lite">9:41</div>
+    <div class="chat">
+      <div class="who"><i></i><b>Co-parent</b></div>
+      <div class="ts">10:12 PM</div>
+      <div class="m">I will not coparent with you, <u>get that straight</u></div>
+      <div class="m"><u>this means war</u></div>
+      <div class="m">the Judge will see through your <u>lying sack of s*** lawyer</u></div>
+      <div class="draft"><div class="bar x" style="width:90%"></div><div class="bar x" style="width:66%"></div><div class="bar" style="width:40%;background:#2f6bff"></div></div>
+    </div>
+  </div>
+  <div class="iphone iphone--black p2" style="--s:0.94; --shift:70" data-shot="../../../shots/record.png"></div>
+
+  <div class="tagp" style="left:930px;top:480px;transform:rotate(-4deg)">bait</div>
+  <div class="tagp" style="left:850px;top:830px;transform:rotate(-4deg)">rewrites every reply</div>
+  <div class="arrow hero-pill">Lawyer: "document everything." <span style="opacity:.8">They buy.</span></div>
+  <p class="src">Texts: McGhee v. McGhee, Wis. App. 2023 · L.W. v. J.U., N.Y. Sup. 2024 · Clio 2025 · OurFamilyWizard pricing</p>
+  <div class="pg">7</div>
+</section>
+
+<script src="../../../design-options/iphone.js"></script>
+<script>
+// drawn phones: keep the chat we wrote, put the device around it
+for (const el of document.querySelectorAll('.iphone[data-draw]')) {
+  const inner = el.innerHTML;
+  el.innerHTML = '<div class="iphone__body"><i class="iphone__btn iphone__btn--action"></i><i class="iphone__btn iphone__btn--volup"></i><i class="iphone__btn iphone__btn--voldn"></i><i class="iphone__btn iphone__btn--power"></i><div class="iphone__frame"></div><div class="iphone__bezel"></div><div class="iphone__screen">' + inner + '<div class="iphone__island"></div><div class="iphone__home"></div></div></div>';
+}
+</script>
+</body>
+</html>

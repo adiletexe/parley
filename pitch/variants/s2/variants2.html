@@ -1,0 +1,234 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=IBM+Plex+Mono:wght@500;600&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#777;font-family:'Plus Jakarta Sans',sans-serif}
+.slide{width:1920px;height:1080px;position:relative;overflow:hidden;margin-bottom:40px}
+.src{position:absolute;left:120px;bottom:44px;font-size:18px;opacity:.5}
+/* simple phone */
+.ph{position:absolute;width:400px;height:800px;border-radius:64px;background:#0b0b0c;padding:14px;box-shadow:0 40px 90px rgba(0,0,0,.35)}
+.ph .scr{width:100%;height:100%;border-radius:52px;background:#fff;overflow:hidden;position:relative;font-family:-apple-system,'Inter Tight',sans-serif}
+.ph .isl{position:absolute;top:14px;left:50%;transform:translateX(-50%);width:120px;height:34px;border-radius:20px;background:#0b0b0c}
+.ph .hd{padding:70px 0 18px;text-align:center;border-bottom:1px solid #e6e6ea;background:#f7f7f9}
+.ph .av{width:58px;height:58px;border-radius:50%;background:#a3a7b3;margin:0 auto 6px;color:#fff;font-weight:600;font-size:24px;line-height:58px}
+.ph .nm{font-size:18px;color:#111}
+.ph .th{padding:26px 20px;display:flex;flex-direction:column;gap:12px}
+.b{max-width:80%;padding:12px 18px;border-radius:22px;font-size:22px;line-height:1.3}
+.b.in{background:#e9e9eb;color:#111;align-self:flex-start}
+.b.out{background:#0a84ff;color:#fff;align-self:flex-end}
+.b.ghost{opacity:.35}
+.stamp{position:absolute;font-family:'IBM Plex Mono',monospace;font-weight:600;color:#d8312c;border:6px solid #d8312c;border-radius:10px;padding:10px 22px;letter-spacing:.06em;text-transform:uppercase;transform:rotate(-12deg);background:rgba(255,255,255,.0);mix-blend-mode:multiply}
+.stamp small{display:block;font-size:.42em;letter-spacing:.12em;text-align:center}
+.dark .stamp{mix-blend-mode:normal;color:#ff5a5f;border-color:#ff5a5f;background:rgba(13,14,26,.0)}
+
+/* ===== A: dark funnel → phone ===== */
+#a{background:#0d0e1a;color:#fff}
+#a h1{position:absolute;left:120px;top:96px;font-size:84px;font-weight:800;letter-spacing:-.03em;line-height:1}
+#a h1 em{font-style:normal;color:#e2508f}
+#a .fun{position:absolute;left:120px;top:300px}
+#a .row{position:relative;height:150px;margin-bottom:26px;display:flex;align-items:center}
+#a .bar{height:150px;clip-path:polygon(0 0,100% 0,calc(100% - 40px) 100%,0 100%);display:flex;align-items:center;padding-left:40px}
+#a .n{font-size:96px;font-weight:800;letter-spacing:-.04em;line-height:1}
+#a .lab{font-size:32px;font-weight:600;margin-left:30px;color:#c9cbe0;white-space:nowrap}
+#a .lab b{font-weight:600;font-size:22px;border:2px solid #5b6cf6;color:#9aa5ff;border-radius:8px;padding:2px 10px;margin-left:12px;vertical-align:4px}
+#a .r1 .bar{width:860px;background:#5b6cf6}
+#a .r2 .bar{width:620px;background:#3d48b8}
+#a .r3 .bar{width:420px;background:#e2508f}
+#a .arrow{position:absolute;left:1180px;top:680px}
+#a .ph{left:1420px;top:190px;transform:rotate(4deg)}
+#a .stamp{left:1440px;top:700px;font-size:58px;transform:rotate(-14deg);background:#fff;mix-blend-mode:normal;color:#d8312c;border-color:#d8312c}
+#a .fee{position:absolute;left:120px;top:830px;display:flex;align-items:baseline;gap:24px}
+#a .fee .n{font-size:110px;color:#1fa572}
+#a .fee span{font-size:34px;font-weight:600;color:#c9cbe0}
+#a .src{color:#fff}
+
+/* ===== B: cream editorial, vertical funnel drawn as narrowing stack ===== */
+#b{background:#f2ece1;color:#1b1a17;font-family:'Fraunces',serif}
+#b h1{position:absolute;left:120px;top:90px;font-size:92px;font-weight:600;letter-spacing:-.025em;line-height:1;width:1100px}
+#b .stk{position:absolute;left:120px;top:300px;width:1040px}
+#b .lv{display:flex;align-items:center;justify-content:space-between;border-top:3px solid #1b1a17;padding:22px 0}
+#b .lv .n{font-size:120px;font-weight:800;letter-spacing:-.04em;line-height:.9}
+#b .lv .l{font-family:'Plus Jakarta Sans';font-size:32px;font-weight:600;text-align:right}
+#b .lv .l i{display:block;font-style:normal;font-size:20px;color:#a2321f;letter-spacing:.14em;font-weight:700;margin-top:6px}
+#b .lv:nth-child(2) .n{font-size:100px;padding-left:120px}
+#b .lv:nth-child(3) .n{font-size:84px;padding-left:240px;color:#a2321f}
+#b .lv:nth-child(1) .n{font-size:120px}
+#b .chev{position:absolute;left:1180px;top:300px;height:560px}
+#b .ph{left:1360px;top:180px;transform:rotate(-3deg)}
+#b .stamp{left:1390px;top:700px;font-size:64px}
+#b .tag{position:absolute;left:1340px;top:1000px;font-family:'Plus Jakarta Sans';font-size:30px;font-weight:700;color:#a2321f}
+#b .src{font-family:'Plus Jakarta Sans'}
+
+/* ===== C: nested squares to scale, zoom to phone ===== */
+#c{background:#f7f7f4;color:#111;font-family:'Inter Tight',sans-serif}
+#c h1{position:absolute;left:120px;top:96px;font-size:80px;font-weight:700;letter-spacing:-.035em;line-height:1.02;width:820px}
+#c .sq{position:absolute}
+#c .s1{left:120px;top:340px;width:620px;height:620px;background:#d9dbe6}
+#c .s2{left:120px;top:822px;width:138px;height:138px;background:#5b6cf6}
+#c .s3{left:120px;top:907px;width:53px;height:53px;background:#e2508f}
+#c .t{position:absolute;line-height:1}
+#c .t .n{font-weight:800;letter-spacing:-.04em}
+#c .t .l{font-size:28px;font-weight:500;margin-top:8px;color:#333}
+#c .t1{left:160px;top:380px}.t1 .n{font-size:110px}
+#c .t2{left:290px;top:810px;color:#fff}
+#c .t2 .n{font-size:64px;color:#3d48b8}
+#c .t2 .l{color:#3d48b8}
+#c .scale{position:absolute;left:770px;top:930px;font-size:20px;color:#888;letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+#c .zoom{position:absolute;left:0;top:0}
+#c .t3{left:860px;top:420px}
+#c .t3 .n{font-size:150px;color:#e2508f}
+#c .t3 .l{font-size:34px;font-weight:600;color:#111}
+#c .t3 .l b{font-size:22px;border:2px solid #e2508f;color:#e2508f;border-radius:8px;padding:2px 10px;margin-left:10px;vertical-align:4px}
+#c .ph{left:1460px;top:170px;transform:rotate(3deg) scale(.92);transform-origin:top left}
+#c .stamp{left:1440px;top:660px;font-size:46px}
+#c .fee{position:absolute;left:860px;top:690px;font-size:34px;font-weight:600;line-height:1.1}
+#c .fee .n{font-size:84px;font-weight:800;letter-spacing:-.04em;display:block;color:#1fa572}
+
+/* ===== D: phone dominant, exhibit, meter ===== */
+#d{background:#fff;color:#111}
+#d h1{position:absolute;left:120px;top:110px;font-size:96px;font-weight:800;letter-spacing:-.035em;line-height:1;width:900px}
+#d .ph{left:1070px;top:120px;width:480px;height:960px;border-radius:76px}
+#d .ph .scr{border-radius:62px}
+#d .ph .b{font-size:27px}
+#d .stamp{left:1030px;top:600px;font-size:78px;transform:rotate(-10deg)}
+#d .note{position:absolute;left:1590px;top:330px;font-family:'Instrument Serif';font-style:italic;font-size:40px;color:#d8312c;line-height:1.05;width:280px}
+#d .crumb{position:absolute;left:120px;top:470px;display:flex;flex-direction:column;gap:0}
+#d .cr{display:flex;align-items:baseline;gap:22px}
+#d .cr .n{font-size:88px;font-weight:800;letter-spacing:-.04em;line-height:1.05;width:330px}
+#d .cr .l{font-size:30px;font-weight:600;color:#555}
+#d .cr .l b{font-size:20px;color:#e2508f;border:2px solid #e2508f;border-radius:7px;padding:1px 8px;margin-left:8px;vertical-align:3px}
+#d .dn{font-size:40px;color:#bbb;padding-left:70px;line-height:1}
+#d .cr.hot .n{color:#e2508f}
+#d .meter{position:absolute;left:120px;top:880px;display:flex;align-items:center;gap:24px}
+#d .meter .n{font-size:64px;font-weight:800;color:#1fa572;letter-spacing:-.03em}
+#d .meter span{font-size:30px;font-weight:600;color:#555}
+
+/* ===== E: pipeline from two homes to court ===== */
+#e{background:#e9edf5;color:#0f1630;font-family:'Inter Tight',sans-serif}
+#e h1{position:absolute;left:120px;top:96px;font-family:'Instrument Serif';font-weight:400;font-size:120px;letter-spacing:-.02em;line-height:1}
+#e h1 i{color:#2f43e0}
+#e .pipe{position:absolute;left:120px;top:430px;width:1680px;height:520px}
+#e .st{position:absolute;top:0;width:330px;text-align:left}
+#e .st svg{display:block;height:230px}
+#e .st .n{font-size:88px;font-weight:800;letter-spacing:-.04em;line-height:1;margin-top:26px}
+#e .st .l{font-size:30px;font-weight:600;margin-top:10px;color:#3a4366}
+#e .st .l b{font-size:20px;color:#d8312c;border:2px solid #d8312c;border-radius:7px;padding:1px 8px;margin-left:6px;vertical-align:3px}
+#e .ar{position:absolute;top:95px;font-size:70px;color:#9aa3c4}
+#e .ph{left:1450px;top:330px;transform:rotate(6deg) scale(.82);transform-origin:top left}
+#e .stamp{left:1440px;top:680px;font-size:52px}
+#e .fee{position:absolute;left:1100px;top:120px;text-align:right;width:700px}
+#e .fee .n{font-size:84px;font-weight:800;color:#d8312c;letter-spacing:-.04em;line-height:1}
+#e .fee .l{font-size:28px;font-weight:600;color:#3a4366}
+</style></head><body>
+
+<!-- A -->
+<section class="slide dark" id="a">
+  <h1>Every text can end up <em>in court</em></h1>
+  <div class="fun">
+    <div class="row r1"><div class="bar"><span class="n">12.9M</span></div><span class="lab">parents in two homes</span></div>
+    <div class="row r2"><div class="bar"><span class="n">663K</span></div><span class="lab">divorces a year</span></div>
+    <div class="row r3"><div class="bar"><span class="n">~100K</span></div><span class="lab">custody fights a year<b>est.</b></span></div>
+  </div>
+  <div class="fee"><span class="n">$349/hr</span><span>for the lawyer reading them</span></div>
+  <div class="ph"><div class="scr"><div class="isl"></div>
+    <div class="hd"><div class="av">E</div><div class="nm">Ex</div></div>
+    <div class="th">
+      <div class="b in ghost">Can you take him Friday?</div>
+      <div class="b out">this means war</div>
+      <div class="b out">you will look stupid in court</div>
+    </div></div></div>
+  <div class="stamp">Exhibit A</div>
+  <div class="src">Census P60-269 · CDC/NCHS 2024 · Clio 2025 · texts from McGhee v. McGhee (Wis. 2023)</div>
+</section>
+
+<!-- B -->
+<section class="slide" id="b">
+  <h1>A custody fight turns texts into evidence</h1>
+  <div class="stk">
+    <div class="lv"><span class="n">12.9M</span><span class="l">parents in two homes</span></div>
+    <div class="lv"><span class="n">663K</span><span class="l">divorces every year</span></div>
+    <div class="lv"><span class="n">~100K</span><span class="l">fight in court<i>EST. PER YEAR</i></span></div>
+    <div class="lv" style="border-bottom:3px solid #1b1a17"><span class="n" style="font-size:84px;padding-left:360px;color:#1b1a17">$349</span><span class="l">per lawyer hour</span></div>
+  </div>
+  <svg class="chev" viewBox="0 0 120 560"><path d="M20 20 L60 260 L20 540" fill="none" stroke="#a2321f" stroke-width="6"/><path d="M60 20 L100 280 L60 540" fill="none" stroke="#a2321f" stroke-width="6" opacity=".35"/></svg>
+  <div class="ph"><div class="scr"><div class="isl"></div>
+    <div class="hd"><div class="av">E</div><div class="nm">Ex</div></div>
+    <div class="th">
+      <div class="b in ghost">He has a fever, can you pick up?</div>
+      <div class="b out">I will not coparent with you, get that straight.</div>
+    </div></div></div>
+  <div class="stamp">Exhibit 4<small>Family court</small></div>
+  <div class="src">Census P60-269 · CDC/NCHS 2024 · Clio Legal Trends 2025 · real text from a NY custody case</div>
+</section>
+
+<!-- C -->
+<section class="slide" id="c">
+  <h1>Where an angry text ends up</h1>
+  <div class="sq s1"></div><div class="sq s2"></div><div class="sq s3"></div>
+  <div class="t t1"><div class="n">12.9M</div><div class="l">parents in two homes</div></div>
+  <div class="t t2"><div class="n">663K</div><div class="l">divorces a year</div></div>
+  <div class="scale">areas drawn to scale</div>
+  <svg class="zoom" width="1920" height="1080"><path d="M173 907 L850 470" stroke="#e2508f" stroke-width="3" stroke-dasharray="8 8" fill="none"/><path d="M173 960 L850 600" stroke="#e2508f" stroke-width="3" stroke-dasharray="8 8" fill="none"/></svg>
+  <div class="t t3"><div class="n">~100K</div><div class="l">custody fights a year<b>est.</b></div></div>
+  <div class="fee"><span class="n">$349/hr</span>lawyer reading your texts</div>
+  <div class="ph"><div class="scr"><div class="isl"></div>
+    <div class="hd"><div class="av">E</div><div class="nm">Ex</div></div>
+    <div class="th">
+      <div class="b in ghost">Pickup is at 5, ok?</div>
+      <div class="b out">this means war</div>
+    </div></div></div>
+  <div class="stamp">Exhibit A</div>
+  <div class="src">Census P60-269 · CDC/NCHS 2024 · Clio Legal Trends 2025 · McGhee v. McGhee (Wis. 2023)</div>
+</section>
+
+<!-- D -->
+<section class="slide" id="d">
+  <h1>A judge may read every text you send</h1>
+  <div class="crumb">
+    <div class="cr"><span class="n">12.9M</span><span class="l">parents in two homes</span></div>
+    <div class="dn">↓</div>
+    <div class="cr"><span class="n">663K</span><span class="l">divorces a year</span></div>
+    <div class="dn">↓</div>
+    <div class="cr hot"><span class="n">~100K</span><span class="l">custody fights<b>est.</b></span></div>
+  </div>
+  <div class="meter"><span class="n">$349/hr</span><span>lawyer time</span></div>
+  <div class="ph"><div class="scr"><div class="isl"></div>
+    <div class="hd"><div class="av">E</div><div class="nm">Ex</div></div>
+    <div class="th">
+      <div class="b in ghost">Did you sign the school form?</div>
+      <div class="b out">I will not coparent with you, get that straight.</div>
+    </div></div></div>
+  <div class="stamp">Exhibit 12</div>
+  <div class="note">he lost custody over this</div>
+  <svg style="position:absolute;left:1480px;top:330px" width="120" height="120"><path d="M110 20 C60 10 30 50 20 105" stroke="#d8312c" stroke-width="4" fill="none"/><path d="M8 88 L20 108 L36 92" stroke="#d8312c" stroke-width="4" fill="none"/></svg>
+  <div class="src">Census P60-269 · CDC/NCHS 2024 · Clio Legal Trends 2025 · real text from a NY custody case</div>
+</section>
+
+<!-- E -->
+<section class="slide" id="e">
+  <h1>From two homes to <i>the courtroom</i></h1>
+  <div class="fee"><div class="n">$349</div><div class="l">every lawyer hour</div></div>
+  <div class="pipe">
+    <div class="st" style="left:0">
+      <svg viewBox="0 0 300 230"><g fill="none" stroke="#0f1630" stroke-width="7" stroke-linejoin="round"><path d="M20 210 V110 L80 60 L140 110 V210 Z"/><path d="M160 210 V110 L220 60 L280 110 V210 Z"/></g><path d="M150 140 V210" stroke="#9aa3c4" stroke-width="5" stroke-dasharray="10 10"/></svg>
+      <div class="n">12.9M</div><div class="l">parents in two homes</div></div>
+    <div class="ar" style="left:340px">→</div>
+    <div class="st" style="left:440px">
+      <svg viewBox="0 0 300 230"><g fill="none" stroke="#0f1630" stroke-width="7"><circle cx="110" cy="130" r="70"/><circle cx="190" cy="130" r="70" stroke-dasharray="40 18"/></g></svg>
+      <div class="n">663K</div><div class="l">divorces a year</div></div>
+    <div class="ar" style="left:780px">→</div>
+    <div class="st" style="left:880px">
+      <svg viewBox="0 0 300 230"><g stroke="#d8312c" stroke-width="7" fill="none" stroke-linecap="round"><rect x="40" y="40" width="130" height="56" rx="10" transform="rotate(-30 105 68)"/><path d="M130 110 L230 200"/><path d="M40 215 H230"/></g></svg>
+      <div class="n" style="color:#d8312c">~100K</div><div class="l">custody fights<b>est.</b></div></div>
+  </div>
+  <div class="ph"><div class="scr"><div class="isl"></div>
+    <div class="hd"><div class="av">E</div><div class="nm">Ex</div></div>
+    <div class="th">
+      <div class="b in ghost">Running late, 10 min</div>
+      <div class="b out">this means war</div>
+    </div></div></div>
+  <div class="stamp">Evidence</div>
+  <div class="src">Census P60-269 · CDC/NCHS 2024 · Clio Legal Trends 2025 · McGhee v. McGhee (Wis. 2023)</div>
+</section>
+</body></html>

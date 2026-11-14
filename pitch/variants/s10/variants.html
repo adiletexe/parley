@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Parley slide 10 variants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Caveat:wght@600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #000; font-family: "Plus Jakarta Sans", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+.slide { position: relative; width: 1920px; height: 1080px; overflow: hidden; }
+.slide > * { position: absolute; }
+.hand { font-family: "Caveat", cursive; font-weight: 700; }
+.mono { font-family: "IBM Plex Mono", monospace; }
+.serif { font-family: "Fraunces", Georgia, serif; }
+
+/* shared: a bubble with a pen stroke through it */
+.struck { position: relative; }
+.x { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20' preserveAspectRatio='none'%3E%3Cpath d='M1 12 C 25 6, 55 16, 99 8' fill='none' stroke='%23e0262d' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E") 0 58% / 100% .42em no-repeat; -webkit-box-decoration-break: clone; box-decoration-break: clone; padding: 0 4px; }
+.struck svg.pen { position: absolute; left: -14px; right: -14px; top: 50%; width: calc(100% + 28px); height: 46px; transform: translateY(-50%); overflow: visible; }
+.struck svg.pen path { fill: none; stroke: #e0262d; stroke-width: 6; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+
+/* ============ A · dark Parley, the thread answers the headline ============ */
+.A { background: #0d0e1a; color: #f4f5fb; }
+.A .mark { left: 120px; top: 80px; font-size: 26px; font-weight: 800; display: flex; gap: 12px; align-items: center; letter-spacing: -.02em; }
+.A .mark i { width: 28px; height: 28px; border-radius: 8px; background: #5b6cf6; display: block; }
+.A h1 { left: 120px; top: 190px; width: 900px; font-size: 70px; font-weight: 800; line-height: 1.04; letter-spacing: -.035em; }
+.A h1 span { color: #8d90ab; }
+.A .lede { left: 120px; top: 440px; width: 800px; font-size: 30px; line-height: 1.42; color: #b4b6ca; }
+.A .rows { left: 120px; top: 610px; width: 860px; }
+.A .row { display: grid; grid-template-columns: 250px 1fr; align-items: baseline; padding: 22px 0; border-top: 1px solid #2a2e47; }
+.A .row:last-child { border-bottom: 1px solid #2a2e47; }
+.A .row b { font-size: 22px; font-weight: 600; color: #8d90ab; }
+.A .row span { font-size: 32px; font-weight: 700; letter-spacing: -.01em; }
+.A .row.big span { font-size: 44px; font-weight: 800; letter-spacing: -.025em; }
+.A .row.big em { font-style: normal; color: #8b97ff; }
+.A .thread { left: 1060px; top: 150px; width: 740px; background: #161829; border: 1px solid #262a40; border-radius: 40px; padding: 40px 44px 46px; box-shadow: 0 60px 120px -40px rgba(0,0,0,.9); }
+.A .head { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+.A .av { width: 46px; height: 46px; border-radius: 50%; background: #2b2f48; display: grid; place-items: center; font-weight: 800; color: #a9abc0; font-size: 20px; }
+.A .head b { font-size: 22px; }
+.A .head small { margin-left: auto; font-size: 18px; color: #757993; font-weight: 600; }
+.A .b { max-width: 560px; padding: 16px 24px; border-radius: 26px; font-size: 27px; line-height: 1.32; font-weight: 500; }
+.A .b.in { background: #262839; color: #c9cbdb; border-bottom-left-radius: 8px; font-style: italic; font-size: 23px; }
+.A .b.out { margin-left: auto; background: #3a2a44; color: #e9c5d6; border-bottom-right-radius: 8px; margin-top: 16px; }
+.A .b.good { margin-left: auto; background: #1fa572; color: #fff; border-bottom-right-radius: 8px; font-weight: 600; margin-top: 18px; }
+.A .note { position: relative; margin: 14px 0 0 60px; font-size: 38px; color: #ff6b70; line-height: 1; }
+.A .tag { margin: 30px 0 0; font-size: 18px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #34d399; text-align: right; }
+.A .src { left: 120px; bottom: 52px; font-size: 18px; color: #6a6e88; }
+.A .pg { right: 120px; bottom: 52px; font-size: 18px; color: #6a6e88; font-weight: 600; }
+
+/* ============ B · paper editorial, the printed thread with a red pen ============ */
+.B { background: #f3efe6; color: #17171c; }
+.B .rule { left: 120px; right: 120px; top: 96px; height: 2px; background: #17171c; }
+.B .folio { left: 120px; top: 56px; font-size: 20px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.B .folio2 { right: 120px; top: 56px; font-size: 20px; color: #6d685d; }
+.B h1 { left: 120px; top: 140px; width: 1200px; font-family: "Fraunces", serif; font-weight: 400; font-size: 84px; line-height: 1.04; letter-spacing: -.02em; }
+.B h1 i { color: #1f7a52; }
+.B .paper { left: 120px; top: 400px; width: 1080px; }
+.B .who { font-size: 20px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #6d685d; margin-bottom: 22px; }
+.B .p { font-family: "Fraunces", serif; font-size: 40px; line-height: 1.25; margin-bottom: 26px; }
+.B .p small { display: block; font-family: "Plus Jakarta Sans", sans-serif; font-size: 20px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #8a8478; margin-bottom: 6px; }
+.B .p.mom { font-style: italic; color: #4e4a42; }
+.B .p.bad { display: inline-block; color: #8a8478; }
+.B .p.good { color: #1f7a52; }
+.B .note1 { left: 980px; top: 600px; font-size: 40px; color: #d6332f; transform: rotate(-4deg); line-height: 1; }
+.B .side { left: 1380px; top: 150px; width: 420px; bottom: 120px; border-left: 2px solid #17171c; padding-left: 40px; }
+.B .side h3 { font-size: 22px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 30px; }
+.B .side dl { position: static; }
+.B .side dt { font-size: 20px; color: #6d685d; margin-top: 30px; }
+.B .side dd { font-size: 30px; font-weight: 700; line-height: 1.25; margin-top: 6px; letter-spacing: -.01em; word-break: break-word; }
+.B .side dd.url { font-size: 34px; color: #1f7a52; }
+.B .side dd small { font-family: "Plus Jakarta Sans", sans-serif; display: block; font-size: 20px; font-weight: 500; color: #6d685d; margin-top: 6px; }
+.B .disc { left: 120px; bottom: 52px; font-size: 20px; color: #6d685d; }
+.B .pg { right: 120px; bottom: 52px; font-size: 20px; color: #6d685d; }
+
+/* ============ C · dark keynote, the live site in a browser ============ */
+.C { background: #0b0c16; color: #f4f5fb; }
+.C .k { left: 120px; top: 150px; font-size: 22px; font-weight: 700; color: #34d399; display: flex; align-items: center; gap: 12px; }
+.C .k i { width: 14px; height: 14px; border-radius: 50%; background: #34d399; box-shadow: 0 0 0 6px rgba(52,211,153,.18); display: block; }
+.C h1 { left: 120px; top: 210px; width: 760px; font-size: 104px; font-weight: 800; line-height: 1; letter-spacing: -.045em; }
+.C h1 span { color: #8d90ab; }
+.C .lede { left: 120px; top: 460px; width: 700px; font-size: 30px; line-height: 1.42; color: #b4b6ca; }
+.C .url { left: 120px; top: 640px; font-size: 50px; font-weight: 800; letter-spacing: -.03em; }
+.C .url em { font-style: normal; color: #8b97ff; }
+.C .small { left: 120px; top: 720px; width: 760px; font-size: 26px; line-height: 1.6; color: #b4b6ca; }
+.C .small b { color: #f4f5fb; font-weight: 700; }
+.C .browser { left: 960px; top: 120px; width: 1100px; border-radius: 20px; overflow: hidden; background: #1a1c2c; border: 1px solid #2a2e47; box-shadow: 0 60px 120px -30px rgba(0,0,0,.9); }
+.C .bar { height: 54px; display: flex; align-items: center; gap: 10px; padding: 0 22px; background: #1d2033; }
+.C .bar i { width: 14px; height: 14px; border-radius: 50%; background: #3a3e58; display: block; }
+.C .bar span { margin-left: 26px; padding: 8px 20px; border-radius: 10px; background: #12141f; font-size: 19px; color: #a9abc0; }
+.C .browser img { display: block; width: 1100px; }
+.C .thread { left: 1150px; top: 610px; width: 660px; background: #f6f7fb; color: #17171c; border-radius: 32px; padding: 30px 34px 34px; box-shadow: 0 50px 100px -20px rgba(0,0,0,.85); }
+.C .thread .who { font-size: 18px; font-weight: 700; color: #6b6e85; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 18px; }
+.C .b { max-width: 500px; padding: 13px 20px; border-radius: 22px; font-size: 23px; line-height: 1.3; font-weight: 500; }
+.C .b.in { background: #e6e8f0; color: #4a4d63; font-style: italic; font-size: 21px; border-bottom-left-radius: 7px; }
+.C .b.out { margin-left: auto; margin-top: 12px; background: #e4e5ee; color: #8d90a6; border-bottom-right-radius: 7px; }
+.C .b.good { margin-left: auto; margin-top: 14px; background: #1fa572; color: #fff; font-weight: 600; border-bottom-right-radius: 7px; }
+.C .src { left: 120px; bottom: 52px; font-size: 18px; color: #6a6e88; }
+.C .pg { right: 120px; bottom: 52px; font-size: 18px; color: #6a6e88; }
+
+/* ============ D · two endings, split ============ */
+.D { background: #f6f5f1; color: #17171c; }
+.D .left { left: 0; top: 0; width: 960px; height: 820px; background: #1b1216; }
+.D h1 { top: 90px; width: 740px; font-size: 62px; font-weight: 800; letter-spacing: -.035em; line-height: 1.06; }
+.D .h1l { left: 120px; color: #fff; }
+.D .h1r { left: 1080px; color: #17171c; }
+.D .col { top: 320px; width: 720px; }
+.D .c1 { left: 120px; color: #f3e4ea; }
+.D .c2 { left: 1080px; }
+.D .lab { font-size: 22px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.D .c1 .lab { color: #ff7aa8; }
+.D .c2 .lab { color: #1a8a5e; }
+.D .mom { margin-top: 20px; font-size: 24px; font-style: italic; line-height: 1.4; }
+.D .c1 .mom { color: #b9a5ad; }
+.D .c2 .mom { color: #6b6a63; }
+.D .b { margin-top: 22px; padding: 22px 30px; border-radius: 30px; font-size: 36px; line-height: 1.28; font-weight: 600; max-width: 680px; }
+.D .c1 .b { background: #e2508f; color: #fff; display: inline-block; }
+.D .c1 .b .x { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20' preserveAspectRatio='none'%3E%3Cpath d='M1 12 C 25 6, 55 16, 99 8' fill='none' stroke='%231b1216' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E"); }
+.D .c2 .b { background: #1fa572; color: #fff; }
+.D .then { margin-top: 38px; font-size: 28px; line-height: 1.42; max-width: 680px; }
+.D .c1 .then b { color: #fff; }
+.D .c2 .then { color: #3b3a35; }
+.D .c2 .then b { color: #17171c; }
+.D .strip { left: 0; right: 0; top: 820px; height: 260px; background: #17171c; color: #f4f5fb; padding: 50px 120px 0; display: grid; grid-template-columns: 860px 1fr; column-gap: 60px; }
+.D .strip > * { position: static; }
+.D .strip .t { font-size: 24px; color: #a9a8a0; font-weight: 600; }
+.D .strip .u { font-size: 54px; font-weight: 800; letter-spacing: -.03em; margin-top: 8px; }
+.D .strip .u em { font-style: normal; color: #4ee0a3; }
+.D .strip ul { list-style: none; font-size: 26px; line-height: 1.6; color: #d8d7d0; padding-top: 4px; }
+.D .strip ul b { color: #fff; }
+.D .disc { left: 120px; bottom: 34px; font-size: 18px; color: #8a8980; z-index: 2; }
+.D .srcR { right: 120px; bottom: 34px; font-size: 18px; color: #8a8980; z-index: 2; }
+
+/* ============ E · white, the link is the slide ============ */
+.E { background: #ffffff; color: #111322; }
+.E .mark { left: 120px; top: 80px; font-size: 26px; font-weight: 800; display: flex; gap: 12px; align-items: center; letter-spacing: -.02em; }
+.E .mark i { width: 28px; height: 28px; border-radius: 8px; background: #5b6cf6; display: block; }
+.E h1 { left: 120px; top: 190px; width: 1700px; font-size: 76px; font-weight: 800; letter-spacing: -.035em; line-height: 1.06; }
+.E .lede { left: 120px; top: 300px; width: 1000px; font-size: 30px; line-height: 1.42; color: #4a4d63; }
+.E .url { left: 112px; top: 430px; font-size: 128px; font-weight: 800; letter-spacing: -.05em; line-height: 1; }
+.E .url em { font-style: normal; color: #5b6cf6; }
+.E .uline { left: 120px; top: 580px; width: 1500px; height: 6px; background: #5b6cf6; border-radius: 3px; }
+.E .steps { left: 120px; top: 670px; width: 1060px; counter-reset: s; list-style: none; }
+.E .steps li { position: relative; padding-left: 64px; font-size: 30px; line-height: 1.4; margin-bottom: 22px; color: #2a2d40; }
+.E .steps li::before { counter-increment: s; content: counter(s); position: absolute; left: 0; top: 2px; width: 42px; height: 42px; border-radius: 50%; border: 2px solid #111322; font-size: 22px; font-weight: 800; display: grid; place-items: center; }
+.E .steps b { color: #111322; }
+.E .mini { left: 1290px; top: 670px; width: 510px; }
+.E .mini .who { font-size: 18px; font-weight: 700; color: #7a7d93; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 14px; }
+.E .b { padding: 12px 18px; border-radius: 20px; font-size: 22px; line-height: 1.3; font-weight: 500; max-width: 440px; }
+.E .b.out { margin-left: auto; background: #eef0f6; color: #8d90a6; border-bottom-right-radius: 6px; }
+.E .b.good { margin-left: auto; margin-top: 12px; background: #1fa572; color: #fff; font-weight: 600; border-bottom-right-radius: 6px; }
+.E .disc { left: 120px; bottom: 44px; font-size: 18px; color: #7a7d93; }
+.E .pg { right: 120px; bottom: 44px; font-size: 18px; color: #7a7d93; }
+</style>
+</head>
+<body>
+
+<!-- A -->
+<section class="slide A">
+  <div class="mark"><i></i>Parley</div>
+  <h1>He didn't need a better lawyer. <span>He needed one calm text.</span></h1>
+  <p class="lede">Parley is live right now. Open the demo, paste the worst message you've ever gotten, and see what it writes back.</p>
+  <div class="rows">
+    <div class="row big"><b>Try it, no sign-up</b><span>parley.adiletfndr.com<em>/demo</em></span></div>
+    <div class="row"><b>Test the checkout</b><span class="mono">4242 4242 4242 4242</span></div>
+    <div class="row"><b>Read the code</b><span>github.com/adiletexe/parley</span></div>
+  </div>
+  <div class="thread">
+    <div class="head"><div class="av">D</div><b>Dad</b><small>Real texts, New York, 2023</small></div>
+    <div class="b in">Mom asks him to get their son to sleep in his own bed</div>
+    <div class="b out struck"><span class="x">I will not coparent with you, get that straight</span></div>
+    <div class="note hand">the judge quoted this one</div>
+    <div class="tag">What Parley would have sent</div>
+    <div class="b good">Ok, I'll keep him in his own bed this week. Let's check in Sunday on how it went.</div>
+  </div>
+  <p class="src">Parley is not a law firm and doesn't give legal advice. Thread: L.W. v. J.U. (N.Y. Sup. Ct. 2024).</p>
+  <div class="pg">10</div>
+</section>
+
+<!-- B -->
+<section class="slide B">
+  <div class="folio">Parley</div>
+  <div class="folio2">Try it live</div>
+  <div class="rule"></div>
+  <h1>Remember the dad from the first slide? <i>Here's what he could have sent.</i></h1>
+  <div class="paper">
+    <div class="who">The same thread, one more time</div>
+    <p class="p mom"><small>Mom</small>Asks him to get their son to sleep in his own room, in his own bed.</p>
+    <p class="p bad struck"><small>What he sent</small><span class="x">I will not coparent with you, get that straight.</span></p>
+    <p class="p good"><small>What Parley writes</small>Ok, I'll keep him in his own bed this week. Let's check in Sunday on how it went.</p>
+  </div>
+  <div class="note1 hand">quoted by the judge,<br>he lost custody</div>
+  <aside class="side">
+    <h3>See for yourself</h3>
+    <dl>
+      <dt>The demo for the jury, no sign-up</dt>
+      <dd class="url">parley.adiletfndr.com<br>/demo</dd>
+      <dt>Pay at checkout with the test card</dt>
+      <dd class="mono">4242 4242 4242 4242<small>any future date, any CVC</small></dd>
+      <dt>The whole codebase</dt>
+      <dd>github.com/<br>adiletexe/parley</dd>
+    </dl>
+  </aside>
+  <p class="disc">Parley is not a law firm and doesn't give legal advice. Thread: L.W. v. J.U. (N.Y. Sup. Ct. 2024).</p>
+  <div class="pg">10</div>
+</section>
+
+<!-- C -->
+<section class="slide C">
+  <div class="k"><i></i>Live right now, no sign-up</div>
+  <h1>One calm text. <span>Parley writes it.</span></h1>
+  <p class="lede">Everything on these slides runs on the real site. The jury demo opens on a sample case with nothing to fill in.</p>
+  <div class="url">parley.adiletfndr.com<em>/demo</em></div>
+  <p class="small">Test card <b class="mono">4242 4242 4242 4242</b><br>Code at <b>github.com/adiletexe/parley</b></p>
+  <div class="browser">
+    <div class="bar"><i></i><i></i><i></i><span>parley.adiletfndr.com</span></div>
+    <img src="../../shots/landing.png" alt="">
+  </div>
+  <div class="thread">
+    <div class="who">The dad from slide 1, with Parley</div>
+    <div class="b in">Mom asks him to get their son to sleep in his own bed</div>
+    <div class="b out struck"><span class="x">I will not coparent with you, get that straight</span></div>
+    <div class="b good">Ok, I'll keep him in his own bed this week. Let's check in Sunday on how it went.</div>
+  </div>
+  <p class="src">Parley is not a law firm and doesn't give legal advice.</p>
+  <div class="pg">10</div>
+</section>
+
+<!-- D -->
+<section class="slide D">
+  <div class="left"></div>
+  <h1 class="h1l">Mom asked him one simple question.</h1><h1 class="h1r">Here's how it went, and how it could have gone.</h1>
+  <div class="col c1">
+    <div class="lab">What he sent</div>
+    <p class="mom">Mom asks him to get their son to sleep in his own bed.</p>
+    <div class="b struck"><span class="x">I will not coparent with you, get that straight</span></div>
+    <p class="then">The judge quoted it. Mom got sole custody, and <b>he got two supervised visits a week.</b></p>
+  </div>
+  <div class="col c2">
+    <div class="lab">What Parley writes</div>
+    <p class="mom">Same question, pasted into Parley.</p>
+    <div class="b">Ok, I'll keep him in his own bed this week. Let's check in Sunday on how it went.</div>
+    <p class="then">It answers the question, stays about the kid, and <b>gives a judge nothing to quote against him.</b></p>
+  </div>
+  <div class="strip">
+    <div><div class="t">Try it yourself, no sign-up needed</div><div class="u">parley.adiletfndr.com<em>/demo</em></div></div>
+    <ul><li>Test card: <b class="mono">4242 4242 4242 4242</b></li><li>Code: <b>github.com/adiletexe/parley</b></li></ul>
+  </div>
+  <p class="disc">Parley is not a law firm and doesn't give legal advice.</p>
+  <p class="srcR">L.W. v. J.U., N.Y. Sup. Ct. 2024</p>
+</section>
+
+<!-- E -->
+<section class="slide E">
+  <div class="mark"><i></i>Parley</div>
+  <h1>Go ahead, try to make it lose its temper.</h1>
+  <p class="lede">Paste the meanest text you can think of. Parley answers it calmly every time, and the demo needs no sign-up.</p>
+  <div class="url">parley.adiletfndr.com<em>/demo</em></div>
+  <div class="uline"></div>
+  <ol class="steps">
+    <li>Open the demo. It starts on a sample case, so there's <b>nothing to fill in.</b></li>
+    <li>To test checkout, pay with <b class="mono">4242 4242 4242 4242</b>, any date and CVC.</li>
+    <li>Every line of code is at <b>github.com/adiletexe/parley</b></li>
+  </ol>
+  <div class="mini">
+    <div class="who">Slide 1's dad, answered by Parley</div>
+    <div class="b out struck"><span class="x">I will not coparent with you, get that straight</span></div>
+    <div class="b good">Ok, I'll keep him in his own bed this week. Let's check in Sunday on how it went.</div>
+  </div>
+  <p class="disc">Parley is not a law firm and doesn't give legal advice.</p>
+  <div class="pg">10</div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Inter:wght@400;500;600;700;800&family=Caveat:wght@600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../design-options/iphone.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#222;-webkit-font-smoothing:antialiased}
+.slide{position:relative;width:1920px;height:1080px;overflow:hidden;margin:0 0 20px}
+.slide>*{position:absolute}
+.iphone{--status-bg:#f4f5fa;--tab-bg:#fefefe}
+.pdf{background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.12),0 30px 70px -20px rgba(0,0,0,.45)}
+.pdf img{display:block;width:100%}
+.src{font-size:18px;line-height:1.4}
+
+/* ---------- A: dark, current palette ---------- */
+.A{background:#0d0e1a;color:#fff;font-family:'Plus Jakarta Sans',sans-serif}
+.A .kick{left:120px;top:110px;font-size:22px;letter-spacing:.16em;font-weight:700;color:#8b97ff}
+.A h1{left:120px;top:160px;width:760px;font-size:70px;line-height:1.06;font-weight:800;letter-spacing:-.025em}
+.A .sub{left:120px;top:410px;width:700px;font-size:30px;line-height:1.45;color:#b9bdd6}
+.A .nums{left:120px;top:690px;width:720px;display:flex;align-items:flex-end;gap:0;border-top:1px solid #2c2f4a;padding-top:28px}
+.A .nums div{flex:none}
+.A .big{font-size:84px;font-weight:800;letter-spacing:-.04em;line-height:1}
+.A .lab{font-size:22px;color:#b9bdd6;line-height:1.35;margin-top:10px}
+.A .src{left:120px;top:960px;width:720px;color:#7c80a0}
+.A .note{font-size:26px;font-weight:600;line-height:1.3;color:#fff}
+.A .note b{color:#e2508f}
+.A .line{border-top:2px solid #e2508f}
+
+/* ---------- B: light editorial, serif ---------- */
+.B{background:#f4efe4;color:#1b1a1f;font-family:Inter,sans-serif}
+.B .kick{left:110px;top:90px;font-size:20px;letter-spacing:.18em;font-weight:700;color:#3340c4}
+.B h1{left:110px;top:130px;width:1080px;font-family:Newsreader,serif;font-weight:500;font-size:74px;line-height:1.05;letter-spacing:-.015em}
+.B .chartbox{left:110px;top:440px;width:1060px;height:520px}
+.B .lose{left:1260px;top:110px;width:560px}
+.B .lose h3{font-family:Newsreader,serif;font-weight:500;font-size:40px;line-height:1.1;margin-bottom:22px}
+.B .lose ol{list-style:none;counter-reset:n}
+.B .lose li{counter-increment:n;font-size:26px;line-height:1.38;padding:16px 0 16px 54px;border-top:1px solid #d6cdbb;position:relative}
+.B .lose li::before{content:counter(n);position:absolute;left:0;top:12px;font-family:Newsreader,serif;font-size:36px;color:#3340c4}
+.B .src{left:110px;top:1000px;width:1080px;color:#6f6a5e}
+
+/* ---------- C: white, red pen ---------- */
+.C{background:#fbfbf9;color:#111;font-family:Inter,sans-serif}
+.C h1{left:110px;top:90px;width:1000px;font-size:72px;line-height:1.04;font-weight:800;letter-spacing:-.035em}
+.C .sub{left:110px;top:270px;width:860px;font-size:30px;line-height:1.45;color:#4a4a4a}
+.C .pile{left:90px;top:440px;width:700px;height:440px}
+.C .pile img{position:absolute;width:120px;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.18);border:3px solid #fff}
+.C .pen{font-family:Caveat,cursive;color:#d6322f;font-weight:700}
+.C .band{left:0;top:900px;width:1920px;height:180px;background:#111;color:#fff}
+.C .band .why{position:absolute;left:110px;top:36px;width:820px;font-size:28px;line-height:1.4}
+.C .band .n{position:absolute;top:28px;font-size:72px;font-weight:800;letter-spacing:-.04em;line-height:1}
+.C .band .l{position:absolute;top:110px;font-size:20px;color:#bbb;width:260px;line-height:1.3}
+
+/* ---------- D: dark, chart dominant ---------- */
+.D{background:#0b0c16;color:#fff;font-family:'Plus Jakarta Sans',sans-serif}
+.D h1{left:110px;top:90px;width:1100px;font-size:66px;line-height:1.08;font-weight:800;letter-spacing:-.025em}
+.D .sub{left:110px;top:260px;width:1050px;font-size:28px;line-height:1.45;color:#b9bdd6}
+.D .chartbox{left:110px;top:430px;width:1180px;height:560px}
+.D .src{left:110px;top:1010px;width:1200px;color:#7c80a0}
+
+/* ---------- E: app's light palette, big cropped phone ---------- */
+.E{background:#eef0f8;color:#14152b;font-family:'Plus Jakarta Sans',sans-serif}
+.E h1{left:860px;top:96px;width:960px;font-size:68px;line-height:1.06;font-weight:800;letter-spacing:-.03em}
+.E .lead{left:860px;top:270px;width:940px;font-size:28px;line-height:1.45;color:#4b4e6e}
+.E .list{left:860px;top:400px;width:940px}
+.E .row{display:flex;gap:26px;padding:20px 0;border-top:1px solid #d3d6e8}
+.E .row .k{flex:none;width:56px;font-size:40px;font-weight:800;color:#5b6cf6;line-height:1}
+.E .row p{font-size:27px;line-height:1.38}
+.E .row p b{font-weight:700}
+.E .nums{left:860px;top:820px;width:960px;display:flex;gap:60px;font-size:24px;line-height:1.3;color:#4b4e6e}.E .nums div{width:280px}
+.E .nums strong{display:block;margin-bottom:8px;font-size:72px;line-height:1;font-weight:800;color:#14152b;letter-spacing:-.03em}
+.E .src{left:860px;top:1000px;width:960px;color:#7a7d99}
+.E .call{font-size:24px;font-weight:700;color:#fff;background:#e2508f;border-radius:14px;padding:12px 18px;line-height:1.25;box-shadow:0 10px 24px -8px rgba(226,80,143,.6)}
+.E .call.blue{background:#5b6cf6;box-shadow:0 10px 24px -8px rgba(91,108,246,.6)}
+</style></head><body>
+
+<!-- ================= A ================= -->
+<section class="slide A">
+  <div class="kick">WHY PEOPLE KEEP PAYING</div>
+  <h1>People keep paying because their record keeps growing</h1>
+  <p class="sub">Every message with the other parent is saved with its date, and threats and insults are flagged. A custody case lasts months, so the record gets bigger every week. Cancel, and you lose it.</p>
+  <div class="nums">
+    <div style="width:230px"><div class="big">50%</div><div class="lab">renew after the first month</div></div>
+    <div style="width:230px"><div class="big">89%</div><div class="lab">of them stay every month after that</div></div>
+    <div style="width:260px"><div class="big" style="color:#1fa572">~5</div><div class="lab">paid months per customer on average</div></div>
+  </div>
+  <div class="src">First renewal: RevenueCat 2025 says 61.7%, we cut it to 50% for the jump from intro price to full price. Monthly 89% from RevenueCat's 61.7% → 53.4% → 17% at 12 months.</div>
+
+  <div style="left:900px;top:110px"><div class="iphone iphone--black" style="--s:0.98;--shift:72" data-shot="../../shots/record.png"></div></div>
+  <!-- callouts on the phone -->
+  <div class="line" style="left:1225px;top:380px;width:145px"></div>
+  <div class="note" style="left:1385px;top:348px;width:160px"><b>Threat flagged</b></div>
+  <div class="line" style="left:1165px;top:512px;width:205px;border-color:#8b97ff"></div>
+  <div class="note" style="left:1385px;top:480px;width:160px">Saved with its date</div>
+
+  <div class="pdf" style="left:1555px;top:250px;width:330px;transform:rotate(3deg)"><img src="../../shots/pdf1.png"></div>
+  <div class="note" style="left:1560px;top:700px;width:320px;font-size:28px">One click makes this numbered PDF for the lawyer, instead of 200 screenshots</div>
+  <div class="note" style="left:900px;top:1010px;width:900px;font-size:22px;font-weight:500;color:#b9bdd6">And a 2-minute practice every day, with a streak they don't want to break.</div>
+</section>
+
+<!-- ================= B ================= -->
+<section class="slide B">
+  <div class="kick">WHY PEOPLE KEEP PAYING</div>
+  <h1>A custody case lasts for months, and the parent's record grows the whole time</h1>
+  <div class="chartbox"><svg id="chartB" width="1060" height="520"></svg></div>
+  <div class="lose">
+    <h3>What a parent gives up if they cancel</h3>
+    <ol>
+      <li>Every message with the other parent, saved with its date</li>
+      <li>Threats and insults already flagged, so nobody has to search for them</li>
+      <li>One click for a clean, numbered PDF for the lawyer, instead of 200 screenshots</li>
+      <li>A 2-minute practice every day, and the streak that comes with it</li>
+    </ol>
+  </div>
+  <div class="pdf" style="left:1520px;top:690px;width:250px;transform:rotate(-4deg)"><img src="../../shots/pdf1.png"></div>
+  <div style="left:1300px;top:670px"><div class="iphone iphone--black" style="--s:0.42;--shift:72" data-shot="../../shots/record.png"></div></div>
+  <div class="src">Renewals: RevenueCat State of Subscription Apps 2025 (first renewal 61.7%, cut to 50% for the intro to full price jump; 89% per month matches 17% left at month 12). Model in pitch/model.mjs.</div>
+</section>
+
+<!-- ================= C ================= -->
+<section class="slide C">
+  <h1>Instead of 200 screenshots, the lawyer gets one clean PDF</h1>
+  <p class="sub">Parley saves every message with its date and flags threats and insults. When the lawyer asks for proof, one click turns it into numbered pages.</p>
+  <div class="pile" id="pile"></div>
+  <div class="pen" style="left:150px;top:820px;font-size:44px;transform:rotate(-2deg)">200 screenshots, no order, no dates</div>
+  <svg style="left:780px;top:560px" width="190" height="120"><path d="M8 70 C 60 20, 120 20, 170 60" fill="none" stroke="#d6322f" stroke-width="6" stroke-linecap="round"/><path d="M146 40 L172 62 L140 76" fill="none" stroke="#d6322f" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div class="pdf" style="left:1000px;top:250px;width:470px"><img src="../../shots/pdf1.png"></div>
+  <!-- red pen marks on the pdf -->
+  <svg style="left:1000px;top:250px" width="470" height="610">
+    <ellipse cx="246" cy="244" rx="122" ry="17" fill="none" stroke="#d6322f" stroke-width="4" transform="rotate(-1 300 313)"/>
+    <ellipse cx="246" cy="205" rx="122" ry="17" fill="none" stroke="#d6322f" stroke-width="4"/>
+  </svg>
+  <div class="pen" style="left:1500px;top:450px;font-size:40px;width:360px;line-height:1.05">every dated entry, numbered E-1 to E-35</div>
+  <div class="pen" style="left:1500px;top:330px;font-size:40px;width:360px;line-height:1.05">the whole period, Oct 4 to Nov 13</div>
+  <div style="left:1580px;top:540px"><div class="iphone iphone--white" style="--s:0.4;--shift:72" data-shot="../../shots/record.png"></div></div>
+  <div class="band">
+    <p class="why">That's why people keep paying. A case lasts months, the record grows every week, and canceling means losing it. Plus a 2-minute practice every day with a streak.</p>
+    <div class="n" style="left:1010px">50%</div><div class="l" style="left:1010px">renew after the first month</div>
+    <div class="n" style="left:1290px">89%</div><div class="l" style="left:1290px">stay each month after that</div>
+    <div class="n" style="left:1570px;color:#4ade80">~5</div><div class="l" style="left:1570px">paid months per customer</div>
+  </div>
+</section>
+
+<!-- ================= D ================= -->
+<section class="slide D">
+  <h1>Why parents keep paying for months, not weeks</h1>
+  <p class="sub">The record is the reason. Every message is saved with its date, threats and insults are flagged, and one click makes a numbered PDF for the lawyer. The case goes on for months, so the record only gets more valuable.</p>
+  <div class="chartbox"><svg id="chartD" width="1180" height="560"></svg></div>
+  <div style="left:1400px;top:90px"><div class="iphone iphone--black" style="--s:0.9;--shift:72" data-shot="../../shots/record.png"></div></div>
+  <div class="pdf" style="left:1560px;top:640px;width:290px;transform:rotate(4deg)"><img src="../../shots/pdf1.png"></div>
+  <div class="src">Renewals: RevenueCat State of Subscription Apps 2025, first renewal 61.7% cut to 50% for the intro to full price jump. Model in pitch/model.mjs.</div>
+</section>
+
+<!-- ================= E ================= -->
+<section class="slide E">
+  <div style="left:150px;top:90px"><div class="iphone iphone--black" style="--s:1.32;--shift:72" data-shot="../../shots/record.png"></div></div>
+  <div class="call" style="left:8px;top:440px;transform:rotate(-3deg);font-size:22px">Threat flagged</div>
+  <div class="call blue" style="left:520px;top:590px;transform:rotate(3deg)">Saved with its date</div>
+  <h1>What a parent loses if they cancel Parley</h1>
+  <p class="lead">A custody case lasts months. The longer someone uses Parley, the more there is to lose by leaving.</p>
+  <div class="list">
+    <div class="row"><div class="k">1</div><p><b>Every message, saved with its date.</b> Threats and insults from the other parent are already flagged.</p></div>
+    <div class="row"><div class="k">2</div><p><b>A clean PDF for the lawyer in one click,</b> numbered page by page, instead of 200 screenshots.</p></div>
+    <div class="row"><div class="k">3</div><p><b>A 2-minute practice every day,</b> with a streak they don't want to break.</p></div>
+  </div>
+  <div class="nums"><div><strong>50%</strong>renew after the first month</div><div><strong>89%</strong>of them stay every month after</div><div><strong style="color:#1fa572">~5</strong>paid months per customer</div></div>
+  <div class="src">RevenueCat 2025: first renewal 61.7%, we take 50% for the intro to full price jump. Model in pitch/model.mjs.</div>
+  <div class="pdf" style="left:560px;top:760px;width:240px;transform:rotate(-5deg)"><img src="../../shots/pdf1.png"></div>
+</section>
+
+<script src="../../design-options/iphone.js"></script>
+<script>
+// Share of buyers still paying in each 4-week period: market case of pitch/model.mjs.
+const R=[1]; R.push(.5); for(let i=2;i<12;i++) R.push(R[i-1]*.89);
+function chart(id, o){
+  const s=document.getElementById(id), W=+s.getAttribute('width'), H=+s.getAttribute('height');
+  const L=70, B=60, T=70, bw=(W-L-20)/R.length;
+  let h='';
+  for(const p of [0,25,50,75,100]){const y=H-B-(H-B-T)*p/100;h+=`<line x1="${L}" x2="${W}" y1="${y}" y2="${y}" stroke="${o.grid}" stroke-width="1"/><text x="${L-14}" y="${y+7}" text-anchor="end" font-size="20" fill="${o.mute}">${p}%</text>`}
+  R.forEach((v,i)=>{const x=L+i*bw+bw*.16,w=bw*.68,bh=(H-B-T)*v,y=H-B-bh;
+    h+=`<rect x="${x}" y="${y}" width="${w}" height="${bh}" rx="4" fill="${i==0?o.c0:o.c}"/>`;
+    h+=`<text x="${x+w/2}" y="${H-B+32}" text-anchor="middle" font-size="20" fill="${o.mute}">${i+1}</text>`;
+    if(i==0||i==1||i==11) h+=`<text x="${x+w/2}" y="${y-12}" text-anchor="middle" font-size="24" font-weight="700" fill="${o.fg}">${Math.round(v*100)}%</text>`;});
+  h+=`<text x="${W}" y="${H-4}" text-anchor="end" font-size="20" fill="${o.mute}">month of the subscription (4-week periods)</text>`;
+  h+=`<text x="${L}" y="26" font-size="22" font-weight="700" fill="${o.fg}">Out of every 100 people who buy, how many are still paying</text>`;
+  // callouts
+  const x1=L+1*bw+bw/2, y1=H-B-(H-B-T)*.5;
+  h+=`<path d="M${x1+30} ${y1-6} L${x1+100} ${y1-6} L${x1+150} ${y1-110}" fill="none" stroke="${o.acc}" stroke-width="3"/>`;
+  h+=`<text x="${x1+165}" y="${y1-150}" font-size="28" font-weight="700" fill="${o.acc}">Half renew after the first month,</text>`;
+  h+=`<text x="${x1+165}" y="${y1-112}" font-size="26" fill="${o.fg}">then 89% of them stay every month.</text>`;
+  h+=`<text x="${x1+165}" y="${y1-74}" font-size="26" fill="${o.fg}">That is about 5 paid months per customer.</text>`;
+  s.innerHTML=h; s.style.fontFamily='inherit';
+}
+chart('chartB',{grid:'#ddd4c2',mute:'#7a7464',fg:'#1b1a1f',c:'#3340c4',c0:'#a9b0ef',acc:'#c2410c'});
+chart('chartD',{grid:'#23263d',mute:'#7c80a0',fg:'#fff',c:'#5b6cf6',c0:'#2e357c',acc:'#e2508f'});
+// C: a messy pile of screenshots
+const shots=['record','reply-result','lens','drill','reply-result-2','plan','drill-2','record','lens','reply-result','drill','plan','reply-result-2','record'];
+const pile=document.getElementById('pile'); let k=7;
+const rnd=()=>{k=(k*9301+49297)%233280;return k/233280};
+shots.forEach((n,i)=>{const im=document.createElement('img');im.src='../../shots/'+n+'.png';
+  im.style.left=(20+(i%7)*85+rnd()*30)+'px';im.style.top=(Math.floor(i/7)*120+rnd()*40)+'px';
+  im.style.transform=`rotate(${(rnd()-.5)*30}deg)`;pile.appendChild(im)});
+</script>
+</body></html>

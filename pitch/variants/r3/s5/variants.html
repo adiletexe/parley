@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Parley slide 5, the skill</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../design-options/iphone.css">
+<style>
+:root {
+  --night: #0d0e1a; --card: #161829; --line: #262a40;
+  --fg: #f4f5fb; --mute: #a9abc0; --dim: #62667e;
+  --acc: #7d8bff; --acc-2: #5b6cf6;
+  --grad: linear-gradient(118deg, #7c5cf0 0%, #5b6cf6 45%, #3f8df5 100%);
+  --pink: #e2508f; --warn: #ff5fa0; --green: #1fa572; --ok: #34d399;
+  --paper: #f4f5fa; --ink: #1d1f2b; --imute: #8a8da3;
+  --font: "Plus Jakarta Sans", system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #000; color: var(--fg); font-family: var(--font); -webkit-font-smoothing: antialiased; }
+.slide { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--night); margin-bottom: 40px; }
+.slide::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(70% 60% at 85% -10%, rgba(91,108,246,.20), rgba(91,108,246,0) 70%); }
+.slide > * { position: absolute; }
+.mark { left: 120px; top: 84px; font-size: 24px; font-weight: 800; letter-spacing: -.02em; display: flex; align-items: center; gap: 12px; }
+.mark i { width: 26px; height: 26px; border-radius: 8px; background: var(--grad); display: block; }
+.kick { left: 120px; top: 168px; font-size: 22px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--acc); }
+h2 { left: 120px; top: 212px; width: 1180px; font-size: 68px; font-weight: 800; letter-spacing: -.035em; line-height: 1.04; }
+h2 span { color: var(--mute); }
+.pg { right: 120px; bottom: 50px; font-size: 18px; color: var(--dim); font-weight: 600; }
+.num { font-weight: 800; letter-spacing: -.04em; line-height: 1; }
+.lab { font-size: 22px; font-weight: 600; color: var(--mute); line-height: 1.3; }
+.iphone--black { --ti-1: #5f6170; --ti-2: #2b2c35; --ti-3: #8d8fa0; --ti-4: #1d1e26; --ti-5: #454757;
+  --shadow: 0 50px 100px -30px rgba(0,0,0,.9), 0 0 0 1px rgba(255,255,255,.02); }
+.iphone { --status-bg: #f4f5fa; --tab-bg: #fefefe; }
+.gradtxt { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* light */
+.light { background: var(--paper); color: var(--ink); }
+.light::before { background: radial-gradient(60% 55% at 88% -10%, rgba(124,92,240,.13), rgba(124,92,240,0) 70%); }
+.light h2 span { color: var(--imute); }
+.light .kick { color: var(--acc-2); }
+.light .pg { color: var(--imute); }
+.light .lab { color: var(--imute); }
+.wcard { background: #fff; border-radius: 28px; box-shadow: 0 2px 4px rgba(29,31,43,.04), 0 24px 60px -20px rgba(29,31,43,.18); }
+
+/* bubbles */
+.b { padding: 16px 24px; border-radius: 26px; font-size: 28px; line-height: 1.3; font-weight: 500; width: max-content; }
+.b.in { background: #262839; color: #eceef7; border-bottom-left-radius: 8px; }
+
+/* A · the fork */
+.A .bait { left: 120px; top: 560px; display: flex; flex-direction: column; gap: 10px; }
+.A .bait .t { font-size: 18px; color: var(--dim); font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 4px; }
+.A svg.fork { left: 0; top: 0; }
+.A .out { left: 760px; font-size: 34px; font-weight: 700; color: var(--warn); text-decoration: line-through; text-decoration-thickness: 3px; text-decoration-color: rgba(255,95,160,.75); }
+.A .win { left: 760px; top: 788px; width: 500px; padding: 28px 32px; border-radius: 28px; background: rgba(31,165,114,.16); border: 2px solid var(--green); }
+.A .win b { display: block; font-size: 38px; font-weight: 800; letter-spacing: -.02em; line-height: 1.12; color: #fff; }
+.A .win small { display: block; font-size: 20px; font-weight: 700; color: var(--ok); margin-top: 10px; letter-spacing: .1em; text-transform: uppercase; }
+.A .phone { left: 1390px; top: 104px; }
+
+/* B · calendar */
+.B .rows { left: 120px; top: 430px; display: flex; flex-direction: column; gap: 22px; }
+.B .row { display: flex; align-items: center; gap: 0; }
+.B .wk { width: 330px; }
+.B .wk small { display: block; font-size: 18px; font-weight: 700; letter-spacing: .12em; color: var(--acc-2); text-transform: uppercase; }
+.B .wk b { display: block; font-size: 26px; font-weight: 800; letter-spacing: -.02em; margin-top: 4px; }
+.B .days { display: flex; gap: 14px; }
+.B .d { width: 84px; height: 84px; border-radius: 22px; background: #fff; box-shadow: inset 0 0 0 2px #e4e6f0; display: grid; place-items: center; font-style: normal; font-size: 22px; font-weight: 700; color: #b9bccd; }
+.B .d.done { background: var(--green); box-shadow: none; color: #fff; }
+.B .d.today { background: var(--grad); box-shadow: 0 14px 30px -10px rgba(91,108,246,.7); color: #fff; font-size: 30px; font-weight: 800; transform: scale(1.12); }
+.B .tip { left: 1012px; top: 486px; }
+.B .phone { left: 1400px; top: 110px; }
+.B .score { left: 1218px; top: 790px; padding: 26px 32px; }
+.B .score .num { font-size: 72px; }
+
+/* C · bars to scale */
+.C .chart { left: 120px; top: 400px; width: 1060px; height: 580px; }
+.C .phone { left: 1350px; top: 104px; }
+
+/* D · the loop */
+.D .loop { left: 120px; top: 380px; }
+.D .ph1 { left: 1060px; top: 170px; transform: rotate(-5deg); }
+.D .ph2 { left: 1420px; top: 140px; transform: rotate(3deg); }
+
+/* E · split */
+.E .side { top: 410px; width: 640px; height: 590px; border-radius: 28px; padding: 44px 48px; }
+.E .left { left: 120px; background: rgba(226,80,143,.10); border: 1px solid rgba(226,80,143,.35); }
+.E .right { left: 1160px; background: rgba(31,165,114,.12); border: 1px solid rgba(31,165,114,.45); }
+.E .side small { display: block; font-size: 20px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.E .left small { color: var(--warn); } .E .right small { color: var(--ok); }
+.E .side ul { list-style: none; margin-top: 26px; }
+.E .side li { font-size: 52px; font-weight: 800; letter-spacing: -.03em; line-height: 1.22; }
+.E .left li { color: #f3c2d8; text-decoration: line-through; text-decoration-thickness: 4px; text-decoration-color: var(--pink); }
+.E .right li { color: #fff; }
+.E .right li::before { content: "✓ "; color: var(--ok); }
+.E .side .sc { position: absolute; left: 48px; bottom: 40px; display: flex; align-items: baseline; gap: 14px; }
+.E .side .sc .num { font-size: 96px; }
+.E .left .sc .num { color: var(--warn); } .E .right .sc .num { color: var(--ok); }
+.E .side .sc span { font-size: 22px; color: var(--mute); font-weight: 600; }
+.E .phone { left: 795px; top: 380px; }
+</style>
+</head>
+<body>
+
+<!-- A · dark · one provocation, four answers, one that works -->
+<section class="slide A">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">The skill we teach</div>
+  <h2 style="width:1120px">When they provoke you, answer calmly. <span>Most parents can't.</span></h2>
+  <div class="bait">
+    <span class="t">They send</span>
+    <div class="b in">u didnt even show up sat</div>
+    <div class="b in">the kids waited an HOUR</div>
+  </div>
+  <svg class="fork" width="1920" height="1080">
+    <defs>
+      <marker id="ap" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0 0L10 5L0 10z" fill="#ff5fa0"/></marker>
+      <marker id="ag" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#34d399"/></marker>
+    </defs>
+    <g fill="none" stroke-width="3" stroke-linecap="round">
+      <path d="M560 640 C 650 640, 650 470, 740 470" stroke="#ff5fa0" stroke-opacity=".7" stroke-dasharray="2 9" marker-end="url(#ap)"/>
+      <path d="M560 650 C 650 650, 650 580, 740 580" stroke="#ff5fa0" stroke-opacity=".7" stroke-dasharray="2 9" marker-end="url(#ap)"/>
+      <path d="M560 660 C 650 660, 650 690, 740 690" stroke="#ff5fa0" stroke-opacity=".7" stroke-dasharray="2 9" marker-end="url(#ap)"/>
+      <path d="M560 670 C 660 670, 640 860, 740 860" stroke="#34d399" stroke-width="5" marker-end="url(#ag)"/>
+    </g>
+  </svg>
+  <div class="out" style="top:448px">Defend yourself</div>
+  <div class="out" style="top:558px">Write an essay</div>
+  <div class="out" style="top:668px">Fire back</div>
+  <div class="win"><b>Calm, brief, only about the kids</b><small>What Parley trains</small></div>
+  <div class="phone"><div class="iphone iphone--black" style="--s:0.97; --shift:62" data-shot="../../../shots/drill-2.png"></div></div>
+  <div class="pg">5</div>
+</section>
+
+<!-- B · light · the 28-day calendar -->
+<section class="slide B light">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">The skill we teach</div>
+  <h2>Two minutes a day, <span>for 28 days.</span></h2>
+  <div class="rows">
+    <div class="row"><div class="wk"><small>Week 1</small><b>Brief &amp; facts</b></div><div class="days">
+      <i class="d done">1</i><i class="d done">2</i><i class="d done">3</i><i class="d done">4</i><i class="d done">5</i><i class="d done">6</i><i class="d done">7</i></div></div>
+    <div class="row"><div class="wk"><small>Week 2</small><b>Don't take the bait</b></div><div class="days">
+      <i class="d done">8</i><i class="d done">9</i><i class="d done">10</i><i class="d done">11</i><i class="d today">12</i><i class="d">13</i><i class="d">14</i></div></div>
+    <div class="row"><div class="wk"><small>Week 3</small><b>Firm boundaries</b></div><div class="days">
+      <i class="d">15</i><i class="d">16</i><i class="d">17</i><i class="d">18</i><i class="d">19</i><i class="d">20</i><i class="d">21</i></div></div>
+    <div class="row"><div class="wk"><small>Week 4</small><b>Court-ready habits</b></div><div class="days">
+      <i class="d">22</i><i class="d">23</i><i class="d">24</i><i class="d">25</i><i class="d">26</i><i class="d">27</i><i class="d">28</i></div></div>
+  </div>
+  <div class="phone"><div class="iphone iphone--natural" style="--s:0.97" data-shot="../../../shots/plan.png"></div></div>
+  <div class="score wcard">
+    <div class="num"><span style="color:var(--pink)">21</span> <span style="color:#c4c7d6;font-weight:700">→</span> <span style="color:var(--green)">98</span></div>
+    <div class="lab" style="margin-top:8px">one parent, a few tries</div>
+  </div>
+  <div class="pg">5</div>
+</section>
+
+<!-- C · dark · the score, drawn to scale -->
+<section class="slide C">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">The skill we teach</div>
+  <h2 style="width:1120px">This parent scored 21. <span>A few tries later, 98.</span></h2>
+  <!-- 0..100 drawn at 4.6px a point: baseline y 540, 100 at y 80 -->
+  <svg class="chart" viewBox="0 0 1060 580" width="1060" height="580">
+    <defs>
+      <linearGradient id="gg" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#1fa572"/><stop offset="1" stop-color="#34d399"/></linearGradient>
+      <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#a9abc0"/></marker>
+    </defs>
+    <g font-family="Plus Jakarta Sans" font-size="20" font-weight="600" fill="#62667e">
+      <line x1="80" x2="940" y1="80" y2="80" stroke="#262a40" stroke-dasharray="4 8"/>
+      <line x1="80" x2="940" y1="310" y2="310" stroke="#262a40" stroke-dasharray="4 8"/>
+      <line x1="80" x2="940" y1="540" y2="540" stroke="#3a3e58" stroke-width="2"/>
+      <text x="0" y="87">100</text><text x="20" y="317">50</text><text x="34" y="547">0</text>
+    </g>
+    <!-- 21 → 96.6px tall; 98 → 450.8px tall -->
+    <rect x="170" y="443.4" width="230" height="96.6" rx="16" fill="#e2508f"/>
+    <rect x="640" y="89.2" width="230" height="450.8" rx="16" fill="url(#gg)"/>
+    <text x="285" y="415" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="110" font-weight="800" letter-spacing="-4" fill="#ff5fa0">21</text>
+    <text x="755" y="300" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="150" font-weight="800" letter-spacing="-6" fill="#fff">98</text>
+    <path d="M300 300 C 380 130, 520 110, 610 150" fill="none" stroke="#a9abc0" stroke-width="3" stroke-dasharray="2 9" stroke-linecap="round" marker-end="url(#ah)"/>
+    <g font-family="Plus Jakarta Sans" font-size="24" font-weight="700" fill="#a9abc0" text-anchor="middle">
+      <text x="285" y="576">first draft</text><text x="755" y="576">a few tries later</text>
+    </g>
+  </svg>
+  <svg style="left:1180px;top:440px" width="220" height="140"><path d="M10 120 C 90 120, 150 90, 205 20" fill="none" stroke="#ff5fa0" stroke-width="3" stroke-linecap="round"/><path d="M190 22 L207 17 L208 35" fill="none" stroke="#ff5fa0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div class="lab" style="left:1110px;top:590px;width:220px;color:var(--warn);text-align:left">3 phrases a judge reads badly</div>
+  <div class="phone"><div class="iphone iphone--black" style="--s:0.97" data-shot="../../../shots/lens.png"></div></div>
+  <div class="pg">5</div>
+</section>
+
+<!-- D · light · the daily loop -->
+<section class="slide D light">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">The skill we teach</div>
+  <h2 style="width:900px">One provoking text a day. <span>Four steps.</span></h2>
+  <svg class="loop" width="900" height="660" viewBox="0 0 900 660">
+    <defs>
+      <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7c5cf0"/><stop offset=".45" stop-color="#5b6cf6"/><stop offset="1" stop-color="#3f8df5"/></linearGradient>
+      <marker id="al" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5b6cf6"/></marker>
+    </defs>
+    <!-- ring centre 420,340 r 220 -->
+    <g fill="none" stroke="#5b6cf6" stroke-width="4" stroke-linecap="round" marker-end="url(#al)">
+      <path d="M 490 131 A 220 220 0 0 1 629 270"/>
+      <path d="M 629 410 A 220 220 0 0 1 490 549"/>
+      <path d="M 350 549 A 220 220 0 0 1 211 410"/>
+      <path d="M 211 270 A 220 220 0 0 1 350 131"/>
+    </g>
+    <circle cx="420" cy="340" r="118" fill="url(#lg)"/>
+    <text x="420" y="345" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="72" font-weight="800" letter-spacing="-3" fill="#fff">2 min</text>
+    <text x="420" y="390" text-anchor="middle" font-family="Plus Jakarta Sans" font-size="22" font-weight="700" fill="#e7e9ff">every day</text>
+  </svg>
+  <!-- step chips sit on the ring's four points -->
+  <div class="wcard" style="left:410px;top:440px;padding:16px 26px;font-size:26px;font-weight:800">1 · Pick a reply</div>
+  <div class="wcard" style="left:672px;top:690px;padding:16px 26px;font-size:26px;font-weight:800">2 · See why</div>
+  <div class="wcard" style="left:400px;top:900px;padding:16px 26px;font-size:26px;font-weight:800">3 · Write your own</div>
+  <div class="wcard" style="left:120px;top:690px;padding:16px 26px;font-size:26px;font-weight:800">4 · Get graded</div>
+  <div class="ph1"><div class="iphone iphone--white" style="--s:0.86; --shift:62" data-shot="../../../shots/drill-2.png"></div></div>
+  <div class="ph2"><div class="iphone iphone--natural" style="--s:0.9" data-shot="../../../shots/lens.png"></div></div>
+  <div class="lab" style="left:1150px;top:960px;font-weight:700">1 · pick</div>
+  <div class="lab" style="left:1560px;top:982px;font-weight:700">4 · graded <span style="color:var(--pink)">21</span> → <span style="color:var(--green)">98</span></div>
+  <div class="pg">5</div>
+</section>
+
+<!-- E · dark · before / after split -->
+<section class="slide E">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">The skill we teach</div>
+  <h2 style="width:1100px">Most parents fire back. <span>Parley trains the calm reply.</span></h2>
+  <div class="side left">
+    <small>What most people do</small>
+    <ul><li>Defend</li><li>Write an essay</li><li>Fire back</li></ul>
+    <div class="sc"><b class="num">21</b><span>first try</span></div>
+  </div>
+  <div class="side right">
+    <small>The skill</small>
+    <ul><li>Calm</li><li>Brief</li><li>About the kids</li></ul>
+    <div class="sc"><b class="num">98</b><span>a few tries later</span></div>
+  </div>
+  <div class="phone"><div class="iphone iphone--black" style="--s:0.74" data-shot="../../../shots/plan.png"></div></div>
+  <div class="lab" style="left:120px;top:1020px;font-size:20px">2 min a day · 28 days</div>
+  <div class="pg">5</div>
+</section>
+
+<script src="../../../design-options/iphone.js"></script>
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Slide 2 variants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400;1,9..144,600&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #444; }
+  .slide { width: 1920px; height: 1080px; position: relative; overflow: hidden; margin: 0 auto 40px; }
+  .src { position: absolute; left: 120px; bottom: 44px; font-size: 18px; line-height: 1.4; }
+  .pg { position: absolute; right: 120px; bottom: 44px; font-size: 18px; }
+
+  /* ---------- A: dark Parley, one giant number and a falling staircase ---------- */
+  .a { background: #0d0e1a; color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; }
+  .a .kick { position: absolute; left: 120px; top: 92px; font-size: 22px; font-weight: 700; letter-spacing: .14em; color: #8f9bff; text-transform: uppercase; }
+  .a h1 { position: absolute; left: 120px; top: 140px; width: 1700px; font-size: 60px; line-height: 1.12; font-weight: 700; letter-spacing: -.02em; }
+  .a h1 em { font-style: normal; color: #e2508f; }
+  .a .giant { position: absolute; left: 108px; top: 350px; font-size: 330px; font-weight: 800; letter-spacing: -.055em; line-height: .9; }
+  .a .giantcap { position: absolute; left: 124px; top: 660px; width: 760px; font-size: 32px; line-height: 1.35; color: #c9cbe0; }
+  .a .giantcap b { color: #fff; }
+  .a .stair { position: absolute; left: 1040px; top: 352px; width: 760px; }
+  .a .step { border-top: 2px solid #2a2c45; padding: 18px 0 20px; display: flex; gap: 28px; align-items: center; }
+  .a .step .n { width: 330px; flex: none; }
+  .a .step .n { font-weight: 800; letter-spacing: -.03em; white-space: nowrap; }
+  .a .step .t { font-size: 24px; line-height: 1.35; color: #b9bbd4; }
+  .a .step .t b { color: #fff; font-weight: 600; }
+  .a .s1 .n { font-size: 88px; }
+  .a .s2 .n { font-size: 88px; color: #e2508f; }
+  .a .s3 .n { font-size: 88px; color: #1fa572; }
+  .a .tag { display: inline-block; font-size: 18px; color: #8f91ad; border: 1px solid #3a3c58; border-radius: 6px; padding: 2px 8px; margin-left: 6px; vertical-align: 2px; }
+  .a .law { position: absolute; left: 120px; top: 856px; width: 1680px; font-size: 28px; line-height: 1.4; color: #c9cbe0; border-left: 4px solid #5b6cf6; padding-left: 26px; }
+  .a .law b { color: #fff; }
+  .a .src, .a .pg { color: #6d6f8c; }
+
+  /* ---------- B: editorial magazine page, cream and serif ---------- */
+  .b { background: #f3eee4; color: #17161c; font-family: 'Inter', sans-serif; }
+  .b .rule { position: absolute; left: 120px; right: 120px; top: 92px; border-top: 3px solid #17161c; }
+  .b .kick { position: absolute; left: 120px; top: 108px; font-size: 20px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+  .b .kick span { color: #b8352a; }
+  .b h1 { position: absolute; left: 120px; top: 158px; width: 1060px; font-family: 'Fraunces', serif; font-weight: 600; font-size: 70px; line-height: 1.06; letter-spacing: -.02em; }
+  .b .big { position: absolute; left: 112px; top: 470px; font-family: 'Fraunces', serif; font-weight: 800; font-size: 300px; line-height: .85; letter-spacing: -.04em; color: #b8352a; }
+  .b .bigcap { position: absolute; left: 124px; top: 740px; width: 900px; font-size: 32px; line-height: 1.35; }
+  .b .col { position: absolute; left: 1290px; top: 158px; width: 510px; border-left: 1px solid #c9c1b2; padding-left: 44px; height: 800px; }
+  .b .col .h { font-size: 20px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #6b6458; margin-bottom: 14px; }
+  .b .row { border-top: 1px solid #c9c1b2; padding: 18px 0 20px; }
+  .b .row .n { font-family: 'Fraunces', serif; font-weight: 600; letter-spacing: -.02em; line-height: 1; }
+  .b .row .t { font-size: 22px; line-height: 1.35; color: #3b3830; margin-top: 8px; }
+  .b .row .t i { color: #8a8274; font-style: normal; }
+  .b .r1 .n { font-size: 84px; }
+  .b .r2 .n { font-size: 64px; }
+  .b .r3 .n { font-size: 64px; }
+  .b .r4 .n { font-size: 64px; color: #b8352a; }
+  .b .quote { position: absolute; left: 124px; top: 880px; width: 1040px; font-family: 'Fraunces', serif; font-style: italic; font-size: 28px; line-height: 1.35; color: #3b3830; }
+  .b .src, .b .pg { color: #8a8274; }
+
+  /* ---------- C: the money, a receipt ---------- */
+  .c { background: #e9e6df; color: #18181b; font-family: 'Inter', sans-serif; }
+  .c .receipt { position: absolute; left: 150px; top: 70px; width: 640px; height: 1060px; background: #fffdf8; transform: rotate(-2.2deg); box-shadow: 0 30px 60px rgba(40,30,10,.18), 0 2px 6px rgba(40,30,10,.12); padding: 64px 56px; font-family: 'IBM Plex Mono', monospace; color: #222; }
+  .c .receipt .hd { text-align: center; font-size: 26px; font-weight: 600; letter-spacing: .08em; }
+  .c .receipt .sub { text-align: center; font-size: 20px; color: #666; margin-top: 8px; }
+  .c .receipt .dash { border-top: 2px dashed #bbb; margin: 28px 0; }
+  .c .line { display: flex; justify-content: space-between; gap: 20px; font-size: 24px; line-height: 1.35; margin: 18px 0; }
+  .c .line .l { max-width: 380px; }
+  .c .line .v { font-weight: 600; white-space: nowrap; }
+  .c .line small { display: block; font-size: 18px; color: #777; margin-top: 4px; }
+  .c .tot { font-size: 30px; font-weight: 600; }
+  .c .stamp { position: absolute; left: 330px; top: 905px; transform: rotate(-9deg); border: 5px solid #c2372c; color: #c2372c; font-family: 'Inter', sans-serif; font-weight: 800; font-size: 34px; letter-spacing: .06em; padding: 10px 22px; border-radius: 10px; text-transform: uppercase; opacity: .9; width: 330px; text-align: center; line-height: 1.15; }
+  .c .right { position: absolute; left: 920px; top: 100px; width: 880px; }
+  .c .kick { font-size: 20px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #8a8576; }
+  .c h1 { font-size: 64px; line-height: 1.1; font-weight: 800; letter-spacing: -.03em; margin-top: 22px; }
+  .c .big { font-size: 190px; font-weight: 800; letter-spacing: -.05em; line-height: .9; margin-top: 40px; }
+  .c .big span { color: #c2372c; }
+  .c .bigcap { font-size: 32px; line-height: 1.35; margin-top: 18px; color: #3a3a3f; }
+  .c .bigcap b { color: #18181b; }
+  .c .more { font-size: 28px; line-height: 1.4; margin-top: 32px; padding-top: 24px; border-top: 2px solid #18181b; color: #3a3a3f; }
+  .c .more b { color: #18181b; }
+  .c .src { left: 920px; width: 880px; color: #8a8576; }
+  .c .pg { color: #8a8576; }
+
+  /* ---------- D: nested squares drawn to scale ---------- */
+  .d { background: #0d0e1a; color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; }
+  .d h1 { position: absolute; left: 120px; top: 96px; width: 880px; font-size: 54px; line-height: 1.12; font-weight: 700; letter-spacing: -.02em; }
+  .d .sq { position: absolute; }
+  .d .q0 { left: 1060px; top: 96px; width: 740px; height: 740px; background: #1c1f3d; border: 2px solid #5b6cf6; }
+  .d .q1 { left: 1594px; top: 630px; width: 204px; height: 204px; background: #2b2f63; border: 2px solid #8f9bff; }
+  .d .q2 { left: 1630px; top: 666px; width: 168px; height: 168px; background: #3a3f86; }
+  .d .q3 { left: 1733px; top: 769px; width: 65px; height: 65px; background: #e2508f; }
+  .d .lab0 { position: absolute; left: 1104px; top: 136px; width: 640px; }
+  .d .lab0 .n { font-size: 150px; font-weight: 800; letter-spacing: -.05em; line-height: .95; }
+  .d .lab0 .t { font-size: 30px; line-height: 1.35; color: #c9cbe0; margin-top: 10px; }
+  .d .lab { position: absolute; text-align: right; font-size: 24px; line-height: 1.35; color: #c9cbe0; }
+  .d .lab .n { font-size: 52px; font-weight: 800; color: #fff; letter-spacing: -.03em; line-height: 1.05; }
+  .d .lab1 { left: 1060px; top: 600px; width: 500px; }
+  .d .lab3 { left: 1060px; top: 868px; width: 740px; }
+  .d .lab3 .n { color: #e2508f; }
+  .d .lead { position: absolute; border-top: 2px solid #8f9bff; }
+  .d .body { position: absolute; left: 120px; top: 360px; width: 800px; font-size: 32px; line-height: 1.42; color: #c9cbe0; }
+  .d .body b { color: #fff; }
+  .d .bub { position: absolute; left: 120px; top: 640px; max-width: 640px; background: #262842; border-radius: 30px 30px 30px 8px; padding: 22px 32px; font-size: 34px; font-weight: 600; }
+  .d .bubcap { position: absolute; left: 120px; top: 750px; width: 800px; font-size: 22px; line-height: 1.4; color: #8f91ad; }
+  .d .src, .d .pg { color: #6d6f8c; }
+  .d .src { width: 900px; }
+
+  /* ---------- E: the exhibit ---------- */
+  .e { background: #eef1f5; color: #111827; font-family: 'Inter', sans-serif; }
+  .e h1 { position: absolute; left: 120px; top: 96px; width: 1680px; font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 84px; line-height: 1.04; letter-spacing: -.01em; }
+  .e h1 i { color: #1d4ed8; }
+  .e .folder { position: absolute; left: 120px; top: 330px; width: 860px; height: 640px; background: #d9c39a; border-radius: 6px 26px 6px 6px; box-shadow: 0 24px 50px rgba(20,30,50,.18); }
+  .e .folder::before { content: ''; position: absolute; left: 0; top: -34px; width: 300px; height: 40px; background: #d9c39a; border-radius: 12px 12px 0 0; }
+  .e .paper { position: absolute; left: 40px; top: 36px; right: 40px; bottom: 36px; background: #fff; padding: 46px 52px; transform: rotate(-1deg); box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+  .e .sticker { position: absolute; right: 30px; top: -26px; background: #facc15; color: #111; font-weight: 800; font-size: 26px; letter-spacing: .08em; padding: 12px 22px; transform: rotate(4deg); box-shadow: 0 6px 14px rgba(0,0,0,.15); text-transform: uppercase; }
+  .e .case { font-size: 20px; letter-spacing: .1em; text-transform: uppercase; color: #6b7280; font-weight: 700; }
+  .e .msg { margin-top: 22px; display: inline-block; background: #e5e7eb; border-radius: 28px 28px 28px 8px; padding: 18px 28px; font-size: 36px; font-weight: 600; }
+  .e .msgs { margin-top: 10px; }
+  .e .msgs div { margin-bottom: 4px; }
+  .e .ruling { margin-top: 34px; border-top: 2px solid #111827; padding-top: 22px; font-size: 28px; line-height: 1.4; }
+  .e .ruling mark { background: #fde68a; padding: 0 4px; }
+  .e .stats { position: absolute; left: 1080px; top: 330px; width: 720px; }
+  .e .st { padding: 0 0 20px; margin-bottom: 20px; border-bottom: 1px solid #cbd2dc; }
+  .e .st:last-child { border-bottom: 0; }
+  .e .st .n { font-family: 'Instrument Serif', serif; line-height: .95; letter-spacing: -.01em; }
+  .e .st .t { font-size: 26px; line-height: 1.35; color: #374151; margin-top: 6px; }
+  .e .st .t span { font-size: 18px; color: #6b7280; border: 1px solid #cbd2dc; border-radius: 6px; padding: 1px 8px; margin-left: 4px; white-space: nowrap; }
+  .e .st1 .n { font-size: 128px; }
+  .e .st2 .n { font-size: 92px; }
+  .e .st3 .n { font-size: 92px; color: #1d4ed8; }
+  .e .src, .e .pg { color: #6b7280; }
+</style>
+</head>
+<body>
+
+<!-- A -->
+<section class="slide a">
+  <div class="kick">The problem</div>
+  <h1>Millions of parents raise kids in two homes, and <em>every text between them can end up in court.</em></h1>
+  <div class="giant">12.9M</div>
+  <div class="giantcap"><b>parents in the US raise their kids while the other parent lives somewhere else.</b> About 1 in 4 American kids under 21 grows up this way.</div>
+  <div class="stair">
+    <div class="step s1"><div class="n">663K</div><div class="t"><b>new divorces in 2024</b>, and that count skips five states. A national survey puts it near 987K.</div></div>
+    <div class="step s2"><div class="n">~100K</div><div class="t"><b>custody cases a year turn into a real fight</b> <span class="tag">industry estimate</span></div></div>
+    <div class="step s3"><div class="n">$11.3K</div><div class="t"><b>is what the average divorce attorney costs</b>, at about $349 an hour.</div></div>
+  </div>
+  <div class="law"><b>Once it is in court, the judge asks which parent supports the child's bond with the other one</b> (Michigan law, MCL 722.23(j), and many states have the same rule). The texts are how the judge finds out.</div>
+  <div class="src">US Census P60-269 (2020) and P60-285 (2025) · CDC/NCHS 2024, excludes CA, HI, IN, MN, NM · NCFMR Bowling Green 2024 · Martindale-Nolo · Clio Legal Trends 2025</div>
+  <div class="pg">2</div>
+</section>
+
+<!-- B -->
+<section class="slide b">
+  <div class="rule"></div>
+  <div class="kick">The problem, <span>by the numbers</span></div>
+  <h1>A lot of American kids grow up between two homes, and their parents' texts get read out in court.</h1>
+  <div class="big">1 in 4</div>
+  <div class="bigcap">US kids under 21 live with one parent while the other parent lives somewhere else.</div>
+  <div class="col">
+    <div class="h">How big this is</div>
+    <div class="row r1"><div class="n">12.9M</div><div class="t">custodial parents in the US <i>(Census)</i></div></div>
+    <div class="row r2"><div class="n">663K</div><div class="t">divorces in 2024, an undercount. A survey says closer to 987K. <i>(CDC, Bowling Green)</i></div></div>
+    <div class="row r3"><div class="n">~100K</div><div class="t">custody cases a year that end up contested <i>(industry estimate)</i></div></div>
+    <div class="row r4"><div class="n">$11,300</div><div class="t">average divorce attorney fees, at $349 an hour for a US lawyer <i>(Martindale-Nolo, Clio)</i></div></div>
+  </div>
+  <div class="quote">Michigan tells its judges to weigh "the willingness and ability of each of the parties to facilitate and encourage a close and continuing parent-child relationship." Your texts are where that shows.</div>
+  <div class="src">Census P60-285 (2025) and P60-269 (2020) · CDC/NCHS 2024 · NCFMR 2024 · Martindale-Nolo · Clio Legal Trends 2025 · MCL 722.23(j)</div>
+  <div class="pg">2</div>
+</section>
+
+<!-- C -->
+<section class="slide c">
+  <div class="receipt">
+    <div class="hd">DIVORCE IN THE US</div>
+    <div class="sub">what it costs, on average</div>
+    <div class="dash"></div>
+    <div class="line"><div class="l">Divorce attorney fees<small>Martindale-Nolo survey</small></div><div class="v">$11,300</div></div>
+    <div class="line"><div class="l">One lawyer hour<small>Clio Legal Trends 2025</small></div><div class="v">$349</div></div>
+    <div class="line"><div class="l">Hours that buys<small>$11,300 ÷ $349</small></div><div class="v">~32 h</div></div>
+    <div class="dash"></div>
+    <div class="line"><div class="l">Her lawyer's bill, paid by him after his texts<small>Cowger, Iowa Ct. App. 2023</small></div><div class="v">$12,000</div></div>
+    <div class="dash"></div>
+    <div class="line tot"><div class="l">Divorces in 2024</div><div class="v">663K</div></div>
+    <div class="line"><div class="l">Custodial parents<small>Census P60-269</small></div><div class="v">12.9M</div></div>
+  </div>
+  <div class="stamp">He also lost 50/50 custody</div>
+  <div class="right">
+    <div class="kick">The problem</div>
+    <h1>Splitting up already costs a fortune, and an angry text can cost you your kids too.</h1>
+    <div class="big"><span>$</span>11,300</div>
+    <div class="bigcap"><b>is what the average divorce attorney costs.</b> That is about 32 hours of a $349 lawyer, and part of those hours goes to reading your texts.</div>
+    <div class="more"><b>Judges are told to weigh which parent supports the child's bond with the other one</b> (Michigan MCL 722.23(j)). Every message is a piece of that answer.</div>
+  </div>
+  <div class="src">CDC/NCHS 2024, excludes five states · Martindale-Nolo · Clio Legal Trends 2025 · Cowger, Iowa Ct. App. No. 22-1254</div>
+  <div class="pg">2</div>
+</section>
+
+<!-- D -->
+<section class="slide d">
+  <h1>Here is how many parents live this, and how many end up fighting over the kids in court.</h1>
+  <div class="body"><b>In court, the judge asks which parent supports the child's bond with the other one.</b> That is written into Michigan law, MCL 722.23(j). The fastest way to answer it is to read what the parents texted each other.</div>
+  <div class="bub">"this means war"</div>
+  <div class="bubcap">A father's text, quoted by the court in McGhee v. McGhee (Wis. Ct. App. 2023). The custody recommendation was based "on the text messages." The mother got sole legal custody.</div>
+
+  <div class="sq q0"></div>
+  <div class="lab0"><div class="n">12.9M</div><div class="t">US parents raising kids with the other parent in another home</div></div>
+  <div class="sq q1"></div>
+  <div class="sq q2"></div>
+  <div class="sq q3"></div>
+  <div class="lab lab1"><div class="n">663K to 987K</div>new divorces every year</div>
+  <div class="lead" style="left:1570px; top:630px; width:24px"></div>
+  <div class="lab lab3"><div class="n">~100K custody fights a year</div>contested cases, industry estimate · squares drawn to scale</div>
+  <div class="src">Census P60-269 · CDC/NCHS 2024 (excludes five states) and NCFMR Bowling Green 2024 survey · McGhee v. McGhee, No. 2022AP365</div>
+  <div class="pg">2</div>
+</section>
+
+<!-- E -->
+<section class="slide e">
+  <h1>When parents split up, their texts turn into <i>evidence</i>, and a judge reads them.</h1>
+  <div class="folder">
+    <div class="paper">
+      <div class="sticker">Exhibit A</div>
+      <div class="case">McGhee v. McGhee · Wisconsin, 2023</div>
+      <div class="msgs">
+        <div><span class="msg">"this means war"</span></div>
+        <div><span class="msg">you "will look stupid in court"</span></div>
+      </div>
+      <div class="ruling">Real texts from a father. The custody recommendation was based <mark>"on the text messages,"</mark> and the mother got sole legal custody.</div>
+      <div style="margin-top:22px;font-size:22px;line-height:1.4;color:#4b5563">Michigan law tells judges to weigh which parent supports the child's bond with the other one (MCL 722.23(j)). Texts are how they see it.</div>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="st st1"><div class="n">12.9M</div><div class="t">US parents raise kids while the other parent lives elsewhere</div></div>
+    <div class="st st2"><div class="n">~100K</div><div class="t">custody cases a year become a fight in court <span>industry estimate</span></div></div>
+    <div class="st st3"><div class="n">$349 an hour</div><div class="t">for the lawyer who reads those texts. The average divorce attorney costs $11,300.</div></div>
+  </div>
+  <div class="src">Census P60-269 · Clio Legal Trends 2025 · Martindale-Nolo · McGhee v. McGhee, Wis. Ct. App. No. 2022AP365</div>
+  <div class="pg">2</div>
+</section>
+
+</body>
+</html>

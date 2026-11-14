@@ -1,0 +1,252 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Slide 1, round 2</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Caveat:wght@600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #222; font-family: "Plus Jakarta Sans", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+.slide { position: relative; width: 1920px; height: 1080px; overflow: hidden; margin-bottom: 40px; }
+.abs { position: absolute; }
+.pen { font-family: "Caveat", cursive; font-weight: 700; }
+svg.ink { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 50; }
+
+/* bubbles */
+.b { display: inline-block; max-width: 100%; padding: 16px 24px; border-radius: 28px; font-weight: 500; line-height: 1.3; }
+.b.me { background: #2f7cf6; color: #fff; border-bottom-right-radius: 8px; }
+.row { display: flex; justify-content: flex-end; }
+.ts { text-align: center; font-size: 18px; font-weight: 600; opacity: .55; margin: 14px 0 34px; }
+.cons { font-weight: 800; letter-spacing: -.01em; }
+.logo { display: flex; align-items: center; gap: 12px; font-size: 26px; font-weight: 800; letter-spacing: -.02em; }
+.logo i { width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(118deg, #7c5cf0, #5b6cf6 45%, #3f8df5); display: block; }
+.src { font-size: 18px; }
+
+/* ---------- A: dark coverflow ---------- */
+#A { background: #0d0e1a; color: #f4f5fb; }
+#A h1 { top: 92px; left: 0; right: 0; text-align: center; font-size: 84px; font-weight: 800; letter-spacing: -.035em; }
+#A .sub { top: 200px; left: 0; right: 0; text-align: center; font-size: 34px; color: #a9abc0; font-weight: 500; }
+#A .logo { left: 96px; top: 64px; }
+#A .stage { top: 300px; left: 0; width: 1920px; height: 600px; perspective: 1600px; }
+#A .card { position: absolute; top: 50%; left: 50%; width: 520px; background: #171a2e; border: 1px solid #262a40; border-radius: 36px; padding: 36px; }
+#A .card .b { font-size: 30px; }
+#A .card .cons { margin-top: 22px; font-size: 30px; color: #ff6b9d; }
+#A .main { width: 660px; z-index: 10; transform: translate(-50%, -50%); box-shadow: 0 60px 120px -30px rgba(0,0,0,.9); padding: 40px 44px; }
+#A .main .b { font-size: 34px; }
+#A .main .head { display: flex; align-items: center; gap: 14px; font-size: 24px; font-weight: 700; margin-bottom: 24px; }
+#A .main .av { width: 44px; height: 44px; border-radius: 50%; background: #2a2e48; display: grid; place-items: center; font-size: 20px; }
+#A .c1 { transform: translate(calc(-50% - 500px), -50%) scale(.78) rotateY(28deg); opacity: .5; z-index: 5; }
+#A .c2 { transform: translate(calc(-50% - 900px), -50%) scale(.6) rotateY(38deg); opacity: .22; z-index: 4; }
+#A .c3 { transform: translate(calc(-50% + 500px), -50%) scale(.78) rotateY(-28deg); opacity: .5; z-index: 5; }
+#A .c4 { transform: translate(calc(-50% + 900px), -50%) scale(.6) rotateY(-38deg); opacity: .22; z-index: 4; }
+#A .note { left: 1250px; top: 840px; font-size: 64px; color: #ff5a5a; line-height: 1; z-index: 20; }
+#A .dots { left: 0; right: 0; bottom: 70px; display: flex; justify-content: center; gap: 12px; }
+#A .dots i { width: 10px; height: 10px; border-radius: 6px; background: #3a3e58; display: block; }
+#A .dots i.on { width: 34px; background: #8b97ff; }
+#A .src { left: 96px; bottom: 40px; color: #62667e; font-size: 18px; }
+
+/* ---------- B: cream editorial pile ---------- */
+#B { background: #f2ede3; color: #1b1a17; }
+#B h1 { left: 110px; top: 150px; width: 700px; font-family: "Fraunces", serif; font-weight: 500; font-size: 112px; line-height: 1.0; letter-spacing: -.03em; }
+#B .logo { left: 110px; bottom: 120px; color: #1b1a17; }
+#B .src { left: 110px; bottom: 54px; width: 760px; color: #8a8478; font-size: 18px; }
+#B .card { position: absolute; background: #fffdf8; border-radius: 26px; padding: 26px 28px; box-shadow: 0 2px 0 rgba(0,0,0,.04), 0 30px 60px -30px rgba(60,40,10,.35); width: 430px; }
+#B .card .b { font-size: 26px; }
+#B .card .cons { margin-top: 16px; font-size: 26px; color: #b3261e; font-family: "Fraunces", serif; font-weight: 600; font-style: italic; }
+#B .bg { opacity: .62; }
+#B .main { left: 1000px; top: 300px; width: 600px; padding: 38px 40px; z-index: 10; transform: rotate(-1.2deg); box-shadow: 0 50px 90px -30px rgba(60,40,10,.45); }
+#B .main .b { font-size: 33px; }
+#B .main .ts { color: #1b1a17; }
+#B .note { left: 1330px; top: 760px; font-size: 66px; color: #c8221a; line-height: 1; z-index: 20; }
+
+/* ---------- C: white, one giant bubble ---------- */
+#C { background: #fbfbfa; color: #111; }
+#C h1 { left: 120px; top: 110px; font-size: 96px; font-weight: 800; letter-spacing: -.04em; line-height: 1; }
+#C .sub { left: 120px; top: 222px; font-size: 36px; color: #6b6b70; font-weight: 500; }
+#C .logo { right: 120px; top: 120px; color: #111; }
+#C .deck { left: 50%; top: 440px; }
+#C .card { position: absolute; width: 1000px; left: -500px; background: #fff; border-radius: 40px; border: 1px solid #ececec; box-shadow: 0 30px 70px -40px rgba(0,0,0,.25); }
+#C .ghost { height: 160px; display: flex; align-items: flex-start; justify-content: space-between; padding: 12px 40px; }
+#C .ghost .b { font-size: 22px; padding: 10px 20px; }
+#C .ghost .cons { font-size: 24px; color: #c8221a; padding-top: 10px; }
+#C .g1 { top: -136px; transform: scale(.9); opacity: .4; z-index: 1; }
+#C .g2 { top: -70px; transform: scale(.95); opacity: .65; z-index: 2; }
+#C .main { top: 0; z-index: 3; padding: 36px 56px 40px; }
+#C .main .b { font-size: 30px; }
+#C .main .big { font-size: 52px; font-weight: 600; padding: 24px 40px; border-radius: 44px; border-bottom-right-radius: 12px; }
+#C .note { left: 1000px; top: 930px; font-size: 72px; color: #d0221b; line-height: 1; }
+#C .src { left: 120px; bottom: 44px; color: #9a9aa0; }
+
+/* ---------- D: exhibit stack ---------- */
+#D { background: #e8dfcc; color: #24201a; }
+#D h1 { left: 110px; top: 120px; width: 720px; font-family: "Fraunces", serif; font-weight: 500; font-size: 92px; line-height: 1.02; letter-spacing: -.03em; }
+#D .kick { left: 112px; top: 76px; font-family: "JetBrains Mono", monospace; font-size: 20px; letter-spacing: .12em; color: #8b5e1f; }
+#D .logo { left: 110px; bottom: 110px; color: #24201a; }
+#D .src { left: 110px; bottom: 48px; font-family: "JetBrains Mono", monospace; font-size: 18px; color: #8a7d62; }
+#D .card { position: absolute; width: 760px; background: #fffaf0; border: 1px solid #d8ccb2; border-radius: 6px; padding: 26px 34px; box-shadow: 0 24px 50px -30px rgba(70,50,20,.5); }
+#D .tab { position: absolute; top: -18px; right: 34px; background: #f2c94c; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 18px; padding: 6px 14px; letter-spacing: .08em; }
+#D .strip { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+#D .strip .b { font-size: 24px; white-space: nowrap; }
+#D .strip .cons { font-size: 26px; color: #a3231b; white-space: nowrap; }
+#D .s1 { left: 920px; top: 110px; opacity: .55; }
+#D .s2 { left: 970px; top: 210px; opacity: .68; }
+#D .s3 { left: 1020px; top: 310px; opacity: .8; }
+#D .s4 { left: 1070px; top: 410px; opacity: .9; }
+#D .main { left: 880px; top: 520px; width: 720px; padding: 36px 40px; z-index: 10; box-shadow: 0 50px 90px -30px rgba(70,50,20,.6); }
+#D .main .b { font-size: 33px; }
+#D .note { left: 1640px; top: 800px; width: 280px; font-size: 62px; color: #c8221a; line-height: .95; }
+
+/* ---------- E: dark notification stack ---------- */
+#E { background: #0b0c14; color: #f4f5fb; }
+#E h1 { left: 110px; top: 300px; font-size: 100px; font-weight: 800; letter-spacing: -.04em; line-height: 1.04; }
+#E h1 span { color: #ff6b9d; }
+#E .logo { left: 110px; top: 80px; }
+#E .src { left: 110px; bottom: 44px; color: #5d6178; }
+#E .stack { left: 1000px; top: 0; }
+#E .n { position: absolute; left: 0; width: 760px; background: #1a1d30; border-radius: 30px; padding: 22px 30px; display: flex; justify-content: space-between; align-items: center; gap: 20px; transform-origin: 50% 100%; }
+#E .n .q { font-size: 26px; color: #d8dbf0; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#E .n .cons { font-size: 24px; color: #ff6b9d; white-space: nowrap; }
+#E .n1 { top: 112px; transform: scale(.82); opacity: .3; }
+#E .n2 { top: 178px; transform: scale(.87); opacity: .45; }
+#E .n3 { top: 244px; transform: scale(.92); opacity: .62; }
+#E .n4 { top: 310px; transform: scale(.97); opacity: .8; }
+#E .main { position: absolute; left: -20px; top: 400px; width: 800px; background: #171a2e; border: 1px solid #2a2e48; border-radius: 40px; padding: 40px 44px; box-shadow: 0 60px 120px -30px rgba(0,0,0,.9); }
+#E .main .b { font-size: 34px; }
+#E .main .head { display: flex; align-items: center; gap: 14px; font-size: 24px; font-weight: 700; margin-bottom: 22px; }
+#E .main .av { width: 44px; height: 44px; border-radius: 50%; background: #2a2e48; display: grid; place-items: center; font-size: 20px; }
+#E .note { left: 1240px; top: 930px; font-size: 56px; color: #ff5a5a; line-height: 1; }
+</style></head><body>
+
+<!-- A ---------------------------------------------------------------- -->
+<section class="slide" id="A">
+  <div class="abs logo"><i></i>Parley</div>
+  <h1 class="abs">Real texts. Real custody cases.</h1>
+  <p class="abs sub">Judges quoted every one of these.</p>
+  <div class="abs stage">
+    <div class="card c2"><div class="row"><span class="b me">this means war</span></div><div class="cons">lost custody</div></div>
+    <div class="card c1"><div class="row"><span class="b me">f*** the judge and his order</span></div><div class="cons">kids moved to dad</div></div>
+    <div class="card main">
+      <div class="head"><span class="av">M</span>Mom</div>
+      <div class="row"><span class="b me">f*** off and stop sending me these bullsh*t messages</span></div>
+      <div class="ts">Jan 21, 2023</div>
+      <div class="row"><span class="b me" data-circle="A" data-arrow="Anote">I will not coparent with you, get that straight</span></div>
+    </div>
+    <div class="card c3"><div class="row"><span class="b me">either u pay in full or take me to court</span></div><div class="cons">$12,000 in fees</div></div>
+    <div class="card c4"><div class="row"><span class="b me">The wrath of God is coming to you swiftly</span></div><div class="cons">supervised visits</div></div>
+  </div>
+  <div class="abs note pen" id="Anote">cost him custody</div>
+  <div class="abs dots"><i></i><i></i><i class="on"></i><i></i><i></i></div>
+  <p class="abs src">L.W. v. J.U. (N.Y. 2024), Sheppard v. Reed (Iowa 2021), McGhee (Wis. 2023), Cowger (Iowa 2023), Crews (Mich. 2019). Profanity starred by us.</p>
+</section>
+
+<!-- B ---------------------------------------------------------------- -->
+<section class="slide" id="B">
+  <h1 class="abs">One angry text can cost you your kids.</h1>
+  <div class="card bg" style="left:960px; top:70px; transform:rotate(-6deg)"><div class="row"><span class="b me">this means war</span></div><div class="cons">lost custody</div></div>
+  <div class="card bg" style="left:1440px; top:110px; transform:rotate(5deg)"><div class="row"><span class="b me">f*** the judge and his order</span></div><div class="cons">kids moved to dad</div></div>
+  <div class="card bg" style="left:860px; top:700px; transform:rotate(4deg)"><div class="row"><span class="b me">The wrath of God is coming to you swiftly</span></div><div class="cons">supervised visits</div></div>
+  <div class="card bg" style="left:1480px; top:860px; transform:rotate(-3deg); width:400px"><div class="row"><span class="b me">either u pay in full or take me to court</span></div><div class="cons">$12,000 in fees</div></div>
+  <div class="card main">
+    <div class="row"><span class="b me">f*** off and stop sending me these bullsh*t messages</span></div>
+    <div class="ts">Jan 21, 2023</div>
+    <div class="row"><span class="b me" data-circle="B" data-arrow="Bnote">I will not coparent with you, get that straight</span></div>
+  </div>
+  <div class="abs note pen" id="Bnote">cost him custody</div>
+  <div class="abs logo"><i></i>Parley</div>
+  <p class="abs src">Quoted in five U.S. custody decisions, 2019 to 2024.</p>
+</section>
+
+<!-- C ---------------------------------------------------------------- -->
+<section class="slide" id="C">
+  <h1 class="abs">Judges read your texts.</h1>
+  <p class="abs sub">These ones cost parents time with their kids.</p>
+  <div class="abs logo"><i></i>Parley</div>
+  <div class="abs deck">
+    <div class="card ghost g1"><span class="b me">this means war</span><span class="cons">lost custody</span></div>
+    <div class="card ghost g2"><span class="b me">f*** the judge and his order</span><span class="cons">kids moved to dad</span></div>
+    <div class="card main">
+      <div class="row"><span class="b me">f*** off and stop sending me these bullsh*t messages</span></div>
+      <div class="ts">Jan 21, 2023</div>
+      <div class="row"><span class="b me big" data-circle="C" data-arrow="Cnote" data-from="bottom">I will not coparent with you, get that straight</span></div>
+    </div>
+  </div>
+  <div class="abs note pen" id="Cnote">this one cost him custody</div>
+  <p class="abs src">L.W. v. J.U. (N.Y. Sup. Ct. 2024). Behind it: McGhee (Wis. 2023), Sheppard v. Reed (Iowa 2021).</p>
+</section>
+
+<!-- D ---------------------------------------------------------------- -->
+<section class="slide" id="D">
+  <p class="abs kick">FROM REAL COURT DECISIONS</p>
+  <h1 class="abs">These texts were read in custody court.</h1>
+  <div class="card s1"><span class="tab">EXHIBIT E</span><div class="strip"><span class="b me">The wrath of God is coming to you swiftly</span><span class="cons">supervised visits</span></div></div>
+  <div class="card s2"><span class="tab">EXHIBIT D</span><div class="strip"><span class="b me">either u pay in full or take me to court</span><span class="cons">$12,000 in fees</span></div></div>
+  <div class="card s3"><span class="tab">EXHIBIT C</span><div class="strip"><span class="b me">this means war</span><span class="cons">lost custody</span></div></div>
+  <div class="card s4"><span class="tab">EXHIBIT B</span><div class="strip"><span class="b me">f*** the judge and his order</span><span class="cons">kids moved to dad</span></div></div>
+  <div class="card main"><span class="tab">EXHIBIT A</span>
+    <div class="row"><span class="b me">f*** off and stop sending me these bullsh*t messages</span></div>
+    <div class="ts">Jan 21, 2023</div>
+    <div class="row"><span class="b me" data-circle="D" data-arrow="Dnote">I will not coparent with you, get that straight</span></div>
+  </div>
+  <div class="abs note pen" id="Dnote">cost him custody</div>
+  <div class="abs logo"><i></i>Parley</div>
+  <p class="abs src">L.W. v. J.U. 2024 · Sheppard 2021 · McGhee 2023 · Cowger 2023 · Crews 2019</p>
+</section>
+
+<!-- E ---------------------------------------------------------------- -->
+<section class="slide" id="E">
+  <div class="abs logo"><i></i>Parley</div>
+  <h1 class="abs">He sent this text.<br><span>He lost custody.</span></h1>
+  <div class="abs stack">
+    <div class="n n1"><span class="q">The wrath of God is coming to you swiftly</span><span class="cons">supervised visits</span></div>
+    <div class="n n2"><span class="q">either u pay in full or take me to court</span><span class="cons">$12,000 in fees</span></div>
+    <div class="n n3"><span class="q">this means war</span><span class="cons">lost custody</span></div>
+    <div class="n n4"><span class="q">f*** the judge and his order</span><span class="cons">kids moved to dad</span></div>
+    <div class="main">
+      <div class="head"><span class="av">M</span>Mom</div>
+      <div class="row"><span class="b me">f*** off and stop sending me these bullsh*t messages</span></div>
+      <div class="ts">Jan 21, 2023</div>
+      <div class="row"><span class="b me" data-circle="E" data-arrow="Enote" data-from="bottom">I will not coparent with you, get that straight</span></div>
+    </div>
+  </div>
+  <div class="abs note pen" id="Enote">now 2 supervised visits a week</div>
+  <p class="abs src">L.W. v. J.U. (N.Y. Sup. Ct. 2024). Behind it: Sheppard, McGhee, Cowger, Crews.</p>
+</section>
+
+<script>
+// Red pen: a loose ellipse that overshoots its start, and a curved arrow to the note.
+function pen() {
+  document.querySelectorAll('[data-circle]').forEach(el => {
+    const slide = el.closest('.slide');
+    const s = slide.getBoundingClientRect(), r = el.getBoundingClientRect();
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('class', 'ink');
+    const dark = getComputedStyle(slide).color === 'rgb(244, 245, 251)';
+    const red = dark ? '#ff4d4d' : '#d0221b';
+    const cx = r.left - s.left + r.width / 2, cy = r.top - s.top + r.height / 2;
+    const rx = r.width / 2 + 30, ry = r.height / 2 + 18;
+    let d = '';
+    const a0 = -0.35, a1 = Math.PI * 2 + 0.55;
+    for (let i = 0; i <= 80; i++) {
+      const t = i / 80, a = a0 + (a1 - a0) * t;
+      const k = 1 + 0.035 * Math.sin(a * 3 + 1) + 0.05 * t;   // drifts outward: second pass misses the first
+      const x = cx + Math.cos(a) * rx * k, y = cy + Math.sin(a) * ry * k - 6 * t;
+      d += (i ? 'L' : 'M') + x.toFixed(1) + ' ' + y.toFixed(1);
+    }
+    const path = (dd, w) => { const p = document.createElementNS(svg.namespaceURI, 'path'); p.setAttribute('d', dd); p.setAttribute('fill', 'none'); p.setAttribute('stroke', red); p.setAttribute('stroke-width', w); p.setAttribute('stroke-linecap', 'round'); p.setAttribute('stroke-linejoin', 'round'); svg.appendChild(p); };
+    path(d, 6);
+    const t = document.getElementById(el.dataset.arrow);
+    if (t) {
+      const q = t.getBoundingClientRect();
+      const fromBottom = el.dataset.from === 'bottom';
+      const tx = (fromBottom ? q.left - s.left + 40 : q.left - s.left - 18), ty = fromBottom ? q.top - s.top - 14 : q.top - s.top + q.height / 2;
+      const ang = Math.atan2(ty - cy, tx - cx);
+      const x1 = cx + Math.cos(ang) * rx * 1.08, y1 = cy + Math.sin(ang) * ry * 1.08;
+      const mx = (x1 + tx) / 2, my = (y1 + ty) / 2, dx = tx - x1, dy = ty - y1;
+      const c1x = mx - dy * 0.3, c1y = my + dx * 0.3;
+      path(`M${x1} ${y1} Q${c1x} ${c1y} ${tx} ${ty}`, 5);
+      const ea = Math.atan2(ty - c1y, tx - c1x), L = 26;
+      path(`M${tx - L * Math.cos(ea - 0.45)} ${ty - L * Math.sin(ea - 0.45)} L${tx} ${ty} L${tx - L * Math.cos(ea + 0.45)} ${ty - L * Math.sin(ea + 0.45)}`, 5);
+    }
+    slide.appendChild(svg);
+  });
+}
+document.fonts.ready.then(() => requestAnimationFrame(pen));
+</script>
+</body></html>

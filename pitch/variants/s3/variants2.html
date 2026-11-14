@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Slide 3 variants, round 2</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#555;font-family:'Plus Jakarta Sans',sans-serif}
+.slide{width:1920px;height:1080px;position:relative;overflow:hidden;margin:0 auto 40px}
+.abs{position:absolute}
+.pen{font-family:'Caveat',cursive}
+.mono{font-family:'JetBrains Mono',monospace}
+
+/* ===== A: dark, phone with a burst of notifications ===== */
+.A{background:#0d0e1a;color:#f3f3fa}
+.A h1{left:120px;top:110px;font-size:84px;font-weight:800;letter-spacing:-.04em;line-height:1}
+.A .eb{left:124px;top:72px;font-size:22px;font-weight:700;letter-spacing:.18em;color:#8f9bff}
+.A .who{left:120px;top:300px;font-size:200px;font-weight:800;letter-spacing:-.06em;line-height:.9}
+.A .ctx{left:128px;top:500px;font-size:36px;color:#b8bbd8;font-weight:500}
+.A .ctx b{color:#fff}
+.A .tags{left:120px;top:640px;display:flex;gap:28px;align-items:flex-start}
+.tag{position:relative;background:#f4f1e8;color:#14152a;border-radius:10px 18px 18px 10px;padding:22px 34px 22px 64px;clip-path:polygon(34px 0,100% 0,100% 100%,34px 100%,0 50%)}
+.tag::before{content:"";position:absolute;left:30px;top:50%;width:16px;height:16px;margin-top:-8px;border-radius:50%;background:#0d0e1a}
+.tag b{display:block;font-size:64px;font-weight:800;letter-spacing:-.03em;line-height:1}
+.tag span{display:block;font-size:26px;font-weight:600;color:#55577a;margin-top:6px}
+.A .tag:nth-child(2){transform:rotate(-4deg) translateY(30px)}
+.A .trig{left:120px;top:900px;font-size:34px;color:#c9cbe0;font-weight:500}
+.A .trig q{color:#fff;font-weight:800;quotes:"\201C" "\201D"}
+.A .trig i{display:inline-block;width:44px;height:4px;background:#1fa572;vertical-align:middle;margin:0 16px 6px 0}
+.A .phone{left:1180px;top:60px;width:500px;height:980px;border-radius:72px;background:#05060c;border:12px solid #2a2d44;box-shadow:0 0 0 2px #3a3e5c, 0 40px 80px rgba(0,0,0,.6);overflow:hidden}
+.A .screen{position:absolute;inset:0;background:linear-gradient(180deg,#24284a 0%,#141628 60%,#0c0d18 100%)}
+.A .island{position:absolute;left:50%;top:16px;width:130px;height:36px;margin-left:-65px;border-radius:20px;background:#000}
+.A .clock{position:absolute;top:80px;width:100%;text-align:center;font-size:120px;font-weight:600;letter-spacing:-.03em;color:#e9ebff}
+.A .date{position:absolute;top:66px;width:100%;text-align:center;font-size:24px;font-weight:600;color:#aeb2d6}
+.A .stack{position:absolute;left:20px;right:20px;top:270px}
+.n{background:rgba(236,238,255,.13);border-radius:26px;padding:16px 20px;margin-bottom:10px;display:flex;gap:14px;align-items:flex-start;backdrop-filter:blur(2px)}
+.n .ic{flex:none;width:44px;height:44px;border-radius:11px;background:#1fa572;display:flex;align-items:center;justify-content:center}
+.n .ic svg{width:26px;height:26px}
+.n .t{flex:1;min-width:0}
+.n .h{display:flex;justify-content:space-between;font-size:19px;font-weight:700;color:#fff}
+.n .h em{font-style:normal;font-weight:500;color:#9ea2c6}
+.n .m{font-family:'Inter';font-size:21px;color:#dfe1f5;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.A .stack .n:nth-child(n+5){opacity:.7}
+.A .stack .n:nth-child(n+6){opacity:.45}
+.A .more{position:absolute;bottom:80px;width:100%;text-align:center;font-size:22px;color:#9ea2c6;font-weight:600}
+.A .badge{left:1620px;top:200px;width:120px;height:120px;border-radius:50%;background:#e2508f;color:#fff;font-size:58px;font-weight:800;display:flex;align-items:center;justify-content:center;letter-spacing:-.04em;box-shadow:0 0 0 10px #0d0e1a}
+.A .ann{font-size:46px;color:#ff7bb0;line-height:1}
+.A .ann1{left:1730px;top:340px;width:180px}
+.A .ann2{left:1710px;top:620px;width:200px}
+
+/* ===== B: light editorial, the week as a stress chart ===== */
+.B{background:#f5f0e6;color:#1d1a16}
+.B .eb{left:120px;top:84px;font-size:22px;font-weight:700;letter-spacing:.18em;color:#b2381f}
+.B h1{left:116px;top:118px;font-family:'Newsreader';font-weight:500;font-size:96px;letter-spacing:-.025em;line-height:1}
+.B .who{right:120px;top:100px;text-align:right}
+.B .who b{display:block;font-family:'Newsreader';font-size:120px;font-weight:500;letter-spacing:-.03em;line-height:.95}
+.B .who span{font-size:30px;font-weight:600;color:#6a6156}
+.B .chart{left:120px;top:330px;width:1680px;height:520px}
+.B .days{left:120px;top:860px;width:1680px;display:flex}
+.B .days div{flex:1;text-align:center;font-size:24px;font-weight:700;letter-spacing:.14em;color:#8a8073}
+.B .lab{font-size:28px;font-weight:700;color:#b2381f}
+.B .bot{left:120px;top:940px;right:120px;display:flex;align-items:center;gap:56px;border-top:2px solid #1d1a16;padding-top:26px}
+.B .bot .p{font-size:28px;color:#6a6156;font-weight:600}
+.B .bot .p b{font-family:'Newsreader';font-size:52px;color:#1d1a16;font-weight:600;margin-right:12px;letter-spacing:-.02em}
+.B .bot .trig{margin-left:auto;font-size:28px;font-weight:600;color:#6a6156}
+.B .bot .trig b{color:#1d1a16}
+
+/* ===== C: price tags ===== */
+.C{background:#eef1ec;color:#152018}
+.C .eb{left:120px;top:90px;font-size:22px;font-weight:700;letter-spacing:.18em;color:#1a7a52}
+.C h1{left:116px;top:126px;width:900px;font-size:84px;font-weight:800;letter-spacing:-.045em;line-height:1.02}
+.C .who{left:120px;top:440px;font-family:'Newsreader';font-size:170px;font-weight:500;letter-spacing:-.04em;line-height:.9}
+.C .who span{display:block;font-family:'Plus Jakarta Sans';font-size:36px;font-weight:600;letter-spacing:0;color:#4a5a4f;margin-top:26px}
+.C .facts{left:120px;top:790px;display:flex;gap:44px;font-size:30px;font-weight:600;color:#4a5a4f}
+.C .facts b{display:block;font-size:56px;color:#152018;font-weight:800;letter-spacing:-.03em}
+.C .string{left:1000px;top:0;width:920px;height:1080px}
+.C .ht{position:absolute;transform-origin:50% 0}
+.C .ht .card{background:#fffdf6;border-radius:18px;padding:70px 56px 44px;box-shadow:0 30px 60px rgba(20,40,25,.18),0 2px 0 rgba(0,0,0,.04);position:relative}
+.C .ht .card::before{content:"";position:absolute;left:50%;top:26px;width:24px;height:24px;margin-left:-12px;border-radius:50%;background:#eef1ec;box-shadow:inset 0 2px 3px rgba(0,0,0,.25)}
+.C .ht b{display:block;font-size:150px;font-weight:800;letter-spacing:-.05em;line-height:.9}
+.C .ht small{display:block;font-size:34px;font-weight:700;color:#152018;margin-top:6px}
+.C .ht span{display:block;font-size:28px;font-weight:600;color:#6c7a70;margin-top:4px}
+.C .t1{left:1090px;top:250px;transform:rotate(-5deg)}
+.C .t2{left:1310px;top:560px;transform:rotate(6deg)}
+.C .t2 .card{background:#1a7a52;color:#fff}
+.C .t2 b{font-size:96px;white-space:nowrap}
+.C .t2 small{color:#fff}.C .t2 span{color:#bfe6d2}
+.C .t2 .card::before{background:#eef1ec}
+.C .note{left:1040px;top:690px;font-size:42px;color:#b2381f;width:250px;transform:rotate(-3deg);line-height:1}
+
+/* ===== D: dark trigger timeline ===== */
+.D{background:#0d0e1a;color:#f3f3fa}
+.D .eb{left:0;right:0;top:92px;text-align:center;font-size:22px;font-weight:700;letter-spacing:.18em;color:#8f9bff}
+.D h1{left:0;right:0;top:128px;text-align:center;font-size:80px;font-weight:800;letter-spacing:-.04em}
+.D .who{left:0;right:0;top:250px;text-align:center;font-size:34px;font-weight:600;color:#a6a9c7}
+.D .who b{color:#fff}
+.D .line{left:160px;right:160px;top:640px;height:4px;background:linear-gradient(90deg,#2b2f4d,#5b6cf6 60%,#1fa572)}
+.D .node{position:absolute;top:640px;transform:translate(-50%,-50%);border-radius:50%}
+.D .step{position:absolute;width:340px;text-align:center;transform:translateX(-50%)}
+.D .step .k{font-size:22px;font-weight:700;letter-spacing:.16em;color:#6e7290}
+.D .step .v{font-size:36px;font-weight:700;line-height:1.15;margin-top:10px}
+.D .quote{left:960px;top:330px;transform:translateX(-50%);width:820px;text-align:center}
+.D .quote .q{font-family:'Newsreader';font-style:italic;font-size:104px;line-height:1;letter-spacing:-.02em;color:#fff}
+.D .quote .by{font-size:28px;font-weight:600;color:#8f9bff;margin-top:20px}
+.D .buy{background:#1fa572;color:#fff;border-radius:999px;padding:16px 34px;font-size:34px;font-weight:800;display:inline-block}
+.D .money{left:160px;right:160px;top:900px;display:flex;justify-content:center;gap:90px;border-top:1px solid #262a45;padding-top:34px;font-size:28px;color:#9a9cb8;font-weight:600}
+.D .money b{font-size:48px;color:#fff;font-weight:800;margin-right:12px;letter-spacing:-.03em}
+.D .pings{position:absolute;left:640px;top:520px}
+.D .pings i{position:absolute;width:20px;height:20px;border-radius:50%;background:#e2508f}
+
+/* ===== E: mom and dad, age ruler + week of texts ===== */
+.E{background:#fbfaf7;color:#16161c}
+.E .eb{left:120px;top:86px;font-size:22px;font-weight:700;letter-spacing:.18em;color:#5b6cf6}
+.E h1{left:116px;top:120px;font-size:84px;font-weight:800;letter-spacing:-.045em}
+.E .ruler{left:120px;top:300px;width:1680px;height:300px}
+.E .grid{left:120px;top:660px;width:1060px}
+.E .grid .cap{font-size:30px;font-weight:700;margin-bottom:20px}
+.E .grid .cap span{color:#e2508f}
+.E .sq{display:grid;grid-template-columns:repeat(12,72px);gap:12px}
+.E .sq i{height:72px;border-radius:16px 16px 16px 4px;background:#e2508f}
+.E .sq i.ok{background:#d9dae4}
+.E .key{margin-top:18px;font-size:24px;color:#6c6d80;font-weight:600;display:flex;gap:30px}
+.E .key em{display:inline-block;width:20px;height:20px;border-radius:5px;background:#e2508f;vertical-align:-3px;margin-right:8px}
+.E .key em.ok{background:#d9dae4}
+.E .side{left:1280px;top:640px;width:520px}
+.E .side .row{display:flex;align-items:baseline;gap:18px;padding:16px 0;border-bottom:2px solid #e6e5ee}
+.E .side .row b{font-size:60px;font-weight:800;letter-spacing:-.04em;min-width:260px}
+.E .side .row span{font-size:28px;font-weight:600;color:#6c6d80}
+.E .side .tr{margin-top:26px;font-size:30px;font-weight:600;color:#6c6d80;line-height:1.3}
+.E .side .tr b{color:#16161c}
+</style>
+</head>
+<body>
+
+<!-- A -->
+<section class="slide A">
+  <div class="abs eb">WHO WE SELL TO</div>
+  <h1 class="abs">Our ideal customer</h1>
+  <div class="abs who">Mom, 36</div>
+  <div class="abs ctx">or Dad, 38. <b>In a custody case.</b></div>
+  <div class="abs tags">
+    <div class="tag"><b>$349</b><span>an hour, her lawyer</span></div>
+    <div class="tag"><b>$110–300</b><span>a year on apps</span></div>
+  </div>
+  <div class="abs trig"><i></i>Buys when her lawyer says <q>document everything</q></div>
+
+  <div class="abs phone"><div class="screen">
+    <div class="island"></div>
+    <div class="date">Thursday, March 12</div>
+    <div class="clock">11:48</div>
+    <div class="stack">
+      <div class="n"><div class="ic"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.4 1.3 4.6 3.4 6.1L4.6 21l4.1-2.2c1 .3 2.1.4 3.3.4 5.5 0 10-3.6 10-8.1S17.5 3 12 3z"/></svg></div><div class="t"><div class="h">Ex<em>now</em></div><div class="m">Maybe if you spent less on your boyfriend</div></div></div>
+      <div class="n"><div class="ic"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.4 1.3 4.6 3.4 6.1L4.6 21l4.1-2.2c1 .3 2.1.4 3.3.4 5.5 0 10-3.6 10-8.1S17.5 3 12 3z"/></svg></div><div class="t"><div class="h">Ex<em>2m ago</em></div><div class="m">dont tell me how to run my house</div></div></div>
+      <div class="n"><div class="ic"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.4 1.3 4.6 3.4 6.1L4.6 21l4.1-2.2c1 .3 2.1.4 3.3.4 5.5 0 10-3.6 10-8.1S17.5 3 12 3z"/></svg></div><div class="t"><div class="h">Ex<em>9m ago</em></div><div class="m">im not paying half of soccer</div></div></div>
+      <div class="n"><div class="ic"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.4 1.3 4.6 3.4 6.1L4.6 21l4.1-2.2c1 .3 2.1.4 3.3.4 5.5 0 10-3.6 10-8.1S17.5 3 12 3z"/></svg></div><div class="t"><div class="h">Ex<em>40m ago</em></div><div class="m">u ALWAYS make me look like the bad parent</div></div></div>
+      <div class="n"><div class="ic"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.4 1.3 4.6 3.4 6.1L4.6 21l4.1-2.2c1 .3 2.1.4 3.3.4 5.5 0 10-3.6 10-8.1S17.5 3 12 3z"/></svg></div><div class="t"><div class="h">Ex<em>1h ago</em></div><div class="m">ur 40 min late AGAIN</div></div></div>
+      <div class="n"><div class="ic"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.4 1.3 4.6 3.4 6.1L4.6 21l4.1-2.2c1 .3 2.1.4 3.3.4 5.5 0 10-3.6 10-8.1S17.5 3 12 3z"/></svg></div><div class="t"><div class="h">Ex<em>2h ago</em></div><div class="m">shes tired bc u let her stay up</div></div></div>
+    </div>
+    <div class="more">+17 more this week</div>
+  </div></div>
+  <div class="abs badge">23</div>
+  <svg class="abs" style="left:1660px;top:320px" width="120" height="120" viewBox="0 0 120 120" fill="none" stroke="#ff7bb0" stroke-width="4" stroke-linecap="round"><path d="M90 110 C 70 80, 50 60, 30 30"/><path d="M28 52 L30 30 L50 36"/></svg>
+  <div class="abs pen ann ann1" style="top:440px">20+ texts a week</div>
+  <div class="abs pen ann ann2" style="top:640px">mostly bait</div>
+</section>
+
+<!-- B -->
+<section class="slide B">
+  <div class="abs eb">OUR IDEAL CUSTOMER</div>
+  <h1 class="abs">Her week with<br>a custody case</h1>
+  <div class="abs who"><b>Mom, 36</b><span>ages 25 to 45, kids at home</span></div>
+  <svg class="abs chart" viewBox="0 -96 1680 616" preserveAspectRatio="none">
+    <g stroke="#ddd3c3" stroke-width="2">
+      <line x1="240" y1="0" x2="240" y2="520"/><line x1="480" y1="0" x2="480" y2="520"/><line x1="720" y1="0" x2="720" y2="520"/><line x1="960" y1="0" x2="960" y2="520"/><line x1="1200" y1="0" x2="1200" y2="520"/><line x1="1440" y1="0" x2="1440" y2="520"/>
+    </g>
+    <line x1="0" y1="518" x2="1680" y2="518" stroke="#1d1a16" stroke-width="3"/>
+    <path d="M0 470 C 60 470, 90 460, 150 450 L 190 150 L 230 440 C 300 470, 330 470, 380 460 L 420 300 L 460 455 C 560 470, 640 470, 700 455 L 750 110 L 800 430 C 860 470, 900 465, 950 455 L 990 260 L 1030 445 C 1080 470, 1140 460, 1170 450 L 1210 60 L 1260 420 C 1330 470, 1380 470, 1440 460 L 1480 330 L 1520 450 C 1580 470, 1640 470, 1680 470 L 1680 520 L 0 520 Z" fill="#b2381f" fill-opacity=".12"/>
+    <path d="M0 470 C 60 470, 90 460, 150 450 L 190 150 L 230 440 C 300 470, 330 470, 380 460 L 420 300 L 460 455 C 560 470, 640 470, 700 455 L 750 110 L 800 430 C 860 470, 900 465, 950 455 L 990 260 L 1030 445 C 1080 470, 1140 460, 1170 450 L 1210 60 L 1260 420 C 1330 470, 1380 470, 1440 460 L 1480 330 L 1520 450 C 1580 470, 1640 470, 1680 470" fill="none" stroke="#b2381f" stroke-width="5" stroke-linejoin="round"/>
+    <!-- a text bubble at every spike -->
+    <g fill="#1d1a16">
+      <g transform="translate(190 150)"><rect x="-26" y="-74" width="52" height="40" rx="14"/><path d="M-8 -36 L0 -24 L8 -36Z"/></g>
+      <g transform="translate(420 300)"><rect x="-26" y="-74" width="52" height="40" rx="14"/><path d="M-8 -36 L0 -24 L8 -36Z"/></g>
+      <g transform="translate(750 110)"><rect x="-26" y="-74" width="52" height="40" rx="14"/><path d="M-8 -36 L0 -24 L8 -36Z"/></g>
+      <g transform="translate(990 260)"><rect x="-26" y="-74" width="52" height="40" rx="14"/><path d="M-8 -36 L0 -24 L8 -36Z"/></g>
+      <g transform="translate(1210 60)"><rect x="-26" y="-74" width="52" height="40" rx="14" fill="#b2381f"/><path d="M-8 -36 L0 -24 L8 -36Z" fill="#b2381f"/></g>
+      <g transform="translate(1480 330)"><rect x="-26" y="-74" width="52" height="40" rx="14"/><path d="M-8 -36 L0 -24 L8 -36Z"/></g>
+    </g>
+    <g fill="#f5f0e6"><circle cx="180" cy="96" r="4"/><circle cx="190" cy="96" r="4"/><circle cx="200" cy="96" r="4"/>
+      <circle cx="410" cy="246" r="4"/><circle cx="420" cy="246" r="4"/><circle cx="430" cy="246" r="4"/>
+      <circle cx="740" cy="56" r="4"/><circle cx="750" cy="56" r="4"/><circle cx="760" cy="56" r="4"/>
+      <circle cx="980" cy="206" r="4"/><circle cx="990" cy="206" r="4"/><circle cx="1000" cy="206" r="4"/>
+      <circle cx="1200" cy="6" r="4"/><circle cx="1210" cy="6" r="4"/><circle cx="1220" cy="6" r="4"/>
+      <circle cx="1470" cy="276" r="4"/><circle cx="1480" cy="276" r="4"/><circle cx="1490" cy="276" r="4"/></g>
+  </svg>
+  <div class="abs lab" style="left:1350px;top:440px">11:48 PM, bait</div>
+  <div class="abs lab" style="right:120px;top:276px;font-size:30px">20+ texts a week, mostly bait</div>
+  <div class="abs days"><div>MON</div><div>TUE</div><div>WED</div><div>THU</div><div>FRI</div><div>SAT</div><div>SUN</div></div>
+  <div class="abs bot">
+    <div class="p"><b>$349</b>an hour, lawyer</div>
+    <div class="p"><b>$110–300</b>a year, apps</div>
+    <div class="trig">Buys at <b>“document everything”</b></div>
+  </div>
+</section>
+
+<!-- C -->
+<section class="slide C">
+  <div class="abs eb">OUR IDEAL CUSTOMER</div>
+  <h1 class="abs">She already pays to get through this</h1>
+  <div class="abs who">Mom, 36<span>or Dad, 38. In a custody case.</span></div>
+  <div class="abs facts">
+    <div><b>20+</b>texts a week</div>
+    <div><b>Mostly</b>bait</div>
+  </div>
+  <svg class="abs string" viewBox="0 0 920 1080" fill="none" stroke="#9aa69d" stroke-width="3">
+    <path d="M0 40 C 300 110, 600 110, 920 60"/>
+    <path d="M300 92 L 330 262"/>
+    <path d="M610 96 L 585 566"/>
+  </svg>
+  <div class="ht t1"><div class="card"><b>$349</b><small>an hour</small><span>her lawyer</span></div></div>
+  <div class="ht t2"><div class="card"><b>$110–300</b><small>a year</small><span>co-parenting apps</span></div></div>
+  <div class="abs pen note">buys the day her lawyer says “document everything”</div>
+</section>
+
+<!-- D -->
+<section class="slide D">
+  <div class="abs eb">OUR IDEAL CUSTOMER</div>
+  <h1 class="abs">The day our customer starts looking</h1>
+  <div class="abs who"><b>Mom, 36</b> or <b>Dad, 38</b>, in a custody case</div>
+  <div class="abs quote"><div class="q">“Document everything.”</div><div class="by">her lawyer, $349 an hour</div></div>
+  <div class="abs line"></div>
+  <div class="pings">
+    <i style="left:-20px;top:30px"></i><i style="left:10px;top:0"></i><i style="left:40px;top:44px;opacity:.7"></i><i style="left:-50px;top:56px;opacity:.6"></i><i style="left:30px;top:-30px;opacity:.5"></i><i style="left:-30px;top:-14px;opacity:.8"></i>
+  </div>
+  <div class="node" style="left:260px;width:30px;height:30px;background:#3a3e5c"></div>
+  <div class="node" style="left:660px;width:30px;height:30px;background:#e2508f"></div>
+  <div class="node" style="left:1080px;width:54px;height:54px;background:#5b6cf6;box-shadow:0 0 0 12px rgba(91,108,246,.25)"></div>
+  <div class="node" style="left:1560px;width:30px;height:30px;background:#1fa572"></div>
+  <div class="step" style="left:260px;top:690px"><div class="k">FIRST</div><div class="v">Custody case opens</div></div>
+  <div class="step" style="left:660px;top:690px"><div class="k">EVERY WEEK</div><div class="v">20+ texts, mostly bait</div></div>
+  <div class="step" style="left:1080px;top:690px"><div class="k">THE TRIGGER</div><div class="v">Lawyer’s advice</div></div>
+  <div class="step" style="left:1560px;top:690px"><div class="k">SAME WEEK</div><div class="v" style="margin-top:14px"><span class="buy">Buys Parley</span></div></div>
+  <div class="abs money"><div><b>$110–300</b>a year already on apps</div><div><b>$349</b>an hour on her lawyer</div></div>
+</section>
+
+<!-- E -->
+<section class="slide E">
+  <div class="abs eb">OUR IDEAL CUSTOMER</div>
+  <h1 class="abs">A mom or dad in a custody case</h1>
+  <svg class="abs ruler" viewBox="0 0 1680 300">
+    <rect x="0" y="200" width="1680" height="16" rx="8" fill="#ecebf2"/>
+    <rect x="0" y="200" width="1680" height="16" rx="8" fill="#5b6cf6" fill-opacity=".9"/>
+    <g fill="#9a9bb0" font-family="Plus Jakarta Sans" font-size="30" font-weight="700">
+      <text x="0" y="270">25</text><text x="420" y="270" text-anchor="middle">30</text><text x="840" y="270" text-anchor="middle">35</text><text x="1260" y="270" text-anchor="middle">40</text><text x="1680" y="270" text-anchor="end">45</text>
+    </g>
+    <g fill="#5b6cf6"><rect x="418" y="190" width="4" height="36"/><rect x="838" y="190" width="4" height="36"/><rect x="1258" y="190" width="4" height="36"/></g>
+    <!-- Mom 36 at 924, Dad 38 at 1092 -->
+    <line x1="924" y1="120" x2="924" y2="200" stroke="#16161c" stroke-width="4"/>
+    <circle cx="924" cy="208" r="16" fill="#16161c" stroke="#fff" stroke-width="5"/>
+    <line x1="1092" y1="120" x2="1092" y2="200" stroke="#16161c" stroke-width="4"/>
+    <circle cx="1092" cy="208" r="16" fill="#16161c" stroke="#fff" stroke-width="5"/>
+    <g font-family="Plus Jakarta Sans" font-weight="800" fill="#16161c" font-size="92" letter-spacing="-4">
+      <text x="900" y="100" text-anchor="end">Mom, 36</text>
+      <text x="1116" y="100">Dad, 38</text>
+    </g>
+  </svg>
+  <div class="abs grid">
+    <div class="cap">Texts from the ex, one week: <span>mostly bait</span></div>
+    <div class="sq">
+      <i></i><i></i><i class="ok"></i><i></i><i></i><i></i><i class="ok"></i><i></i><i></i><i></i><i></i><i class="ok"></i>
+      <i></i><i></i><i></i><i class="ok"></i><i></i><i></i><i></i><i></i><i class="ok"></i><i></i><i></i>
+    </div>
+    <div class="key"><span><em></em>bait</span><span><em class="ok"></em>logistics</span><span>20+ a week</span></div>
+  </div>
+  <div class="abs side">
+    <div class="row"><b>$349</b><span>an hour, lawyer</span></div>
+    <div class="row"><b>$110–300</b><span>a year, apps</span></div>
+    <div class="tr">Buys at <b>“document everything”</b></div>
+  </div>
+</section>
+
+</body>
+</html>

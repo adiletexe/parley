@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Parley · slide 2 · a real case · r3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../design-options/iphone.css">
+<style>
+:root {
+  --night: #0d0e1a; --card: #161829; --line: #262a40;
+  --fg: #f4f5fb; --mute: #a9abc0; --dim: #7a7e96;
+  --acc: #7d8bff; --acc-2: #5b6cf6;
+  --grad: linear-gradient(118deg, #7c5cf0 0%, #5b6cf6 45%, #3f8df5 100%);
+  --pen: #ff5fa0; --ok: #34d399;
+  --paper: #f4f5fa; --ink: #1d1f2b; --imute: #646880; --idim: #8d90a6;
+  --font: "Plus Jakarta Sans", system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #000; font-family: var(--font); -webkit-font-smoothing: antialiased; }
+.slide { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--night); color: var(--fg); margin-bottom: 40px; }
+.slide::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(70% 60% at 85% -10%, rgba(91,108,246,.20), rgba(91,108,246,0) 70%); }
+.slide.light { background: var(--paper); color: var(--ink); --pen: #e2508f; }
+.slide.light::before { background: radial-gradient(70% 60% at 85% -10%, rgba(124,92,240,.13), rgba(124,92,240,0) 70%); }
+.slide > * { position: absolute; }
+.mark { left: 120px; top: 84px; font-size: 24px; font-weight: 800; letter-spacing: -.02em; display: flex; align-items: center; gap: 12px; }
+.mark i { width: 26px; height: 26px; border-radius: 8px; background: var(--grad); display: block; }
+.kick { left: 120px; top: 168px; font-size: 22px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--acc); }
+.light .kick { color: var(--acc-2); }
+h2 { left: 120px; top: 212px; font-size: 66px; font-weight: 800; letter-spacing: -.035em; line-height: 1.04; }
+h2 span { color: var(--mute); }
+.light h2 span { color: var(--idim); }
+.src { left: 120px; bottom: 34px; font-size: 18px; color: var(--dim); font-weight: 500; }
+.light .src { color: var(--idim); }
+.lab { font-size: 20px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--imute); }
+.card { background: #fff; color: var(--ink); border-radius: 28px; box-shadow: 0 2px 4px rgba(20,22,40,.06), 0 30px 60px -20px rgba(20,22,40,.25); }
+.slide:not(.light) .card { box-shadow: 0 50px 100px -30px rgba(0,0,0,.9); }
+.pen { position: absolute; overflow: visible; pointer-events: none; }
+.pen path { fill: none; stroke: var(--pen); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.note { position: absolute; color: var(--pen); font-style: italic; font-weight: 700; font-size: 26px; white-space: nowrap; }
+.q { font-weight: 800; letter-spacing: -.025em; line-height: 1.12; }
+.cost { color: #e2508f; font-weight: 800; letter-spacing: -.02em; }
+.bub { background: #2f6bff; color: #fff; border-radius: 26px; border-bottom-right-radius: 8px; padding: 18px 24px; font-weight: 500; line-height: 1.35; }
+
+/* ---------- A · carousel ---------- */
+.A .cc { position: absolute; }
+.A .main { left: 560px; top: 420px; width: 800px; height: 470px; padding: 44px 56px; z-index: 5; }
+.A .main .lab { font-size: 20px; }
+.A .main .q { font-size: 50px; margin-top: 20px; width: 660px; }
+.A .main .rule { border-top: 2px dashed #e3e4ee; margin: 34px 0 24px; }
+.A .main .big { font-size: 44px; }
+.A .main .sup { font-size: 28px; color: #e2508f; font-weight: 700; margin-top: 4px; }
+.A .main .case { position: absolute; right: 56px; bottom: 40px; font-size: 20px; color: var(--idim); font-weight: 600; }
+.A .side { padding: 34px 36px; }
+.A .side .tag { font-size: 18px; font-weight: 700; color: var(--idim); letter-spacing: .04em; }
+.A .side .q { font-size: 30px; margin-top: 14px; }
+.A .side .cost { font-size: 24px; margin-top: 16px; }
+.A .near { width: 640px; height: 410px; top: 463px; z-index: 3; filter: brightness(.62); }
+.A .far { width: 520px; height: 350px; top: 493px; z-index: 2; filter: brightness(.32); }
+.A .side .in { width: 330px; }
+.A .r .in { margin-left: auto; text-align: right; }
+.A .dots { left: 0; right: 0; top: 958px; display: flex; justify-content: center; gap: 12px; }
+.A .dots i { width: 12px; height: 12px; border-radius: 6px; background: #34384f; display: block; }
+.A .dots i.on { width: 40px; background: var(--grad); }
+
+/* ---------- B · the week, to scale ---------- */
+.B .stack { left: 120px; top: 440px; width: 600px; height: 400px; }
+.B .stack .ghost { position: absolute; inset: 0; border-radius: 28px; background: #fff; }
+.B .stack .g1 { transform: translate(22px, 22px) rotate(3deg); opacity: .7; box-shadow: 0 20px 40px -20px rgba(20,22,40,.25); }
+.B .stack .g2 { transform: translate(40px, 40px) rotate(6deg); opacity: .45; box-shadow: 0 20px 40px -20px rgba(20,22,40,.25); }
+.B .stack .card { position: absolute; inset: 0; padding: 44px 48px; }
+.B .stack .bub { font-size: 34px; margin-top: 26px; }
+.B .stack .was { font-size: 30px; font-weight: 800; letter-spacing: -.02em; margin-top: 44px; }
+.B .stack .case { font-size: 20px; color: var(--idim); font-weight: 600; margin-top: 8px; }
+.B .wk { top: 430px; }
+.B .wk .lab { font-size: 20px; }
+.B .wk .h { font-size: 40px; font-weight: 800; letter-spacing: -.03em; margin: 6px 0 22px; white-space: nowrap; }
+.B .grid { display: grid; grid-template-columns: repeat(7, 54px); grid-auto-rows: 11px; gap: 3px 6px; }
+.B .grid i { display: block; border-radius: 3px; background: #e2e4ee; }
+.B .grid i.lit { background: #e2508f; box-shadow: 0 0 0 3px rgba(226,80,143,.22); }
+.B .days { display: grid; grid-template-columns: repeat(7, 54px); gap: 6px; margin-top: 12px; font-size: 18px; font-weight: 700; color: var(--idim); text-align: center; }
+.B .foot { font-size: 22px; color: var(--imute); font-weight: 600; margin-top: 14px; }
+
+/* ---------- C · the decision, annotated ---------- */
+.C h2 { width: 740px; }
+.C .ba { left: 120px; top: 560px; width: 700px; }
+.C .ba .lab { color: var(--dim); }
+.C .ba .v { font-size: 36px; font-weight: 800; letter-spacing: -.025em; margin: 8px 0 40px; line-height: 1.15; }
+.C .ba .v.bad { color: var(--pen); }
+.C .pg { left: 930px; width: 880px; border-radius: 14px; color: var(--ink); }
+.C .peek { height: 400px; padding: 10px 34px; display: flex; gap: 18px; align-items: baseline; font-size: 19px; white-space: nowrap; overflow: hidden; }
+.C .peek b { font-weight: 800; }
+.C .peek span { color: #4a4d60; font-weight: 600; }
+.C .doc { top: 352px; height: 620px; background: #fbfbf8; padding: 40px 54px; box-shadow: 0 50px 100px -30px rgba(0,0,0,.9); }
+.C .doc .court { font-size: 18px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--idim); }
+.C .doc .title { font-size: 40px; font-weight: 800; letter-spacing: -.03em; margin-top: 8px; }
+.C .doc .cite { font-size: 19px; color: var(--imute); font-weight: 600; margin-top: 4px; }
+.C .bars { margin: 26px 0; display: flex; flex-direction: column; gap: 14px; }
+.C .bars i { display: block; height: 10px; border-radius: 5px; background: #e4e5ec; }
+.C .doc p { font-size: 28px; line-height: 1.4; font-weight: 500; color: #33364a; }
+.C .doc p b { color: var(--ink); font-weight: 800; }
+.C .uline { box-shadow: inset 0 -12px 0 rgba(226,80,143,.25); }
+
+/* ---------- D · the phone ---------- */
+.D .ph { left: 150px; top: 140px; }
+.D .chat { background: #fff; display: flex; flex-direction: column; padding: 0 18px; }
+.D .chat .top { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 0 18px; border-bottom: 1px solid #ececf1; margin: 0 -18px; }
+.D .chat .av { width: 58px; height: 58px; border-radius: 50%; background: linear-gradient(#a3a7b8, #868a9c); color: #fff; font: 600 26px/58px -apple-system, system-ui, sans-serif; text-align: center; }
+.D .chat .nm { font: 500 20px/1 -apple-system, system-ui, sans-serif; color: #111; }
+.D .chat .ts { font: 600 20px/1 -apple-system, system-ui, sans-serif; color: #8a8a8e; text-align: center; margin: 26px 0 14px; }
+.D .chat .inb { align-self: flex-start; width: 250px; background: #e9e9eb; border-radius: 22px; border-bottom-left-radius: 7px; padding: 16px 18px; display: flex; flex-direction: column; gap: 9px; }
+.D .chat .inb i { display: block; height: 10px; border-radius: 5px; background: #c9c9ce; }
+.D .chat .outb { align-self: flex-end; max-width: 300px; margin-top: 12px; background: #2f6bff; color: #fff; border-radius: 22px; border-bottom-right-radius: 7px; padding: 13px 17px; font: 400 23px/1.3 -apple-system, system-ui, sans-serif; }
+.D .chat .dl { align-self: flex-end; font: 600 18px/1 -apple-system, system-ui, sans-serif; color: #8a8a8e; margin-top: 8px; }
+.D h2 { left: 780px; width: 1040px; font-size: 76px; }
+.D .kick { left: 780px; }
+.D .res { left: 900px; top: 470px; }
+.D .res .lab { color: var(--imute); }
+.D .res .n { font-size: 210px; font-weight: 800; letter-spacing: -.05em; line-height: .95; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; margin-top: 8px; }
+.D .res .s { font-size: 36px; font-weight: 800; letter-spacing: -.025em; }
+.D .res .s span { color: #e2508f; }
+.D .more { left: 1300px; top: 840px; width: 520px; height: 200px; }
+.D .more .card { position: absolute; left: 0; top: 0; width: 520px; padding: 24px 30px; }
+.D .more .card .tag { font-size: 18px; font-weight: 700; color: var(--idim); }
+.D .more .card .q { font-size: 26px; margin-top: 8px; }
+.D .more .card .cost { font-size: 22px; margin-top: 8px; }
+.D .more .ml { position: absolute; left: 0; top: -40px; font-size: 20px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--idim); }
+
+/* ---------- E · the receipt ---------- */
+.E h2 { width: 720px; }
+.E .lead { left: 120px; top: 520px; width: 640px; font-size: 30px; color: var(--mute); font-weight: 500; line-height: 1.4; }
+.E .lead b { color: var(--fg); font-weight: 700; }
+.E .rc { left: 900px; top: 110px; width: 880px; padding: 46px 58px 64px; background: #fbfbf8; color: var(--ink); transform: rotate(1.2deg);
+  box-shadow: 0 50px 100px -30px rgba(0,0,0,.9); }
+.E .rc::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 14px;
+  background: linear-gradient(-45deg, var(--night) 10px, transparent 0) 0 0 / 28px 14px repeat-x, linear-gradient(45deg, var(--night) 10px, transparent 0) 0 0 / 28px 14px repeat-x; }
+.E .rc .hd { text-align: center; font-size: 22px; font-weight: 800; letter-spacing: .22em; }
+.E .rc .sub { text-align: center; font-size: 18px; color: var(--idim); font-weight: 600; margin-top: 6px; }
+.E .rc hr { border: 0; border-top: 3px dashed #d6d7e0; margin: 24px 0; }
+.E .it { display: grid; grid-template-columns: 1fr 270px; gap: 30px; align-items: end; }
+.E .it .tag { font-size: 18px; font-weight: 700; color: var(--idim); letter-spacing: .03em; }
+.E .it .q { font-size: 24px; font-weight: 700; margin-top: 4px; letter-spacing: -.015em; }
+.E .it .cost { text-align: right; font-size: 24px; line-height: 1.2; }
+.E .it + .it { margin-top: 22px; }
+.E .hero .q { font-size: 40px; font-weight: 800; margin-top: 10px; line-height: 1.12; }
+.E .hero .cost { font-size: 28px; }
+.E .tot { display: flex; justify-content: space-between; align-items: baseline; font-size: 32px; font-weight: 800; letter-spacing: -.02em; }
+.E .tot span:first-child { font-size: 22px; letter-spacing: .2em; }
+</style>
+</head>
+<body>
+
+<!-- A · DARK · carousel of real cases, the costly text circled -->
+<section class="slide A">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">A real case · New York, 2024</div>
+  <h2 style="width:1200px">He texted this. <span>Now he sees his son with a supervisor.</span></h2>
+
+  <div class="cc card side far" style="left:-150px"><div class="in" style="margin-left:150px;width:340px">
+    <div class="tag">CREWS · MICH. 2019</div><div class="q">“The wrath of God is coming to you swiftly”</div><div class="cost">Supervised visits</div></div></div>
+  <div class="cc card side near" style="left:170px"><div class="in">
+    <div class="tag">SHEPPARD · IOWA 2021</div><div class="q">“f*** the judge and his order”</div><div class="cost">Child moved to Dad</div></div></div>
+  <div class="cc card side near r" style="left:1110px"><div class="in">
+    <div class="tag">McGHEE · WIS. 2023</div><div class="q">“this means war”</div><div class="cost">Sole custody to Mom</div></div></div>
+  <div class="cc card side far r" style="left:1550px"><div class="in" style="margin-left:0;width:340px">
+    <div class="tag">COWGER · IOWA 2023</div><div class="q">“either u pay in full or take me to court”</div><div class="cost">$12,000 in her lawyer fees</div></div></div>
+
+  <div class="cc card main">
+    <div class="lab">Dad to Mom · Jan 21, 2023</div>
+    <div class="q" id="aq">“I will not coparent with you, get that straight.”</div>
+    <div class="rule"></div>
+    <div class="big q" id="ab" style="display:inline-block">2 visits a week, 2 hours each</div>
+    <div class="sup">with a supervisor in the room</div>
+    <div class="case">L.W. v. J.U.</div>
+  </div>
+  <div class="dots"><i></i><i></i><i class="on"></i><i></i><i></i></div>
+  <p class="src">L.W. v. J.U., N.Y. Sup. Ct. 2024 · Sheppard v. Reed, Iowa 2021 · McGhee, Wis. 2023 · Cowger, Iowa 2023 · Crews, Mich. 2019</p>
+</section>
+
+<!-- B · LIGHT · his week with his son, drawn to scale -->
+<section class="slide B light">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">A real case · New York, 2024</div>
+  <h2 style="width:1560px">One text later: <span>four supervised hours a week.</span></h2>
+  <div class="stack">
+    <div class="ghost g2"></div><div class="ghost g1"></div>
+    <div class="card">
+      <div class="lab">His text · Jan 21, 2023</div>
+      <div class="bub" id="bq">I will not coparent with you, get that straight.</div>
+      <div class="was">He had sole custody.</div>
+      <div class="case">L.W. v. J.U.</div>
+    </div>
+  </div>
+  <div class="wk" style="left:850px">
+    <div class="lab">Before</div><div class="h">Every day</div>
+    <div class="grid" id="gb"></div>
+    <div class="days"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+  </div>
+  <div class="wk" style="left:1380px">
+    <div class="lab" id="bl" style="color:#e2508f">After the ruling</div><div class="h">4 of 168 hours</div>
+    <div class="grid" id="ga"></div>
+    <div class="days"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+    <div class="foot">2 visits × 2 hours, supervised</div>
+  </div>
+  <p class="src">L.W. v. J.U., 2024 NY Slip Op 50879(U): at most two visits a week, two hours each. One cell = one hour.</p>
+</section>
+
+<!-- C · DARK · the decision itself, red pen from the text to the order -->
+<section class="slide C">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">A real case · New York, 2024</div>
+  <h2>The judge quoted his text <span>in her decision.</span></h2>
+  <div class="ba">
+    <div class="lab">Before</div><div class="v">He had sole custody.</div>
+    <div class="lab">After</div><div class="v bad">Mom has sole custody. He gets supervised visits.</div>
+  </div>
+  <div class="pg peek" style="top:140px;background:#5e6072"><b>Crews v. Crews</b><span>“The wrath of God is coming to you swiftly”</span></div>
+  <div class="pg peek" style="top:193px;background:#85879a"><b>In re Cowger</b><span>“either u pay in full or take me to court”</span></div>
+  <div class="pg peek" style="top:246px;background:#adafbe"><b>McGhee v. McGhee</b><span>“this means war”</span></div>
+  <div class="pg peek" style="top:299px;background:#d6d7df"><b>Sheppard v. Reed</b><span>“f*** the judge and his order”</span></div>
+  <div class="pg doc">
+    <div class="court">Supreme Court · Westchester County</div>
+    <div class="title">L.W. v. J.U.</div>
+    <div class="cite">2024 NY Slip Op 50879(U) · July 9, 2024</div>
+    <div class="bars"><i style="width:96%"></i><i style="width:88%"></i></div>
+    <p>On January 21, 2023 he wrote: <b id="cq">“I will not coparent with you, get that straight.”</b></p>
+    <div class="bars"><i style="width:92%"></i><i style="width:70%"></i></div>
+    <p id="cp">Defendant is limited to <span class="uline" id="cu">“a maximum of two visits per week, no longer than two hours each,”</span> supervised.</p>
+    <div class="note" style="left:54px;top:540px">the price of one text</div>
+  </div>
+  <p class="src">Quotes from the decisions; page layout drawn.</p>
+</section>
+
+<!-- D · LIGHT · his phone, the bubble circled, the result in one number -->
+<section class="slide D light">
+  <div class="mark"><i></i>Parley</div>
+  <div class="ph"><div class="iphone iphone--black" id="dphone" style="--s:0.92; --tab:0; --status-bg:#fff; --tab-bg:#fff" data-shot="../../../shots/record.png"></div></div>
+  <template id="dchat">
+    <div class="iphone__content chat">
+      <div class="top"><div class="av">L</div><div class="nm">L.W.</div></div>
+      <div class="ts">Sat, Jan 21, 2023</div>
+      <div class="inb"><i style="width:92%"></i><i style="width:70%"></i><i style="width:84%"></i></div>
+      <div class="outb" id="dq">I will not coparent with you, get that straight, I will not be part of this sick thing you call being a parent</div>
+      <div class="dl">Delivered</div>
+    </div>
+  </template>
+  <div class="kick">A real case · New York, 2024</div>
+  <h2>He sent this. <span>The judge read it.</span></h2>
+  <div class="res">
+    <div class="lab">What he has now</div>
+    <div class="n" id="dn">2 hours</div>
+    <div class="s">twice a week, <span>with a supervisor</span></div>
+  </div>
+  <div class="more">
+    <div class="ml">Not the only one</div>
+    <div class="card" style="transform:translate(46px,34px) rotate(5deg);opacity:.45;height:160px"></div>
+    <div class="card" style="transform:translate(22px,16px) rotate(2.5deg);opacity:.7;height:160px"></div>
+    <div class="card"><div class="tag">SHEPPARD · IOWA 2021</div><div class="q">“f*** the judge and his order”</div><div class="cost">Child moved to Dad</div></div>
+  </div>
+  <p class="src">L.W. v. J.U., 2024 NY Slip Op 50879(U). Her messages are not quoted in the decision, so they are blank here.</p>
+</section>
+
+<!-- E · DARK · the bill for five real texts -->
+<section class="slide E">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">Real cases · 2019 to 2024</div>
+  <h2>Five real texts. <span>Here's what each one cost.</span></h2>
+  <p class="lead">Every line is from a court decision. <b>Paid in time with their kids.</b></p>
+  <div class="rc">
+    <div class="hd">WHAT IT COST</div>
+    <div class="sub">Family court · five states</div>
+    <hr>
+    <div class="it hero">
+      <div><div class="tag">L.W. v. J.U. · N.Y. 2024</div><div class="q" id="eq">“I will not coparent with you, get that straight.”</div></div>
+      <div class="cost">2 hrs, twice a week,<br>supervised</div>
+    </div>
+    <hr>
+    <div class="it"><div><div class="tag">SHEPPARD · IOWA 2021</div><div class="q">“f*** the judge and his order”</div></div><div class="cost">Child moved to Dad</div></div>
+    <div class="it"><div><div class="tag">McGHEE · WIS. 2023</div><div class="q">“this means war”</div></div><div class="cost">Sole custody to Mom</div></div>
+    <div class="it"><div><div class="tag">COWGER · IOWA 2023</div><div class="q">“either u pay in full or take me to court”</div></div><div class="cost">$12,000 lawyer fees</div></div>
+    <div class="it"><div><div class="tag">CREWS · MICH. 2019</div><div class="q">“The wrath of God is coming to you swiftly”</div></div><div class="cost">Supervised visits</div></div>
+    <hr>
+    <div class="tot"><span>TOTAL</span><span>Time with their kids</span></div>
+  </div>
+  <p class="src">Court opinions: N.Y. Sup. Ct. · Iowa Ct. App. · Wis. Ct. App. · Mich. Ct. App.</p>
+</section>
+
+<script src="../../../design-options/iphone.js"></script>
+<script>
+// D: the phone shows a drawn thread instead of an app screenshot
+(function () {
+  const ph = document.getElementById('dphone');
+  ph.querySelector('.iphone__content').replaceWith(document.getElementById('dchat').content.cloneNode(true));
+  ph.querySelector('.iphone__tabbar').remove();
+  const c = ph.querySelector('.chat'); c.style.top = '54px'; c.style.bottom = '22px'; c.style.height = 'auto';
+})();
+// red pen: a hand-drawn loop round an element, and an arrow from that loop to what it cost
+document.fonts.ready.then(function () {
+  const NS = 'http://www.w3.org/2000/svg';
+  const LOOP = 'M14,30 C30,6 70,4 90,16 C102,26 100,70 82,86 C60,100 20,98 8,78 C-2,60 4,36 26,18 C34,12 44,9 52,8';
+  const box = (el, slide) => { const r = el.getBoundingClientRect(), o = slide.getBoundingClientRect(); return {x: r.left - o.left, y: r.top - o.top, w: r.width, h: r.height}; };
+  const svg = (slide) => { const s = document.createElementNS(NS, 'svg'); s.setAttribute('class', 'pen'); s.style.cssText = 'left:0;top:0;width:1920px;height:1080px;z-index:20'; s.setAttribute('viewBox', '0 0 1920 1080'); slide.appendChild(s); return s; };
+  const path = (s, d) => { const p = document.createElementNS(NS, 'path'); p.setAttribute('d', d); s.appendChild(p); };
+  window.loop = (id, px, py) => {
+    const el = document.getElementById(id), slide = el.closest('.slide'), b = box(el, slide);
+    const r = {x: b.x - px, y: b.y - py, w: b.w + 2 * px, h: b.h + 2 * py};
+    const s = svg(slide);
+    path(s, LOOP.replace(/(-?[\d.]+),(-?[\d.]+)/g, (m, a, c) => (r.x + a / 100 * r.w).toFixed(1) + ',' + (r.y + c / 100 * r.h).toFixed(1)));
+    return r;
+  };
+  window.arrow = (slide, from, to, bend) => {
+    const [x1, y1] = from, [x2, y2] = to, mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
+    const dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy), nx = -dy / L, ny = dx / L;
+    const cx = mx + nx * bend, cy = my + ny * bend;
+    const s = svg(slide);
+    path(s, `M${x1},${y1} Q${cx},${cy} ${x2},${y2}`);
+    const tx = x2 - cx, ty = y2 - cy, t = Math.hypot(tx, ty), ux = tx / t, uy = ty / t, k = 24;
+    const a = (ang) => [x2 - k * (ux * Math.cos(ang) - uy * Math.sin(ang)), y2 - k * (uy * Math.cos(ang) + ux * Math.sin(ang))];
+    const [ax, ay] = a(0.5), [bx, by] = a(-0.5);
+    path(s, `M${ax},${ay} L${x2},${y2} L${bx},${by}`);
+  };
+  const at = (r, fx, fy, dx = 0, dy = 0) => [r.x + fx * r.w + dx, r.y + fy * r.h + dy];
+  const B = (id) => { const el = document.getElementById(id); return box(el, el.closest('.slide')); };
+  const S = (id) => document.getElementById(id).closest('.slide');
+  let r;
+  r = loop('aq', 44, 30); arrow(S('aq'), at(r, .9, .96), at(B('ab'), 1, .5, 22, 0), -50);
+  r = loop('bq', 30, 28); arrow(S('bq'), at(r, .88, .06), at(B('bl'), 0, .5, -18, 0), -140);
+  r = loop('cq', 40, 26); arrow(S('cq'), at(r, .42, .99), at(B('cu'), .08, 0, 0, -6), 40);
+  r = loop('dq', 24, 24); arrow(S('dq'), at(r, 1, .5, -6, 0), at(B('dn'), 0, .5, -24, 0), -50);
+  loop('eq', 36, 26);
+});
+// B: two weeks of 168 hour-cells, rows = hours, columns = days
+(function () {
+  const mk = (el, fill) => { for (let h = 0; h < 24; h++) for (let d = 0; d < 7; d++) { const i = document.createElement('i'); fill(i, d, h); el.appendChild(i); } };
+  const lerp = (a, b, t) => a.map((v, k) => Math.round(v + (b[k] - v) * t));
+  mk(document.getElementById('gb'), (i, d, h) => { const c = lerp([124, 92, 240], [63, 141, 245], (d + h / 24) / 7.5); i.style.background = `rgb(${c})`; });
+  const lit = new Set(['2,16', '2,17', '5,10', '5,11']);
+  mk(document.getElementById('ga'), (i, d, h) => { if (lit.has(d + ',' + h)) i.className = 'lit'; });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Slide 5 variants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter+Tight:wght@400;500;600;700;800&family=Caveat:wght@600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../design-options/iphone.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#333}
+.slide{position:relative;width:1920px;height:1080px;overflow:hidden;margin-bottom:20px}
+.iphone{position:absolute; --status-bg:#f4f5fa; --tab-bg:#fefefe}
+.iphone--black{--ti-1:#5f6170;--ti-2:#2b2c35;--ti-3:#8d8fa0;--ti-4:#1d1e26;--ti-5:#454757}
+svg.ov{position:absolute;inset:0;width:1920px;height:1080px;pointer-events:none;z-index:20;overflow:visible}
+.abs{position:absolute}
+
+/* ---------- A: dark, annotated walkthrough ---------- */
+.A{background:#0d0e1a;color:#fff;font-family:"Plus Jakarta Sans",sans-serif}
+.A .eye{left:120px;top:110px;font-size:22px;font-weight:700;letter-spacing:.16em;color:#8f9bff}
+.A h1{left:120px;top:160px;width:600px;font-size:60px;line-height:1.1;font-weight:800;letter-spacing:-.02em}
+.A .sub{left:120px;top:520px;width:540px;font-size:28px;line-height:1.45;color:#b4b7cc}
+.A .sub b{color:#fff;font-weight:600}
+.A .foot{left:120px;top:900px;width:540px;font-size:20px;line-height:1.4;color:#7d8099}
+.A .note{position:absolute;width:420px;z-index:21}
+.A .note .n{display:inline-flex;width:40px;height:40px;border-radius:50%;background:#5b6cf6;color:#fff;font-size:22px;font-weight:800;align-items:center;justify-content:center;margin-bottom:10px}
+.A .note p{font-size:28px;line-height:1.35;color:#e9eaf3}
+.A .note p b{color:#fff}
+.A .score{font-size:84px;font-weight:800;letter-spacing:-.03em;line-height:1}
+.A .score .r{color:#e2508f}.A .score .g{color:#1fa572}.A .score .ar{color:#5d6080;font-weight:500;margin:0 10px}
+
+/* ---------- B: light editorial before / after ---------- */
+.B{background:#f4f1ea;color:#16161d;font-family:"Inter Tight",sans-serif}
+.B .eye{left:120px;top:100px;font-size:22px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#8a5a2b}
+.B h1{left:120px;top:142px;width:1100px;font-family:Fraunces,serif;font-weight:600;font-size:68px;line-height:1.06;letter-spacing:-.02em}
+.B .lab{font-size:22px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#6d6a63}
+.B .bub{display:inline-block;background:#e4e2dc;border-radius:26px;padding:16px 26px;font-size:32px;line-height:1.25;margin-bottom:12px;color:#1c1c22}
+.B .bub s{color:#c8323c;text-decoration-thickness:3px;text-decoration-color:#c8323c}
+.B .bub.me{background:#2f6cf6;color:#fff;font-size:36px;padding:22px 32px;border-radius:30px;line-height:1.3}
+.B .need{font-size:28px;line-height:1.35;color:#4a4842;margin-bottom:22px}
+.B .need b{color:#16161d}
+.B .tones{margin-top:16px;font-size:22px;color:#6d6a63}
+.B .tones span{display:inline-block;border:1.5px solid #c9c4b8;border-radius:30px;padding:6px 18px;margin-right:8px;color:#3b3934}
+.B .tones span.on{background:#16161d;color:#fff;border-color:#16161d}
+.B .rule{left:120px;top:812px;width:1060px;height:2px;background:#16161d}
+.B .lens{left:120px;top:842px;width:1060px}
+.B .lens .big{font-family:Fraunces,serif;font-size:120px;font-weight:600;line-height:1;letter-spacing:-.03em;float:left;margin-right:44px}
+.B .lens .big .r{color:#c8323c}.B .lens .big .g{color:#16835a}.B .lens .big .ar{color:#a8a296;font-weight:400}
+.B .lens p{font-size:28px;line-height:1.38;padding-top:10px}
+
+/* ---------- C: dark, two moments, one dominates ---------- */
+.C{background:#0d0e1a;color:#fff;font-family:"Plus Jakarta Sans",sans-serif}
+.C .eye{left:120px;top:96px;font-size:22px;font-weight:700;letter-spacing:.16em;color:#8f9bff}
+.C h1{left:120px;top:140px;width:1500px;font-size:58px;line-height:1.12;font-weight:800;letter-spacing:-.02em}
+.C .k{font-size:22px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#8f9bff;margin-bottom:14px}
+.C .pt{position:absolute;left:520px;width:380px;font-size:27px;line-height:1.38;color:#c9cbe0}
+.C .pt b{color:#fff}
+.C .panel{left:980px;top:330px;width:820px;height:690px;border-radius:36px;background:#171a2e;border:1px solid #262a46;overflow:hidden}
+.C .panel .k{position:absolute;left:56px;top:50px;color:#f08ab5}
+.C .huge{position:absolute;left:52px;top:96px;font-size:200px;font-weight:800;letter-spacing:-.05em;line-height:1}
+.C .huge .r{color:#e2508f}.C .huge .g{color:#1fa572}.C .huge .ar{color:#4b4f72;font-weight:500;font-size:150px;margin:0 14px;vertical-align:14px}
+.C .pcap{position:absolute;left:56px;top:350px;width:400px;font-size:27px;line-height:1.42;color:#c9cbe0}
+.C .pcap b{color:#fff}
+
+/* ---------- D: cream magazine, three steps ---------- */
+.D{background:#fbfaf6;color:#1a1a1a;font-family:Inter Tight,sans-serif}
+.D .eye{left:120px;top:92px;font-size:22px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#1f7a55}
+.D h1{left:120px;top:132px;width:1600px;font-family:Newsreader,serif;font-weight:500;font-size:64px;line-height:1.05;letter-spacing:-.02em}
+.D .num{font-family:Newsreader,serif;font-size:120px;line-height:.8;font-weight:400;color:#1f7a55}
+.D .st{position:absolute;top:300px}
+.D .st p{font-size:28px;line-height:1.36;margin-top:22px}
+.D .st p b{font-weight:700}
+.D .thread{margin-top:30px;background:#fff;border:1px solid #e3dfd5;border-radius:28px;padding:24px 22px 18px}
+.D .thread .who{font-size:20px;color:#8a877e;text-align:center;margin-bottom:14px}
+.D .bub{display:inline-block;background:#e9e9eb;border-radius:22px;padding:12px 20px;font-size:26px;line-height:1.25;margin-bottom:8px;color:#111}
+.D .bub.me{background:#2f6cf6;color:#fff;font-size:30px;padding:20px 28px;border-radius:28px;line-height:1.32}
+.D .vr{position:absolute;top:300px;width:1px;height:700px;background:#ddd8cc}
+.D .aside{font-size:24px;line-height:1.4;color:#4c4a44}
+.D .aside .sc{font-family:Newsreader,serif;font-size:64px;line-height:1;font-weight:500;margin-right:14px;vertical-align:-6px}
+.D .aside .r{color:#c8323c}.D .aside .g{color:#1f7a55}
+
+/* ---------- E: paper and red pen ---------- */
+.E{background:#efebe3;color:#141414;font-family:"Inter Tight",sans-serif}
+.E h1{left:120px;top:104px;width:620px;font-size:58px;line-height:1.08;font-weight:800;letter-spacing:-.025em}
+.E .sub{left:120px;top:350px;width:560px;font-size:28px;line-height:1.42;color:#3e3c38}
+.E .pen{position:absolute;font-family:Caveat,cursive;font-weight:700;color:#d2321f;font-size:44px;line-height:1.02;z-index:21}
+.E .tag{left:120px;top:60px;font-size:22px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#d2321f}
+</style>
+</head><body>
+
+<!-- ================= A ================= -->
+<section class="slide A">
+  <div class="abs eye">WHAT WE SELL</div>
+  <h1 class="abs">Your ex sends something nasty. Parley helps you answer only the part that matters.</h1>
+  <div class="abs sub">You <b>screenshot the texts or paste them in</b>, even four in a row. In a few seconds you have a calm reply you can copy and send.</div>
+  <div class="abs foot">Real screens from the live demo case at parley.adiletfndr.com</div>
+
+  <div class="iphone iphone--black" id="a1" style="left:720px;top:94px;--s:1;--shift:72" data-shot="../../shots/reply-result.png"></div>
+  <div class="iphone iphone--black" id="a2" style="left:1580px;top:560px;--s:.56" data-shot="../../shots/lens.png"></div>
+
+  <div class="note" style="left:1240px;top:150px" data-to="a1:270,154" data-side="left"><span class="n">1</span><p><b>The jabs get crossed out,</b> so you don't take the bait.</p></div>
+  <div class="note" style="left:1240px;top:330px" data-to="a1:376,325" data-side="left"><span class="n">2</span><p><b>One line says what they actually asked:</b> here, when you'll get there.</p></div>
+  <div class="note" style="left:1240px;top:505px;width:310px" data-to="a1:362,450" data-side="left"><span class="n">3</span><p><b>A calm reply that sounds like you.</b> Pick brief, neutral or firm.</p></div>
+  <div class="note" style="left:1240px;top:740px;width:310px"><span class="n">4</span><p><b>Wrote your own?</b> See what a judge would read badly.</p>
+    <div class="score" style="margin-top:14px"><span class="r">21</span><span class="ar">→</span><span class="g">98</span></div></div>
+  <svg class="ov"></svg>
+</section>
+
+<!-- ================= B ================= -->
+<section class="slide B">
+  <div class="abs eye">What we sell</div>
+  <h1 class="abs">This is what Parley does with an angry text from your ex.</h1>
+
+  <div class="abs" style="left:120px;top:340px;width:470px">
+    <div class="lab" style="margin-bottom:22px">What they sent you</div>
+    <div class="bub"><s>ur seriously 40 min late AGAIN</s></div><br>
+    <div class="bub">emma is sitting here crying</div><br>
+    <div class="bub"><s>hello</s>??</div>
+    <div style="font-size:22px;color:#6d6a63;margin-top:8px;line-height:1.4">Parley crosses out the parts that are only there to start a fight.</div>
+  </div>
+  <svg class="abs" style="left:600px;top:470px" width="80" height="60" viewBox="0 0 80 60"><path d="M4 30 H70 M50 10 L72 30 L50 50" fill="none" stroke="#16161d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div class="abs" style="left:710px;top:340px;width:480px">
+    <div class="lab" style="margin-bottom:22px">What Parley helps you send</div>
+    <div class="need">They need an answer about one thing: <b>when you'll get there.</b></div>
+    <div class="bub me">I'm on my way, about [minutes] out. Tell Emma I'll be there soon.</div>
+    <div class="tones"><span>Brief</span><span class="on">Neutral</span><span>Firm</span></div>
+  </div>
+
+  <div class="abs rule"></div>
+  <div class="abs lens">
+    <div class="big"><span class="r">21</span><span class="ar"> → </span><span class="g">98</span></div>
+    <p><b>Already typed your own reply?</b> Parley underlines each phrase a judge would read badly, says why, and tells you what to say instead.</p>
+  </div>
+
+  <div class="iphone iphone--white" style="left:1490px;top:190px;--s:.78" data-shot="../../shots/lens.png"></div>
+  <div class="iphone iphone--white" style="left:1260px;top:120px;--s:.86;--shift:72" data-shot="../../shots/reply-result.png"></div>
+</section>
+
+<!-- ================= C ================= -->
+<section class="slide C">
+  <div class="abs eye">WHAT WE SELL</div>
+  <h1 class="abs">Parley helps before you reply, and catches the angry reply you already wrote.</h1>
+
+  <div class="abs k" style="left:120px;top:300px">Before you reply</div>
+  <div class="iphone iphone--black" id="c1" style="left:120px;top:340px;--s:.8;--shift:72" data-shot="../../shots/reply-result.png"></div>
+  <div class="pt" style="top:400px" data-to="c1:270,154" data-side="left"><b>The bait is crossed out.</b> Nothing to bite on.</div>
+  <div class="pt" style="top:560px" data-to="c1:376,325" data-side="left"><b>It names the one real question</b> in all of their texts.</div>
+  <div class="pt" style="top:720px" data-to="c1:362,450" data-side="left"><b>It writes the calm reply</b> in the way you text: brief, neutral or firm.</div>
+
+  <div class="abs panel">
+    <div class="k">Already wrote something?</div>
+    <div class="huge"><span class="r">21</span><span class="ar">→</span><span class="g">98</span></div>
+    <div class="pcap">How a judge would likely read <b>your draft</b>, and then <b>Parley's version</b>. Every risky phrase is underlined with a reason and what to say instead.</div>
+    <div class="iphone iphone--black" style="left:500px;top:300px;--s:.6" data-shot="../../shots/lens.png"></div>
+  </div>
+  <svg class="ov"></svg>
+</section>
+
+<!-- ================= D ================= -->
+<section class="slide D">
+  <div class="abs eye">What we sell</div>
+  <h1 class="abs">How a nasty text turns into a calm reply, in three steps</h1>
+
+  <div class="st" style="left:120px;width:460px">
+    <div class="num">1</div>
+    <p><b>Your ex sends something like this.</b> You screenshot it or paste it into Parley.</p>
+    <div class="thread">
+      <div class="who">Today 2:52 PM</div>
+      <div class="bub">ur seriously 40 min late AGAIN</div><br>
+      <div class="bub">emma is sitting here crying</div><br>
+      <div class="bub">hello??</div>
+    </div>
+  </div>
+  <div class="vr" style="left:640px"></div>
+
+  <div class="st" style="left:700px;width:520px">
+    <div class="num">2</div>
+    <p><b>Parley crosses out the bait</b> and tells you what actually needs an answer.</p>
+  </div>
+  <div class="iphone iphone--natural" style="left:760px;top:560px;--s:.92;--shift:72" data-shot="../../shots/reply-result.png"></div>
+  <div class="vr" style="left:1280px"></div>
+
+  <div class="st" style="left:1340px;width:460px">
+    <div class="num">3</div>
+    <p><b>You get a calm reply in your own texting voice.</b> Brief, neutral or firm.</p>
+    <div style="margin-top:30px;text-align:right"><div class="bub me" style="text-align:left">I'm on my way, about [minutes] out. Tell Emma I'll be there soon.</div></div>
+    <div class="aside" style="margin-top:58px;padding-top:26px;border-top:1px solid #ddd8cc">
+      <span class="sc r">21</span><span class="sc" style="color:#aaa59a">→</span><span class="sc g">98</span><br>
+      <div style="margin-top:14px"><b style="color:#1a1a1a">Wrote your own reply?</b> Parley shows the phrases a judge would read badly and what to say instead.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= E ================= -->
+<section class="slide E">
+  <div class="abs tag">What we sell</div>
+  <h1 class="abs">Here's what Parley does with a text that's trying to start a fight.</h1>
+  <div class="abs sub">Screenshot it or paste it in. Parley reads it the way a judge would, then helps you answer only what matters, in a voice that still sounds like you.</div>
+
+  <div class="iphone iphone--natural" id="e2" style="left:150px;top:650px;--s:.62" data-shot="../../shots/lens.png"></div>
+  <div class="pen" style="left:440px;top:700px;width:320px;transform:rotate(-4deg)" data-to="e2:170,30" data-pen="1">your own draft scored 21. fix the 3 phrases, it's 98</div>
+
+  <div class="iphone iphone--natural" id="e1" style="left:800px;top:70px;--s:1.1;--shift:72" data-shot="../../shots/reply-result.png"></div>
+  <i data-ring="e1:12,128,266,184"></i>
+  <i data-ring="e1:194,308,366,340"></i>
+  <i data-ring="e1:62,404,368,494"></i>
+
+  <div class="pen" style="left:1400px;top:170px;width:420px;transform:rotate(-3deg)" data-to="e1:268,150" data-pen="1">the jabs get crossed out. you don't answer those</div>
+  <div class="pen" style="left:1420px;top:420px;width:400px;transform:rotate(2deg)" data-to="e1:368,318" data-pen="1">the only thing that needs an answer</div>
+  <div class="pen" style="left:1420px;top:650px;width:420px;transform:rotate(-2deg)" data-to="e1:370,470" data-pen="1">a calm reply that sounds like you. brief, neutral or firm</div>
+  <svg class="ov"></svg>
+</section>
+
+<script src="../../design-options/iphone.js"></script>
+<script>
+// Screenshot points (390x844 capture /2) to slide pixels, through the phone's scale and scroll.
+function P(slide, ref){
+  const [id, nums] = ref.split(':'); const ph = document.getElementById(id);
+  const s = parseFloat(getComputedStyle(ph).getPropertyValue('--s')) || 1;
+  const sh = parseFloat(getComputedStyle(ph).getPropertyValue('--shift')) || 0;
+  const r = ph.getBoundingClientRect(), sr = slide.getBoundingClientRect();
+  const v = nums.split(',').map(Number), k = 393/390, out = [];
+  for (let i = 0; i < v.length; i += 2) out.push(r.left - sr.left + (20 + v[i]*k)*s, r.top - sr.top + (74 + (v[i+1]-sh)*k)*s);
+  return out;
+}
+const NS = 'http://www.w3.org/2000/svg';
+function add(svg, tag, at){ const e = document.createElementNS(NS, tag); for (const k in at) e.setAttribute(k, at[k]); svg.appendChild(e); return e; }
+let seed = 7; const rnd = () => (seed = (seed*9301+49297)%233280)/233280;
+for (const slide of document.querySelectorAll('.slide')) {
+  const svg = slide.querySelector('svg.ov'); if (!svg) continue;
+  const sr = slide.getBoundingClientRect();
+  const pen = slide.classList.contains('E');
+  const col = pen ? '#d2321f' : '#8f9bff';
+  for (const n of slide.querySelectorAll('[data-to]')) {
+    const [x, y] = P(slide, n.dataset.to); const b = n.getBoundingClientRect();
+    if (n.dataset.pen) {
+      // hand-drawn arrow from the note's left edge to the point
+      const sx = b.left - sr.left - 12, sy = b.top - sr.top + 30;
+      const mx = (sx + x)/2, my = Math.min(sy, y) - 40;
+      add(svg, 'path', {d:`M${sx} ${sy} Q${mx} ${my} ${x+14} ${y}`, fill:'none', stroke:col, 'stroke-width':4, 'stroke-linecap':'round'});
+      const a = Math.atan2(y - my, x + 14 - mx), L = 22;
+      add(svg, 'path', {d:`M${x+14+L*Math.cos(a+2.6)} ${y+L*Math.sin(a+2.6)} L${x+14} ${y} L${x+14+L*Math.cos(a-2.6)} ${y+L*Math.sin(a-2.6)}`, fill:'none', stroke:col, 'stroke-width':4, 'stroke-linecap':'round', 'stroke-linejoin':'round'});
+    } else {
+      const sx = b.left - sr.left - 18, sy = b.top - sr.top + 24;
+      add(svg, 'path', {d:`M${sx} ${sy} L${sx-40} ${sy} L${x+8} ${y}`, fill:'none', stroke:col, 'stroke-width':2.5});
+      add(svg, 'circle', {cx:x, cy:y, r:9, fill:col, stroke:'#0d0e1a', 'stroke-width':3});
+    }
+  }
+  for (const r of slide.querySelectorAll('[data-ring]')) {
+    const [x1, y1, x2, y2] = P(slide, r.dataset.ring);
+    const cx = (x1+x2)/2, cy = (y1+y2)/2, rx = (x2-x1)/2 + 18, ry = (y2-y1)/2 + 16;
+    let d = '';
+    for (let t = 0; t <= 1.12; t += 0.02) {
+      const a = -2.4 + t*Math.PI*2, j = 1 + (rnd()-.5)*0.02 + t*0.05;
+      d += (t ? 'L' : 'M') + (cx + rx*j*Math.cos(a)).toFixed(1) + ' ' + (cy + ry*j*Math.sin(a)).toFixed(1);
+    }
+    add(svg, 'path', {d, fill:'none', stroke:col, 'stroke-width':4.5, 'stroke-linecap':'round', 'stroke-linejoin':'round', opacity:.92});
+  }
+}
+</script>
+</body></html>

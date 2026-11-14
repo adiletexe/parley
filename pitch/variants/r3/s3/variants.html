@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Parley slide 3 variants</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../design-options/iphone.css">
+<style>
+:root {
+  --night: #0d0e1a; --card: #161829; --line: #262a40;
+  --fg: #f4f5fb; --mute: #a9abc0; --dim: #7a7e96;
+  --acc: #7d8bff; --acc-2: #5b6cf6;
+  --grad: linear-gradient(118deg, #7c5cf0 0%, #5b6cf6 45%, #3f8df5 100%);
+  --warn: #ff5fa0; --ok: #34d399;
+  --font: "Plus Jakarta Sans", system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #000; font-family: var(--font); -webkit-font-smoothing: antialiased; }
+.slide { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--night); color: var(--fg); margin-bottom: 40px; }
+.slide::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(70% 60% at 85% -10%, rgba(91,108,246,.20), rgba(91,108,246,0) 70%); }
+.slide > * { position: absolute; }
+/* light slides: paper, ink, white cards */
+.slide.light { --fg: #1d1f2b; --mute: #6b6f86; --dim: #8b8fa6; --line: #e2e4ee; --acc: #5b6cf6; --warn: #e2508f; --ok: #1fa572;
+  background: #f4f5fa; color: var(--fg); }
+.slide.light::before { background: radial-gradient(70% 60% at 85% -10%, rgba(124,92,240,.13), rgba(124,92,240,0) 70%); }
+.mark { left: 120px; top: 84px; font-size: 24px; font-weight: 800; letter-spacing: -.02em; display: flex; align-items: center; gap: 12px; }
+.mark i { width: 26px; height: 26px; border-radius: 8px; background: var(--grad); display: block; }
+.kick { left: 120px; top: 168px; font-size: 22px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--acc); }
+h2 { left: 120px; top: 212px; font-size: 68px; font-weight: 800; letter-spacing: -.035em; line-height: 1.04; }
+h2 span { color: var(--mute); }
+.pg { right: 120px; bottom: 50px; font-size: 18px; color: var(--dim); font-weight: 600; }
+.src { left: 120px; bottom: 50px; font-size: 18px; color: var(--dim); font-weight: 500; }
+.num { font-weight: 800; letter-spacing: -.04em; line-height: 1; }
+.lbl { font-size: 22px; color: var(--mute); font-weight: 500; line-height: 1.3; margin-top: 8px; }
+.lbl b { color: var(--fg); font-weight: 700; }
+.card { background: #fff; border-radius: 28px; box-shadow: 0 2px 4px rgba(29,31,43,.04), 0 24px 60px -20px rgba(29,31,43,.18); }
+.grad-t { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hand { font-size: 22px; font-weight: 700; }
+
+/* drawn message thread inside a phone */
+.msgs { position: absolute; left: 0; right: 0; top: 54px; bottom: 0; background: #fff; padding: 22px 18px; display: flex; flex-direction: column; gap: 8px; font-family: -apple-system, "SF Pro Text", system-ui, sans-serif; }
+.msgs .who { text-align: center; font-size: 15px; color: #8a8a8e; font-weight: 600; padding: 6px 0 14px; border-bottom: 1px solid #eee; margin-bottom: 10px; }
+.msgs .who b { display: block; width: 52px; height: 52px; border-radius: 50%; margin: 0 auto 6px; background: #c9cbd6; color: #fff; font-size: 22px; line-height: 52px; }
+.msgs .ts { text-align: center; font-size: 13px; color: #8a8a8e; margin: 8px 0 2px; }
+.m { font-size: 19px; line-height: 1.3; padding: 10px 15px; border-radius: 20px; max-width: 80%; }
+.m.i { background: #e9e9eb; color: #111; align-self: flex-start; border-bottom-left-radius: 6px; }
+.m.o { background: #2f6bff; color: #fff; align-self: flex-end; border-bottom-right-radius: 6px; }
+.m.bad { background: #e2508f; }
+
+/* ===== A · circles to scale ===== */
+.a h2 { width: 760px; top: 212px; }
+.a .circ { left: 0; top: 0; width: 1920px; height: 1080px; }
+.a .stat { left: 120px; }
+
+/* ===== B · phone to exhibit ===== */
+.b h2 { width: 1500px; }
+.b .ph { left: 150px; top: 330px; }
+.b .m { font-size: 28px; padding: 12px 18px; border-radius: 24px; }
+.b .msgs .who { font-size: 20px; }
+.b .msgs .ts { font-size: 18px; }
+.b .src { left: 640px; }
+.b .exh { left: 920px; top: 400px; width: 520px; padding: 44px 46px 40px; transform: rotate(-2deg); }
+.b .exh .stamp { position: absolute; right: 30px; top: 26px; font-size: 20px; font-weight: 800; letter-spacing: .14em; color: var(--warn); border: 3px solid var(--warn); border-radius: 10px; padding: 6px 14px; transform: rotate(6deg); }
+.b .exh .t { font-size: 18px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); }
+.b .exh q { display: block; font-size: 36px; font-weight: 800; letter-spacing: -.02em; line-height: 1.15; margin-top: 18px; quotes: "\201C" "\201D"; }
+.b .exh .who { font-size: 20px; color: var(--mute); margin-top: 18px; font-weight: 600; }
+.b .judge { left: 1500px; top: 330px; width: 300px; }
+.b .out { left: 1500px; top: 640px; width: 300px; }
+.b .out .num { font-size: 50px; color: var(--warn); }
+
+/* ===== C · dot grid ===== */
+.c h2 { width: 1300px; }
+.c .grid { left: 120px; top: 455px; display: grid; grid-template-columns: repeat(25, 26px); gap: 20px; }
+.c .grid i { width: 26px; height: 26px; border-radius: 50%; background: #2c3050; display: block; }
+.c .grid i.hot { background: var(--warn); box-shadow: 0 0 0 8px rgba(255,95,160,.18), 0 0 40px 6px rgba(255,95,160,.55); }
+.c .side { left: 1400px; top: 455px; width: 400px; display: flex; flex-direction: column; gap: 40px; }
+.c .side .num { font-size: 72px; }
+
+/* ===== D · years of texts ===== */
+.d h2 { width: 1400px; }
+.d .track { left: 120px; top: 640px; width: 1680px; height: 4px; background: #d7d9e6; border-radius: 2px; }
+.d .ticks { left: 120px; top: 600px; width: 1680px; height: 84px; }
+.d .ends { top: 700px; font-size: 20px; font-weight: 700; color: var(--mute); letter-spacing: .08em; text-transform: uppercase; }
+.d .bub { left: 470px; top: 395px; width: 740px; padding: 26px 30px; }
+.d .bub .m { white-space: nowrap; font-size: 30px; max-width: none; font-family: var(--font); font-weight: 600; border-radius: 26px; padding: 16px 24px; }
+.d .court { left: 820px; top: 790px; width: 640px; padding: 28px 34px; display: flex; gap: 28px; align-items: center; }
+.d .court .num { font-size: 56px; color: var(--warn); }
+.d .stats { left: 1500px; top: 380px; display: flex; flex-direction: column; gap: 26px; }
+.d .stats .num { font-size: 44px; }
+
+/* ===== E · the judge's question ===== */
+.e h2 { width: 1000px; }
+.e .q { left: 120px; top: 440px; width: 980px; font-size: 112px; font-weight: 800; letter-spacing: -.045em; line-height: 1; }
+.e .laws { left: 120px; top: 720px; display: flex; gap: 14px; }
+.e .laws span { font-size: 20px; font-weight: 700; color: var(--mute); border: 1px solid #343852; border-radius: 999px; padding: 10px 18px; }
+.e .stack { left: 1180px; top: 200px; width: 620px; height: 720px; }
+.e .tx { position: absolute; width: 560px; background: var(--card); border: 1px solid var(--line); border-radius: 28px; padding: 28px 32px; }
+.e .tx .m { font-size: 28px; max-width: none; font-family: var(--font); font-weight: 600; }
+.e .tx .res { font-size: 22px; color: var(--mute); margin-top: 16px; font-weight: 500; }
+.e .tx .res b { color: var(--warn); font-weight: 700; }
+.e .bottom { left: 120px; bottom: 120px; display: flex; gap: 70px; }
+.e .bottom .num { font-size: 52px; }
+</style>
+</head>
+<body>
+
+<!-- A · DARK · nested circles drawn to scale -->
+<section class="slide a">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">The problem</div>
+  <h2>25 million parents text an ex for years. <span>Any text can end up in court.</span></h2>
+  <svg class="circ" viewBox="0 0 1920 1080">
+    <defs><linearGradient id="ga" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7c5cf0"/><stop offset=".45" stop-color="#5b6cf6"/><stop offset="1" stop-color="#3f8df5"/></linearGradient>
+      <radialGradient id="fa" cx=".5" cy=".3" r=".8"><stop offset="0" stop-color="#5b6cf6" stop-opacity=".30"/><stop offset="1" stop-color="#5b6cf6" stop-opacity=".06"/></radialGradient></defs>
+    <!-- area to scale: r = 400 * sqrt(n / 25M) -->
+    <circle cx="1290" cy="580" r="400" fill="url(#fa)" stroke="url(#ga)" stroke-width="4"/>
+    <circle cx="1290" cy="915" r="65" fill="#2a2d4a" stroke="#a9abc0" stroke-width="2"/>
+    <circle cx="1290" cy="955" r="25" fill="#ff5fa0"/>
+    <text x="1290" y="470" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="800" font-size="150" letter-spacing="-6" fill="#f4f5fb">25M</text>
+    <text x="1290" y="530" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="600" font-size="26" fill="#c9cbe0">parents raising kids in two homes</text>
+    <path d="M1360 900 C 1460 880 1540 870 1600 860" stroke="#a9abc0" stroke-width="2" fill="none"/>
+    <path d="M1314 962 C 1420 990 1540 1000 1600 1000" stroke="#ff5fa0" stroke-width="2" fill="none"/>
+  </svg>
+  <div style="left:1612px;top:836px;width:200px"><div class="num" style="font-size:40px">663K</div><div class="lbl" style="font-size:18px;margin-top:4px">divorces a year</div></div>
+  <div style="left:1612px;top:976px;width:200px"><div class="num" style="font-size:40px;color:var(--warn)">~100K</div><div class="lbl" style="font-size:18px;margin-top:4px">custody fights a year</div></div>
+  <div class="stat" style="top:640px"><div class="num" style="font-size:96px">$349</div><div class="lbl">an hour for the lawyer<br>who <b>reads every text</b></div></div>
+  <p class="src">Census P60-269 (12.9M custodial parents, plus the other) · CDC 2024 · custody fights: estimate · Clio 2025 · circles drawn to scale</p>
+</section>
+
+<!-- B · LIGHT · the phone becomes an exhibit -->
+<section class="slide light b">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">The problem</div>
+  <h2>Every text you send can become evidence.</h2>
+  <div class="ph"><div class="iphone iphone--black" style="--s:.9; --status-bg:#fff">
+    <template><div class="msgs">
+      <div class="who"><b>D</b>David</div>
+      <div class="ts">after the custody order</div>
+      <div class="m o bad">No f*** you David</div>
+      <div class="m o bad">f*** the judge and his order</div>
+    </div></template>
+  </div></div>
+  <svg style="left:540px;top:430px" width="400" height="200" viewBox="0 0 400 200"><path d="M10 120 C 120 20, 260 20, 370 110" fill="none" stroke="#e2508f" stroke-width="4" stroke-dasharray="2 12" stroke-linecap="round"/><path d="M350 86 L 374 114 L 340 124" fill="none" stroke="#e2508f" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div class="hand" style="left:640px;top:400px;color:var(--warn)">screenshot</div>
+  <div class="exh card">
+    <div class="stamp">EXHIBIT</div>
+    <div class="t">Read in court</div>
+    <q>f*** the judge and his order</q>
+    <div class="who">Mother to father · Iowa, 2021</div>
+  </div>
+  <div class="judge"><div class="t" style="font-size:18px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--acc)">The judge asks</div>
+    <div style="font-size:40px;font-weight:800;letter-spacing:-.03em;line-height:1.08;margin-top:12px">Which parent keeps the peace?</div></div>
+  <div class="out"><div class="num">Lost</div><div class="lbl">physical care of<br>the child</div></div>
+  <p class="src">Sheppard v. Reed, Iowa Ct. App. 21-0280 (2021), quoted from the opinion · same factor in MI, FL, AZ law</p>
+</section>
+
+<!-- C · DARK · one dot in 250 -->
+<section class="slide c">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">The problem</div>
+  <h2>25 million parents in two homes. <span>Every year, 100K go to court.</span></h2>
+  <div class="grid" id="dots"></div>
+  <div style="left:120px;top:925px;font-size:20px;color:var(--mute);font-weight:600;display:flex;gap:34px">
+    <span><i style="display:inline-block;width:16px;height:16px;border-radius:50%;background:#2c3050;margin-right:10px;vertical-align:-2px"></i>100K parents</span>
+    <span><i style="display:inline-block;width:16px;height:16px;border-radius:50%;background:var(--warn);margin-right:10px;vertical-align:-2px"></i>a custody fight, every year</span></div>
+  <div class="side">
+    <div><div class="num">663K</div><div class="lbl">divorces a year</div></div>
+    <div><div class="num">$349</div><div class="lbl">an hour, the lawyer</div></div>
+    <div><div class="num grad-t">Your texts</div><div class="lbl">are the evidence</div></div>
+  </div>
+  <p class="src">Census P60-269 · CDC 2024 · custody fights: estimate · Clio Legal Trends 2025 · 250 dots, drawn to scale</p>
+</section>
+
+<!-- D · LIGHT · years of texts, one of them in court -->
+<section class="slide light d">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">The problem</div>
+  <h2>Years of texts. <span>One of them can decide custody.</span></h2>
+  <svg class="ticks" id="ticks" viewBox="0 0 1680 84"></svg>
+  <div class="ends" style="left:120px">Separation</div>
+  <div class="ends" style="right:120px">Kid turns 18</div>
+  <div class="bub card"><div class="m o bad">either u pay in full or take me to court</div></div>
+  <svg style="left:820px;top:520px" width="40" height="80" viewBox="0 0 40 80"><path d="M20 4 V 70" stroke="#e2508f" stroke-width="4"/></svg>
+  <svg style="left:820px;top:676px" width="40" height="110" viewBox="0 0 40 110"><path d="M20 4 V 96 M8 84 L20 100 L32 84" fill="none" stroke="#e2508f" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div class="court card"><div class="num">$12,000</div><div class="lbl" style="margin:0">of her lawyer's fees,<br><b>and he lost 50/50</b></div></div>
+  <div class="stats">
+    <div><div class="num">663K</div><div class="lbl">divorces a year</div></div>
+    <div><div class="num">~100K</div><div class="lbl">custody fights a year</div></div>
+  </div>
+  <p class="src">In re Marriage of Cowger, Iowa Ct. App. 22-1254 (2023), father's text quoted from the opinion · CDC 2024 · fights: estimate</p>
+</section>
+
+<!-- E · DARK · the judge's one question -->
+<section class="slide e">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">What the judge asks</div>
+  <h2>One question. <span>Your phone answers it.</span></h2>
+  <div class="q">Which parent <span class="grad-t">keeps the peace?</span></div>
+  <div class="laws"><span>Michigan 722.23(j)</span><span>Florida 61.13</span><span>Arizona 25-403</span></div>
+  <div class="stack">
+    <div class="tx" style="left:0;top:40px;transform:rotate(-2deg)"><div class="m o bad">I will not coparent with you, get that straight</div><div class="res">Father, New York · <b>lost custody</b></div></div>
+    <div class="tx" style="left:60px;top:330px;transform:rotate(1.5deg)"><div class="m o bad">The wrath of God is coming to you swiftly</div><div class="res">Mother, Michigan · <b>time suspended</b></div></div>
+  </div>
+  <div class="bottom">
+    <div><div class="num">25M</div><div class="lbl">parents in two homes</div></div>
+    <div><div class="num">$349</div><div class="lbl">an hour, the lawyer</div></div>
+  </div>
+  <p class="src">L.W. v. J.U., N.Y. Sup. Ct. 2024 · Crews v. Crews, Mich. Ct. App. 2019 · Census · Clio 2025</p>
+</section>
+
+<script>
+// phones whose screen is a drawn message thread instead of a screenshot
+for (const el of document.querySelectorAll('.iphone > template')) {
+  const host = el.parentElement, inner = el.innerHTML;
+  host.innerHTML = '<div class="iphone__body"><i class="iphone__btn iphone__btn--action"></i><i class="iphone__btn iphone__btn--volup"></i><i class="iphone__btn iphone__btn--voldn"></i><i class="iphone__btn iphone__btn--power"></i><div class="iphone__frame"></div><div class="iphone__bezel"></div><div class="iphone__screen">' + inner +
+    '<div class="iphone__status" style="background:#fff"><span class="iphone__time">10:04</span></div><div class="iphone__island"></div><div class="iphone__home"></div><div class="iphone__glare"></div></div></div>';
+}
+// 250 dots = 25M parents, one is 100K custody fights a year
+const g = document.getElementById('dots');
+for (let i = 0; i < 250; i++) { const d = document.createElement('i'); if (i === 137) d.className = 'hot'; g.appendChild(d); }
+// texts along the years: ticks, one pink
+const t = document.getElementById('ticks'); let s = '';
+let seed = 7; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+for (let x = 4; x < 1676; x += 7) { const h = 14 + rnd() * 30; s += `<rect x="${x}" y="${42 - h / 2}" width="2.4" height="${h}" rx="1.2" fill="#b9bccf"/>`; }
+s += '<rect x="718" y="2" width="6" height="80" rx="3" fill="#e2508f"/>';
+t.innerHTML = s;
+</script>
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=Caveat:wght@500;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Instrument+Serif:ital@0;1&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #000; }
+.slide { position: relative; width: 1920px; height: 1080px; overflow: hidden; font-family: "Plus Jakarta Sans", sans-serif; }
+.abs { position: absolute; }
+.kick { font-size: 20px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.jury { font-size: 18px; font-weight: 600; padding: 8px 16px; border-radius: 999px; }
+.src { font-size: 18px; line-height: 1.4; }
+
+/* ---------- our ads, sized in em ---------- */
+.ad { position: absolute; width: 20em; height: 25em; overflow: hidden; border-radius: .7em; box-shadow: 0 1.6em 3em -1em rgba(0,0,0,.35), 0 0 0 1px rgba(0,0,0,.06); }
+.notes { background: linear-gradient(#fbf5e1, #f8efd2); padding: 1.3em 1.5em; font-family: Inter, sans-serif; color: #1b1b1b; }
+.notes .nb { color: #d4a000; font-size: .9em; font-weight: 500; }
+.notes h4 { margin-top: 2.6em; font-size: 1.45em; font-weight: 800; line-height: 1.12; letter-spacing: -.01em; }
+.notes p { margin-top: .75em; font-size: .95em; line-height: 1.38; }
+.notes mark, .hl { background: linear-gradient(transparent 12%, #ffe066 12%, #ffe066 92%, transparent 92%); color: inherit; padding: 0 .1em; }
+.notes .cta { position: absolute; left: 1.5em; bottom: 1.6em; font-weight: 800; font-size: 1.05em; }
+
+.thread { background: #fff; font-family: Inter, sans-serif; padding: 1em 1.1em; display: flex; flex-direction: column; gap: .45em; }
+.thread .th { text-align: center; color: #8a8a8f; font-size: .72em; margin-bottom: .3em; }
+.thread .th b { display: block; color: #1b1b1b; font-size: 1.2em; font-weight: 600; }
+.thread .th i { display: block; width: 2.4em; height: 2.4em; margin: 0 auto .25em; border-radius: 50%; background: linear-gradient(#a7abb8, #868a98); color: #fff; font-style: normal; font-weight: 600; line-height: 2.4em; font-size: 1em; }
+.bub { position: relative; max-width: 86%; padding: .5em .8em; border-radius: 1.1em; font-size: .9em; line-height: 1.3; }
+.bub.in { background: #e9e9eb; color: #111; align-self: flex-start; }
+.bub.out { background: #0a84ff; color: #fff; align-self: flex-end; }
+.bub.bad { opacity: .8; }
+.bub.bad::before, .bub.bad::after { content: ''; position: absolute; left: -.4em; right: -.4em; height: .2em; background: #e0262f; border-radius: .2em; }
+.bub.bad::before { top: 38%; transform: rotate(-5deg); }
+.bub.bad::after { top: 58%; transform: rotate(3deg); }
+.pen { font-family: Caveat, cursive; color: #e0262f; font-size: 1.3em; font-weight: 700; align-self: flex-end; margin: -.2em .4em -.1em 0; transform: rotate(-3deg); }
+.thread .cta { margin-top: auto; text-align: center; color: #0a84ff; font-weight: 700; font-size: .95em; padding-top: .6em; border-top: 1px solid #eee; }
+
+.hand { background: #fffdf5 repeating-linear-gradient(transparent 0 1.55em, #c9d6ea 1.55em calc(1.55em + 1px)); background-position: 0 2.6em; font-family: Caveat, cursive; color: #1f2e6e; padding: 1.1em 1.2em 1em 2.4em; }
+.hand::before { content: ''; position: absolute; left: 1.7em; top: 0; bottom: 0; width: 1px; background: #e8a3a3; }
+.hand .t { font-size: 1.55em; font-weight: 700; line-height: 1.05; transform: rotate(-2deg); margin-bottom: .35em; }
+.hand .l { font-size: 1.28em; line-height: 1.21em; font-weight: 500; }
+.hand s { text-decoration-color: #e0262f; text-decoration-thickness: .12em; }
+.hand .cta { position: absolute; left: 2em; bottom: .9em; font-size: 1.5em; font-weight: 700; border-bottom: .08em solid #1f2e6e; }
+
+.paint { background: #c0c0c0; font-family: "Patrick Hand", cursive; padding: .25em; border-radius: .2em; }
+.paint .bar { background: linear-gradient(90deg, #000080, #1084d0); color: #fff; font: 700 .62em Inter, sans-serif; padding: .3em .5em; }
+.paint .menu { font: .58em Inter, sans-serif; padding: .3em .5em; color: #000; }
+.paint .tools { position: absolute; left: .3em; top: 2.6em; width: 1.6em; bottom: .3em; background: repeating-linear-gradient(#bdbdbd 0 1.1em, #9a9a9a 1.1em 1.2em); }
+.paint .cv { position: absolute; left: 2.1em; top: 2.6em; right: .3em; bottom: .3em; background: #fff; border: 2px inset #888; padding: .7em .8em; color: #000; }
+.paint .cv h5 { font-size: 1.32em; line-height: 1.08; text-align: center; font-weight: 400; margin-bottom: .45em; }
+.paint .cv p { font-size: 1.05em; line-height: 1.32; }
+.paint .cv .cta { position: absolute; left: .8em; bottom: .5em; font-size: 1.35em; }
+
+.ph { position: absolute; border: 9px solid #0b0b10; border-radius: 44px; overflow: hidden; background: #fff; box-shadow: 0 40px 80px -30px rgba(0,0,0,.8), 0 0 0 1px rgba(255,255,255,.08); }
+.ph img { display: block; width: 100%; }
+.shot { position: absolute; display: block; border-radius: 10px; box-shadow: 0 20px 40px -18px rgba(0,0,0,.45); }
+</style></head><body>
+
+<!-- ======================= A : light editorial, theirs vs ours ======================= -->
+<section class="slide" style="background:#f3efe6;color:#16161b">
+  <div class="abs kick" style="left:120px;top:78px;color:#b5402c">How we get customers cheaply</div>
+  <div class="abs jury" style="right:120px;top:70px;background:#e6dfd0;color:#5b5446">Jury: why it makes money, LTV &gt; CAC</div>
+  <h2 class="abs" style="left:120px;top:130px;width:1680px;font-family:Fraunces,serif;font-weight:600;font-size:70px;line-height:1.08;letter-spacing:-.02em">Our competitors pay for polished corporate ads. Ours will look like something a friend just sent you.</h2>
+
+  <div class="abs" style="left:120px;top:388px;font-size:24px;font-weight:700;color:#7a7264">What the old apps run on Meta today</div>
+  <img class="shot" src="../../research/img/cp-ofw-quote.jpg" style="left:120px;top:436px;height:380px;filter:grayscale(.55) contrast(.95);transform:rotate(-2deg)">
+  <img class="shot" src="../../research/img/cp-ofw-before.jpg" style="left:448px;top:448px;height:380px;filter:grayscale(.55) contrast(.95);transform:rotate(1.5deg)">
+  <div class="abs" style="left:120px;top:856px;width:680px;font-size:22px;line-height:1.4;color:#5b5446">OurFamilyWizard has about 75 active ads in the US and TalkingParents about 43. Logos, press badges, stock photos. BestInterest runs none.</div>
+
+  <div class="abs" style="left:870px;top:392px;width:1px;height:540px;background:#cfc6b4"></div>
+
+  <div class="abs" style="left:940px;top:388px;font-size:24px;font-weight:700;color:#b5402c">What we will run</div>
+  <div class="ad notes" style="font-size:15px;left:925px;top:450px;transform:rotate(-3deg)">
+    <div class="nb">‹ Notes</div>
+    <h4>READ IT THE WAY A JUDGE WILL.</h4>
+    <p>Before you hit send.</p>
+    <p>Paste the other parent's text. Get a <mark>calm reply a judge would read well.</mark></p>
+    <p>It takes one minute.</p>
+    <div class="cta"><mark>TAP TO START</mark></div>
+  </div>
+  <div class="ad thread" style="font-size:17px;left:1195px;top:425px;z-index:2">
+    <div class="th"><i>J</i><b>Jordan</b>Today 5:31 PM</div>
+    <div class="bub in">so ur not coming. wow.</div>
+    <div class="bub in">she's been at the door for 20 min</div>
+    <div class="bub out bad">here we go again. maybe if you ever planned anything</div>
+    <div class="pen">a judge reads this one</div>
+    <div class="bub out">Running 10 min late, there by 5:40. Tell her I'm on my way.</div>
+    <div class="cta">Fix your reply in 10 seconds ›</div>
+  </div>
+  <div class="ad hand" style="font-size:15px;left:1510px;top:455px;transform:rotate(3.5deg)">
+    <div class="t">Texts that look bad in custody court:</div>
+    <div class="l">"you always do this"</div>
+    <div class="l">"maybe if you weren't so..."</div>
+    <div class="l">"whatever. do what you want"</div>
+    <div class="l">&nbsp;</div>
+    <div class="l">Paste yours. See how</div>
+    <div class="l">a judge would read it.</div>
+    <div class="cta">TAP TO START</div>
+  </div>
+
+  <div class="abs" style="left:940px;top:928px;width:880px;display:flex;align-items:baseline;gap:22px">
+    <div style="font-family:Fraunces,serif;font-size:58px;font-weight:700;letter-spacing:-.02em;white-space:nowrap">11.6% <span style="color:#a39a88;font-weight:500">vs 7%</span></div>
+    <div style="font-size:22px;line-height:1.35;color:#3c3830">Plain text-only Meta ads become winners 11.6% of the time. High-production ads, 7%.</div>
+  </div>
+  <div class="abs src" style="left:120px;top:1030px;color:#8f8676">Meta Ad Library, US, active ads, 14 Nov 2026. Motion Creative Benchmarks 2026, 550K ads, "hit" = earned spend.</div>
+</section>
+
+<!-- ======================= B : dark, the chart dominates ======================= -->
+<section class="slide" style="background:#0d0e1a;color:#f4f5fb">
+  <div class="abs kick" style="left:120px;top:78px;color:#8b97ff">How we get customers cheaply</div>
+  <div class="abs jury" style="right:120px;top:70px;background:#1c1f33;color:#a9abc0">Jury: why it makes money, LTV &gt; CAC</div>
+  <h2 class="abs" style="left:120px;top:128px;width:1060px;font-size:62px;font-weight:800;letter-spacing:-.035em;line-height:1.06">On Meta, plain text ads win more often than polished ones. <span style="color:#a9abc0">None of our competitors run them.</span></h2>
+
+  <div class="abs" style="left:120px;top:440px;width:1000px">
+    <div style="font-size:24px;color:#a9abc0;font-weight:600;margin-bottom:26px">How often each kind of Meta ad becomes a winner</div>
+    <div id="bars"></div>
+  </div>
+
+  <div class="ad thread" style="font-size:24px;left:1300px;top:150px;transform:rotate(2.5deg)">
+    <div class="th"><i>J</i><b>Jordan</b>Today 5:31 PM</div>
+    <div class="bub in">so ur not coming. wow.</div>
+    <div class="bub in">she's been at the door for 20 min</div>
+    <div class="bub out bad">here we go again. maybe if you ever planned anything</div>
+    <div class="pen">a judge reads this one</div>
+    <div class="bub out">Running 10 min late, there by 5:40. Tell her I'm on my way.</div>
+    <div class="cta">Fix your reply in 10 seconds ›</div>
+  </div>
+  <div class="abs" style="left:1300px;top:790px;width:500px;font-size:24px;line-height:1.4;color:#a9abc0">One of our first ads. It is just a text thread, which is also exactly what the product does.</div>
+
+  <div class="abs" style="left:120px;top:880px;width:1680px;height:1px;background:#262a40"></div>
+  <div class="abs" style="left:120px;top:904px;display:flex;align-items:baseline;gap:44px;font-size:24px;color:#a9abc0;font-weight:600">
+    <span>Active US ads on Meta today:</span>
+    <span><b style="font-size:50px;color:#f4f5fb;letter-spacing:-.03em">75</b>&nbsp; OurFamilyWizard</span>
+    <span><b style="font-size:50px;color:#f4f5fb;letter-spacing:-.03em">43</b>&nbsp; TalkingParents</span>
+    <span><b style="font-size:50px;color:#f4f5fb;letter-spacing:-.03em">0</b>&nbsp; BestInterest</span>
+    <span><b style="font-size:50px;color:#e2508f;letter-spacing:-.03em">0</b>&nbsp; with a quiz</span>
+  </div>
+  <div class="abs src" style="left:120px;top:1020px;color:#62667e">Motion Creative Benchmarks 2026: 550K+ Meta ads, a "winner" is an ad that earned spend. Meta Ad Library, US, 14 Nov 2026.</div>
+</section>
+
+<!-- ======================= C : the funnel, left to right ======================= -->
+<section class="slide" style="background:#0d0e1a;color:#f4f5fb">
+  <div class="abs kick" style="left:120px;top:78px;color:#8b97ff">How we get customers cheaply</div>
+  <div class="abs jury" style="right:120px;top:70px;background:#1c1f33;color:#a9abc0">Jury: why it makes money, LTV &gt; CAC</div>
+  <h2 class="abs" style="left:120px;top:128px;width:1700px;font-size:58px;font-weight:800;letter-spacing:-.035em;line-height:1.08">Someone sees a plain ad, answers a one-minute quiz, gets a plan built for them, <span style="color:#a9abc0">and only then sees the price.</span></h2>
+
+  <div class="ad notes" style="font-size:16.5px;left:120px;top:360px;transform:rotate(-2deg)">
+    <div class="nb">‹ Notes</div>
+    <h4>READ IT THE WAY A JUDGE WILL.</h4>
+    <p>Before you hit send.</p>
+    <p>Paste the other parent's text. Get a <mark>calm reply a judge would read well.</mark></p>
+    <p>It takes one minute.</p>
+    <div class="cta"><mark>TAP TO START</mark></div>
+  </div>
+  <div class="ph" style="left:540px;top:340px;width:232px"><img src="../../onboarding/03-quiz.png"></div>
+  <div class="ph" style="left:860px;top:316px;width:262px"><img src="../../onboarding/21-after-quiz.png"></div>
+  <div class="ph" style="left:1210px;top:340px;width:232px"><img src="../../onboarding/23-pricing.png"></div>
+  <svg class="abs" style="left:0;top:0" width="1920" height="1080" fill="none" stroke="#5b6cf6" stroke-width="3" stroke-linecap="round">
+    <path d="M478 590 C500 570 510 570 528 580"/><path d="M518 570 L530 581 L515 588"/>
+    <path d="M784 590 C806 570 820 570 846 580"/><path d="M836 570 L848 581 L833 588"/>
+    <path d="M1134 590 C1156 570 1172 570 1198 580"/><path d="M1188 570 L1200 581 L1185 588"/>
+  </svg>
+  <div class="abs" style="left:120px;top:880px;width:340px;font-size:24px;line-height:1.35;color:#a9abc0"><b style="color:#f4f5fb">1. A plain ad</b><br>Looks like a phone note, not an ad.</div>
+  <div class="abs" style="left:540px;top:880px;width:310px;font-size:24px;line-height:1.35;color:#a9abc0"><b style="color:#f4f5fb">2. Eleven questions</b><br>Kids, court, what sets it off.</div>
+  <div class="abs" style="left:860px;top:880px;width:330px;font-size:24px;line-height:1.35;color:#a9abc0"><b style="color:#f4f5fb">3. Their own plan</b><br>28 days, built from their answers.</div>
+  <div class="abs" style="left:1210px;top:880px;width:260px;font-size:24px;line-height:1.35;color:#a9abc0"><b style="color:#f4f5fb">4. Then the price</b><br>No free tier before it.</div>
+
+  <div class="abs" style="left:1530px;top:340px;width:290px">
+    <div style="font-size:22px;color:#8b97ff;font-weight:700">Same funnel, already proven</div>
+    <div style="margin-top:14px;font-size:58px;font-weight:800;letter-spacing:-.04em;line-height:1">$100K to $500K</div>
+    <div style="margin-top:12px;font-size:23px;line-height:1.4;color:#a9abc0">a month that Zimran's Finelo makes from the App Store alone. Most of its money comes through the web quiz.</div>
+    <div style="margin-top:34px;height:1px;background:#262a40"></div>
+    <div style="margin-top:26px;font-size:58px;font-weight:800;letter-spacing:-.04em;line-height:1;color:#e2508f">0</div>
+    <div style="margin-top:10px;font-size:23px;line-height:1.4;color:#a9abc0">co-parenting apps run a quiz like this today.</div>
+  </div>
+  <div class="abs src" style="left:120px;top:1020px;color:#62667e">Sensor Tower, Finelo iOS revenue, worldwide, Oct 2026 estimate, web billing not counted. Meta Ad Library, US, 14 Nov 2026. Screens: parley.adiletfndr.com.</div>
+</section>
+
+<!-- ======================= D : Zimran's formats, transplanted ======================= -->
+<section class="slide" style="background:#ece6d9;color:#1a1814">
+  <div class="abs kick" style="left:120px;top:78px;color:#9c4a2b">How we get customers cheaply</div>
+  <div class="abs jury" style="right:120px;top:70px;background:#ddd5c4;color:#5b5446">Jury: why it makes money, LTV &gt; CAC</div>
+  <h2 class="abs" style="left:120px;top:122px;width:1700px;font-family:'Instrument Serif',serif;font-weight:400;font-size:84px;line-height:1.02;letter-spacing:-.01em">We're bringing Zimran's ad playbook into a niche where <i>nobody uses it yet.</i></h2>
+
+  <div class="abs" style="left:120px;top:332px;font-size:22px;color:#6b6252">Small, behind: Finelo's real ads from Zimran. Large, in front: ours, in the same three formats.</div>
+
+  <img class="shot" src="../../research/img/fin-notes.jpg" style="left:120px;top:384px;height:250px;transform:rotate(-4deg);filter:saturate(.8)">
+  <img class="shot" src="../../research/img/fin-notebook.jpg" style="left:510px;top:384px;height:250px;transform:rotate(-4deg);filter:saturate(.8)">
+  <img class="shot" src="../../research/img/fin-paint.jpg" style="left:900px;top:384px;height:250px;transform:rotate(-4deg);filter:saturate(.8)">
+
+  <div class="ad notes" style="font-size:15px;left:230px;top:500px;transform:rotate(2deg)">
+    <div class="nb">‹ Notes</div>
+    <h4>READ IT THE WAY A JUDGE WILL.</h4>
+    <p>Before you hit send.</p>
+    <p>Paste the other parent's text. Get a <mark>calm reply a judge would read well.</mark></p>
+    <p>It takes one minute.</p>
+    <div class="cta"><mark>TAP TO START</mark></div>
+  </div>
+  <div class="ad hand" style="font-size:15px;left:620px;top:500px;transform:rotate(2deg)">
+    <div class="t">Texts that look bad in custody court:</div>
+    <div class="l">"you always do this"</div>
+    <div class="l">"maybe if you weren't so..."</div>
+    <div class="l">"whatever. do what you want"</div>
+    <div class="l">&nbsp;</div>
+    <div class="l">Paste yours. See how</div>
+    <div class="l">a judge would read it.</div>
+    <div class="cta">TAP TO START</div>
+  </div>
+  <div class="ad paint" style="font-size:15px;left:1010px;top:500px;transform:rotate(2deg)">
+    <div class="bar">untitled - Paint</div>
+    <div class="menu">File &nbsp;Edit &nbsp;View &nbsp;Colors &nbsp;Help</div>
+    <div class="tools"></div>
+    <div class="cv">
+      <h5>HOW TO ANSWER YOUR EX WITHOUT HURTING YOUR CASE</h5>
+      <p>Paste their text.</p>
+      <p>Get a calm, short reply.</p>
+      <p>See how a judge reads yours.</p>
+      <p>Every message saved with a date.</p>
+      <p>Your lawyer gets one PDF.</p>
+      <div class="cta">TAP TO START</div>
+    </div>
+  </div>
+
+  <div class="abs" style="left:1420px;top:380px;width:400px">
+    <div style="font-family:'Instrument Serif',serif;font-size:72px;line-height:.95">$100K to $500K</div>
+    <div style="margin-top:12px;font-size:24px;line-height:1.4;color:#4a443a">a month that Finelo makes on iOS alone with these ads and a quiz. Most of its money comes through the web.</div>
+    <div style="margin-top:30px;height:1px;background:#c9bfab"></div>
+    <div style="margin-top:24px;font-size:24px;line-height:1.4;color:#4a443a"><b style="color:#1a1814">In co-parenting, nobody does this.</b> OurFamilyWizard and TalkingParents run about 118 polished ads between them, with no quiz.</div>
+    <div style="margin-top:22px;font-size:24px;line-height:1.4;color:#4a443a"><b style="color:#1a1814">The court angle already pays.</b> CustodyLogs has kept its "court-ready" ads live for 4 to 5 months.</div>
+  </div>
+  <div class="abs src" style="left:120px;top:1030px;color:#8a8170">Sensor Tower, Oct 2026 estimate. Meta Ad Library, US, 14 to 15 Nov 2026. Finelo ads: Meta Ad Library.</div>
+</section>
+
+<!-- ======================= E : white magazine, five reasons ======================= -->
+<section class="slide" style="background:#fbfaf7;color:#111">
+  <div class="abs kick" style="left:120px;top:78px;color:#e0262f">How we get customers cheaply</div>
+  <div class="abs jury" style="right:120px;top:70px;background:#efece5;color:#5d5a52">Jury: why it makes money, LTV &gt; CAC</div>
+  <h2 class="abs" style="left:120px;top:126px;width:1700px;font-family:Fraunces,serif;font-weight:600;font-size:68px;line-height:1.06;letter-spacing:-.025em">Why each customer should cost us less than they cost our competitors</h2>
+
+  <div class="ad thread" style="font-size:23px;left:130px;top:350px;transform:rotate(-2.5deg)">
+    <div class="th"><i>J</i><b>Jordan</b>Today 5:31 PM</div>
+    <div class="bub in">so ur not coming. wow.</div>
+    <div class="bub in">she's been at the door for 20 min</div>
+    <div class="bub out bad">here we go again. maybe if you ever planned anything</div>
+    <div class="pen">a judge reads this one</div>
+    <div class="bub out">Running 10 min late, there by 5:40. Tell her I'm on my way.</div>
+    <div class="cta">Fix your reply in 10 seconds ›</div>
+  </div>
+  <div class="abs" style="left:130px;top:960px;width:470px;font-size:20px;color:#77736a;line-height:1.35">Our ad. People open the quiz from it: one minute, then a personal plan, then the paywall.</div>
+
+  <div class="abs" style="left:760px;top:330px;width:1060px">
+    <div style="display:flex;align-items:flex-end;gap:30px">
+      <div style="font-family:Fraunces,serif;font-weight:700;font-size:170px;line-height:.82;letter-spacing:-.04em">5B</div>
+      <div style="font-size:30px;line-height:1.3;padding-bottom:4px">views on <b>#coparenting</b> on TikTok. People already watch this every day, so we will not run out of ideas for ads.</div>
+    </div>
+    <div class="rows" style="margin-top:40px;border-top:2px solid #111">
+      <div style="display:flex;gap:28px;padding:20px 0;border-bottom:1px solid #dcd8ce"><b style="width:56px;flex-shrink:0;font-family:Fraunces,serif;font-size:34px;color:#e0262f">1</b><div style="font-size:21px;line-height:1.4;color:#55524a"><b style="font-size:28px;color:#111">Nobody else here runs plain ads or a quiz.</b><br>OurFamilyWizard has about 75 polished ads, TalkingParents 43, BestInterest none.</div></div>
+      <div style="display:flex;gap:28px;padding:20px 0;border-bottom:1px solid #dcd8ce"><b style="width:56px;flex-shrink:0;font-family:Fraunces,serif;font-size:34px;color:#e0262f">2</b><div style="font-size:21px;line-height:1.4;color:#55524a"><b style="font-size:28px;color:#111">Plain ads win more often.</b><br>On Meta, 11.6% of text-only ads become winners, against 7% of high-production ones.</div></div>
+      <div style="display:flex;gap:28px;padding:20px 0;border-bottom:1px solid #dcd8ce"><b style="width:56px;flex-shrink:0;font-family:Fraunces,serif;font-size:34px;color:#e0262f">3</b><div style="font-size:21px;line-height:1.4;color:#55524a"><b style="font-size:28px;color:#111">People forward them to a friend.</b><br>Reels ads and TikTok Spark ads can be shared like any post, and that reach is free.</div></div>
+      <div style="display:flex;gap:28px;padding:20px 0;border-bottom:1px solid #dcd8ce"><b style="width:56px;flex-shrink:0;font-family:Fraunces,serif;font-size:34px;color:#e0262f">4</b><div style="font-size:21px;line-height:1.4;color:#55524a"><b style="font-size:28px;color:#111">The funnel and the angle are proven.</b><br>Zimran's Finelo makes $100K to $500K a month on iOS alone. CustodyLogs has run "court-ready" ads for 4 to 5 months.</div></div>
+    </div>
+  </div>
+  <div class="abs src" style="left:760px;top:1032px;color:#9a968c">hashtagradar (TikTok, est.). Meta Ad Library, US, Nov 2026. Motion 2026. Meta and TikTok ad specs. Sensor Tower, Oct 2026.</div>
+</section>
+
+<script>
+const rows = [["Text only", 11.60, "#7d8bff"], ["Product image and text", 8.75, "#2c3050"], ["Creator video", 7.56, "#2c3050"], ["High production", 6.97, "#e2508f"], ["Screen recording", 5.49, "#2c3050"]];
+document.getElementById('bars').innerHTML = rows.map(([l, v, c], i) => `
+  <div style="display:flex;align-items:center;gap:24px;height:${i === 0 ? 84 : 62}px">
+    <div style="width:310px;font-size:${i === 0 ? 30 : 24}px;font-weight:${i === 0 || i === 3 ? 800 : 600};color:${i === 0 || i === 3 ? '#f4f5fb' : '#a9abc0'}">${l}</div>
+    <div style="width:${v / 11.6 * 520}px;height:${i === 0 ? 54 : 34}px;border-radius:8px;background:${c}"></div>
+    <div style="font-size:${i === 0 ? 46 : 26}px;font-weight:800;letter-spacing:-.03em;color:${i === 0 ? '#f4f5fb' : i === 3 ? '#e2508f' : '#a9abc0'}">${v.toFixed(1)}%</div>
+    ${i === 3 ? '<div style="font-size:20px;color:#e2508f;font-weight:600;white-space:nowrap">what the old apps run</div>' : ''}
+  </div>`).join('');
+</script>
+</body></html>

@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Parley slide 9 variants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400;1,9..144,500&family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #000; -webkit-font-smoothing: antialiased; }
+.slide { position: relative; width: 1920px; height: 1080px; overflow: hidden; margin-bottom: 40px; }
+.slide > * { position: absolute; }
+
+/* shared dark Parley base */
+.dark { background: #0d0e1a; color: #f4f5fb; font-family: "Plus Jakarta Sans", sans-serif; }
+.dark .mark { left: 120px; top: 70px; font-size: 24px; font-weight: 800; letter-spacing: -.02em; display: flex; align-items: center; gap: 12px; }
+.dark .mark i { width: 26px; height: 26px; border-radius: 8px; background: #5b6cf6; display: block; }
+.dark .kick { left: 120px; top: 150px; font-size: 20px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #8b97ff; }
+.dark .pg { right: 120px; bottom: 48px; font-size: 18px; color: #62667e; font-weight: 600; }
+.dark .src { left: 120px; bottom: 48px; width: 1560px; font-size: 18px; line-height: 1.45; color: #6d7190; }
+
+.trio { display: flex; align-items: flex-start; }
+.trio .n { font-weight: 800; letter-spacing: -.045em; line-height: .9; }
+.trio .op { font-weight: 800; }
+.trio p { margin-top: 18px; }
+
+/* ===== A: dark, the funnel as one proportional chart ===== */
+.a .trio { left: 120px; top: 205px; gap: 70px; }
+.a .trio .n { font-size: 170px; }
+.a .trio .op { font-size: 76px; color: #4a4e68; padding-top: 44px; }
+.a .trio p { font-size: 26px; line-height: 1.35; color: #a9abc0; font-weight: 500; width: 430px; }
+.a .trio .hi { color: #8b97ff; }
+.a .rule { left: 120px; top: 560px; width: 1680px; height: 1px; background: #262a40; }
+.a h3 { left: 120px; top: 600px; font-size: 32px; font-weight: 700; letter-spacing: -.02em; }
+.a h3 span { color: #a9abc0; font-weight: 500; }
+.a .fun { left: 120px; top: 668px; width: 1060px; display: flex; flex-direction: column; gap: 12px; }
+.a .row { display: flex; align-items: center; height: 46px; }
+.a .row .bar { height: 46px; border-radius: 6px; background: #2b2f4d; flex: none; }
+.a .row b { font-size: 24px; font-weight: 700; margin-left: 18px; white-space: nowrap; }
+.a .row b em { font-style: normal; color: #a9abc0; font-weight: 500; }
+.a .row.pay .bar { background: #e2508f; }
+.a .row.pay b { color: #ff7fb2; }
+.a .side { left: 1280px; top: 600px; width: 520px; }
+.a .side h4 { font-size: 32px; font-weight: 700; letter-spacing: -.02em; margin-bottom: 18px; }
+.a .side p { font-size: 24px; line-height: 1.45; color: #c9cbdb; margin-bottom: 14px; }
+.a .side p strong { color: #fff; }
+
+/* ===== B: light editorial, one parent start to finish ===== */
+.b { background: #f3eee4; color: #1d1b17; font-family: "Inter Tight", sans-serif; }
+.b .mast { left: 120px; top: 64px; width: 1680px; display: flex; justify-content: space-between; font-size: 20px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: #6f685c; border-bottom: 2px solid #1d1b17; padding-bottom: 14px; }
+.b .lede { left: 120px; top: 124px; font-family: Fraunces, serif; font-size: 40px; font-weight: 400; letter-spacing: -.01em; color: #1d1b17; }
+.b .trio { left: 120px; top: 205px; gap: 56px; font-family: Fraunces, serif; }
+.b .trio .n { font-size: 176px; font-weight: 600; letter-spacing: -.035em; }
+.b .trio .op { font-size: 90px; color: #a39a88; font-weight: 400; padding-top: 30px; }
+.b .trio p { font-family: Fraunces, serif; font-style: italic; font-size: 28px; line-height: 1.3; color: #5a5448; width: 470px; }
+.b .trio .red { color: #c8401f; }
+.b .col1 { left: 120px; top: 570px; width: 900px; }
+.b .col2 { left: 1120px; top: 570px; width: 680px; }
+.b h4 { font-size: 20px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #6f685c; margin-bottom: 16px; }
+.b .col1 p { font-family: Fraunces, serif; font-size: 30px; line-height: 1.38; }
+.b .dots { display: flex; gap: 7px; margin-top: 26px; }
+.b .dots i { width: 12px; height: 12px; border-radius: 50%; border: 2px solid #b9b09e; display: block; }
+.b .dots i.s1 { border-color: #b9b09e; background: #d8cfbd; }
+.b .dots i.s2 { border-color: #8d8473; background: #8d8473; }
+.b .dots i.s3 { border-color: #1d1b17; background: #1d1b17; }
+.b .dots i.s4 { border-color: #c8401f; background: #c8401f; transform: scale(1.5); }
+.b .legend { margin-top: 14px; font-size: 18px; color: #6f685c; }
+.b .rcpt { font-family: "JetBrains Mono", monospace; font-size: 22px; }
+.b .rcpt div { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px dashed #b9b09e; }
+.b .rcpt div span:first-child { color: #3e3a32; }
+.b .rcpt div.tot { border-bottom: 0; border-top: 2px solid #1d1b17; margin-top: 6px; font-weight: 600; font-size: 26px; }
+.b .rcpt div.tot span:last-child { color: #c8401f; }
+.b .foot { left: 120px; top: 935px; width: 1680px; border-top: 2px solid #1d1b17; padding-top: 16px; display: flex; justify-content: space-between; gap: 40px; }
+.b .foot p { font-size: 22px; line-height: 1.4; color: #1d1b17; width: 880px; }
+.b .foot small { font-size: 18px; line-height: 1.4; color: #6f685c; width: 700px; text-align: right; }
+
+/* ===== C: dark, the road to $100M ===== */
+.c .trio { left: 120px; top: 200px; gap: 54px; }
+.c .trio .n { font-size: 132px; }
+.c .trio .op { font-size: 60px; color: #4a4e68; padding-top: 30px; }
+.c .trio p { font-size: 24px; line-height: 1.35; color: #a9abc0; width: 380px; margin-top: 14px; }
+.c .trio .hi { color: #8b97ff; }
+.c .tag { left: 1460px; top: 210px; width: 340px; font-size: 24px; line-height: 1.4; color: #a9abc0; border-left: 2px solid #5b6cf6; padding-left: 22px; }
+.c .tag b { color: #fff; }
+.c h3 { left: 120px; top: 520px; font-size: 48px; font-weight: 800; letter-spacing: -.03em; }
+.c .pop { left: 120px; top: 640px; width: 1680px; height: 70px; background: repeating-linear-gradient(90deg, #1f2238 0 30px, #191b2e 30px 31px); border-radius: 6px; }
+.c .pop i { position: absolute; left: 0; top: 0; bottom: 0; width: 34px; background: #5b6cf6; border-radius: 6px 0 0 6px; }
+.c .pop span { position: absolute; right: 24px; top: 21px; font-size: 22px; color: #8a8ea8; font-weight: 600; }
+.c .callout { left: 120px; top: 600px; font-size: 24px; font-weight: 700; color: #8b97ff; }
+.c .callout2 { left: 120px; top: 730px; font-size: 26px; color: #c9cbdb; width: 1300px; }
+.c .callout2 b { color: #fff; }
+.c .flow { left: 120px; top: 810px; width: 1680px; display: grid; grid-template-columns: 520px 1fr; row-gap: 14px; align-items: center; }
+.c .flow .lab { font-size: 24px; color: #c9cbdb; }
+.c .flow .lab b { color: #fff; font-size: 28px; }
+.c .flow .bar { height: 40px; border-radius: 6px; display: flex; align-items: center; padding-left: 16px; font-size: 20px; font-weight: 700; }
+.c .flow .ads { width: 280px; background: #3a2033; color: #ff8fbd; }
+.c .flow .rev { width: 1160px; background: #16352b; color: #5fe0a8; }
+
+/* ===== D: white Swiss, money back month by month ===== */
+.d { background: #fff; color: #111; font-family: "Inter Tight", sans-serif; }
+.d .mark { left: 120px; top: 64px; font-size: 22px; font-weight: 800; letter-spacing: -.02em; }
+.d .kick { left: 330px; top: 67px; font-size: 20px; font-weight: 500; color: #777; }
+.d .trio { left: 120px; top: 150px; gap: 40px; }
+.d .trio .n { font-size: 150px; letter-spacing: -.055em; }
+.d .trio .op { font-size: 70px; color: #bbb; padding-top: 28px; font-weight: 400; }
+.d .trio p { font-size: 24px; line-height: 1.35; color: #555; width: 360px; }
+.d .trio .acc { color: #ff4f1f; }
+.d h3 { left: 120px; top: 470px; font-size: 44px; font-weight: 700; letter-spacing: -.03em; width: 1100px; line-height: 1.12; }
+.d .chart { left: 120px; top: 590px; width: 1160px; height: 400px; }
+.d .side { left: 1380px; top: 476px; width: 420px; }
+.d .side p { font-size: 24px; line-height: 1.45; color: #333; padding: 18px 0; border-top: 1px solid #ddd; }
+.d .side p b { color: #111; }
+.d .src { left: 1380px; bottom: 48px; width: 420px; font-size: 18px; line-height: 1.4; color: #888; }
+
+/* ===== E: dark, stress test on one axis ===== */
+.e { background: #0b1220; }
+.e .trio { left: 120px; top: 200px; gap: 60px; }
+.e .trio .n { font-size: 150px; }
+.e .trio .op { font-size: 66px; color: #3c4762; padding-top: 34px; }
+.e .trio p { font-size: 24px; line-height: 1.35; color: #9aa6c0; width: 400px; }
+.e .trio .hi { color: #3ddc97; }
+.e h3 { left: 120px; top: 520px; font-size: 44px; font-weight: 800; letter-spacing: -.03em; }
+.e .axis { left: 120px; top: 600px; width: 1680px; height: 330px; }
+.e .note { left: 120px; top: 970px; font-size: 24px; color: #dfe6f5; }
+.e .note b { color: #3ddc97; }
+.e .src { bottom: 40px; }
+</style>
+</head>
+<body>
+
+<!-- ============ A ============ -->
+<section class="slide dark a">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">Why it makes money</div>
+  <div class="trio">
+    <div><div class="n">$40</div><p>is what we pay in ads to win one paying parent</p></div>
+    <div class="op">→</div>
+    <div><div class="n">$132</div><p>is what that parent pays us over about 5 months, after all costs</p></div>
+    <div class="op">→</div>
+    <div><div class="n hi">3.3×</div><p class="hi">so every ad dollar comes back more than three times</p></div>
+  </div>
+  <div class="rule"></div>
+  <h3>Out of every 100 people who click our ad <span>(Meta, US parents)</span></h3>
+  <div class="fun">
+    <div class="row"><div class="bar" style="width:820px"></div><b>100 <em>click</em></b></div>
+    <div class="row"><div class="bar" style="width:451px"></div><b>55 <em>start the quiz</em></b></div>
+    <div class="row"><div class="bar" style="width:271px"></div><b>33 <em>finish it</em></b></div>
+    <div class="row"><div class="bar" style="width:216px"></div><b>26 <em>see the price</em></b></div>
+    <div class="row pay"><div class="bar" style="width:17px"></div><b>2 pay. So one paying parent costs about 47 clicks, or $40</b></div>
+  </div>
+  <div class="side">
+    <h4>What one paying parent is worth</h4>
+    <p><strong>$19.99</strong> for the first 4 weeks, then <strong>$29.99</strong> every 4 weeks.</p>
+    <p>Half renew after the first 4 weeks. After that, 89 in 100 stay each time. That adds up to <strong>about 5 paid months</strong>.</p>
+    <p>We get the $40 back in <strong>2 months</strong>.</p>
+  </div>
+  <p class="src">Ad cost $15.06 per 1,000 views (Triple Whale) · 1.77% click (LocaliQ/WordStream 2026, Legal) · quiz 55%, 60%, 80% (Adapty) · 8% buy · renewals RevenueCat. $132 is after Stripe fees, 5% refunds and AI at $0.06 a reply.</p>
+  <div class="pg">9</div>
+</section>
+
+<!-- ============ B ============ -->
+<section class="slide b">
+  <div class="mast"><span>Parley · Why it makes money</span><span>9</span></div>
+  <div class="lede">Each parent pays back what it cost to find them, more than three times over.</div>
+  <div class="trio">
+    <div><div class="n">$40</div><p>in ads to find one parent who pays</p></div>
+    <div class="op">→</div>
+    <div><div class="n">$132</div><p>that parent pays us, after every cost</p></div>
+    <div class="op">→</div>
+    <div><div class="n red">3.3×</div><p>back on every dollar, and the $40 is back in two months</p></div>
+  </div>
+  <div class="col1">
+    <h4>Where the $40 goes</h4>
+    <p>About 2,675 people see our ad, which costs us $40. Then 47 click, 26 start the quiz, 16 finish it, about 12 see the price, and <span style="color:#c8401f">1 buys</span>.</p>
+    <div class="dots" id="bdots"></div>
+    <div class="legend">Each dot is one person who clicked. Darker means they got further.</div>
+  </div>
+  <div class="col2">
+    <h4>What that one parent pays us</h4>
+    <div class="rcpt">
+      <div><span>About 5 months of Parley</span><span>$148.21</span></div>
+      <div><span>Card fees (Stripe)</span><span>−$5.87</span></div>
+      <div><span>Refunds (5%)</span><span>−$1.06</span></div>
+      <div><span>AI that writes the replies</span><span>−$9.42</span></div>
+      <div class="tot"><span>We keep</span><span>$131.86</span></div>
+    </div>
+  </div>
+  <div class="foot">
+    <p>If our ads do worse than average at every step, each dollar still comes back 1.45 times. We start with a $3K test and stop if a parent costs more than $100.</p>
+    <small>Triple Whale (ad cost) · LocaliQ/WordStream 2026 (clicks) · Adapty (quiz) · RevenueCat (renewals) · $19.99 first 4 weeks, then $29.99</small>
+  </div>
+</section>
+
+<!-- ============ C ============ -->
+<section class="slide dark c">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">Why it makes money</div>
+  <div class="trio">
+    <div><div class="n">$40</div><p>in ads to win one paying parent</p></div>
+    <div class="op">→</div>
+    <div><div class="n">$132</div><p>that parent pays us over about 5 months</p></div>
+    <div class="op">→</div>
+    <div><div class="n hi">3.3×</div><p>back on every ad dollar, and the $40 is back in about 2 months</p></div>
+  </div>
+  <h3>Here is what $100M a year takes</h3>
+  <div class="callout">257,000 paying parents</div>
+  <div class="pop"><i></i><span>12.9 million custodial parents in the US (Census)</span></div>
+  <div class="callout2">That is <b>2 out of every 100</b> US parents raising kids in two homes, each paying $29.99 every 4 weeks.</div>
+  <div class="flow">
+    <div class="lab">Each month we'd spend <b>~$2M</b> on ads</div><div class="bar ads">$2M</div>
+    <div class="lab">and take in <b>~$8.3M</b> from parents</div><div class="bar rev">$8.3M</div>
+  </div>
+  <p class="src">Before any of that: a $3K test, and we stop if a parent costs more than $100. If our ads do worse than average at every step, it is still 1.45×. Sources: Triple Whale, LocaliQ/WordStream, Adapty, RevenueCat, Census P60-269.</p>
+  <div class="pg">9</div>
+</section>
+
+<!-- ============ D ============ -->
+<section class="slide d">
+  <div class="mark">Parley</div>
+  <div class="kick">Why it makes money</div>
+  <div class="trio">
+    <div><div class="n">$40</div><p>in ads to win a parent who pays</p></div>
+    <div class="op">→</div>
+    <div><div class="n">$132</div><p>paid back to us over about 5 months, after fees and AI costs</p></div>
+    <div class="op">→</div>
+    <div><div class="n acc">3.3×</div><p>on every dollar we put into ads</p></div>
+  </div>
+  <h3>We get the ad money back in two months, and the parent keeps paying after that</h3>
+  <svg class="chart" id="dchart" viewBox="0 0 1160 400"></svg>
+  <div class="side">
+    <p><b>$19.99 for the first 4 weeks</b>, then $29.99 every 4 weeks.</p>
+    <p><b>Half renew</b> after the first 4 weeks. After that, 89 in 100 stay each time.</p>
+    <p>If ads do worse than average at every step: <b>1.45×</b>, paid back in 8 months. We test with $3K first and stop if a parent costs over $100.</p>
+  </div>
+  <p class="src">Bars: money we keep from one parent, on average, after Stripe fees, refunds and AI. Triple Whale, LocaliQ/WordStream, Adapty, RevenueCat.</p>
+</section>
+
+<!-- ============ E ============ -->
+<section class="slide dark e">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick" style="color:#3ddc97">Why it makes money</div>
+  <div class="trio">
+    <div><div class="n">$40</div><p>in ads to win one paying parent</p></div>
+    <div class="op">→</div>
+    <div><div class="n">$132</div><p>that parent pays us over about 5 months, after costs</p></div>
+    <div class="op">→</div>
+    <div><div class="n hi">3.3×</div><p>back on every ad dollar, paid back in 2 months</p></div>
+  </div>
+  <h3>And if our ads do worse than the market average?</h3>
+  <svg class="axis" id="eaxis" viewBox="0 0 1680 330"></svg>
+  <p class="note">So we don't bet big first: <b>a $3K test</b> tells us what a parent really costs, and we stop if it is over $100.</p>
+  <p class="src">Market average: $15.06 per 1,000 ad views (Triple Whale), 1.77% click (LocaliQ/WordStream 2026), quiz 55% · 60% · 80% (Adapty), 8% buy, 50% then 89% renew (RevenueCat).</p>
+  <div class="pg">9</div>
+</section>
+
+<script>
+// B: 47 clickers, shaded by how far they got (26 start, 16 finish, ~12 see price, 1 buys)
+{
+  const el = document.getElementById('bdots'); let h = '';
+  for (let i = 0; i < 47; i++) h += `<i class="${i < 1 ? 's4' : i < 12 ? 's3' : i < 16 ? 's2' : i < 26 ? 's1' : ''}"></i>`;
+  el.innerHTML = h;
+}
+// D: cumulative money kept from one parent, market case (pitch/model.mjs inputs), months 0..11
+{
+  const cum = [17.5, 31.0, 43.0, 53.7, 63.2, 71.7, 79.2, 86.0, 91.9, 97.3, 102.0, 106.2];
+  const W = 1160, H = 400, base = 340, sc = 2.4, bw = 64, step = (W - 80) / 12;
+  let s = '';
+  cum.forEach((v, i) => {
+    const x = 60 + i * step, h = v * sc, paid = v >= 40.29;
+    s += `<rect x="${x}" y="${base - h}" width="${bw}" height="${h}" fill="${paid ? '#ff4f1f' : '#d9d9d9'}"/>`;
+    const ly = (!paid && base - h - (base - 40.29 * sc) < 40) ? base - h + 28 : base - h - 12;
+    s += `<text x="${x + bw / 2}" y="${ly}" font-size="20" font-weight="600" text-anchor="middle" fill="#111" font-family="Inter Tight">$${Math.round(v)}</text>`;
+    s += `<text x="${x + bw / 2}" y="${base + 32}" font-size="19" text-anchor="middle" fill="#777" font-family="Inter Tight">${i === 0 ? 'sign-up' : 'mo ' + i}</text>`;
+  });
+  const y40 = base - 40.29 * sc;
+  s += `<line x1="40" x2="${W}" y1="${y40}" y2="${y40}" stroke="#111" stroke-width="2" stroke-dasharray="8 6"/>`;
+  s += `<text x="0" y="${y40 - 12}" font-size="20" fill="#111" font-family="Inter Tight" font-weight="700">$40 ad cost</text>`;
+  s += `<line x1="0" x2="${W}" y1="${base}" y2="${base}" stroke="#111" stroke-width="2"/>`;
+  // annotation at month 2
+  const x2 = 60 + 2 * step + bw / 2;
+  s += `<path d="M${x2 + 150} 70 C ${x2 + 60} 70, ${x2 + 10} 110, ${x2} ${base - 43 * sc - 40}" fill="none" stroke="#ff4f1f" stroke-width="3"/>`;
+  s += `<path d="M${x2 - 8} ${base - 43 * sc - 52} L ${x2} ${base - 43 * sc - 38} L ${x2 + 10} ${base - 43 * sc - 50}" fill="none" stroke="#ff4f1f" stroke-width="3"/>`;
+  s += `<text x="${x2 + 160}" y="78" font-size="24" font-weight="700" fill="#ff4f1f" font-family="Inter Tight">Paid back here, 2 months in</text>`;
+  s += `<text x="${W - 4}" y="22" font-size="20" text-anchor="end" fill="#777" font-family="Inter Tight">keeps climbing to $132</text>`;
+  document.getElementById('dchart').innerHTML = s;
+}
+// E: return per ad dollar on one axis, 0 to 4x
+{
+  const W = 1680, X = (r) => 20 + r / 4 * (W - 60), y = 150;
+  let s = `<rect x="${X(0)}" y="${y - 30}" width="${X(1) - X(0)}" height="60" fill="#3a1b2b" opacity=".7"/>`;
+  s += `<text x="${X(0.55)}" y="${y + 8}" text-anchor="middle" font-size="20" fill="#ff8fbd" font-family="Plus Jakarta Sans" font-weight="600">loses money</text>`;
+  s += `<line x1="${X(0)}" x2="${X(4)}" y1="${y}" y2="${y}" stroke="#3c4762" stroke-width="3"/>`;
+  [0, 1, 2, 3, 4].forEach((r) => {
+    s += `<line x1="${X(r)}" x2="${X(r)}" y1="${y - 12}" y2="${y + 12}" stroke="#3c4762" stroke-width="3"/>`;
+    s += `<text x="${X(r)}" y="${y + 48}" font-size="20" text-anchor="middle" fill="#6e7a96" font-family="Plus Jakarta Sans" font-weight="600">${r}×</text>`;
+  });
+  s += `<line x1="${X(1)}" x2="${X(1)}" y1="${y - 60}" y2="${y + 30}" stroke="#dfe6f5" stroke-width="2" stroke-dasharray="5 5"/>`;
+  s += `<text x="${X(1) + 10}" y="${y - 46}" font-size="20" fill="#dfe6f5" font-family="Plus Jakarta Sans" font-weight="600">break-even</text>`;
+  const pt = (r, c, big) => `<circle cx="${X(r)}" cy="${y}" r="${big ? 18 : 13}" fill="${c}" stroke="#0b1220" stroke-width="4"/>`;
+  s += pt(0.08, '#ff5fa0') + pt(1.45, '#f2c14e') + pt(3.27, '#3ddc97', 1);
+  const lab = (x, yy, anchor, lines, c) => lines.map((t, i) => `<text x="${x}" y="${yy + i * 32}" text-anchor="${anchor}" font-family="Plus Jakarta Sans" font-size="${i ? 22 : 26}" font-weight="${i ? 500 : 800}" fill="${i ? '#b7c1d8' : c}">${t}</text>`).join('');
+  s += lab(X(3.27), y - 96, 'middle', ['Market average: 3.3×', '$40 per parent, $132 back'], '#3ddc97');
+  s += lab(X(0.08), y + 112, 'start', ['Much worse: 0.08×', '$620 per parent. The $3K test', 'catches this and we stop.'], '#ff5fa0');
+  s += lab(X(1.45) + 40, y + 112, 'start', ['Worse at every step: 1.45×', '$71 per parent, $103 back.', 'Still profitable, paid back in 8 months.'], '#f2c14e');
+  document.getElementById('eaxis').innerHTML = s;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Parley slide 8 variants</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../design-options/iphone.css">
+<style>
+:root {
+  --night: #0d0e1a; --card: #161829; --line: #262a40;
+  --fg: #f4f5fb; --mute: #a9abc0; --dim: #62667e;
+  --acc: #7d8bff; --acc-2: #5b6cf6;
+  --grad: linear-gradient(118deg, #7c5cf0 0%, #5b6cf6 45%, #3f8df5 100%);
+  --warn: #ff5fa0; --ok: #34d399;
+  --font: "Plus Jakarta Sans", system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #000; color: var(--fg); font-family: var(--font); -webkit-font-smoothing: antialiased; }
+.slide { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--night); }
+.slide::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(70% 60% at 85% -10%, rgba(91,108,246,.20), rgba(91,108,246,0) 70%); }
+.slide.light { --fg: #1d1f2b; --mute: #6b6f86; --dim: #8a8ea3; --line: #e2e4ee; --acc: #5b6cf6;
+  --warn: #e2508f; --ok: #1fa572; background: #f4f5fa; color: var(--fg); }
+.slide.light::before { background: radial-gradient(70% 60% at 85% -10%, rgba(124,92,240,.13), rgba(124,92,240,0) 70%); }
+.slide > * { position: absolute; }
+.mark { left: 120px; top: 84px; font-size: 24px; font-weight: 800; letter-spacing: -.02em; display: flex; align-items: center; gap: 12px; }
+.mark i { width: 26px; height: 26px; border-radius: 8px; background: var(--grad); display: block; }
+.kick { left: 120px; top: 168px; font-size: 22px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--acc); }
+h2 { left: 120px; top: 212px; width: 1300px; font-size: 68px; font-weight: 800; letter-spacing: -.035em; line-height: 1.04; }
+h2 span { color: var(--mute); }
+.pg { right: 120px; bottom: 50px; font-size: 18px; color: var(--dim); font-weight: 600; }
+.src { left: 120px; bottom: 50px; font-size: 18px; color: var(--dim); font-weight: 500; }
+.num { font-weight: 800; letter-spacing: -.04em; line-height: 1; }
+.gt { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lbl { font-size: 22px; font-weight: 600; color: var(--mute); line-height: 1.3; }
+.lbl b { color: var(--fg); font-weight: 800; }
+.bad { color: var(--warn) !important; } .good { color: var(--ok) !important; }
+.iphone { --status-bg: #f4f5fa; --tab-bg: #fefefe; }
+.iphone--black { --ti-1: #5f6170; --ti-2: #2b2c35; --ti-3: #8d8fa0; --ti-4: #1d1e26; --ti-5: #454757;
+  --shadow: 0 50px 100px -30px rgba(0,0,0,.9), 0 0 0 1px rgba(255,255,255,.02); }
+.light .iphone--black { --shadow: 0 40px 80px -30px rgba(29,31,43,.45), 0 0 0 1px rgba(0,0,0,.04); }
+.card { background: #fff; border-radius: 28px; box-shadow: 0 1px 2px rgba(29,31,43,.05), 0 24px 60px -24px rgba(29,31,43,.22); }
+.chip { display: inline-block; padding: 7px 14px; border-radius: 999px; font-size: 19px; font-weight: 700; }
+.chip.bad { background: rgba(226,80,143,.14); }
+.chip.good { background: rgba(31,165,114,.14); }
+.chip.grad { background: var(--grad); color: #fff; }
+
+/* A · two keys vs one key (dark) */
+.A .node { position: absolute; width: 170px; height: 170px; border-radius: 50%; display: grid; place-items: center;
+  font-size: 28px; font-weight: 800; letter-spacing: -.02em; border: 3px solid #3a3f5c; background: var(--card); }
+.A .node.ex { border-color: var(--warn); border-style: dashed; color: var(--warn); }
+.A .node.you { background: var(--grad); border: none; color: #fff; box-shadow: 0 30px 80px -20px rgba(91,108,246,.7); }
+.A .panel { top: 400px; height: 500px; }
+.A .side { position: absolute; font-size: 22px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); }
+.A .out { position: absolute; font-size: 26px; font-weight: 700; display: flex; align-items: center; gap: 14px; }
+.A .out i { width: 14px; height: 14px; border-radius: 50%; background: var(--ok); display: block; }
+
+/* B · price ranges to scale (light) */
+.B .axis { left: 120px; top: 470px; width: 1000px; }
+.B .row { position: relative; height: 150px; }
+.B .name { font-size: 26px; font-weight: 800; letter-spacing: -.01em; }
+.B .track { position: absolute; left: 0; right: 0; top: 52px; height: 44px; border-radius: 22px; background: #e6e8f1; }
+.B .rng { position: absolute; top: 52px; height: 44px; border-radius: 22px; background: #1d1f2b; }
+.B .end { position: absolute; top: 104px; font-size: 22px; font-weight: 800; transform: translateX(-50%); }
+.B .ticks { position: relative; height: 40px; border-top: 1px solid var(--line); margin-top: 16px; }
+.B .ticks span { position: absolute; top: 10px; font-size: 18px; color: var(--dim); font-weight: 600; transform: translateX(-50%); }
+
+/* C · two tracks (dark) */
+.C .track { left: 120px; width: 1180px; display: flex; align-items: center; gap: 0; }
+.C .who { width: 290px; flex: none; font-size: 22px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--dim); line-height: 1.3; }
+.C .st { padding: 22px 22px; border-radius: 22px; background: var(--card); border: 1px solid var(--line); font-size: 24px; font-weight: 700; white-space: nowrap; }
+.C .ar { width: 40px; height: 2px; background: #3a3f5c; position: relative; margin: 0 6px; }
+.C .ar::after { content: ""; position: absolute; right: -2px; top: -6px; border: 7px solid transparent; border-left: 9px solid #3a3f5c; }
+.C .st.no { border: 2px solid var(--warn); color: var(--warn); background: rgba(226,80,143,.10); }
+.C .st.dead { color: var(--dim); text-decoration: line-through; background: transparent; border-style: dashed; }
+.C .st.yes { border-color: rgba(52,211,153,.5); color: var(--ok); background: rgba(31,165,114,.10); }
+.C .st.you { background: var(--grad); border: none; color: #fff; }
+.C .ar.g { background: var(--acc-2); } .C .ar.g::after { border-left-color: var(--acc-2); }
+
+/* D · dot matrix (light) */
+.D .grid { left: 120px; top: 400px; width: 1680px; }
+.D .hdr, .D .r { display: grid; grid-template-columns: 330px repeat(4, 1fr) 300px; align-items: center; }
+.D .hdr div { font-size: 22px; font-weight: 800; text-align: center; letter-spacing: -.01em; }
+.D .r { height: 118px; border-top: 1px solid var(--line); }
+.D .r > div:first-child { font-size: 25px; font-weight: 700; }
+.D .c { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.D .dot { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; }
+.D .dot.y { background: var(--ok); }
+.D .dot.y::after { content: ""; width: 14px; height: 8px; border-left: 4px solid #fff; border-bottom: 4px solid #fff; transform: translate(0,-2px) rotate(-45deg); }
+.D .dot.n { border: 3px solid var(--warn); position: relative; }
+.D .dot.n::before, .D .dot.n::after { content: ""; position: absolute; width: 16px; height: 3px; background: var(--warn); transform: rotate(45deg); }
+.D .dot.n::after { transform: rotate(-45deg); }
+.D .dot.p { border: 3px solid #c3c6d6; background: linear-gradient(90deg, #c3c6d6 50%, transparent 50%); }
+.D .note { font-size: 18px; color: var(--mute); font-weight: 600; white-space: nowrap; }
+.D .us { left: 1500px; top: 372px; width: 300px; height: 590px; border-radius: 28px; background: #fff;
+  box-shadow: 0 0 0 3px #5b6cf6, 0 40px 90px -30px rgba(91,108,246,.55); }
+.D .dot.big { width: 54px; height: 54px; background: var(--grad); }
+.D .dot.big::after { width: 20px; height: 11px; }
+
+/* E · 2 vs 1 (dark) */
+.E .two { left: 110px; top: 360px; font-size: 520px; color: transparent; -webkit-text-stroke: 4px var(--warn); }
+.E .one { left: 760px; top: 360px; font-size: 520px; }
+</style>
+</head>
+<body>
+
+<!-- A · DARK · two keys or one -->
+<section class="slide A">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">What's new</div>
+  <h2 style="width:1500px">Your ex can lock you out.<br><span>Parley needs one parent. You.</span></h2>
+
+  <!-- left: the big apps -->
+  <div class="side" style="left:120px;top:440px">OurFamilyWizard · TalkingParents</div>
+  <div class="node" style="left:120px;top:520px">You</div>
+  <div class="node ex" style="left:620px;top:520px">Your ex</div>
+  <svg style="left:290px;top:520px" width="330" height="170"><line x1="0" y1="85" x2="330" y2="85" stroke="#3a3f5c" stroke-width="3" stroke-dasharray="10 10"/></svg>
+  <div class="chip bad" style="left:378px;top:586px;background:#2a1626;border:2px solid var(--warn);font-size:22px">says no</div>
+  <div class="lbl" style="left:120px;top:730px;width:700px"><b>$77 to $352</b> a year, and both must sign up</div>
+  <div class="lbl" style="left:120px;top:800px;width:700px">AI tone check <b>$9.99</b>, only inside OFW</div>
+
+  <div style="left:960px;top:430px;width:1px;height:470px;background:var(--line)"></div>
+
+  <!-- right: Parley -->
+  <div class="side" style="left:1060px;top:440px;color:var(--acc)">Parley</div>
+  <div class="node you" style="left:1060px;top:600px;width:210px;height:210px;font-size:34px">You</div>
+  <svg style="left:1270px;top:520px" width="160" height="370" fill="none" stroke="#5b6cf6" stroke-width="3">
+    <path d="M0 185 C 80 185, 70 40, 150 40"/><path d="M0 185 L 150 185"/><path d="M0 185 C 80 185, 70 330, 150 330"/>
+  </svg>
+  <div class="out" style="left:1440px;top:542px"><i></i>Writes the reply</div>
+  <div class="out" style="left:1440px;top:687px"><i></i>Teaches the skill</div>
+  <div class="out" style="left:1440px;top:832px"><i></i>Keeps the record</div>
+
+  <p class="src">OurFamilyWizard, TalkingParents pricing pages; OFW in-app price list (AppMagic), Nov 2026.</p>
+  <div class="pg">8</div>
+</section>
+
+<!-- B · LIGHT · price ranges drawn to scale -->
+<section class="slide light B">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">What's new</div>
+  <h2 style="width:1100px">Parents already pay up to $300 a year. <span>If both sign up.</span></h2>
+  <div class="axis">
+    <div class="row">
+      <div class="name">OurFamilyWizard <span class="chip bad" style="margin-left:12px">both parents</span></div>
+      <div class="track"></div>
+      <div class="rng" style="left:27.5%;width:47.5%"></div>
+      <div class="end" style="left:27.5%">$110</div><div class="end" style="left:75%">$300</div>
+    </div>
+    <div class="row">
+      <div class="name">TalkingParents <span class="chip bad" style="margin-left:12px">both parents</span></div>
+      <div class="track"></div>
+      <div class="rng" style="left:19.25%;width:68.75%"></div>
+      <div class="end" style="left:19.25%">$77</div><div class="end" style="left:88%">$352</div>
+    </div>
+    <div class="ticks">
+      <span style="left:0">$0</span><span style="left:25%">$100</span><span style="left:50%">$200</span><span style="left:75%">$300</span><span style="left:100%">$400</span>
+    </div>
+    <div class="lbl" style="margin-top:4px">Per parent, per year. OFW's AI tone check: <b>$9.99 extra</b>, only inside OFW</div>
+  </div>
+
+  <div style="left:1290px;top:118px"><div class="iphone iphone--black" style="--s:0.98; --shift:72" data-shot="../../../shots/reply-result.png"></div></div>
+  <div class="card" style="left:1180px;top:780px;padding:26px 32px">
+    <div class="num" style="font-size:44px">Parley needs one parent.</div>
+    <div class="num gt" style="font-size:44px;margin-top:6px">You.</div>
+  </div>
+
+  <p class="src">Pricing pages of OurFamilyWizard and TalkingParents, per parent, Nov 2026.</p>
+  <div class="pg">8</div>
+</section>
+
+<!-- C · DARK · two tracks, one dead end -->
+<section class="slide C">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">What's new</div>
+  <h2 style="width:1200px">The big apps need your ex to say yes.</h2>
+
+  <div class="track" style="top:420px">
+    <div class="who">OFW<br>TalkingParents</div>
+    <div class="st">You sign up</div><div class="ar"></div>
+    <div class="st">Invite your ex</div><div class="ar"></div>
+    <div class="st no">Ex says no</div><div class="ar"></div>
+    <div class="st dead">App sits empty</div>
+  </div>
+  <div class="lbl" style="left:410px;top:530px">$77 to $352 a year, for an empty app</div>
+
+  <div class="track" style="top:660px">
+    <div class="who" style="color:var(--acc)">Parley</div>
+    <div class="st you">You sign up</div><div class="ar g"></div>
+    <div class="st yes">Calm reply</div><div class="ar g"></div>
+    <div class="st yes">Daily practice</div><div class="ar g"></div>
+    <div class="st yes">Dated record</div>
+  </div>
+
+  <div class="num" style="left:120px;top:850px;font-size:64px">Parley needs one parent. <span class="gt">You.</span></div>
+
+  <div style="left:1400px;top:150px;transform:rotate(3deg)"><div class="iphone iphone--black" style="--s:0.88; --shift:72" data-shot="../../../shots/reply-result.png"></div></div>
+  <p class="src" style="left:auto;right:180px;bottom:50px">OFW, TalkingParents pricing, Nov 2026.</p>
+  <div class="pg">8</div>
+</section>
+
+<!-- D · LIGHT · everyone misses a piece -->
+<section class="slide light D">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">What's new</div>
+  <h2 style="width:1400px">Everyone else is missing a piece. <span>Parley needs one parent. You.</span></h2>
+  <div class="us"></div>
+  <div class="grid">
+    <div class="hdr" style="height:70px"><div></div><div>OurFamilyWizard</div><div>TalkingParents</div><div>BestInterest</div><div>ChatGPT</div><div style="font-size:30px" class="gt">Parley</div></div>
+    <div class="r"><div>Works with one parent</div>
+      <div class="c"><span class="dot n"></span></div><div class="c"><span class="dot n"></span></div>
+      <div class="c"><span class="dot y"></span></div><div class="c"><span class="dot y"></span></div>
+      <div class="c"><span class="dot y big"></span></div></div>
+    <div class="r"><div>Writes the reply</div>
+      <div class="c"><span class="dot p"></span><span class="note">$9.99 add-on</span></div><div class="c"><span class="dot p"></span><span class="note">top tier only</span></div>
+      <div class="c"><span class="dot p"></span><span class="note">filters texts</span></div><div class="c"><span class="dot p"></span><span class="note">like a lawyer</span></div>
+      <div class="c"><span class="dot y big"></span></div></div>
+    <div class="r"><div>Teaches the skill</div>
+      <div class="c"><span class="dot n"></span></div><div class="c"><span class="dot n"></span></div>
+      <div class="c"><span class="dot n"></span></div><div class="c"><span class="dot n"></span></div>
+      <div class="c"><span class="dot y big"></span></div></div>
+    <div class="r"><div>Keeps the record</div>
+      <div class="c"><span class="dot y"></span></div><div class="c"><span class="dot y"></span></div>
+      <div class="c"><span class="dot p"></span><span class="note">partly</span></div><div class="c"><span class="dot n"></span></div>
+      <div class="c"><span class="dot y big"></span></div></div>
+  </div>
+  <p class="src">Each product's pricing page and app listing, Nov 2026.</p>
+  <div class="pg">8</div>
+</section>
+
+<!-- E · DARK · 2 vs 1 -->
+<section class="slide E">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">What's new</div>
+  <h2 style="width:1300px">Parley needs one parent. <span>You.</span></h2>
+  <div class="num two">2</div>
+  <div class="lbl" style="left:120px;top:860px;width:520px"><b class="bad">parents to start</b><br>OurFamilyWizard, TalkingParents<br>$77 to $352 a year</div>
+  <div class="num one gt">1</div>
+  <div class="lbl" style="left:760px;top:860px;width:340px"><b class="good">parent to start</b><br>writes, teaches, records</div>
+
+  <div style="left:1460px;top:300px;transform:rotate(5deg)"><div class="iphone iphone--black" style="--s:0.74; --shift:0" data-shot="../../../shots/plan.png"></div></div>
+  <div style="left:1150px;top:250px;transform:rotate(-3deg)"><div class="iphone iphone--black" style="--s:0.86; --shift:72" data-shot="../../../shots/reply-result.png"></div></div>
+  <p class="src">OFW, TalkingParents pricing, Nov 2026.</p>
+  <div class="pg">8</div>
+</section>
+
+<script src="../../../design-options/iphone.js"></script>
+</body>
+</html>

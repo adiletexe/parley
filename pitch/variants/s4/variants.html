@@ -1,0 +1,216 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Instrument+Serif&family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../design-options/iphone.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#888}
+.slide{width:1920px;height:1080px;position:relative;overflow:hidden;font-family:'Plus Jakarta Sans',sans-serif}
+.bub{display:inline-block;border-radius:26px;padding:14px 24px;font-size:28px;line-height:1.3}
+
+/* ---------- A: dark Parley, exchange explained ---------- */
+#A{background:#0d0e1a;color:#fff}
+#A .logo{position:absolute;left:96px;top:72px;display:flex;align-items:center;gap:14px;font-weight:700;font-size:30px}
+#A .logo i{width:30px;height:30px;border-radius:9px;background:#5b6cf6;display:block}
+#A .left{position:absolute;left:96px;top:140px;width:1180px;display:flex;flex-direction:column;gap:24px}
+#A .kick{color:#8d98ff;font-size:24px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+#A h1{font-size:54px;line-height:1.1;font-weight:800;letter-spacing:-.02em}
+#A .sub{font-size:28px;line-height:1.4;color:#b7bbd6}
+#A .ex{margin-top:8px}
+#A .them .bub{font-size:24px;padding:10px 20px}
+#A .them{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+#A .them .bub{background:#262838;color:#e8e9f3}
+#A .row{display:flex;gap:40px;margin-top:26px}
+#A .col{flex:1}
+#A .lab{font-size:22px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}
+#A .bad .lab{color:#e2508f}
+#A .good .lab{color:#2fd193}
+#A .bad .bub{background:#3a1d2c;color:#ffd5e6;border:2px solid #e2508f}
+#A .good .bub{background:#12382b;color:#d4ffe9;border:2px solid #1fa572}
+#A .why{margin-top:14px;font-size:22px;line-height:1.4;color:#b7bbd6}
+#A .foot{position:absolute;left:96px;bottom:64px;width:1180px;font-size:28px;line-height:1.4;color:#fff;border-top:2px solid #2a2c44;padding-top:28px}
+#A .foot b{color:#8d98ff}
+#A .ph{position:absolute;right:120px;top:94px}
+#A .tag{position:absolute;right:560px;top:640px;width:300px;font-size:22px;color:#b7bbd6;text-align:right;line-height:1.35}
+
+/* ---------- B: editorial cream magazine page ---------- */
+#B{background:#f4efe4;color:#1b1a17;font-family:'Newsreader',serif}
+#B .mast{position:absolute;left:96px;right:96px;top:64px;display:flex;justify-content:space-between;font-family:'Inter',sans-serif;font-size:20px;letter-spacing:.14em;text-transform:uppercase;color:#6d665a;border-bottom:2px solid #1b1a17;padding-bottom:16px}
+#B h1{position:absolute;left:96px;top:136px;width:1180px;font-size:76px;line-height:1.04;font-weight:500;letter-spacing:-.015em}
+#B h1 em{color:#b8322a;font-style:italic}
+#B .lede{position:absolute;left:96px;top:410px;width:1160px;font-size:34px;line-height:1.38}
+#B .lede b{font-weight:600}
+#B .cols{position:absolute;left:96px;top:600px;width:1110px;display:grid;grid-template-columns:1fr 1.25fr;gap:64px}
+#B .cols h3{font-family:'Inter',sans-serif;font-size:20px;letter-spacing:.14em;text-transform:uppercase;color:#b8322a;margin-bottom:14px}
+#B .cols p{font-size:28px;line-height:1.42}
+#B .fails{list-style:none;font-size:28px;line-height:1.35}
+#B .fails li{padding:9px 0;border-bottom:1px solid #d6cdbb}
+#B .fails li b{font-weight:600}
+#B .weeks{margin-top:18px;font-size:26px;line-height:1.5}
+#B .weeks span{white-space:nowrap}
+#B .ph{position:absolute;right:110px;top:150px}
+#B .note{position:absolute;left:1236px;top:520px;width:150px;font-family:'Caveat',cursive;font-size:36px;text-align:right;line-height:1.05;color:#b8322a;transform:rotate(-4deg)}
+#B .cap{position:absolute;right:120px;bottom:44px;width:480px;font-family:'Inter',sans-serif;font-size:19px;color:#6d665a;text-align:center}
+
+/* ---------- C: white, the score dominates ---------- */
+#C{background:#fbfbfd;color:#14152a}
+#C .kick{position:absolute;left:96px;top:80px;color:#5b6cf6;font-size:24px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+#C h1{position:absolute;left:96px;top:124px;width:1060px;font-size:64px;line-height:1.08;font-weight:800;letter-spacing:-.025em}
+#C .score{position:absolute;left:84px;top:330px;font-size:300px;font-weight:800;letter-spacing:-.06em;line-height:1}
+#C .score .a{color:#e2508f}
+#C .score .ar{color:#c8cad8;font-weight:500;font-size:200px;position:relative;top:-30px;margin:0 10px}
+#C .score .b{color:#1fa572}
+#C .scap{position:absolute;left:96px;top:650px;width:960px;font-size:28px;line-height:1.4;color:#4a4d66}
+#C .steps{position:absolute;left:96px;top:790px;width:970px;display:grid;grid-template-columns:.9fr 1.2fr 1.1fr;gap:44px}
+#C .steps div{border-top:4px solid #e3e5ef;padding-top:20px;font-size:24px;line-height:1.4;color:#4a4d66}
+#C .steps div:first-child{border-color:#e2508f}
+#C .steps div:nth-child(2){border-color:#5b6cf6}
+#C .steps div:last-child{border-color:#1fa572}
+#C .steps b{display:block;font-size:30px;color:#14152a;margin-bottom:6px}
+#C .ph1{position:absolute;right:400px;top:150px;opacity:.95}
+#C .ph2{position:absolute;right:90px;top:110px}
+
+/* ---------- D: dark, the 28-day path ---------- */
+#D{background:#0d0e1a;color:#fff}
+#D .kick{position:absolute;left:96px;top:84px;color:#2fd193;font-size:24px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+#D h1{position:absolute;left:96px;top:128px;width:1040px;font-size:66px;line-height:1.08;font-weight:800;letter-spacing:-.025em}
+#D .sub{position:absolute;left:96px;top:356px;width:1000px;font-size:30px;line-height:1.45;color:#b7bbd6}
+#D .sub b{color:#fff;font-weight:600}
+#D .big{position:absolute;left:96px;top:530px;display:flex;align-items:baseline;gap:22px}
+#D .big .n{font-size:150px;font-weight:800;letter-spacing:-.05em;line-height:1}
+#D .big .t{font-size:30px;color:#b7bbd6;line-height:1.35}
+#D .track{position:absolute;left:96px;top:790px;width:990px}
+#D .dots{display:grid;grid-template-columns:repeat(28,1fr);gap:8px}
+#D .dots i{height:34px;border-radius:8px;background:#23253a;display:block}
+#D .dots i.d{background:#1fa572}
+#D .dots i.t{background:#5b6cf6;box-shadow:0 0 0 3px #0d0e1a,0 0 0 6px #5b6cf6}
+#D .wk{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:22px}
+#D .wk div{font-size:24px;line-height:1.3;color:#b7bbd6;padding-left:2px}
+#D .wk b{display:block;color:#fff;font-size:26px}
+#D .today{position:absolute;left:96px;top:750px;width:1060px;font-size:20px;color:#8d98ff;font-weight:700}
+#D .ph1{position:absolute;right:400px;top:150px}
+#D .ph2{position:absolute;right:80px;top:96px}
+
+/* ---------- E: paper with red-pen marks on a real bad reply ---------- */
+#E{background:#fffdf8;color:#1d1c1a;font-family:'Inter',sans-serif}
+#E h1{position:absolute;left:96px;top:80px;width:1500px;font-family:'Instrument Serif',serif;font-weight:400;font-size:80px;line-height:1.02;letter-spacing:-.01em}
+#E .sub{position:absolute;left:96px;top:270px;width:1180px;font-size:29px;line-height:1.42;color:#4b4842}
+#E .sheet{position:absolute;left:96px;top:410px;width:880px}
+#E .them{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+#E .them .bub{background:#ecebe6;font-family:'Plus Jakarta Sans';font-size:27px}
+#E .mine{margin-top:26px;margin-left:0;background:#3b82f6;color:#fff;border-radius:28px;padding:20px 28px;font-family:'Plus Jakarta Sans';font-size:29px;line-height:1.38;width:640px;position:relative}
+#E .mine u{text-decoration:none;position:relative}
+#E .mine .c1::after,#E .mine .c2::after{content:"";position:absolute;inset:-4px -8px;border:3px solid #d42b1f;border-radius:50%;transform:rotate(-3deg)}
+#E .pen{position:absolute;font-family:'Caveat',cursive;font-weight:700;color:#d42b1f;font-size:36px;line-height:1}
+#E .lbl{font-size:20px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:12px}
+#E .right{position:absolute;left:1120px;top:410px;width:700px}
+#E .good{background:#e6f6ee;border:2px solid #1fa572;border-radius:28px;padding:20px 28px;font-family:'Plus Jakarta Sans';font-size:29px;line-height:1.38}
+#E .gwhy{margin-top:14px;font-size:24px;color:#4b4842;line-height:1.4}
+#E .how{margin-top:40px;font-size:27px;line-height:1.45;border-top:2px solid #1d1c1a;padding-top:22px}
+#E .how b{font-weight:700}
+#E .weeks{margin-top:16px;font-size:23px;line-height:1.5;color:#4b4842}
+#E .weeks b{color:#1d1c1a}
+#E .src{position:absolute;left:96px;bottom:40px;font-size:19px;color:#8a857b}
+</style></head><body>
+
+<!-- A -->
+<section class="slide" id="A">
+  <div class="logo"><i></i>Parley</div>
+  <div class="left"><div class="kick">Skills track</div>
+  <h1>The skill we teach: answering a provoking text from your ex so it helps you in court</h1>
+  <div class="sub">That means calm, short and only about the kids. Easy to say, and almost nobody manages it when they feel attacked.</div>
+  <div class="ex">
+    <div class="them"><span class="bub">u didnt even show up sat</span><span class="bub">the kids waited an HOUR</span><span class="bub">unreal</span></div>
+    <div class="row">
+      <div class="col bad"><div class="lab">What most people send</div>
+        <span class="bub">wow so now it's my fault?? i was there at 10 and YOU never showed up</span>
+        <div class="why">Sent in a hurry, defends, and fires back. A judge reads two angry parents.</div></div>
+      <div class="col good"><div class="lab">What a judge wants to read</div>
+        <span class="bub">i was at the school lot at 10 and texted u at 10:05. sunday instead?</span>
+        <div class="why">One fact they can check and a next step for the kids. Nothing to quote against you.</div></div>
+    </div>
+  </div></div>
+  <div class="foot">Parley trains it in <b>2 minutes a day for 28 days</b>: you pick the reply you'd send, see why it works or backfires, then write your own and get it graded.</div>
+  <div class="iphone iphone--black ph" data-shot="../../shots/drill-2.png" style="--s:1.0;--shift:64"></div>
+</section>
+
+<!-- B -->
+<section class="slide" id="B">
+  <div class="mast"><span>Parley</span><span>Skills track</span><span>4</span></div>
+  <h1>Every parent knows to stay calm with their ex. <em>Under attack, almost nobody can.</em></h1>
+  <p class="lede"><b>The skill we teach</b> is replying to a provoking message briefly, calmly and only about the kids, so that if it is ever read out in court, it helps you.</p>
+  <div class="cols">
+    <div><h3>Why adults keep failing</h3>
+      <ul class="fails"><li><b>They reply fast</b>, while still angry.</li><li><b>They defend themselves</b> point by point.</li><li><b>They write an essay</b> nobody asked for.</li><li><b>They fire back</b>, and that is the line the judge quotes.</li></ul></div>
+    <div><h3>How Parley gets them there</h3>
+      <p>Two minutes a day with texts that sound like a real ex. Pick the reply you'd send, see why it's good or bad, then write your own and get it graded.</p>
+      <p class="weeks">28 days in four weeks: <span><b>Brief &amp; facts</b>,</span> <span><b>Don't take the bait</b>,</span> <span><b>Firm boundaries</b></span> and <span><b>Court-ready habits</b>.</span></p></div>
+  </div>
+  <div class="iphone iphone--white ph" data-shot="../../shots/plan.png" style="--s:0.92;--shift:0"></div>
+  <div class="note">today is day 12 of 28 &#8594;</div>
+  <div class="cap">The practice path in the live product, sample case</div>
+</section>
+
+<!-- C -->
+<section class="slide" id="C">
+  <div class="kick">Skills track</div>
+  <h1>You get a reply wrong, learn why, and get the next message right</h1>
+  <div class="score"><span class="a">21</span><span class="ar">→</span><span class="b">98</span></div>
+  <div class="scap">A real draft graded in Parley. It scored 21 because a judge would read three phrases badly. Parley showed each one, why, and what to say instead.</div>
+  <div class="steps">
+    <div><b>Fail</b>You send what you'd really send: fast, defensive or angry.</div>
+    <div><b>Learn</b>Parley underlines the words a judge would hold against you and explains why.</div>
+    <div><b>Succeed</b>A new message arrives the next day and you answer it calmly.</div>
+  </div>
+  <div class="iphone iphone--natural ph1" data-shot="../../shots/drill-2.png" style="--s:0.86;--shift:64"></div>
+  <div class="iphone iphone--natural ph2" data-shot="../../shots/lens.png" style="--s:0.98;--shift:0"></div>
+</section>
+
+<!-- D -->
+<section class="slide" id="D">
+  <div class="kick">Skills track</div>
+  <h1>Two minutes a day for 28 days, on texts that sound like a real ex</h1>
+  <div class="sub">Each day, five provoking messages arrive. You <b>pick the reply you'd send</b>, <b>see why it's good or bad</b>, then <b>write your own and get a grade</b>. The goal: calm, short and only about the kids.</div>
+  <div class="big"><span class="n">28</span><span class="t">days, each one a short lesson<br>that builds on the last</span></div>
+  <div class="today">Day 12 is today</div>
+  <div class="track">
+    <div class="dots" id="dots"></div>
+    <div class="wk">
+      <div><b>Week 1</b>Brief &amp; facts</div>
+      <div><b>Week 2</b>Don't take the bait</div>
+      <div><b>Week 3</b>Firm boundaries</div>
+      <div><b>Week 4</b>Court-ready habits</div>
+    </div>
+  </div>
+  <div class="iphone iphone--black ph1" data-shot="../../shots/plan.png" style="--s:0.86;--shift:0"></div>
+  <div class="iphone iphone--black ph2" data-shot="../../shots/drill-2.png" style="--s:0.98;--shift:64"></div>
+</section>
+
+<!-- E -->
+<section class="slide" id="E">
+  <h1>When your ex provokes you, your first reply is usually the one a judge holds against you</h1>
+  <div class="sub">People reply fast, defend themselves, write an essay or fire back. Parley teaches the opposite: calm, brief and only about the kids.</div>
+  <div class="sheet">
+    <div class="them"><span class="bub">u didnt even show up sat</span><span class="bub">the kids waited an HOUR</span><span class="bub">unreal</span></div>
+    <div class="mine"><u class="c1">wow so now it's my fault??</u> i was there at 10 and <u class="c2">YOU never showed up</u>. this is exactly what you did at christmas, you always do this and then play the victim</div>
+  </div>
+  <div class="pen" style="left:770px;top:650px;transform:rotate(-4deg)">&#8592; defends himself</div>
+  <div class="pen" style="left:770px;top:716px;transform:rotate(3deg)">&#8592; fires back</div>
+  <div class="pen" style="left:300px;top:870px;transform:rotate(-2deg)">&#8593; then an essay about christmas</div>
+  <div class="right">
+    <div class="lbl" style="color:#1fa572">What Parley teaches instead</div>
+    <div class="good">i was at the school lot at 10 and texted u at 10:05. sunday instead?</div>
+    <div class="gwhy">One fact they can check, one next step for the kids.</div>
+    <div class="how"><b>2 minutes a day.</b> Pick the reply you'd send, see why it's good or bad, then write your own and get it graded.</div>
+    <div class="weeks">28 days in four weeks: <b>Brief &amp; facts</b>, <b>Don't take the bait</b>, <b>Firm boundaries</b>, <b>Court-ready habits</b>.</div>
+  </div>
+  <div class="src">Messages from a Parley practice session. The angry reply is a typical example, not a real case.</div>
+</section>
+
+<script src="../../design-options/iphone.js"></script>
+<script>
+const d=document.getElementById('dots');
+for(let i=1;i<=28;i++){const e=document.createElement('i');if(i<12)e.className='d';if(i===12)e.className='t';d.appendChild(e)}
+</script>
+</body></html>

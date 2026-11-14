@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Parley, slide 9 variants</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../design-options/iphone.css">
+<style>
+:root {
+  --night: #0d0e1a; --card: #161829; --line: #262a40;
+  --fg: #f4f5fb; --mute: #a9abc0; --dim: #7a7e96;
+  --acc: #7d8bff; --acc-2: #5b6cf6;
+  --grad: linear-gradient(118deg, #7c5cf0 0%, #5b6cf6 45%, #3f8df5 100%);
+  --warn: #ff5fa0; --ok: #34d399;
+  --font: "Plus Jakarta Sans", system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #000; color: var(--fg); font-family: var(--font); -webkit-font-smoothing: antialiased; }
+.slide { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--night); margin-bottom: 20px; }
+.slide::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(70% 60% at 85% -10%, rgba(91,108,246,.20), rgba(91,108,246,0) 70%); }
+.slide > * { position: absolute; }
+/* light slides: same type and accents on paper */
+.slide.light { --fg: #1d1f2b; --mute: #6b6e85; --dim: #8b8ea3; --line: #e3e5ef; --acc: #5b6cf6; --warn: #e2508f; --ok: #1fa572;
+  background: #f4f5fa; color: var(--fg); }
+.slide.light::before { background: radial-gradient(70% 60% at 85% -10%, rgba(124,92,240,.13), rgba(124,92,240,0) 70%); }
+.mark { left: 120px; top: 84px; font-size: 24px; font-weight: 800; letter-spacing: -.02em; display: flex; align-items: center; gap: 12px; }
+.mark i { width: 26px; height: 26px; border-radius: 8px; background: var(--grad); display: block; }
+.kick { left: 120px; top: 168px; font-size: 22px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--acc); }
+h2 { left: 120px; top: 212px; width: 1300px; font-size: 68px; font-weight: 800; letter-spacing: -.035em; line-height: 1.04; }
+h2 span { color: var(--mute); }
+.pg { right: 120px; bottom: 50px; font-size: 18px; color: var(--dim); font-weight: 600; }
+.src { left: 120px; bottom: 50px; font-size: 18px; color: var(--dim); font-weight: 500; }
+.num { font-weight: 800; letter-spacing: -.04em; line-height: 1; }
+.gt { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lbl { font-size: 22px; font-weight: 700; color: var(--fg); }
+.lbl small { display: block; font-size: 19px; font-weight: 500; color: var(--mute); margin-top: 4px; }
+.tag { font-size: 18px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.wcard { background: #fff; border-radius: 28px; box-shadow: 0 2px 4px rgba(20,22,40,.05), 0 24px 60px -20px rgba(20,22,40,.22); }
+.iphone { --status-bg: #f4f5fa; --tab-bg: #fefefe; }
+.iphone--black { --ti-1: #5f6170; --ti-2: #2b2c35; --ti-3: #8d8fa0; --ti-4: #1d1e26; --ti-5: #454757; }
+img.ad { display: block; border-radius: 14px; box-shadow: 0 30px 60px -24px rgba(0,0,0,.6); }
+.light img.ad { box-shadow: 0 2px 4px rgba(20,22,40,.06), 0 24px 50px -20px rgba(20,22,40,.30); }
+
+/* OUR AD: a phone's own text thread, drawn as a 4:5 static. Sized by font-size. */
+.our { width: 20em; height: 25em; background: #fff; color: #111; border-radius: 1.1em; padding: 1.3em 1.1em 1.1em; display: flex; flex-direction: column; gap: .5em; font-family: -apple-system, "SF Pro Text", "Helvetica Neue", var(--font); box-shadow: 0 30px 70px -26px rgba(0,0,0,.55); }
+.light .our { box-shadow: 0 2px 4px rgba(20,22,40,.06), 0 30px 60px -22px rgba(20,22,40,.32); }
+.our .who { text-align: center; font-size: .86em; color: #8a8a8e; font-weight: 600; margin-bottom: .2em; }
+.our .who b { display: block; width: 2.4em; height: 2.4em; border-radius: 50%; background: #c9cbd6; margin: 0 auto .35em; }
+.our .m { font-size: .9em; line-height: 1.3; padding: .55em .8em; border-radius: 1.05em; max-width: 84%; }
+.our .i { background: #e9e9eb; align-self: flex-start; border-bottom-left-radius: .3em; }
+.our .x { background: #e2508f; color: #fff; align-self: flex-end; border-bottom-right-radius: .3em; text-decoration: line-through; text-decoration-color: rgba(255,255,255,.85); text-decoration-thickness: .1em; opacity: .9; }
+.our .g { background: #2f6bff; color: #fff; align-self: flex-end; border-bottom-right-radius: .3em; }
+.our .note { align-self: flex-end; font-size: .62em; font-weight: 700; color: #1fa572; margin-top: -.2em; }
+.our .cta { margin-top: auto; text-align: center; font-size: .86em; font-weight: 800; color: #2f6bff; letter-spacing: .02em; }
+
+/* the quiz, drawn from the product's own onboarding questions */
+.quiz { background: #fff; color: #1d1f2b; border-radius: 28px; padding: 30px 30px 32px; width: 400px; box-shadow: 0 30px 70px -26px rgba(0,0,0,.55); }
+.quiz .bar { height: 8px; border-radius: 4px; background: #eceef6; }
+.quiz .bar i { display: block; height: 100%; width: 37%; border-radius: 4px; background: var(--grad); }
+.quiz .step { font-size: 18px; color: #8b8ea3; font-weight: 600; margin: 12px 0 18px; }
+.quiz h4 { font-size: 28px; font-weight: 800; letter-spacing: -.02em; line-height: 1.15; margin-bottom: 18px; }
+.quiz .o { font-size: 21px; font-weight: 600; padding: 15px 18px; border: 2px solid #e6e8f2; border-radius: 16px; margin-top: 10px; }
+.quiz .o.on { border-color: #5b6cf6; background: rgba(91,108,246,.08); color: #3f4bd0; }
+
+/* ---------- A ---------- */
+.A .fan { left: 120px; top: 420px; width: 600px; height: 470px; }
+.A .fan img { position: absolute; width: 270px; }
+.A .quiz { left: 790px; top: 430px; }
+.A .phone { left: 1330px; top: 310px; }
+.A .step-l { top: 935px; }
+.A .stat { right: 120px; top: 168px; text-align: right; }
+
+/* ---------- B ---------- */
+.B .half { top: 380px; height: 590px; border-radius: 32px; }
+.B .them { left: 120px; width: 820px; background: #e9ebf3; }
+.B .us { left: 980px; width: 820px; background: #fff; box-shadow: 0 2px 4px rgba(20,22,40,.05), 0 30px 70px -24px rgba(91,108,246,.35); outline: 3px solid #7c5cf0; outline-offset: -3px; }
+.B .half > * { position: absolute; }
+
+/* ---------- C ---------- */
+.C .chart { left: 120px; top: 420px; width: 1240px; }
+.C .row { display: grid; grid-template-columns: 300px 1fr; align-items: center; gap: 28px; height: 118px; }
+.C .row .n { font-size: 23px; font-weight: 700; }
+.C .row .n small { display: block; font-size: 19px; color: var(--mute); font-weight: 500; margin-top: 2px; }
+.C .track { position: relative; height: 64px; }
+.C .bar { position: absolute; left: 0; top: 0; height: 64px; border-radius: 14px; background: #2a2e48; }
+.C .bar.hero { background: var(--grad); }
+.C .bar.bad { background: rgba(255,95,160,.35); }
+.C .val { position: absolute; top: 50%; transform: translateY(-50%); font-size: 36px; font-weight: 800; letter-spacing: -.03em; }
+
+/* ---------- D ---------- */
+.D .rows { left: 120px; top: 410px; width: 1120px; }
+.D .r { display: grid; grid-template-columns: 300px 1fr 120px; gap: 30px; align-items: center; padding: 26px 0; border-top: 1px solid var(--line); }
+.D .r .n { font-size: 24px; font-weight: 800; letter-spacing: -.01em; }
+.D .r .n small { display: block; font-size: 19px; font-weight: 500; color: var(--mute); margin-top: 3px; }
+.D .dots { display: flex; flex-wrap: wrap; gap: 6px; width: 620px; }
+.D .dots i { width: 16px; height: 20px; border-radius: 4px; background: #c4c8db; display: block; }
+.D .q { font-size: 22px; font-weight: 800; color: var(--warn); text-align: right; }
+.D .r.us .q { color: var(--ok); }
+
+/* ---------- E ---------- */
+.E .ann { font-size: 22px; font-weight: 700; color: var(--fg); }
+.E .ann small { display: block; font-size: 19px; font-weight: 500; color: var(--mute); }
+</style>
+</head>
+<body>
+
+<!-- A · DARK · the three steps, left to right, drawn as what the buyer actually sees -->
+<section class="slide A">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">How we get customers</div>
+  <h2 style="width:1100px">A plain ad, a one-minute quiz,<br><span>then the price.</span></h2>
+  <div class="stat"><div class="num gt" style="font-size:64px">$100K to $500K</div><div class="lbl" style="margin-top:8px"><small>a month, Zimran's Finelo, iOS alone</small></div></div>
+
+  <div class="fan">
+    <img class="ad" src="../../../research/img/fin-notebook.jpg" style="left:0;top:40px;transform:rotate(-7deg)">
+    <img class="ad" src="../../../research/img/fin-paint.jpg" style="left:290px;top:40px;transform:rotate(6deg)">
+    <img class="ad" src="../../../research/img/fin-notes.jpg" style="left:150px;top:0;transform:rotate(-1deg);z-index:2">
+  </div>
+  <div class="quiz">
+    <div class="bar"><i></i></div>
+    <div class="step">Question 3 of 8</div>
+    <h4>What usually sets it off?</h4>
+    <div class="o">Money</div>
+    <div class="o on">Schedule changes and handoffs</div>
+    <div class="o">New partners</div>
+  </div>
+  <div class="phone"><div class="iphone iphone--black" style="--s:0.68; --tab:0" data-shot="../../../shots/pricing.png"></div></div>
+
+  <svg style="left:690px;top:620px" width="90" height="40"><defs><linearGradient id="ga" x1="0" x2="1"><stop offset="0" stop-color="#7c5cf0"/><stop offset="1" stop-color="#3f8df5"/></linearGradient></defs><path d="M4 20H78M64 8l14 12-14 12" fill="none" stroke="url(#ga)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <svg style="left:1218px;top:620px" width="90" height="40"><path d="M4 20H78M64 8l14 12-14 12" fill="none" stroke="url(#ga)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+
+  <div class="lbl step-l" style="left:120px">1 · Looks like your Notes<small>Zimran's Finelo ads</small></div>
+  <div class="lbl step-l" style="left:790px">2 · One-minute quiz<small>their problem, in their words</small></div>
+  <div class="lbl step-l" style="left:1330px">3 · Their plan, then the price</div>
+  <div class="src">Sensor Tower, Oct 2026 (est.)</div>
+  <div class="pg">9</div>
+</section>
+
+<!-- B · LIGHT · split screen: their brochure against our text thread -->
+<section class="slide light B">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">How we get customers</div>
+  <h2>They run brochures. <span>We run a text thread.</span></h2>
+
+  <div class="half them">
+    <div class="tag" style="left:44px;top:40px;color:var(--mute)">Competitors</div>
+    <img class="ad" src="../../../research/img/cp-ofw-quote.jpg" style="left:44px;top:96px;width:300px;transform:rotate(-3deg)">
+    <img class="ad" src="../../../research/img/cp-ofw-before.jpg" style="left:250px;top:120px;width:300px;transform:rotate(4deg)">
+    <div style="left:590px;top:110px;width:200px">
+      <div class="num" style="font-size:64px">~75</div><div class="lbl"><small>OurFamilyWizard ads</small></div>
+      <div class="num" style="font-size:64px;margin-top:22px">~43</div><div class="lbl"><small>TalkingParents</small></div>
+      <div class="num" style="font-size:64px;margin-top:22px;color:var(--warn)">0</div><div class="lbl"><small>with a quiz</small></div>
+    </div>
+    <div class="lbl" style="left:44px;bottom:40px">Polished, corporate, made for lawyers</div>
+  </div>
+
+  <div class="half us">
+    <div class="tag" style="left:44px;top:40px;color:#5b6cf6">Parley</div>
+    <div class="our" style="font-size:22px;left:44px;top:92px;height:auto;min-height:0;width:400px;padding:22px 20px 20px;box-shadow:0 2px 4px rgba(20,22,40,.06),0 20px 40px -18px rgba(20,22,40,.3);border:1px solid #eceef5">
+      <div class="who"><b></b>Co-parent</div>
+      <div class="m i">It's unacceptable I haven't talked to him in two days.</div>
+      <div class="m x">first of all I gave him the phone… so f*** you</div>
+      <div class="m g">He has the phone. I'll remind him to call you tonight.</div>
+      <div class="cta">TAP TO START</div>
+    </div>
+    <div style="left:490px;top:110px;width:290px">
+      <div class="tag" style="color:var(--ok)">The ad is the product</div>
+      <div class="lbl" style="margin-top:28px">→ one-minute quiz</div>
+      <div class="lbl" style="margin-top:18px">→ their plan</div>
+      <div class="lbl" style="margin-top:18px">→ the price</div>
+    </div>
+    <div class="lbl" style="left:44px;bottom:40px">Looks like a text from your own phone</div>
+  </div>
+  <div class="src">Meta Ad Library, US, active ads, 14 Nov 2026 · bad reply: L.W. v. J.U., NY 2024</div>
+  <div class="pg">9</div>
+</section>
+
+<!-- C · DARK · a chart drawn to scale: which ads win on Meta -->
+<section class="slide C">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">How we get customers</div>
+  <h2 style="width:1240px">Plain text ads win<br><span>far more often than polished.</span></h2>
+
+  <div class="chart">
+    <!-- scale: 760px = 11.6% -->
+    <div class="row"><div class="n">Text only<small>Zimran's style, and ours</small></div>
+      <div class="track"><div class="bar hero" style="width:760px"></div><div class="val" style="left:782px">11.6%</div></div></div>
+    <div class="row"><div class="n" style="color:var(--mute)">Product image</div>
+      <div class="track"><div class="bar" style="width:573px"></div><div class="val" style="left:595px;color:var(--mute)">8.8%</div></div></div>
+    <div class="row"><div class="n" style="color:var(--mute)">Creator video</div>
+      <div class="track"><div class="bar" style="width:495px"></div><div class="val" style="left:517px;color:var(--mute)">7.6%</div></div></div>
+    <div class="row"><div class="n">High production<small>competitors' style</small></div>
+      <div class="track"><div class="bar bad" style="width:457px"></div><div class="val" style="left:479px;color:var(--warn)">7.0%</div></div></div>
+  </div>
+  <div class="lbl" style="left:120px;top:910px"><small>Share of Meta ads that became winners</small></div>
+
+  <img class="ad" src="../../../research/img/fin-notes.jpg" style="left:1470px;top:150px;width:300px;transform:rotate(3deg)">
+  <img class="ad" src="../../../research/img/cp-ofw-quote.jpg" style="left:1520px;top:600px;width:250px;transform:rotate(-3deg);opacity:.85">
+  <svg style="left:1380px;top:380px" width="100" height="120"><path d="M8 110C40 90 70 60 86 14M72 26l14-12 6 18" fill="none" stroke="#7d8bff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <svg style="left:1380px;top:780px" width="130" height="60"><path d="M8 40C50 50 90 40 120 20M104 18l16 2-8 14" fill="none" stroke="#ff5fa0" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div class="src">Motion Creative Benchmarks 2026: 550K+ ads, 6,000+ advertisers</div>
+  <div class="pg">9</div>
+</section>
+
+<!-- D · LIGHT · the Ad Library counted, one tile per live ad -->
+<section class="slide light D">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">How we get customers</div>
+  <h2 style="width:1140px">About 118 competitor ads. <span>Not one with a quiz.</span></h2>
+
+  <div class="rows" id="drows">
+    <div class="r"><div class="n">OurFamilyWizard<small>~75 ads, polished</small></div><div class="dots" data-n="75"></div><div class="q">no quiz</div></div>
+    <div class="r"><div class="n">TalkingParents<small>~43 ads, corporate</small></div><div class="dots" data-n="43"></div><div class="q">no quiz</div></div>
+    <div class="r"><div class="n">BestInterest<small>closest to us</small></div><div class="dots" data-n="0"><span style="font-size:22px;color:var(--mute);font-weight:600">no ads at all</span></div><div class="q">no quiz</div></div>
+  </div>
+
+  <div class="wcard" style="left:1320px;top:150px;width:480px;height:800px"></div>
+  <div class="tag" style="left:1370px;top:196px;color:#5b6cf6">Parley's funnel</div>
+  <div class="our" style="font-size:21px;left:1370px;top:250px;height:auto;width:380px;padding:20px 18px 18px;border:1px solid #eceef5;box-shadow:none">
+    <div class="who"><b></b>Co-parent</div>
+    <div class="m i">It's unacceptable I haven't talked to him in two days.</div>
+    <div class="m x">first of all I gave him the phone… so f*** you</div>
+    <div class="m g">He has the phone. I'll remind him to call you tonight.</div>
+    <div class="cta">TAP TO START</div>
+  </div>
+  <div style="left:1370px;top:710px;width:380px">
+    <div class="lbl">↓ One-minute quiz</div>
+    <div style="height:8px;border-radius:4px;background:#eceef6;margin:14px 0 26px"><i style="display:block;height:100%;width:60%;border-radius:4px;background:var(--grad)"></i></div>
+    <div class="lbl">↓ Then the price</div>
+    <div class="lbl" style="margin-top:8px"><small>Zimran's playbook</small></div>
+  </div>
+  <div class="src">Meta Ad Library, US, active ads, 14 Nov 2026 · one tile per ad</div>
+  <div class="pg">9</div>
+</section>
+
+<!-- E · DARK · our ad, annotated: the ad is the product -->
+<section class="slide E">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">How we get customers</div>
+  <h2 style="width:780px;top:212px">Our ad is the product:<br><span>a fight, fixed.</span></h2>
+
+  <div style="left:120px;top:560px;width:640px">
+    <div class="lbl"><small>Same plain format as Zimran's Finelo</small></div>
+    <div style="position:relative;height:230px;margin-top:18px">
+      <img class="ad" src="../../../research/img/fin-notes.jpg" style="position:absolute;left:0;top:0;width:170px;transform:rotate(-4deg)">
+      <img class="ad" src="../../../research/img/fin-notebook.jpg" style="position:absolute;left:150px;top:6px;width:170px;transform:rotate(3deg)">
+    </div>
+    <div class="num gt" style="font-size:60px;margin-top:20px">$100K to $500K</div>
+    <div class="lbl" style="margin-top:6px"><small>a month, Finelo on iOS alone</small></div>
+  </div>
+
+  <div class="our" id="eAd" style="font-size:34px;left:880px;top:150px;width:620px;height:790px;padding:40px 34px 36px;gap:.7em">
+    <div class="who"><b></b>Co-parent</div>
+    <div class="m i" id="e1">It's unacceptable I haven't talked to him in two days.</div>
+    <div class="m x" id="e2">first of all I gave him the phone… so f*** you</div>
+    <div class="m g" id="e3">He has the phone. I'll remind him to call you tonight.</div>
+    <div class="note">✓ Calm, about the kid</div>
+    <div class="cta" id="e4">TAP TO START</div>
+  </div>
+  <!-- annotations: placed by the script below, level with what they point at -->
+  <div class="ann" data-for="e1" style="left:1580px;width:250px">A fight everyone knows<small>real case, NY 2024</small></div>
+  <div class="ann" data-for="e2" style="left:1580px;width:250px;color:var(--warn)">Bad reply, crossed out</div>
+  <div class="ann" data-for="e3" style="left:1580px;width:250px;color:var(--ok)">Parley's calm reply</div>
+  <div class="ann" data-for="e4" style="left:1580px;width:250px">Tap → quiz → price</div>
+  <div class="src">Sensor Tower, Oct 2026 (est.)</div>
+  <div class="pg">9</div>
+</section>
+
+<script>
+for (const d of document.querySelectorAll('.D .dots')) { const n = +d.dataset.n; for (let i = 0; i < n; i++) d.appendChild(document.createElement('i')); }
+</script>
+<script>
+for (const n of document.querySelectorAll('.E .ann')) {
+  const t = document.getElementById(n.dataset.for), sl = n.closest('.slide').getBoundingClientRect(), r = t.getBoundingClientRect();
+  const y = r.top - sl.top + r.height / 2, x0 = r.right - sl.left + 18, x1 = 1560;
+  n.style.top = (y - 15) + 'px';
+  const c = getComputedStyle(n).color, sv = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  sv.setAttribute('width', x1 - x0); sv.setAttribute('height', 30); sv.style.cssText = `position:absolute;left:${x0}px;top:${y - 15}px`;
+  sv.innerHTML = `<path d="M${x1 - x0 - 4} 15H4M16 5L4 15l12 10" fill="none" stroke="${c}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
+  n.parentNode.appendChild(sv);
+}
+</script>
+<script src="../../../design-options/iphone.js"></script>
+</body>
+</html>

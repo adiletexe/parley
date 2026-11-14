@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Parley slide 1 variants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=Caveat:wght@600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #000; -webkit-font-smoothing: antialiased; }
+.slide { position: relative; width: 1920px; height: 1080px; overflow: hidden; margin-bottom: 40px; font-family: "Plus Jakarta Sans", sans-serif; }
+.abs { position: absolute; }
+
+/* the thread and the bubbles, themed per slide with variables */
+.card { background: var(--card); border-radius: 34px; padding: 30px 34px; box-shadow: var(--shadow); color: var(--ink); }
+.card .hd { display: flex; align-items: center; gap: 14px; padding-bottom: 20px; margin-bottom: 18px; border-bottom: 1px solid var(--line); }
+.card .av { width: 46px; height: 46px; border-radius: 50%; background: var(--av); display: grid; place-items: center; font-weight: 800; font-size: 20px; color: var(--muted); }
+.card .hd b { font-size: 24px; font-weight: 700; }
+.card .hd span { margin-left: auto; font-size: 18px; color: var(--muted); font-weight: 600; }
+.th { display: flex; flex-direction: column; gap: 12px; }
+.b { position: relative; max-width: 86%; padding: 14px 22px; border-radius: 26px; font-size: 26px; line-height: 1.3; font-weight: 500; }
+.b.me { align-self: flex-end; background: var(--me); color: var(--me-ink); border-bottom-right-radius: 8px; }
+.ctx { align-self: flex-start; max-width: 86%; background: var(--them); color: var(--them-ink); border-radius: 22px; border-bottom-left-radius: 8px; padding: 12px 20px; font-size: 20px; line-height: 1.35; font-style: italic; }
+.stamp { align-self: center; font-size: 18px; color: var(--muted); font-weight: 600; padding: 6px 0 2px; }
+.b.key { font-weight: 700; margin-top: 16px; }
+.ring { position: absolute; left: -30px; top: -24px; width: calc(100% + 64px); height: calc(100% + 50px); overflow: visible; pointer-events: none; }
+.ring path, .ink path { fill: none; stroke: var(--red); stroke-width: 5.5; stroke-linecap: round; stroke-linejoin: round; }
+.ink { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: visible; pointer-events: none; z-index: 30; }
+
+.mini { background: var(--card); border-radius: 26px; padding: 22px 24px; color: var(--ink); box-shadow: var(--shadow); }
+.mini .b { font-size: 24px; max-width: 100%; display: inline-block; }
+.mini .row { display: flex; justify-content: flex-end; }
+.mini p { font-size: 19px; line-height: 1.4; color: var(--muted); margin-top: 14px; font-weight: 500; }
+.mini p b { color: var(--ink); font-weight: 700; }
+
+.hand { font-family: "Caveat", cursive; color: var(--red); font-weight: 700; line-height: 1; }
+.src { font-size: 18px; line-height: 1.45; }
+
+/* ---------- A: Parley night, carousel ---------- */
+.vA { background: #0d0e1a; --card: #171a2c; --ink: #f4f5fb; --muted: #9a9db5; --line: #262a40; --av: #262a40;
+  --me: #3a64f5; --me-ink: #fff; --them: #232639; --them-ink: #b9bbcf; --red: #ff3b30;
+  --shadow: 0 50px 110px -30px rgba(0,0,0,.95), 0 0 0 1px rgba(255,255,255,.05); color: #f4f5fb; }
+.vA h1 { left: 0; right: 0; top: 64px; text-align: center; font-size: 60px; font-weight: 800; letter-spacing: -.035em; }
+.vA .sub { left: 0; right: 0; top: 146px; text-align: center; font-size: 28px; color: #9a9db5; font-weight: 500; }
+.vA .side { opacity: .34; filter: blur(.4px); }
+.vA .far { opacity: .17; filter: blur(1px); }
+
+/* ---------- B: editorial paper ---------- */
+.vB { background: #f2eee6; --card: #fff; --ink: #191919; --muted: #6d6a64; --line: #ece8e0; --av: #ece8e0;
+  --me: #1f7aff; --me-ink: #fff; --them: #ecebef; --them-ink: #55555c; --red: #d4202a;
+  --shadow: 0 30px 70px -28px rgba(60,40,10,.35), 0 0 0 1px rgba(0,0,0,.05); color: #191919; }
+.vB .serif { font-family: "Newsreader", serif; }
+.vB .kick { font-size: 20px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #d4202a; }
+.vB h1 { font-family: "Newsreader", serif; font-weight: 400; font-size: 84px; line-height: 1.02; letter-spacing: -.02em; }
+
+/* ---------- C: white keynote, phone carousel ---------- */
+.vC { background: #f7f7f8; --card: #fff; --ink: #111; --muted: #8a8a92; --line: #efeff2; --av: #e6e6ea;
+  --me: #0a84ff; --me-ink: #fff; --them: #e9e9eb; --them-ink: #3c3c43; --red: #e5262d;
+  --shadow: 0 40px 90px -30px rgba(0,0,30,.28), 0 0 0 1px rgba(0,0,0,.05); color: #111; font-family: "Inter", sans-serif; }
+.vC .phone { border-radius: 52px; padding: 30px 30px; }
+.vC h1 { font-weight: 800; letter-spacing: -.04em; }
+.vC .dots { display: flex; gap: 12px; }
+.vC .dots i { width: 12px; height: 12px; border-radius: 6px; background: #cfcfd5; }
+.vC .dots i.on { width: 36px; background: #111; }
+
+/* ---------- D: court exhibit ---------- */
+.vD { background: #e9e3d6; --card: #fbfaf6; --ink: #1b1b1b; --muted: #6e695e; --line: #e4dfd2; --av: #e4dfd2;
+  --me: #2c6cf0; --me-ink: #fff; --them: #ecebe6; --them-ink: #55534d; --red: #d11f26;
+  --shadow: 0 2px 0 rgba(0,0,0,.04), 0 24px 50px -20px rgba(50,35,10,.45); color: #1b1b1b; }
+.vD .mono { font-family: "IBM Plex Mono", monospace; }
+.vD .tag { position: absolute; top: -18px; right: 26px; background: #f5d547; color: #1b1b1b; font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 18px; padding: 8px 14px; border-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,.15); letter-spacing: .04em; }
+.vD .card, .vD .mini { border-radius: 6px; }
+.vD h1 { font-family: "Newsreader", serif; font-weight: 600; font-size: 70px; letter-spacing: -.02em; line-height: 1.04; }
+
+/* ---------- E: night, notification stack ---------- */
+.vE { background: #07080f; --card: #1a1c2b; --ink: #f4f5fb; --muted: #9a9db5; --line: #2a2d42; --av: #2a2d42;
+  --me: #3a64f5; --me-ink: #fff; --them: #232639; --them-ink: #b9bbcf; --red: #ff3b30;
+  --shadow: 0 40px 90px -30px rgba(0,0,0,1), 0 0 0 1px rgba(255,255,255,.06); color: #f4f5fb; }
+.vE h1 { font-size: 74px; font-weight: 800; letter-spacing: -.04em; line-height: 1.02; }
+.vE h1 span { color: #6f7390; }
+.vE .note-card { background: #fff; color: #111; border-radius: 4px; transform: rotate(1.5deg); box-shadow: 0 30px 60px -20px rgba(0,0,0,.9); }
+.ntf { border-radius: 26px; padding: 0 26px; height: 92px; display: flex; align-items: center; gap: 16px; background: var(--nb); color: var(--nt); }
+.ntf i { width: 36px; height: 36px; border-radius: 10px; background: #34c759; display: block; flex: none; opacity: .7; }
+.ntf b { font-size: 24px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ntf em { margin-left: auto; font-style: normal; font-size: 18px; font-weight: 600; white-space: nowrap; color: var(--nm); }
+
+.parley { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 30px; letter-spacing: -.02em; }
+.parley i { width: 30px; height: 30px; border-radius: 9px; background: linear-gradient(118deg,#7c5cf0,#5b6cf6 45%,#3f8df5); display: block; }
+</style>
+</head>
+<body>
+
+<!-- ====================== A ====================== -->
+<section class="slide vA" id="A">
+  <h1 class="abs">Parents lose time with their kids over a single angry text.</h1>
+  <div class="abs sub">These are real messages. Judges quoted every one of them in a custody decision.</div>
+
+  <div class="abs mini far" style="left:-60px; top:460px; width:360px" data-case="crews"></div>
+  <div class="abs mini side" style="left:250px; top:262px; width:440px" data-case="sheppard"></div>
+  <div class="abs mini far" style="left:1620px; top:440px; width:360px" data-case="mcghee"></div>
+  <div class="abs mini side" style="left:1230px; top:262px; width:440px" data-case="cowger"></div>
+
+  <div class="abs card front" style="left:640px; top:224px; width:640px; z-index:5" data-thread="lw"></div>
+
+  <div class="abs note" style="left:1420px; top:770px; width:460px; z-index:6">
+    <div class="hand" style="font-size:48px">this text cost him his son</div>
+    <p style="font-size:24px; line-height:1.4; color:#e6e7f0; margin-top:12px; font-weight:500">He sent it to his son's mom while he had custody. The judge quoted it, and now he sees his son twice a week for two hours, with a supervisor in the room.</p>
+  </div>
+
+  <div class="abs" style="left:80px; top:700px; width:520px">
+    <div class="parley">Parley</div>
+    <p style="font-size:28px; line-height:1.4; color:#c7c9da; margin-top:16px; font-weight:500">An app that helps parents in two homes answer the other parent calmly, so nothing they send can be used against them in court.</p>
+  </div>
+  <div class="abs src" style="left:80px; bottom:40px; width:1760px; color:#5f6380">Quoted in L.W. v. J.U. (N.Y. Sup. Ct. 2024), Sheppard v. Reed (Iowa Ct. App. 2021), McGhee v. McGhee (Wis. Ct. App. 2023), In re Marriage of Cowger (Iowa Ct. App. 2023), Crews v. Crews (Mich. Ct. App. 2019). Profanity starred by us.</div>
+  <svg class="ink" data-arrow="right"></svg>
+</section>
+
+<!-- ====================== B ====================== -->
+<section class="slide vB" id="B">
+  <div class="abs" style="left:100px; top:96px; width:640px">
+    <div class="kick">Real texts from custody cases</div>
+    <h1 style="margin-top:28px">One angry text can cost a parent their kids.</h1>
+    <p class="serif" style="font-size:32px; line-height:1.4; margin-top:32px; color:#3d3a35">In custody court the judge reads your messages. Every text on this page was quoted in a real decision, and every sender lost time with their children.</p>
+  </div>
+  <div class="abs" style="left:100px; top:830px; width:620px; border-top:2px solid #191919; padding-top:22px">
+    <div class="parley" style="font-size:28px">Parley</div>
+    <p style="font-size:26px; line-height:1.4; margin-top:10px; color:#3d3a35; font-weight:500">turns the other parent's hostile texts into calm replies a judge would be glad to read.</p>
+  </div>
+
+  <div class="abs mini" style="left:880px; top:70px; width:430px; transform:rotate(-7deg); opacity:.55" data-case="mcghee"></div>
+  <div class="abs mini" style="left:1330px; top:60px; width:440px; transform:rotate(5deg); opacity:.55" data-case="sheppard"></div>
+  <div class="abs mini" style="left:800px; top:770px; width:440px; transform:rotate(4deg); opacity:.55" data-case="crews"></div>
+  <div class="abs mini" style="left:1250px; top:850px; width:460px; transform:rotate(-4deg); opacity:.55" data-case="cowger"></div>
+
+  <div class="abs card" style="left:880px; top:250px; width:600px; transform:rotate(-1.5deg); z-index:5" data-thread="lw-short"></div>
+  <div class="abs note" style="left:1570px; top:500px; width:320px; z-index:6">
+    <div class="hand" style="font-size:46px; line-height:1.05; transform:rotate(-3deg)">This one cost him custody of his son.</div>
+    <p class="serif" style="font-size:26px; line-height:1.38; color:#191919; font-style:italic; margin-top:22px">He had custody when he sent it. The judge quoted it and gave his son's mom full custody. Now he sees the boy twice a week for two hours, with a supervisor.</p>
+  </div>
+  <div class="abs src" style="left:100px; bottom:22px; width:640px; color:#8b877e">L.W. v. J.U. (N.Y. 2024), McGhee (Wis. 2023), Sheppard v. Reed (Iowa 2021), Crews (Mich. 2019), Cowger (Iowa 2023).</div>
+  <svg class="ink" data-arrow="right"></svg>
+</section>
+
+<!-- ====================== C ====================== -->
+<section class="slide vC" id="C">
+  <h1 class="abs" style="left:110px; top:84px; width:900px; font-size:72px; line-height:1.02">Judges read your texts. These texts cost parents their kids.</h1>
+  <div class="abs" style="left:1240px; top:96px; width:570px">
+    <div class="parley" style="font-size:28px">Parley</div>
+    <p style="font-size:26px; line-height:1.4; margin-top:10px; color:#55555c">helps parents raising kids in two homes reply to the other parent without handing the judge a reason to take their time away.</p>
+  </div>
+
+  <div class="abs mini" style="left:-70px; top:470px; width:360px; opacity:.28; transform:scale(.92)" data-case="crews"></div>
+  <div class="abs mini" style="left:300px; top:430px; width:420px; opacity:.5" data-case="sheppard"></div>
+  <div class="abs mini" style="left:1200px; top:430px; width:420px; opacity:.5" data-case="mcghee"></div>
+  <div class="abs mini" style="left:1630px; top:470px; width:360px; opacity:.28; transform:scale(.92)" data-case="cowger"></div>
+
+  <div class="abs card phone" style="left:700px; top:340px; width:520px; z-index:5" data-thread="lw-phone"></div>
+  <div class="abs dots" style="left:930px; top:1028px"><i></i><i></i><i class="on"></i><i></i><i></i></div>
+
+  <div class="abs note" style="left:1240px; top:800px; width:600px; z-index:6">
+    <div class="hand" style="font-size:50px">this message did that</div>
+    <p style="font-size:24px; line-height:1.4; color:#3c3c43; margin-top:10px">He sent this to his son's mom. The judge quoted it, and now he sees his son twice a week for two hours, with a supervisor in the room.</p>
+  </div>
+  <div class="abs src" style="left:110px; top:1000px; width:700px; color:#a0a0a8">Real texts quoted in L.W. v. J.U. (N.Y. 2024) and four other custody decisions, 2019 to 2024.</div>
+  <svg class="ink" data-arrow="down-right"></svg>
+</section>
+
+<!-- ====================== D ====================== -->
+<section class="slide vD" id="D">
+  <div class="abs mono" style="left:90px; top:70px; font-size:20px; color:#6e695e; letter-spacing:.06em">EXHIBITS FROM FIVE U.S. CUSTODY CASES, 2019 TO 2024</div>
+
+  <div class="abs mini" style="left:90px; top:150px; width:430px; transform:rotate(-3deg)" data-case="sheppard" data-tag="EXHIBIT 7"></div>
+  <div class="abs mini" style="left:90px; top:430px; width:430px; transform:rotate(2deg)" data-case="crews" data-tag="EXHIBIT 12"></div>
+  <div class="abs mini" style="left:1420px; top:150px; width:430px; transform:rotate(3deg)" data-case="mcghee" data-tag="EXHIBIT 3"></div>
+  <div class="abs mini" style="left:1420px; top:430px; width:430px; transform:rotate(-2deg)" data-case="cowger" data-tag="EXHIBIT 21"></div>
+
+  <div class="abs card" style="left:620px; top:130px; width:680px; z-index:5" data-thread="lw-short" data-tag="EXHIBIT 1"></div>
+
+  <div class="abs" style="left:90px; top:720px; width:1180px">
+    <h1>In a custody case, your text messages are evidence.</h1>
+    <p style="font-size:28px; line-height:1.4; margin-top:20px; color:#3b3830; font-weight:500"><b>Parley</b> helps separated parents write replies that keep the peace and still look good when a judge reads them.</p>
+  </div>
+  <div class="abs note" style="left:1340px; top:760px; width:520px; z-index:6">
+    <div class="hand" style="font-size:48px">this message did that</div>
+    <p style="font-size:24px; line-height:1.4; color:#1b1b1b; margin-top:10px; font-weight:500">He had custody when he sent it. The judge quoted it word for word, and now he sees his son twice a week for two hours, with a supervisor in the room.</p>
+  </div>
+  <div class="abs src mono" style="left:90px; bottom:28px; color:#8a8476; font-size:18px">L.W. v. J.U. (N.Y. Sup. Ct. 2024) · Sheppard v. Reed · McGhee v. McGhee · Cowger · Crews v. Crews</div>
+  <svg class="ink" data-arrow="right-down"></svg>
+</section>
+
+<!-- ====================== E ====================== -->
+<section class="slide vE" id="E">
+  <div class="abs" style="left:100px; top:110px; width:560px">
+    <h1>He had custody of his son.<br><span>Then the judge read his texts.</span></h1>
+  </div>
+  <div class="abs" style="left:100px; top:740px; width:540px">
+    <div class="parley">Parley</div>
+    <p style="font-size:27px; line-height:1.4; color:#c7c9da; margin-top:14px; font-weight:500">An app that turns the other parent's angry texts into calm replies, and warns you before you send one that a judge would hold against you.</p>
+  </div>
+
+  <div class="abs ntf" style="left:770px; top:130px; width:520px; --nb:#11131d; --nt:#4b4f68; --nm:#3c4058" data-ntf="crews"></div>
+  <div class="abs ntf" style="left:750px; top:200px; width:560px; --nb:#151725; --nt:#5f6482; --nm:#4a4e68" data-ntf="cowger"></div>
+  <div class="abs ntf" style="left:730px; top:270px; width:600px; --nb:#1a1c2c; --nt:#7c809d; --nm:#5b5f7a" data-ntf="mcghee"></div>
+  <div class="abs ntf" style="left:705px; top:340px; width:650px; --nb:#1f2133; --nt:#a3a6be; --nm:#6f7390" data-ntf="sheppard"></div>
+  <div class="abs card" style="left:680px; top:420px; width:700px; z-index:5" data-thread="lw-short"></div>
+
+  <div class="abs note note-card" style="left:1440px; top:690px; width:430px; padding:28px 30px; z-index:6">
+    <div class="hand" style="font-size:44px">this message did that</div>
+    <p style="font-size:24px; line-height:1.4; margin-top:12px; font-weight:500">The judge quoted it in her decision. His son's mom got full custody, and he now sees the boy twice a week for two hours, with a supervisor in the room.</p>
+  </div>
+  <div class="abs src" style="left:100px; bottom:36px; width:1700px; color:#555a75">L.W. v. J.U. (N.Y. Sup. Ct. 2024). Behind it: Sheppard v. Reed (Iowa 2021), McGhee (Wis. 2023), Cowger (Iowa 2023), Crews (Mich. 2019).</div>
+  <svg class="ink" data-arrow="right"></svg>
+</section>
+
+<script>
+const CASES = {
+  sheppard: { who: 'Mom', q: 'f*** the judge and his order', p: '<b>Mom, Iowa.</b> Dad got the kids, and she pays him $559 a month.' , where: 'Iowa, lost the kids' },
+  mcghee:   { who: 'Dad', q: 'this means war', p: '<b>Dad, Wisconsin.</b> Mom got sole custody. He gets every other weekend.' , where: 'Wisconsin, lost custody' },
+  cowger:   { who: 'Dad', q: 'either u pay in full or take me to court', p: '<b>Dad, Iowa.</b> Went from 50/50 to every other weekend, and paid $12,000 of her lawyer fees.' , where: 'Iowa, $12,000 in fees' },
+  crews:    { who: 'Mom', q: 'The wrath of God is coming to you swiftly', p: '<b>Mom, Michigan.</b> Lost custody and started over with supervised visits.' , where: 'Michigan, supervised visits' },
+};
+const RING = '<svg class="ring" viewBox="0 0 200 100" preserveAspectRatio="none"><path vector-effect="non-scaling-stroke" d="M28 14 C 80 -2, 172 2, 194 34 C 210 64, 160 98, 96 97 C 34 96, 2 76, 6 50 C 10 24, 50 6, 120 5"/></svg>';
+const KEY = `<div class="b me key">I will not coparent with you, get that straight${RING}</div>`;
+const THREADS = {
+  lw: `<div class="hd"><div class="av">M</div><b>Mom</b><span>Dad's phone, New York</span></div><div class="th">
+    <div class="ctx">Mom says she hasn't spoken to their son in two days.</div>
+    <div class="b me">I gave him the phone and told him earlier to call you when he wanted, so f*** you</div>
+    <div class="ctx">Mom asks him to get their son sleeping in his own bed.</div>
+    <div class="b me">f*** off and stop sending me these bullsh*t messages</div>
+    <div class="stamp">Jan 21, 2023</div>${KEY}</div>`,
+  'lw-short': `<div class="hd"><div class="av">M</div><b>Mom</b><span>New York</span></div><div class="th">
+    <div class="ctx">Mom asks him to get their son sleeping in his own bed.</div>
+    <div class="b me">f*** off and stop sending me these bullsh*t messages</div>
+    <div class="stamp">Jan 21, 2023</div>${KEY}</div>`,
+  'lw-phone': `<div class="hd" style="flex-direction:column; gap:8px; border:0; padding-bottom:8px"><div class="av" style="width:64px;height:64px;font-size:26px">M</div><b style="font-size:20px">Mom</b></div><div class="th">
+    <div class="ctx">Mom says she hasn't spoken to their son in two days.</div>
+    <div class="b me">...so f*** you</div>
+    <div class="stamp">Jan 21, 2023</div>${KEY}</div>`,
+};
+document.querySelectorAll('[data-case]').forEach(el => {
+  const c = CASES[el.dataset.case];
+  el.innerHTML = (el.dataset.tag ? `<div class="tag">${el.dataset.tag}</div>` : '') +
+    `<div class="row"><div class="b me">${c.q}</div></div><p>${c.p}</p>`;
+  if (el.dataset.tag) el.style.position = 'absolute';
+});
+document.querySelectorAll('[data-thread]').forEach(el => {
+  el.innerHTML = (el.dataset.tag ? `<div class="tag">${el.dataset.tag}</div>` : '') + THREADS[el.dataset.thread];
+});
+document.querySelectorAll('[data-ntf]').forEach(el => {
+  const c = CASES[el.dataset.ntf];
+  el.innerHTML = `<i></i><b>${c.who}: ${c.q}</b>`;
+});
+
+// The pen arrow is drawn from the circled message to the note, measured off the laid-out page.
+function arrows() {
+  document.querySelectorAll('.slide').forEach(s => {
+    const svg = s.querySelector('svg.ink'); const key = s.querySelector('.b.key'); const note = s.querySelector('.note .hand');
+    if (!svg || !key || !note) return;
+    const S = s.getBoundingClientRect(), k = key.getBoundingClientRect(), n = note.getBoundingClientRect();
+    const mode = svg.dataset.arrow;
+    let x1, y1, x2, y2;
+    if (mode === 'down-right') { x1 = k.left + k.width * .7 - S.left; y1 = k.bottom + 34 - S.top; x2 = n.left - 18 - S.left; y2 = n.top + n.height / 2 - S.top; }
+    else if (mode === 'right-up') { x1 = k.right + 40 - S.left; y1 = k.top + k.height / 2 - S.top; x2 = n.left + 40 - S.left; y2 = n.bottom + 16 - S.top; }
+    else if (mode === 'right-down') { x1 = k.right + 40 - S.left; y1 = k.top + k.height / 2 - S.top; x2 = n.left + 60 - S.left; y2 = n.top - 14 - S.top; }
+    else { x1 = k.right + 40 - S.left; y1 = k.top + k.height / 2 - S.top; x2 = n.left - 18 - S.left; y2 = n.top + n.height / 2 - S.top; }
+    const dx = x2 - x1, dy = y2 - y1;
+    let c1x = x1 + dx * .35, c1y = y1 + dy * .05 + (mode === 'down-right' ? dy * .7 : -40);
+    let c2x = x1 + dx * .75, c2y = y2 + (mode === 'right-up' ? 40 : mode === 'right-down' ? -60 : 10);
+    if (mode === 'right') { const h = Math.max(70, dx * .5); c1x = x1 + h; c1y = y1 + 10; c2x = x2 - h; c2y = y2; }
+    const ang = Math.atan2(y2 - c2y, x2 - c2x), L = 26;
+    const h1 = [x2 - L * Math.cos(ang - .5), y2 - L * Math.sin(ang - .5)], h2 = [x2 - L * Math.cos(ang + .5), y2 - L * Math.sin(ang + .5)];
+    svg.setAttribute('viewBox', '0 0 1920 1080');
+    svg.innerHTML = `<path d="M${x1} ${y1} C${c1x} ${c1y} ${c2x} ${c2y} ${x2} ${y2}"/><path d="M${h1} L${x2} ${y2} L${h2}"/>`;
+  });
+}
+document.fonts.ready.then(arrows);
+</script>
+</body>
+</html>

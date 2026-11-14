@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Parley slide 10 variants</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../design-options/iphone.css">
+<style>
+:root {
+  --night: #0d0e1a; --card: #161829; --line: #262a40;
+  --fg: #f4f5fb; --mute: #a9abc0; --dim: #62667e;
+  --acc: #7d8bff; --acc-2: #5b6cf6;
+  --grad: linear-gradient(118deg, #7c5cf0 0%, #5b6cf6 45%, #3f8df5 100%);
+  --warn: #e2508f; --ok: #1fa572;
+  --font: "Plus Jakarta Sans", system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #000; font-family: var(--font); -webkit-font-smoothing: antialiased; }
+.slide { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--night); color: var(--fg); margin-bottom: 40px; }
+.slide::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(70% 60% at 85% -10%, rgba(91,108,246,.20), rgba(91,108,246,0) 70%); }
+.slide.light { --fg: #1d1f2b; --mute: #8a8da3; --dim: #8a8da3; --line: #e3e5ef; --acc: #5b6cf6; background: #f4f5fa; }
+.slide.light::before { background: radial-gradient(70% 60% at 85% -10%, rgba(91,108,246,.12), rgba(91,108,246,0) 70%); }
+.slide > * { position: absolute; }
+.mark { left: 120px; top: 84px; font-size: 24px; font-weight: 800; letter-spacing: -.02em; display: flex; align-items: center; gap: 12px; }
+.mark i { width: 26px; height: 26px; border-radius: 8px; background: var(--grad); display: block; }
+.kick { left: 120px; top: 160px; font-size: 22px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--acc); }
+h1, h2 { font-weight: 800; letter-spacing: -.035em; line-height: 1.04; }
+h2 { left: 120px; top: 206px; font-size: 68px; }
+h1 span, h2 span { color: var(--mute); }
+.num { font-weight: 800; letter-spacing: -.045em; line-height: 1; }
+.gt { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lab { font-size: 20px; font-weight: 600; color: var(--mute); }
+.lab b { color: var(--fg); font-weight: 800; }
+.cap { font-size: 18px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--mute); }
+.foot { left: 120px; right: 120px; bottom: 44px; display: flex; justify-content: space-between; font-size: 18px; color: var(--dim); font-weight: 500; }
+.url { font-weight: 800; letter-spacing: -.03em; white-space: nowrap; }
+.card4 { font-weight: 800; letter-spacing: .04em; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.wcard { background: #fff; border-radius: 28px; box-shadow: 0 2px 4px rgba(29,31,43,.04), 0 24px 60px -20px rgba(29,31,43,.18); }
+.iphone { --status-bg: #f4f5fa; --tab-bg: #fefefe; }
+.iphone--black { --ti-1: #5f6170; --ti-2: #2b2c35; --ti-3: #8d8fa0; --ti-4: #1d1e26; --ti-5: #454757; }
+
+/* ---------- A · bars to scale ---------- */
+.A .bars { left: 120px; top: 400px; width: 1188px; }
+.A .bar { height: 104px; border-radius: 22px; display: flex; align-items: center; padding: 0 32px; gap: 18px; }
+.A .bar .num { font-size: 60px; }
+.A .bar .lab { color: rgba(255,255,255,.78); }
+.A .b40 { width: 360px; background: #262a40; }
+.A .b132 { width: 1188px; background: var(--grad); margin-top: 26px; position: relative; justify-content: flex-end; }
+.A .b132 .lab { color: rgba(255,255,255,.85); }
+.A .tick { position: absolute; left: 360px; top: -18px; bottom: -18px; border-left: 3px dashed rgba(255,255,255,.9); }
+.A .tickl { position: absolute; left: 374px; top: 112px; font-size: 20px; font-weight: 700; color: var(--fg); white-space: nowrap; }
+.A .x { left: 1370px; top: 418px; }
+.A .x .num { font-size: 196px; }
+.A .x .lab { margin-top: 6px; }
+.A .mkt { left: 120px; top: 720px; font-size: 26px; font-weight: 600; color: var(--mute); }
+.A .mkt b { color: var(--fg); font-weight: 800; }
+.A .close { left: 120px; right: 120px; bottom: 110px; height: 150px; border-radius: 28px; background: var(--card); border: 1px solid var(--line);
+  display: flex; align-items: center; padding: 0 48px; gap: 64px; }
+.A .close .url { font-size: 52px; }
+.A .close .sep { width: 1px; height: 70px; background: var(--line); }
+
+/* ---------- B · payback curve (light) ---------- */
+.B h1 { left: 120px; top: 196px; font-size: 150px; letter-spacing: -.05em; display: flex; align-items: baseline; gap: 36px; }
+.B h1 em { font-style: normal; color: #c3c6d6; font-weight: 600; font-size: 110px; }
+.B .eqlab { left: 120px; top: 370px; display: flex; font-size: 20px; font-weight: 600; color: var(--mute); }
+.B .chart { left: 120px; top: 450px; width: 1070px; height: 500px; padding: 34px 40px; }
+.B .chart svg { position: absolute; left: 40px; top: 70px; }
+.B .chart .cap { color: var(--acc); }
+.B .side { left: 1250px; top: 450px; width: 550px; height: 500px; padding: 44px 46px; background: var(--night); color: #f4f5fb; border-radius: 28px; overflow: hidden; display: flex; flex-direction: column; justify-content: center; }
+.B .side::before { content: ""; position: absolute; inset: 0; background: radial-gradient(80% 60% at 100% 0%, rgba(91,108,246,.35), transparent 70%); }
+.B .side > * { position: relative; }
+.B .side .url { font-size: 40px; margin-top: 14px; }
+.B .side .lab { color: #a9abc0; }
+.B .side .lab b { color: #f4f5fb; }
+.B .side hr { border: 0; border-top: 1px solid #262a40; margin: 26px 0; }
+.B .mkt { left: 1440px; top: 236px; width: 380px; font-size: 26px; line-height: 1.45; font-weight: 600; color: var(--mute); }
+.B .mkt b { color: var(--fg); font-weight: 800; }
+
+/* ---------- C · one in a hundred ---------- */
+.C .grid { left: 120px; top: 410px; display: grid; grid-template-columns: repeat(10, 30px); gap: 14px; }
+.C .grid i { width: 30px; height: 30px; border-radius: 50%; background: #262a40; display: block; }
+.C .grid i.on { background: var(--grad); box-shadow: 0 0 0 8px rgba(91,108,246,.25), 0 0 40px rgba(91,108,246,.8); }
+.C .call { left: 640px; top: 400px; width: 520px; }
+.C .call .num { font-size: 110px; }
+.C .call .lab { font-size: 22px; margin-top: 10px; line-height: 1.4; }
+.C .arrow { left: 220px; top: 430px; }
+.C .eq { left: 1290px; top: 320px; width: 510px; height: 530px; border-left: 1px solid var(--line); padding-left: 70px; display: flex; flex-direction: column; justify-content: space-between; }
+.C .eq .num { font-size: 96px; }
+.C .eq .big { font-size: 150px; }
+.C .eq .lab { margin-top: 6px; }
+.C .eq .dn { font-size: 34px; color: var(--dim); font-weight: 700; line-height: 1; }
+.C .close { left: 120px; right: 120px; bottom: 104px; display: flex; align-items: baseline; gap: 56px; padding-top: 30px; border-top: 1px solid var(--line); }
+.C .close .url { font-size: 48px; }
+.C .grid-l { left: 120px; top: 900px; }
+
+/* ---------- D · split (light + night) ---------- */
+.D .night { left: 1100px; top: 0; width: 820px; height: 1080px; background: var(--night); overflow: hidden; }
+.D .night::before { content: ""; position: absolute; inset: 0; background: radial-gradient(70% 50% at 90% 0%, rgba(91,108,246,.32), transparent 70%); }
+.D h2 { width: 900px; font-size: 72px; }
+.D .circ { border-radius: 50%; display: grid; place-items: center; text-align: center; }
+.D .c40 { left: 150px; top: 540px; width: 220px; height: 220px; background: #fff; box-shadow: 0 24px 50px -20px rgba(29,31,43,.25); }
+.D .c132 { left: 560px; top: 440px; width: 400px; height: 400px; background: var(--grad); color: #fff; box-shadow: 0 40px 80px -30px rgba(63,141,245,.6); }
+.D .c40 .num { font-size: 64px; }
+.D .c132 .num { font-size: 110px; }
+.D .circ .lab { font-size: 19px; margin-top: 6px; }
+.D .c132 .lab { color: rgba(255,255,255,.85); }
+.D .x { left: 386px; top: 590px; width: 160px; text-align: center; }
+.D .x .num { font-size: 60px; color: var(--fg); }
+.D .x svg { display: block; margin: 6px auto 0; }
+.D .sub { left: 120px; top: 900px; width: 940px; font-size: 22px; font-weight: 600; color: var(--mute); }
+.D .sub b { color: var(--fg); font-weight: 800; }
+.D .try { left: 1180px; top: 150px; width: 660px; color: #f4f5fb; }
+.D .try .cap { color: #7d8bff; }
+.D .try .url { font-size: 50px; margin-top: 14px; }
+.D .try .lab { color: #a9abc0; margin-top: 10px; }
+.D .try .lab b { color: #f4f5fb; }
+.D .phone { left: 1300px; top: 470px; transform: rotate(-4deg); }
+.D .pill { left: 1500px; top: 760px; background: #fff; color: #1d1f2b; border-radius: 20px; padding: 18px 22px; box-shadow: 0 24px 50px -16px rgba(0,0,0,.6); }
+.D .pill .cap { color: #8a8da3; font-size: 18px; }
+.D .pill .card4 { font-size: 26px; margin-top: 4px; }
+.D .foot { right: auto; width: 900px; }
+.D .gh { right: 80px; bottom: 44px; font-size: 18px; color: #a9abc0; font-weight: 600; }
+
+/* ---------- E · callback + phone (light) ---------- */
+.E h1 { left: 120px; top: 190px; width: 1060px; font-size: 92px; }
+.E .struck { left: 120px; top: 440px; max-width: 760px; padding: 16px 22px; border-radius: 26px; border-bottom-right-radius: 8px; background: #fde7f0; color: #b23a6e; font-size: 26px; font-weight: 500; line-height: 1.35; }
+.E .struck s { text-decoration-color: var(--warn); text-decoration-thickness: 3px; }
+.E .struck small { display: block; font-size: 18px; text-decoration: none; color: var(--warn); font-weight: 700; letter-spacing: .1em; margin-bottom: 4px; }
+.E .money { left: 120px; top: 600px; width: 1040px; padding: 40px 48px; }
+.E .money .row { display: flex; align-items: baseline; gap: 26px; }
+.E .money .num { font-size: 104px; }
+.E .money .ar { font-size: 56px; color: #c3c6d6; font-weight: 600; }
+.E .money .labs { display: flex; gap: 26px; margin-top: 12px; }
+.E .money .labs span { font-size: 20px; font-weight: 600; color: var(--mute); }
+.E .money .meta { margin-top: 24px; padding-top: 22px; border-top: 1px solid var(--line); display: flex; gap: 46px; font-size: 22px; font-weight: 600; color: var(--mute); }
+.E .money .meta b { color: var(--fg); font-weight: 800; }
+.E .phone { left: 1290px; top: 70px; }
+.E .tag { left: 1210px; top: 830px; width: 600px; padding: 28px 34px; background: var(--night); color: #f4f5fb; border-radius: 28px; box-shadow: 0 30px 60px -20px rgba(13,14,26,.5); }
+.E .tag .url { font-size: 38px; }
+.E .tag .lab { color: #a9abc0; margin-top: 8px; }
+.E .tag .lab b { color: #f4f5fb; }
+</style>
+</head>
+<body>
+
+<!-- A · DARK · the two amounts drawn to scale -->
+<section class="slide A">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">The money · paid ads only</div>
+  <h2>A parent costs $40. <span>They bring back $132.</span></h2>
+  <div class="bars">
+    <div class="bar b40"><span class="num">$40</span><span class="lab">to get one</span></div>
+    <div class="bar b132"><i class="tick"></i><span class="tickl">paid back by month 2</span><span class="lab">they pay back</span><span class="num">$132</span></div>
+  </div>
+  <div class="x"><div class="num gt">3.3×</div><div class="lab">return on ads</div></div>
+  <p class="mkt"><b>$100M a year</b> = <b>257K</b> paying parents = <b>1%</b> of parents in two homes</p>
+  <div class="close">
+    <div class="url gt">parley.adiletfndr.com</div>
+    <div class="lab" style="white-space:nowrap">Live, <b>no sign-up</b></div>
+    <i class="sep"></i>
+    <div><div class="cap">Test card</div><div class="card4" style="font-size:28px;margin-top:4px">4242 4242 4242 4242</div></div>
+    <i class="sep"></i>
+    <div class="lab">github.com/adiletexe/parley</div>
+  </div>
+  <div class="foot"><span>Parley is not a law firm and doesn't give legal advice.</span><span>Triple Whale · WordStream · Adapty · RevenueCat</span></div>
+</section>
+
+<!-- B · LIGHT · the equation as headline, payback drawn as a curve -->
+<section class="slide light B">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">The money · paid ads only</div>
+  <h1><span style="color:var(--fg)">$40</span><em>→</em><span style="color:var(--fg)">$132</span><em>→</em><span class="gt">3.3×</span></h1>
+  <div class="eqlab"><span style="width:300px">to get a parent</span><span style="width:520px">what they pay back</span><span>return</span></div>
+  <p class="mkt"><b>$100M a year</b><br>= <b>257K</b> paying parents<br>= <b>1%</b> of parents in two homes</p>
+  <div class="chart wcard">
+    <div class="cap">Money back per parent, by month</div>
+    <svg width="990" height="400" viewBox="0 0 990 400" id="curve"></svg>
+  </div>
+  <div class="side">
+    <div class="cap" style="color:#7d8bff">Try it now · no sign-up</div>
+    <div class="url">parley.adiletfndr.com</div>
+    <hr>
+    <div class="cap" style="color:#a9abc0">Test card</div>
+    <div class="card4" style="font-size:34px;margin-top:6px">4242 4242 4242 4242</div>
+    <hr>
+    <div class="lab">github.com/adiletexe/parley</div>
+  </div>
+  <div class="foot"><span>Parley is not a law firm and doesn't give legal advice.</span><span>Triple Whale · WordStream · Adapty · RevenueCat</span></div>
+</section>
+
+<!-- C · DARK · one lit dot in a hundred -->
+<section class="slide C">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">The money · paid ads only</div>
+  <h2>$100M a year is <span>one parent in a hundred.</span></h2>
+  <div class="grid" id="dots"></div>
+  <div class="call">
+    <div class="num gt">257K</div>
+    <div class="lab">paying parents = <b>$100M a year</b><br>out of <b>25M</b> parents in two homes</div>
+    <div class="cap" style="margin-top:40px">One dot = 250K parents</div>
+  </div>
+  <div class="eq">
+    <div><div class="num">$40</div><div class="lab">to get a parent</div></div>
+    <div class="dn">↓</div>
+    <div><div class="num">$132</div><div class="lab">they pay back</div></div>
+    <div class="dn">↓</div>
+    <div><div class="num big gt">3.3×</div><div class="lab">paid back in ~2 months</div></div>
+  </div>
+  <div class="close">
+    <div class="url">parley<span style="color:var(--mute)">.adiletfndr.com</span></div>
+    <div class="lab"><b>No sign-up</b></div>
+    <div class="lab">Test card <b class="card4">4242 4242 4242 4242</b></div>
+    <div class="lab">github.com/adiletexe/parley</div>
+  </div>
+  <div class="foot"><span>Parley is not a law firm and doesn't give legal advice.</span><span>Triple Whale · WordStream · Adapty · RevenueCat</span></div>
+</section>
+
+<!-- D · LIGHT + NIGHT SPLIT · circles sized by value, the close on the night side -->
+<section class="slide light D">
+  <div class="night"></div>
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">The money · paid ads only</div>
+  <h2>Costs $40. Brings $132. <span>3.3× back.</span></h2>
+  <div class="circ c40"><div><div class="num">$40</div><div class="lab">to get one</div></div></div>
+  <div class="x"><div class="num gt">3.3×</div>
+    <svg width="140" height="24" viewBox="0 0 140 24"><path d="M2 12h128M118 2l12 10-12 10" fill="none" stroke="#5b6cf6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <div class="circ c132"><div><div class="num">$132</div><div class="lab">they pay back</div></div></div>
+  <p class="sub">Paid back in <b>~2 months</b> · <b>$100M</b> = <b>257K</b> parents = <b>1%</b> of parents in two homes</p>
+  <div class="try">
+    <div class="cap">Try it now · no sign-up</div>
+    <div class="url">parley.adiletfndr.com</div>
+    <div class="lab">github.com/adiletexe/parley</div>
+  </div>
+  <div class="phone"><div class="iphone iphone--black" style="--s:0.9; --shift:0" data-shot="../../../shots/pricing.png"></div></div>
+  <div class="pill"><div class="cap">Test card</div><div class="card4">4242 4242 4242 4242</div></div>
+  <div class="foot"><span>Parley is not a law firm and doesn't give legal advice.</span><span>Triple Whale · WordStream · Adapty · RevenueCat</span></div>
+</section>
+
+<!-- E · LIGHT · the callback to slide 2, the money as one line, the live app -->
+<section class="slide light E">
+  <div class="mark"><i></i>Parley</div>
+  <h1>He needed one calm text. <span>Parley writes it.</span></h1>
+  <div class="struck"><small>WHAT HE SENT</small><s>I will not coparent with you, get that straight</s></div>
+  <div class="money wcard">
+    <div class="row"><span class="num">$40</span><span class="ar">→</span><span class="num">$132</span><span class="ar">→</span><span class="num gt">3.3×</span></div>
+    <div class="labs"><span style="width:190px">to get a parent</span><span style="width:300px">what they pay back</span><span>return</span></div>
+    <div class="meta"><span>Paid back in <b>~2 months</b></span><span><b>$100M</b> = <b>257K</b> parents = <b>1%</b></span></div>
+  </div>
+  <div class="phone"><div class="iphone iphone--black" style="--s:0.86; --shift:72" data-shot="../../../shots/reply-result.png"></div></div>
+  <div class="tag">
+    <div class="url">parley.adiletfndr.com</div>
+    <div class="lab"><b>No sign-up</b> · test card <b class="card4">4242 4242 4242 4242</b></div>
+    <div class="lab">github.com/adiletexe/parley</div>
+  </div>
+  <div class="foot"><span>Parley is not a law firm and doesn't give legal advice.</span><span style="margin-right:640px">Triple Whale · WordStream · Adapty · RevenueCat</span></div>
+</section>
+
+<script src="../../../design-options/iphone.js"></script>
+<script>
+// C: 100 dots, one lit
+(function(){ const g=document.getElementById('dots'); for(let i=0;i<100;i++){ const d=document.createElement('i'); if(i===0) d.className='on'; g.appendChild(d);} })();
+// B: cumulative net revenue per parent, months 0..23, from pitch/model.mjs (market column)
+(function(){
+  const v=[17.5,31,43,53.7,63.2,71.7,79.2,86,91.9,97.3,102,106.2,109.9,113.3,116.3,118.9,121.2,123.3,125.2,126.9,128.3,129.7,130.8,131.9];
+  const W=990,H=400,L=70,R=110,T=20,B=50, max=140;
+  const x=m=>L+m*(W-L-R)/23, y=d=>T+(H-T-B)*(1-d/max);
+  const s=document.getElementById('curve'); let h='';
+  for(const d of [0,40,132]){ const dash=d===40?' stroke-dasharray="8 8"':''; const col=d===40?'#e2508f':'#e3e5ef';
+    h+=`<line x1="${L}" x2="${W-R+20}" y1="${y(d)}" y2="${y(d)}" stroke="${col}" stroke-width="2"${dash}/>`;
+    h+=`<text x="${L-14}" y="${y(d)+7}" text-anchor="end" font-size="20" font-weight="700" fill="${d===40?'#e2508f':'#8a8da3'}">$${d}</text>`; }
+  for(const m of [0,6,12,18,23]) h+=`<text x="${x(m)}" y="${H-12}" text-anchor="middle" font-size="18" font-weight="600" fill="#8a8da3">${m===23?'24 mo':m}</text>`;
+  const pts=v.map((d,m)=>`${x(m)},${y(d)}`).join(' ');
+  h+=`<defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#7c5cf0"/><stop offset=".45" stop-color="#5b6cf6"/><stop offset="1" stop-color="#3f8df5"/></linearGradient>
+      <linearGradient id="f" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#5b6cf6" stop-opacity=".18"/><stop offset="1" stop-color="#5b6cf6" stop-opacity="0"/></linearGradient></defs>`;
+  h+=`<polygon points="${x(0)},${y(0)} ${pts} ${x(23)},${y(0)}" fill="url(#f)"/>`;
+  h+=`<polyline points="${pts}" fill="none" stroke="url(#g)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>`;
+  // payback: crosses $40 between month 1 ($31) and month 2 ($43)
+  h+=`<circle cx="${x(2)}" cy="${y(43)}" r="11" fill="#fff" stroke="#e2508f" stroke-width="5"/>`;
+  h+=`<text x="${x(2)+22}" y="${y(43)+44}" font-size="22" font-weight="800" fill="#1d1f2b">paid back, month 2</text>`;
+  h+=`<circle cx="${x(23)}" cy="${y(131.9)}" r="11" fill="#5b6cf6"/>`;
+  h+=`<text x="${x(23)+20}" y="${y(131.9)+8}" font-size="26" font-weight="800" fill="#1d1f2b">$132</text>`;
+  s.innerHTML=h;
+})();
+</script>
+</body>
+</html>

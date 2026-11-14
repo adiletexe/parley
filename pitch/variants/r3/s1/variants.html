@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Parley cover, round 3</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../design-options/iphone.css">
+<style>
+:root{--night:#0d0e1a;--card:#161829;--line:#262a40;--fg:#f4f5fb;--mute:#a9abc0;--dim:#62667e;--acc:#7d8bff;--acc2:#5b6cf6;
+--grad:linear-gradient(118deg,#7c5cf0 0%,#5b6cf6 45%,#3f8df5 100%);--warn:#e2508f;--ok:#1fa572;
+--paper:#f4f5fa;--ink:#1d1f2b;--imute:#7a7d92;--font:"Plus Jakarta Sans",system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#000;font-family:var(--font);-webkit-font-smoothing:antialiased}
+.slide{position:relative;width:1920px;height:1080px;overflow:hidden;background:var(--night);color:var(--fg);margin-bottom:20px}
+.slide::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(70% 60% at 85% -10%,rgba(91,108,246,.20),rgba(91,108,246,0) 70%)}
+.slide.light{background:var(--paper);color:var(--ink)}
+.slide.light::before{background:radial-gradient(70% 60% at 85% -10%,rgba(124,92,240,.13),rgba(124,92,240,0) 70%)}
+.slide>*{position:absolute}
+.mark{left:120px;top:84px;font-size:24px;font-weight:800;letter-spacing:-.02em;display:flex;align-items:center;gap:12px}
+.mark i{width:26px;height:26px;border-radius:8px;background:var(--grad);display:block}
+.kick{font-size:22px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+.light .kick{color:var(--acc2)}
+h1{font-weight:800;letter-spacing:-.035em;line-height:1.04}
+h1 span{color:var(--mute)} .light h1 span{color:var(--imute)}
+.live{display:flex;align-items:center;gap:14px;font-size:22px;font-weight:700;color:var(--mute)}
+.live b{color:var(--fg)} .light .live{color:var(--imute)} .light .live b{color:var(--ink)}
+.live .dot{width:12px;height:12px;border-radius:50%;background:#34d399;box-shadow:0 0 0 6px rgba(52,211,153,.18)}
+.iphone{--status-bg:#f4f5fa;--tab-bg:#fefefe}
+.iphone--black{--ti-1:#5f6170;--ti-2:#2b2c35;--ti-3:#8d8fa0;--ti-4:#1d1e26;--ti-5:#454757;--shadow:0 50px 100px -30px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.02)}
+.light .iphone--black{--shadow:0 40px 90px -30px rgba(29,31,43,.45),0 10px 30px -10px rgba(29,31,43,.25)}
+.glow{border-radius:50%;background:radial-gradient(closest-side,rgba(91,108,246,.38),rgba(91,108,246,0));filter:blur(10px)}
+.lbl{font-size:22px;font-weight:700;line-height:1.25}
+.sm{font-size:19px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+
+/* B */
+.b-card{background:#fff;border-radius:28px;box-shadow:0 30px 70px -30px rgba(29,31,43,.25),0 2px 6px rgba(29,31,43,.05);padding:40px 44px}
+.bub{font-size:32px;line-height:1.35;font-weight:500;padding:22px 30px;border-radius:30px}
+.bub.bad{background:#eceef6;color:var(--ink);border-bottom-left-radius:10px}
+.bub.bad u{text-decoration:underline wavy var(--warn);text-decoration-thickness:2px;text-underline-offset:8px}
+.bub.good{background:#2f6bff;color:#fff;border-bottom-right-radius:10px}
+.score{font-size:120px;font-weight:800;letter-spacing:-.04em;line-height:1}
+.nw{white-space:nowrap}</style></head><body>
+
+<!-- A · dark · classic cover: headline left, one phone right with a glow -->
+<section class="slide">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick" style="left:120px;top:300px">Hi, I'm Adilet</div>
+  <h1 style="left:120px;top:350px;width:1020px;font-size:104px">Answer your ex <span>without hurting yourself in court.</span></h1>
+  <div class="live" style="left:120px;bottom:110px"><i class="dot"></i>Live, no sign-up <b>parley.adiletfndr.com</b></div>
+  <div class="glow" style="left:1080px;top:120px;width:860px;height:860px"></div>
+  <div style="left:1290px;top:94px"><div class="iphone iphone--black" style="--s:1.0;--shift:72" data-shot="../../../shots/reply-result.png"></div></div>
+</section>
+
+<!-- B · light · the transformation itself: angry draft, gradient arrow, calm reply, 21 to 98 -->
+<section class="slide light">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick" style="left:120px;top:190px">Hi, I'm Adilet, this is Parley</div>
+  <h1 style="left:120px;top:240px;width:1500px;font-size:84px">Same moment, <span>a reply that won't hurt you in court.</span></h1>
+  <div class="b-card" style="left:120px;top:540px;width:720px;height:340px">
+    <div class="sm" style="color:var(--warn)">Your draft</div>
+    <div class="bub bad" style="margin-top:22px">maybe if you weren't <u>blowing money on your new boyfriend</u></div>
+    <div class="score" style="position:absolute;right:44px;bottom:30px;color:var(--warn);font-size:96px">21</div>
+  </div>
+  <svg style="left:860px;top:630px" width="200" height="160" viewBox="0 0 200 160"><defs><linearGradient id="gb" gradientUnits="userSpaceOnUse" x1="10" y1="0" x2="190" y2="0"><stop offset="0" stop-color="#7c5cf0"/><stop offset=".5" stop-color="#5b6cf6"/><stop offset="1" stop-color="#3f8df5"/></linearGradient></defs>
+    <path d="M10 80 H160" stroke="url(#gb)" stroke-width="14" stroke-linecap="round"/><path d="M128 40 L180 80 L128 120" fill="none" stroke="url(#gb)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div class="b-card" style="left:1080px;top:540px;width:720px;height:340px;box-shadow:0 40px 90px -30px rgba(91,108,246,.45),0 0 0 3px #5b6cf6">
+    <div class="sm" style="color:var(--ok)">What Parley suggests</div>
+    <div style="display:flex;justify-content:flex-end;margin-top:22px"><div class="bub good">I'll send my $120 half by [day].</div></div>
+    <div class="score" style="position:absolute;right:44px;bottom:30px;color:var(--ok);font-size:96px">98</div>
+  </div>
+  <div class="live" style="left:120px;bottom:60px"><i class="dot"></i>Live <b>parley.adiletfndr.com</b></div>
+</section>
+
+<!-- C · dark · two overlapping phones, annotated -->
+<section class="slide">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick" style="left:120px;top:330px">Hi, I'm Adilet</div>
+  <h1 style="left:120px;top:380px;width:720px;font-size:88px">Calm replies to your ex. <span>Safe in court.</span></h1>
+  <div class="live" style="left:120px;bottom:110px"><i class="dot"></i>Live <b>parley.adiletfndr.com</b></div>
+  <div style="left:850px;top:190px;transform:rotate(-7deg);transform-origin:50% 50%;opacity:.92"><div class="iphone iphone--black" style="--s:.86;--shift:0" data-shot="../../../shots/lens.png"></div></div>
+  <div style="left:1150px;top:70px"><div class="iphone iphone--black" style="--s:1;--shift:72" data-shot="../../../shots/reply-result.png"></div></div>
+  <svg style="left:0;top:0" width="1920" height="1080">
+    <g fill="none" stroke-width="3" stroke-linecap="round">
+      <path d="M1440 230 C1530 230 1560 230 1630 230" stroke="#ff5fa0"/><circle cx="1440" cy="230" r="7" fill="#ff5fa0" stroke="none"/>
+      <path d="M1560 520 C1590 520 1600 520 1630 520" stroke="#7d8bff"/><circle cx="1560" cy="520" r="7" fill="#7d8bff" stroke="none"/>
+      <path d="M1570 672 C1600 672 1610 672 1630 672" stroke="#34d399"/><circle cx="1570" cy="672" r="7" fill="#34d399" stroke="none"/>
+    </g></svg>
+  <div class="lbl" style="left:1648px;top:200px;width:240px;color:#ff5fa0">Bait<br>crossed out</div>
+  <div class="lbl" style="left:1648px;top:490px;width:240px;color:#a9b3ff">Calm reply,<br>your voice</div>
+  <div class="lbl" style="left:1648px;top:642px;width:240px;color:#34d399">How a judge<br>reads it</div>
+</section>
+
+<!-- D · light · big centred wordmark, phone rising from the bottom edge -->
+<section class="slide light">
+  <div style="left:0;top:110px;width:1920px;display:flex;justify-content:center;align-items:center;gap:34px">
+    <i style="width:120px;height:120px;border-radius:36px;background:var(--grad);display:block;box-shadow:0 20px 50px -14px rgba(91,108,246,.6)"></i>
+    <span style="font-size:170px;font-weight:800;letter-spacing:-.05em;line-height:1">Parley</span></div>
+  <h1 style="left:0;top:330px;width:1920px;text-align:center;font-size:56px;letter-spacing:-.03em">Answer your ex <span>without hurting yourself in court.</span></h1>
+  <div class="glow" style="left:560px;top:480px;width:800px;height:800px;opacity:.7"></div>
+  <div style="left:720px;top:470px"><div class="iphone iphone--black" style="--s:1.1;--shift:72" data-shot="../../../shots/reply-result.png"></div></div>
+  <div class="kick" style="left:120px;top:900px">Hi, I'm Adilet</div>
+  <div class="live" style="right:120px;top:896px"><i class="dot"></i>Live <b>parley.adiletfndr.com</b></div>
+</section>
+
+<!-- E · dark · the flow: their screenshot in, calm reply out -->
+<section class="slide">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick" style="left:120px;top:330px">Hi, I'm Adilet</div>
+  <h1 style="left:120px;top:380px;width:620px;font-size:84px">Their text in. <span class="nw">Calm reply out.</span></h1>
+  <div class="live" style="left:120px;bottom:110px"><i class="dot"></i>Live <b>parley.adiletfndr.com</b></div>
+  <div style="left:760px;top:250px;opacity:.95"><div class="iphone iphone--black" style="--s:.76;--shift:72" data-shot="../../../shots/reply-compose.png"></div></div>
+  <div class="lbl" style="left:760px;top:950px;width:330px;text-align:center;color:var(--mute)">Drop their screenshot</div>
+  <svg style="left:1110px;top:560px" width="200" height="120" viewBox="0 0 200 120"><defs><linearGradient id="ge" gradientUnits="userSpaceOnUse" x1="14" y1="0" x2="190" y2="0"><stop offset="0" stop-color="#7c5cf0"/><stop offset=".5" stop-color="#5b6cf6"/><stop offset="1" stop-color="#3f8df5"/></linearGradient></defs>
+    <path d="M14 60 H170" stroke="url(#ge)" stroke-width="12" stroke-linecap="round"/><path d="M142 26 L184 60 L142 94" fill="none" stroke="url(#ge)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div class="glow" style="left:1200px;top:100px;width:760px;height:900px"></div>
+  <div style="left:1340px;top:80px"><div class="iphone iphone--black" style="--s:.98;--shift:72" data-shot="../../../shots/reply-result.png"></div></div>
+  <div class="lbl" style="left:1340px;top:966px;width:424px;text-align:center;color:var(--fg)">Ready to send</div>
+</section>
+
+<script src="../../../design-options/iphone.js"></script>
+</body></html>

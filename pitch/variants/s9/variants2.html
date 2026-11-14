@@ -1,0 +1,173 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#333}
+.slide{width:1920px;height:1080px;position:relative;overflow:hidden;margin:0 0 40px}
+.pad{position:absolute;inset:80px 110px}
+.h{font-size:60px;line-height:1.05;letter-spacing:-.02em}
+.trio{display:flex;align-items:flex-start;gap:70px;margin-top:44px}
+.trio .n{font-size:190px;line-height:.9;letter-spacing:-.05em;font-weight:800}
+.trio .l{font-size:30px;margin-top:16px;font-weight:500}
+.trio .ar{font-size:90px;line-height:170px;opacity:.35;font-weight:400}
+.src{position:absolute;left:110px;bottom:40px;font-size:18px;opacity:.5}
+svg text{font-family:inherit}
+
+/* A dark parley */
+.a{background:#0d0e1a;color:#fff;font-family:"Plus Jakarta Sans"}
+.a .h{font-weight:700}
+.a .acc{color:#7b89ff}
+
+/* B cream serif */
+.b{background:#f2ede3;color:#1b1a17;font-family:"Inter Tight"}
+.b .h{font-family:"Instrument Serif";font-weight:400;font-size:76px;letter-spacing:-.01em}
+.b .trio .n{font-family:"Instrument Serif";font-weight:400;letter-spacing:-.03em;font-size:200px}
+.b .trio .l{font-family:"Instrument Serif";font-style:italic;font-size:34px;color:#6b655a}
+.b .red{color:#c8361d}
+
+/* C navy */
+.c{background:#0a1022;color:#fff;font-family:"Plus Jakarta Sans"}
+.c .h{font-weight:700}
+.c .pink{color:#e2508f}
+
+/* D white orange */
+.d{background:#fff;color:#111;font-family:"Inter Tight"}
+.d .h{font-weight:700}
+.d .trio .n{font-weight:900}
+.d .or{color:#ff4b1f}
+
+/* E light grey */
+.e{background:#e9e9e6;color:#0f0f0f;font-family:"Inter Tight"}
+.e .h{font-weight:700}
+.e .trio .n{font-weight:900}
+.e .gr{color:#12925f}
+</style></head><body>
+
+<!-- A: area to scale -->
+<section class="slide a"><div class="pad">
+  <div class="h">Every paying parent returns three times their cost</div>
+  <div class="trio">
+    <div><div class="n">$40</div><div class="l">to win one parent</div></div><div class="ar">→</div>
+    <div><div class="n">$132</div><div class="l">they pay us</div></div><div class="ar">→</div>
+    <div><div class="n acc">3.3×</div><div class="l acc">back per ad dollar</div></div>
+  </div>
+  <svg id="sqA" width="1700" height="400" style="position:absolute;left:0;bottom:30px"></svg>
+</div><div class="src">Market averages: Triple Whale, LocaliQ/WordStream 2026, Adapty, RevenueCat</div></section>
+
+<!-- B: payback curve -->
+<section class="slide b"><div class="pad">
+  <div class="h">The ad money comes back in two months</div>
+  <div class="trio" style="margin-top:30px">
+    <div><div class="n">$40</div><div class="l">to win one parent</div></div><div class="ar">→</div>
+    <div><div class="n">$132</div><div class="l">they pay us</div></div><div class="ar">→</div>
+    <div><div class="n red">3.3×</div><div class="l">back per ad dollar</div></div>
+  </div>
+  <svg id="curveB" width="1700" height="420" style="position:absolute;left:0;bottom:20px"></svg>
+</div><div class="src">Per parent, after card fees, refunds and AI. Triple Whale, LocaliQ/WordStream, Adapty, RevenueCat</div></section>
+
+<!-- C: 2 in 100 -->
+<section class="slide c"><div class="pad">
+  <div class="h">$100M a year needs 2 in 100 parents</div>
+  <div class="trio">
+    <div><div class="n">$40</div><div class="l">to win one parent</div></div><div class="ar">→</div>
+    <div><div class="n">$132</div><div class="l">they pay us</div></div><div class="ar">→</div>
+    <div><div class="n pink">3.3×</div><div class="l pink">back per ad dollar</div></div>
+  </div>
+  <svg id="dotsC" width="1700" height="400" style="position:absolute;left:0;bottom:20px"></svg>
+</div><div class="src">12.9M custodial parents: US Census P60-269. 257K × $29.99 every 4 weeks = $100M</div></section>
+
+<!-- D: funnel to scale -->
+<section class="slide d"><div class="pad">
+  <div class="h">One parent costs $40 and pays $132</div>
+  <div class="trio">
+    <div><div class="n">$40</div><div class="l">to win one parent</div></div><div class="ar">→</div>
+    <div><div class="n">$132</div><div class="l">they pay us</div></div><div class="ar">→</div>
+    <div><div class="n or">3.3×</div><div class="l or">back per ad dollar</div></div>
+  </div>
+  <svg id="funD" width="1700" height="420" style="position:absolute;left:0;bottom:20px"></svg>
+</div><div class="src">Market averages: Triple Whale, LocaliQ/WordStream 2026, Adapty, RevenueCat</div></section>
+
+<!-- E: dot field -->
+<section class="slide e"><div class="pad">
+  <div class="h">Each parent pays back $3.30 per ad dollar</div>
+  <div class="trio">
+    <div><div class="n">$40</div><div class="l">to win one parent</div></div><div class="ar">→</div>
+    <div><div class="n">$132</div><div class="l">they pay us</div></div><div class="ar">→</div>
+    <div><div class="n gr">3.3×</div><div class="l gr">back per ad dollar</div></div>
+  </div>
+  <svg id="fieldE" width="1700" height="430" style="position:absolute;left:0;bottom:0px"></svg>
+</div><div class="src">One dot per ad view at market averages: Triple Whale, LocaliQ/WordStream 2026, Adapty</div></section>
+
+<script>
+const NS='http://www.w3.org/2000/svg';
+function el(svg,tag,attrs,text){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(text!=null)e.textContent=text;svg.appendChild(e);return e}
+// model.mjs, market column
+const VIEWS=2675, CLICKS=47.35, BUY=1;
+
+// A: squares, area to scale, sharing the bottom-left corner
+(()=>{const s=document.getElementById('sqA');const S=380,y0=390;
+ const sd=[S,S*Math.sqrt(CLICKS/VIEWS),S*Math.sqrt(BUY/VIEWS)];
+ el(s,'rect',{x:0,y:y0-sd[0],width:sd[0],height:sd[0],fill:'#1d2040',stroke:'#2e3360'});
+ el(s,'rect',{x:0,y:y0-sd[1],width:sd[1],height:sd[1],fill:'#5b6cf6'});
+ el(s,'rect',{x:0,y:y0-sd[2],width:sd[2],height:sd[2],fill:'#fff'});
+ el(s,'text',{x:24,y:y0-sd[0]+50,fill:'#9aa0c8','font-size':30,'font-weight':600},'$40 of ads');
+ const L=(sx,sy,ty,big,small,col)=>{el(s,'polyline',{points:`${sx},${sy} ${sx+16},${sy} ${S+40},${ty} ${S+90},${ty}`,fill:'none',stroke:'#6a70a0','stroke-width':2});
+  el(s,'text',{x:S+110,y:ty+15,fill:col,'font-size':46,'font-weight':800},big);
+  el(s,'text',{x:S+110+big.length*29+18,y:ty+15,fill:'#9aa0c8','font-size':32,'font-weight':500},small)};
+ L(sd[0],y0-sd[0]+40,y0-sd[0]+40,'2,675','see the ad','#fff');
+ L(sd[1],y0-sd[1]+6,y0-150,'47','click','#7b89ff');
+ L(sd[2],y0-sd[2]+4,y0-30,'1','pays us','#fff');
+ el(s,'text',{x:S+110,y:y0-sd[0]-30+0,fill:'#6a70a0','font-size':22,'font-weight':600,'letter-spacing':2},'');
+})();
+
+// B: cumulative net per parent, months 0..23
+(()=>{const s=document.getElementById('curveB');const d=[17.5,31,43,53.7,63.2,71.7,79.2,86,91.9,97.3,102,106.2,109.9,113.3,116.3,118.9,121.2,123.3,125.2,126.9,128.3,129.7,130.8,131.9];
+ const X0=0,X1=1460,Y0=370,Y1=60,max=140;const x=i=>X0+i*(X1-X0)/23,y=v=>Y0-(v/max)*(Y0-Y1);
+ el(s,'line',{x1:X0,y1:Y0,x2:X1,y2:Y0,stroke:'#1b1a17','stroke-width':2});
+ el(s,'line',{x1:X0,y1:y(40),x2:X1,y2:y(40),stroke:'#8a8377','stroke-width':2,'stroke-dasharray':'8 8'});
+ el(s,'text',{x:X1+16,y:y(40)+10,fill:'#6b655a','font-size':28,'font-family':'Instrument Serif','font-style':'italic'},'$40 ad cost');
+ el(s,'path',{d:'M'+x(0)+','+Y0+' '+d.map((v,i)=>'L'+x(i)+','+y(v)).join(' ')+' L'+x(23)+','+Y0+'Z',fill:'#c8361d',opacity:.08});
+ el(s,'path',{d:d.map((v,i)=>(i?'L':'M')+x(i)+','+y(v)).join(' '),fill:'none',stroke:'#c8361d','stroke-width':6,'stroke-linejoin':'round'});
+ // crossing between month 1 (31) and month 2 (43)
+ const cx=x(1+(40-31)/(43-31));el(s,'circle',{cx,cy:y(40),r:13,fill:'#c8361d'});
+ el(s,'text',{x:cx+30,y:y(40)+64,fill:'#c8361d','font-size':40,'font-family':'Instrument Serif','font-style':'italic'},'paid back, month 2');
+ el(s,'circle',{cx:x(23),cy:y(131.9),r:10,fill:'#c8361d'});
+ el(s,'text',{x:x(23)-10,y:y(131.9)-24,fill:'#1b1a17','font-size':40,'font-family':'Instrument Serif','text-anchor':'end'},'$132');
+ [0,6,12,18,23].forEach(m=>el(s,'text',{x:x(m),y:Y0+34,fill:'#6b655a','font-size':22,'text-anchor':m?'middle':'start'},m===23?'2 years':m?('month '+m):'sign-up'));
+})();
+
+// C: 100 people, 2 lit
+(()=>{const s=document.getElementById('dotsC');const cols=25,rows=4,g=48,r=17,ox=4,oy=64;
+ for(let i=0;i<100;i++){const cx=ox+r+(i%cols)*g,cy=oy+r+Math.floor(i/cols)*g*1.6;el(s,'circle',{cx,cy,r,fill:i<2?'#e2508f':'#262d4a'})}
+ const w=ox+(cols-1)*g+2*r;
+ el(s,'text',{x:0,y:30,fill:'#9aa3c7','font-size':30,'font-weight':500},'12.9M US parents raising kids in two homes');
+ el(s,'text',{x:w+90,y:oy+170,fill:'#e2508f','font-size':120,'font-weight':800,'letter-spacing':-4},'2%');
+ el(s,'text',{x:w+90,y:oy+230,fill:'#fff','font-size':36,'font-weight':700},'257K paying parents');
+ el(s,'text',{x:w+90,y:oy+278,fill:'#fff','font-size':36,'font-weight':700},'= $100M a year');
+})();
+
+// D: funnel, widths to scale with people per stage
+(()=>{const s=document.getElementById('funD');const st=[[CLICKS,'47','click'],[26.04,'26','start the quiz'],[15.63,'16','finish it'],[12.5,'12','see the price'],[1,'1','pays']];
+ const W=1500,H=220,top=60,stepW=W/st.length,k=H/CLICKS;
+ el(s,'text',{x:0,y:30,fill:'#888','font-size':28,'font-weight':500},'2,675 see the ad, then');
+ st.forEach(([n,big,lab],i)=>{const h0=n*k,h1=(st[i+1]?st[i+1][0]:n)*k,xa=i*stepW,xb=xa+stepW-6,mid=top+H/2;
+  if(i==4){el(s,'circle',{cx:xa+14,cy:mid,r:14,fill:'#ff4b1f'})}else el(s,'path',{d:`M${xa},${mid-h0/2} L${xb},${mid-h1/2} L${xb},${mid+h1/2} L${xa},${mid+h0/2}Z`,fill:i==4?'#ff4b1f':'#111',opacity:i==4?1:(1-i*0.17)});
+  el(s,'text',{x:xa,y:top+H+62,fill:i==4?'#ff4b1f':'#111','font-size':52,'font-weight':900},big);
+  el(s,'text',{x:xa,y:top+H+100,fill:i==4?'#ff4b1f':'#555','font-size':28,'font-weight':600},i==4?'pays, for $40 of ads':lab);});
+})();
+
+// E: 2,675 dots, 47 clicks, 1 buyer
+(()=>{const s=document.getElementById('fieldE');const cols=107,rows=25,g=15,r=4.8,oy=44;
+ // deterministic scatter of the 47 clickers
+ let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;const lit=new Set();while(lit.size<47)lit.add(Math.floor(rnd()*VIEWS));
+ const buyer=[...lit][20];
+ for(let i=0;i<VIEWS;i++){const cx=r+(i%cols)*g,cy=oy+r+Math.floor(i/cols)*g;
+  if(i===buyer)continue;el(s,'circle',{cx,cy,r:lit.has(i)?r+1.6:r,fill:lit.has(i)?'#0f0f0f':'#c9c9c3'})}
+ const bx=r+(buyer%cols)*g,by=oy+r+Math.floor(buyer/cols)*g;el(s,'circle',{cx:bx,cy:by,r:14,fill:'#12925f',stroke:'#e9e9e6','stroke-width':3});
+ el(s,'text',{x:0,y:24,fill:'#0f0f0f','font-size':30,'font-weight':700},'2,675 see the ad');
+ el(s,'circle',{cx:330,cy:14,r:7,fill:'#0f0f0f'});el(s,'text',{x:346,y:24,fill:'#0f0f0f','font-size':30,'font-weight':700},'47 click');
+ el(s,'circle',{cx:520,cy:14,r:11,fill:'#12925f'});el(s,'text',{x:540,y:24,fill:'#12925f','font-size':30,'font-weight':700},'1 pays, for $40 of ads');
+})();
+</script>
+</body></html>

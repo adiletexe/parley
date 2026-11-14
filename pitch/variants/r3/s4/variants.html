@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Parley slide 4 variants</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../design-options/iphone.css">
+<style>
+:root {
+  --night: #0d0e1a; --card: #161829; --line: #262a40;
+  --fg: #f4f5fb; --mute: #a9abc0; --dim: #62667e;
+  --acc: #7d8bff; --acc-2: #5b6cf6;
+  --grad: linear-gradient(118deg, #7c5cf0 0%, #5b6cf6 45%, #3f8df5 100%);
+  --warn: #ff5fa0; --warn-bg: rgba(226,80,143,.14);
+  --ok: #34d399; --ok-bg: rgba(31,165,114,.16);
+  --font: "Plus Jakarta Sans", system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #000; font-family: var(--font); -webkit-font-smoothing: antialiased; }
+.slide { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--night); color: var(--fg); margin-bottom: 20px; }
+.slide::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(70% 60% at 85% -10%, rgba(91,108,246,.20), rgba(91,108,246,0) 70%); }
+.slide.light { --night: #f4f5fa; --card: #fff; --line: #e1e3ee; --fg: #1d1f2b; --mute: #6b6f85; --dim: #8d90a6;
+  --acc: #5b6cf6; --warn: #e2508f; --ok: #1fa572; --warn-bg: #fde6ef; --ok-bg: #e2f5ec; }
+.slide.light::before { background: radial-gradient(70% 60% at 85% -10%, rgba(124,92,240,.13), rgba(124,92,240,0) 70%); }
+.slide > * { position: absolute; }
+.mark { left: 120px; top: 84px; font-size: 24px; font-weight: 800; letter-spacing: -.02em; display: flex; align-items: center; gap: 12px; }
+.mark i { width: 26px; height: 26px; border-radius: 8px; background: var(--grad); display: block; }
+.kick { left: 120px; top: 168px; font-size: 22px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--acc); }
+h2 { left: 120px; top: 212px; font-size: 68px; font-weight: 800; letter-spacing: -.035em; line-height: 1.04; }
+h2 span { color: var(--mute); }
+.pg { right: 120px; bottom: 56px; font-size: 18px; color: var(--dim); font-weight: 600; }
+.src { left: 120px; bottom: 56px; font-size: 18px; color: var(--dim); font-weight: 500; }
+.num { font-weight: 800; letter-spacing: -.045em; line-height: .9; }
+.pink { color: var(--warn); } .green { color: var(--ok); }
+.gtxt { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lbl { font-size: 24px; font-weight: 700; line-height: 1.25; letter-spacing: -.01em; }
+.lbl small { display: block; font-size: 18px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); margin-bottom: 6px; }
+.tag { font-size: 18px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); }
+.iphone--black { --ti-1: #5f6170; --ti-2: #2b2c35; --ti-3: #8d8fa0; --ti-4: #1d1e26; --ti-5: #454757;
+  --shadow: 0 50px 100px -30px rgba(0,0,0,.9), 0 0 0 1px rgba(255,255,255,.02); }
+.light .iphone--black { --shadow: 0 40px 80px -30px rgba(29,31,43,.45), 0 10px 30px -10px rgba(29,31,43,.2); }
+svg.wire { left: 0; top: 0; width: 1920px; height: 1080px; overflow: visible; pointer-events: none; z-index: 5; }
+.dot { width: 18px; height: 18px; border-radius: 50%; margin: -9px 0 0 -9px; z-index: 6; box-shadow: 0 0 0 5px rgba(255,255,255,.18); }
+.light .dot { box-shadow: 0 0 0 5px rgba(29,31,43,.08); }
+
+/* chat bubbles */
+.b { padding: 14px 22px; border-radius: 24px; font-size: 26px; line-height: 1.3; font-weight: 500; width: max-content; max-width: 460px; }
+.b.in { background: #262839; color: #eceef7; border-bottom-left-radius: 8px; }
+.light .b.in { background: #e6e7ef; color: #1d1f2b; }
+.b.out { background: #2f6bff; color: #fff; border-bottom-right-radius: 8px; }
+.b.good { background: #1d7f5b; color: #fff; }
+.strike { text-decoration: line-through; text-decoration-color: var(--warn); text-decoration-thickness: 3px; color: var(--warn); }
+
+/* a magnified piece of a real screenshot: --x --y --w --h in the shot's own pixels, --k = zoom */
+.zoom { width: calc(var(--w) * var(--k) * 1px); height: calc(var(--h) * var(--k) * 1px);
+  background-repeat: no-repeat; background-size: calc(780px * var(--k)) auto;
+  background-position: calc(var(--x) * var(--k) * -1px) calc(var(--y) * var(--k) * -1px); }
+.zr { background-image: url(../../../shots/reply-result.png); }
+.zl { background-image: url(../../../shots/lens.png); }
+.zcard { background: #fff; border-radius: 28px; padding: 22px; box-shadow: 0 30px 60px -30px rgba(29,31,43,.35), 0 0 0 1px rgba(29,31,43,.04); }
+.zcard .tag { display: block; margin: 0 0 12px 6px; }
+</style>
+</head>
+<body>
+
+<!-- A · dark · two phones rising from the bottom, annotated -->
+<section class="slide">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">What Parley does</div>
+  <h2>Their nasty text in. <span>A calm reply out.</span></h2>
+
+  <div class="tag" style="left:660px;top:296px">Their text, screenshotted</div>
+  <div class="iphone iphone--black" style="left:660px;top:340px;--s:.9;--shift:72" data-shot="../../../shots/reply-result.png"></div>
+  <div class="tag" style="left:1180px;top:366px">Your own draft</div>
+  <div class="iphone iphone--black" style="left:1180px;top:410px;--s:.9" data-shot="../../../shots/lens.png"></div>
+
+  <svg class="wire">
+    <defs><linearGradient id="ga" x1="0" x2="1"><stop offset="0" stop-color="#7c5cf0"/><stop offset=".45" stop-color="#5b6cf6"/><stop offset="1" stop-color="#3f8df5"/></linearGradient></defs>
+    <path d="M610 481 H790" stroke="#ff5fa0" stroke-width="2.5" fill="none"/>
+    <path d="M610 637 H686" stroke="#a9abc0" stroke-width="2.5" fill="none"/>
+    <path d="M610 748 H738" stroke="#34d399" stroke-width="2.5" fill="none"/>
+    <path d="M1380 500 H1600" stroke="url(#ga)" stroke-width="2.5" fill="none"/>
+    <path d="M1360 588 C1480 588 1500 760 1600 760" stroke="#ff5fa0" stroke-width="2.5" fill="none" stroke-dasharray="2 8" stroke-linecap="round"/>
+  </svg>
+  <i class="dot" style="left:790px;top:481px;background:#ff5fa0"></i>
+  <i class="dot" style="left:686px;top:637px;background:#a9abc0"></i>
+  <i class="dot" style="left:738px;top:748px;background:#34d399"></i>
+  <i class="dot" style="left:1380px;top:500px;background:#5b6cf6"></i>
+
+  <div class="lbl pink" style="right:1330px;top:465px;text-align:right">Bait, crossed out</div>
+  <div class="lbl" style="right:1330px;top:621px;text-align:right">What needs an answer</div>
+  <div class="lbl green" style="right:1330px;top:716px;text-align:right">Calm reply,<br>in your voice</div>
+
+  <div style="left:1620px;top:420px">
+    <div class="num pink" style="font-size:120px">21</div>
+    <div class="num gtxt" style="font-size:64px;margin:10px 0 10px 8px">↓</div>
+    <div class="num green" style="font-size:120px">98</div>
+  </div>
+  <div class="lbl pink" style="left:1620px;top:744px;width:200px">Words a judge reads badly</div>
+  <div class="pg">4</div>
+</section>
+
+<!-- B · light · overlapping phones, the score as the giant -->
+<section class="slide light">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">What Parley does</div>
+  <h2 style="width:900px">Screenshot the nasty text. <span>Send back calm.</span></h2>
+
+  <div class="tag" style="left:124px;top:450px">Your own angry draft, judged</div>
+  <div class="num" style="left:112px;top:500px;font-size:250px;display:flex;align-items:center;gap:26px">
+    <span class="pink">21</span><span class="gtxt" style="font-size:150px">→</span><span class="green">98</span>
+  </div>
+  <div class="b in" style="left:120px;top:770px;background:var(--warn-bg);font-size:24px"><span class="strike">maybe if you weren't blowing money on your new boyfriend</span></div>
+  <div class="b good" style="left:120px;top:900px;font-size:24px;border-bottom-left-radius:8px;border-bottom-right-radius:24px">I'll send my $120 half by [day].</div>
+
+  <div class="iphone iphone--black" style="left:1040px;top:150px;--s:.88;--shift:72;transform:rotate(-5deg)" data-shot="../../../shots/reply-result.png"></div>
+  <div class="iphone iphone--black" style="left:1405px;top:200px;--s:.88;transform:rotate(5deg)" data-shot="../../../shots/lens.png"></div>
+  <div class="lbl" style="left:1060px;top:1010px;width:330px;font-size:22px">Bait out, calm reply in</div>
+  <div class="lbl" style="left:1500px;top:1010px;width:300px;font-size:22px">Your draft, flagged</div>
+  <div class="pg" style="bottom:auto;top:90px">4</div>
+</section>
+
+<!-- C · dark · pipeline: raw text in, phone, calm text out -->
+<section class="slide">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">What Parley does</div>
+  <h2 style="width:600px;font-size:62px">Drop in the nasty text. <span>Get calm back.</span></h2>
+
+  <div class="tag" style="left:120px;top:560px">In · what they sent</div>
+  <div style="left:120px;top:604px;display:flex;flex-direction:column;gap:10px">
+    <div class="b in">ur seriously 40 min late AGAIN</div>
+    <div class="b in">emma is sitting here crying</div>
+    <div class="b in">hello??</div>
+  </div>
+
+  <svg class="wire">
+    <defs><linearGradient id="gc" x1="0" x2="1"><stop offset="0" stop-color="#7c5cf0"/><stop offset=".45" stop-color="#5b6cf6"/><stop offset="1" stop-color="#3f8df5"/></linearGradient></defs>
+    <path d="M520 870 C600 870 610 760 690 760" stroke="url(#gc)" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <path d="M676 748 L694 760 L676 772" stroke="#5b6cf6" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M1140 470 C1190 470 1190 400 1250 400" stroke="url(#gc)" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <path d="M1236 388 L1254 400 L1236 412" stroke="#3f8df5" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+
+  <div class="iphone iphone--black" style="left:715px;top:120px;--s:.97;--shift:72" data-shot="../../../shots/reply-result.png"></div>
+
+  <div class="tag" style="left:1270px;top:300px">Out · what you send</div>
+  <div class="b good" style="left:1270px;top:344px;font-size:32px;max-width:520px;border-bottom-left-radius:8px;border-bottom-right-radius:24px">I'm on my way, about [minutes] out. Tell Emma I'll be there soon.</div>
+
+  <div class="iphone iphone--black" style="left:1580px;top:540px;--s:.5" data-shot="../../../shots/lens.png"></div>
+  <div style="left:1270px;top:600px">
+    <div class="tag">Wrote your own?</div>
+    <div class="num" style="font-size:96px;margin-top:16px"><span class="pink">21</span><span class="gtxt" style="font-size:64px"> → </span><span class="green">98</span></div>
+    <div class="lbl" style="margin-top:20px;width:280px;color:var(--mute)">Words a judge reads badly, fixed</div>
+  </div>
+  <div class="pg">4</div>
+</section>
+
+<!-- D · light · annotated zooms off the real screen -->
+<section class="slide light">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">What Parley does</div>
+  <h2 style="width:1200px">It crosses out the bait. <span>Then answers what matters.</span></h2>
+
+  <div class="iphone iphone--black" style="left:120px;top:370px;--s:.85;--shift:72" data-shot="../../../shots/reply-result.png"></div>
+
+  <svg class="wire">
+    <path d="M347 503 C520 503 520 470 640 470" stroke="#e2508f" stroke-width="2.5" fill="none"/>
+    <path d="M462 650 C540 650 560 760 640 760" stroke="#8d90a6" stroke-width="2.5" fill="none"/>
+    <path d="M446 755 C540 755 560 905 640 905" stroke="#1fa572" stroke-width="2.5" fill="none"/>
+  </svg>
+  <i class="dot" style="left:347px;top:503px;background:#e2508f"></i>
+  <i class="dot" style="left:462px;top:650px;background:#8d90a6"></i>
+  <i class="dot" style="left:446px;top:755px;background:#1fa572"></i>
+
+  <div class="zcard" style="left:640px;top:400px">
+    <span class="tag pink">1 · Bait, crossed out</span>
+    <div class="zoom zr" style="--x:30;--y:262;--w:500;--h:285;--k:.78"></div>
+  </div>
+  <div class="zcard" style="left:640px;top:700px;padding:18px 22px">
+    <span class="tag">2 · Needs an answer</span>
+    <div class="zoom zr" style="--x:424;--y:628;--w:302;--h:44;--k:1.05"></div>
+  </div>
+  <div class="zcard" style="left:640px;top:840px;padding:18px 22px">
+    <span class="tag green">3 · Calm reply</span>
+    <div class="zoom zr" style="--x:140;--y:826;--w:582;--h:142;--k:.62"></div>
+  </div>
+
+  <div class="iphone iphone--black" style="left:1440px;top:380px;--s:.8" data-shot="../../../shots/lens.png"></div>
+  <div class="zcard" style="left:1180px;top:440px;padding:16px 22px;z-index:7">
+    <span class="tag" style="margin-bottom:4px">Your own draft</span>
+    <div class="num" style="font-size:84px"><span class="pink">21</span><span class="gtxt" style="font-size:56px"> → </span><span class="green">98</span></div>
+  </div>
+  <div class="lbl pink" style="left:1190px;top:640px;width:230px;text-align:right">Words a judge reads badly</div>
+  <div class="pg">4</div>
+</section>
+
+<!-- E · dark · the judge's scale, drawn to scale -->
+<section class="slide">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">What Parley does</div>
+  <h2 style="width:1000px">A calm reply for them. <span>A judge's eye on yours.</span></h2>
+
+  <div class="iphone iphone--black" style="left:1150px;top:230px;--s:.78;--shift:72;transform:rotate(-6deg)" data-shot="../../../shots/reply-result.png"></div>
+  <div class="iphone iphone--black" style="left:1390px;top:120px;--s:.95" data-shot="../../../shots/lens.png"></div>
+
+  <!-- 0 to 100 track: 980px wide, so 9.8px a point -->
+  <div class="tag" style="left:120px;top:550px">How a judge reads your draft</div>
+  <div style="left:120px;top:720px;width:980px;height:14px;border-radius:7px;background:#232640"></div>
+  <div style="left:326px;top:720px;width:754px;height:14px;border-radius:7px;background:var(--grad)"></div>
+  <div style="left:120px;top:752px;font-size:18px;color:var(--dim);font-weight:600">0</div>
+  <div style="left:1060px;top:752px;font-size:18px;color:var(--dim);font-weight:600">100</div>
+  <i class="dot" style="left:326px;top:727px;width:34px;height:34px;margin:-17px 0 0 -17px;background:#ff5fa0"></i>
+  <i class="dot" style="left:1080px;top:727px;width:34px;height:34px;margin:-17px 0 0 -17px;background:#34d399"></i>
+  <div class="num pink" style="left:270px;top:600px;font-size:100px">21</div>
+  <div class="num green" style="left:990px;top:600px;font-size:100px">98</div>
+  <div class="b in" style="left:180px;top:810px;font-size:24px;background:var(--warn-bg)"><span class="strike">i'll pay when i feel like it</span></div>
+  <div class="b good" style="left:720px;top:890px;font-size:24px;border-bottom-left-radius:8px;border-bottom-right-radius:24px">I'll send my $120 half by [day].</div>
+  <div class="pg">4</div>
+</section>
+
+<script src="../../../design-options/iphone.js"></script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Caveat:wght@600;700&family=Inter+Tight:wght@400;500;600;700;800&display=block" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#555}
+.slide{width:1920px;height:1080px;position:relative;overflow:hidden;margin:0 0 40px}
+.abs{position:absolute}
+
+/* ---------- A: same text, two answers (dark Parley) ---------- */
+#a{background:#0d0e1a;color:#f2f2f7;font-family:'Plus Jakarta Sans',sans-serif}
+#a .eyebrow{left:120px;top:84px;font-size:22px;letter-spacing:.16em;font-weight:700;color:#8b97ff}
+#a h1{left:120px;top:126px;width:1680px;font-size:66px;line-height:1.08;font-weight:800;letter-spacing:-.025em}
+#a h1 span{color:#9aa0c0}
+#a .lab{font-size:22px;letter-spacing:.12em;font-weight:700;text-transform:uppercase;color:#7c80a0}
+#a .in{display:inline-block;background:#262839;color:#e8e8f0;font-size:31px;padding:14px 24px;border-radius:26px;margin-bottom:12px}
+#a .gpt{background:#1b1d2c;border:1px solid #2c2f45;color:#a9acc4;font-size:25px;line-height:1.5;padding:28px 32px;border-radius:28px 28px 28px 8px}
+#a .gpt mark{background:none;color:#ff8fbd}
+#a .pen{font-family:'Caveat',cursive;color:#ff5a8f;font-size:38px;line-height:1.05;font-weight:700}
+#a .par{background:#5b6cf6;color:#fff;font-size:40px;line-height:1.3;font-weight:600;padding:30px 36px;border-radius:34px 34px 8px 34px}
+#a .tag{font-size:26px;color:#5fd3a4;font-weight:600;line-height:1.45}
+#a .foot{left:120px;right:120px;bottom:64px;font-size:27px;color:#a9acc4;border-top:1px solid #262839;padding-top:26px;line-height:1.4}
+#a .foot b{color:#f2f2f7}
+
+/* ---------- B: ToneMeter receipt (light editorial) ---------- */
+#b{background:#f4efe6;color:#1c1a17;font-family:'Inter',sans-serif}
+#b .eyebrow{left:120px;top:84px;font-size:22px;letter-spacing:.16em;font-weight:600;color:#9a3b2b}
+#b h1{left:120px;top:124px;width:1640px;font-family:'Newsreader',serif;font-weight:500;font-size:72px;line-height:1.06;letter-spacing:-.015em}
+#b h1 em{font-style:italic;color:#9a3b2b}
+#b .receipt{left:150px;top:380px;width:640px;background:#fff;padding:40px 44px 34px;box-shadow:0 30px 60px -20px rgba(60,40,10,.25),0 2px 6px rgba(0,0,0,.06);transform:rotate(-1.6deg)}
+#b .receipt h3{font-size:28px;font-weight:700}
+#b .receipt .sub{font-size:20px;color:#7a7266;margin:6px 0 22px}
+#b .row{display:flex;justify-content:space-between;font-size:29px;padding:15px 0;border-top:1px dashed #d8d0c2;font-variant-numeric:tabular-nums}
+#b .row b{font-weight:700}
+#b .pen{font-family:'Caveat',cursive;color:#d0342c;font-weight:700;font-size:42px;line-height:1.02}
+#b .big{left:960px;top:392px;white-space:nowrap;font-family:'Newsreader',serif;font-size:104px;line-height:1;letter-spacing:-.02em;font-weight:500}
+#b .bigcap{left:966px;top:516px;width:820px;font-size:28px;line-height:1.4;color:#5d564c}
+#b .catch{left:966px;top:652px;width:820px;font-size:31px;line-height:1.42}
+#b .ours{left:966px;top:812px;width:830px;font-size:31px;line-height:1.42;border-left:6px solid #9a3b2b;padding-left:28px}
+#b .src{left:120px;bottom:44px;font-size:19px;color:#8a8274}
+
+/* ---------- C: designed table (cream, serif) ---------- */
+#c{background:#fbf8f1;color:#191816;font-family:'Inter',sans-serif}
+#c .eyebrow{left:110px;top:80px;font-size:22px;letter-spacing:.16em;font-weight:600;color:#6b6457}
+#c h1{left:110px;top:118px;width:1700px;font-family:'Instrument Serif',serif;font-weight:400;font-size:80px;line-height:1.02;letter-spacing:-.01em}
+#c h1 i{color:#6b6457}
+#c table{position:absolute;left:110px;top:318px;width:1700px;border-collapse:collapse}
+#c th{font-size:20px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#7b7366;text-align:left;padding:0 18px 16px;vertical-align:bottom;line-height:1.3;border-bottom:2px solid #191816}
+#c td{font-size:26px;line-height:1.3;padding:12px 18px;border-bottom:1px solid #e1dbcf;vertical-align:top;color:#3b3833}
+#c td.n{font-family:'Instrument Serif',serif;font-size:36px;color:#191816;line-height:1.05}
+#c td.n small{display:block;font-family:'Inter',sans-serif;font-size:21px;color:#7b7366;margin-top:5px}
+#c .x{color:#b2463a}
+#c tr.p td{color:#191816;font-weight:600;border-bottom:none;position:relative;z-index:1}
+#c tr.p td.n{font-weight:400;font-size:44px}
+#c .hl{left:96px;width:1728px;top:0;height:0;background:#c9f36b;opacity:.75;transform:rotate(-.35deg);border-radius:4px 14px 6px 12px}
+#c .pen{font-family:'Caveat',cursive;font-weight:700;font-size:38px;color:#2a5bd7;line-height:1}
+#c .src{left:110px;bottom:40px;font-size:19px;color:#8b8476}
+
+/* ---------- D: positioning map (dark) ---------- */
+#d{background:#0d0e1a;color:#f2f2f7;font-family:'Plus Jakarta Sans',sans-serif}
+#d .eyebrow{left:120px;top:76px;font-size:22px;letter-spacing:.16em;font-weight:700;color:#8b97ff}
+#d h1{left:120px;top:116px;width:1680px;font-size:60px;line-height:1.08;font-weight:800;letter-spacing:-.025em}
+#d .map{left:200px;top:300px;width:1100px;height:640px;border-left:2px solid #3a3d58;border-bottom:2px solid #3a3d58}
+#d .half{left:0;top:0;width:550px;height:640px;background:repeating-linear-gradient(135deg,rgba(226,80,143,.07) 0 14px,transparent 14px 28px)}
+#d .mid{left:550px;top:0;width:0;height:640px;border-left:1px dashed #33364f}
+#d .hz{left:0;top:320px;width:1100px;border-top:1px dashed #33364f}
+#d .stuck{left:28px;top:24px;font-size:24px;color:#e2508f;font-weight:700;width:470px;line-height:1.3}
+#d .ax{font-size:21px;color:#8a8eab;font-weight:600}
+#d .dot{width:22px;height:22px;border-radius:50%;background:#8a8eab;transform:translate(-50%,-50%)}
+#d .pt{font-size:21px;line-height:1.3;color:#a9acc4;width:330px}
+#d .pt b{display:block;color:#f2f2f7;font-size:26px;font-weight:700}
+#d .pd{width:46px;height:46px;background:#5b6cf6;box-shadow:0 0 0 12px rgba(91,108,246,.22)}
+#d .side{left:1400px;top:300px;width:420px}
+#d .side h3{font-size:22px;letter-spacing:.14em;color:#8b97ff;font-weight:700;margin-bottom:20px}
+#d .side p{font-size:28px;line-height:1.36;margin-bottom:22px;color:#dcdce8}
+#d .side p b{color:#fff}
+#d .side .q{border-top:1px solid #2c2f45;padding-top:22px;color:#a9acc4;font-size:25px}
+
+/* ---------- E: the money says the gap is real (white keynote) ---------- */
+#e{background:#fff;color:#0b0b0f;font-family:'Inter Tight',sans-serif}
+#e .eyebrow{left:120px;top:84px;font-size:22px;letter-spacing:.16em;font-weight:700;color:#5b6cf6}
+#e h1{left:120px;top:124px;width:1700px;font-size:68px;line-height:1.06;font-weight:700;letter-spacing:-.03em}
+#e h1 span{color:#9b9ba6}
+#e .chart{left:120px;top:380px;width:1060px}
+#e .ct{font-size:22px;color:#6b6b76;font-weight:600;margin-bottom:30px;letter-spacing:.02em}
+#e .bar{margin-bottom:46px}
+#e .bn{display:flex;justify-content:space-between;align-items:baseline;font-size:31px;font-weight:700;margin-bottom:12px}
+#e .bn span{font-size:26px;font-weight:500;color:#55555f}
+#e .track{height:46px;background:#f1f1f4;border-radius:6px;position:relative}
+#e .solid{position:absolute;left:0;top:0;bottom:0;background:#0b0b0f;border-radius:6px 0 0 6px}
+#e .range{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(90deg,#0b0b0f 0 3px,transparent 3px 12px);opacity:.35}
+#e .note{font-size:24px;color:#e2508f;font-weight:600;margin-top:10px}
+#e .tiny{position:absolute;left:0;top:0;bottom:0;width:6px;background:#5b6cf6}
+#e .scale{display:flex;justify-content:space-between;font-size:20px;color:#9b9ba6;margin-top:-26px}
+#e .right{left:1290px;top:380px;width:520px}
+#e .right .k{font-size:22px;letter-spacing:.14em;font-weight:700;color:#5b6cf6;margin-bottom:16px}
+#e .right p{font-size:29px;line-height:1.4;margin-bottom:26px;color:#2b2b33}
+#e .right p b{color:#0b0b0f}
+#e .src{left:120px;bottom:44px;font-size:19px;color:#9b9ba6}
+</style></head><body>
+
+<!-- A -->
+<section class="slide" id="a">
+  <div class="abs eyebrow">IS IT NEW</div>
+  <h1 class="abs">ChatGPT answers like a lawyer writing a letter. <span>Parley answers the way you would text on a calm day.</span></h1>
+
+  <div class="abs" style="left:120px;top:330px;width:500px">
+    <div class="lab" style="margin-bottom:22px">The other parent texts</div>
+    <div class="in">u didnt even show up sat</div><br>
+    <div class="in">the kids waited an HOUR</div><br>
+    <div class="in">unreal</div>
+    <div style="margin-top:34px;font-size:26px;line-height:1.45;color:#a9acc4">A real message from Parley's sample case. Here is what two tools send back.</div>
+  </div>
+
+  <div class="abs" style="left:690px;top:330px;width:560px">
+    <div class="lab" style="margin-bottom:22px">What ChatGPT tends to write</div>
+    <div class="gpt">Hi, I understand that you're upset about Saturday, and <mark>I want to acknowledge your feelings. However,</mark> I would like to clarify that I was at the school parking lot at 10:00 AM as we agreed, and I texted you at 10:05 AM. <mark>For the sake of the children,</mark> I think it's important that we communicate respectfully. Could Sunday work instead? Best regards.</div>
+    <svg class="abs" style="left:-24px;top:118px" width="610" height="90" viewBox="0 0 610 90"><path d="M30 46 C 40 6, 560 2, 590 34 C 612 64, 330 92, 60 80 C 18 76, 8 58, 40 30" fill="none" stroke="#ff5a8f" stroke-width="4" stroke-linecap="round"/></svg>
+    <div class="pen" style="margin-top:22px">reads passive-aggressive to a judge,<br>and none of it is saved anywhere</div>
+  </div>
+
+  <div class="abs" style="left:1320px;top:330px;width:480px">
+    <div class="lab" style="margin-bottom:22px;color:#8b97ff">What Parley writes, in your voice</div>
+    <div class="par">i was at the school lot at 10 and texted u at 10:05. sunday instead?</div>
+    <div class="tag" style="margin-top:24px">Saved with the date to your record, ready as a PDF for your lawyer.</div>
+    <div style="margin-top:18px;font-size:26px;line-height:1.45;color:#a9acc4">And a 2-minute daily practice teaches you to write it yourself.</div>
+  </div>
+
+  <div class="abs foot"><b>The paid apps can't help here at all.</b> OurFamilyWizard ($110 to $300 a year per parent) and TalkingParents ($77 to $352 a year) only work once the other parent agrees to join. A hostile ex says no.</div>
+</section>
+
+<!-- B -->
+<section class="slide" id="b">
+  <div class="abs eyebrow">IS IT NEW</div>
+  <h1 class="abs">Parents already pay for help with their tone. <em>The catch is that the other parent has to sign up too.</em></h1>
+
+  <div class="abs receipt">
+    <h3>OurFamilyWizard, in-app prices</h3>
+    <div class="sub">As listed on AppMagic, November 2026</div>
+    <div class="row"><span>Essentials</span><b>$149.99</b></div>
+    <div class="row"><span>Premium</span><b>$219.00</b></div>
+    <div class="row"><span>Max</span><b>$299.99</b></div>
+    <div class="row" style="position:relative"><span>ToneMeter&trade;</span><b>$9.99</b>
+      <svg class="abs" style="left:-30px;top:-10px" width="640" height="84" viewBox="0 0 640 84"><path d="M28 44 C 36 6, 590 0, 616 34 C 636 66, 330 86, 50 76 C 10 70, 6 46, 44 20" fill="none" stroke="#d0342c" stroke-width="4.5" stroke-linecap="round"/></svg>
+    </div>
+  </div>
+  <svg class="abs" style="left:430px;top:800px" width="120" height="110" viewBox="0 0 120 110"><path d="M100 96 C 50 96, 24 70, 20 14 M6 32 L 20 12 L 36 30" fill="none" stroke="#d0342c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div class="abs pen" style="left:540px;top:858px;width:400px;transform:rotate(-2deg)">an AI tone checker,<br>sold only inside OFW</div>
+
+  <div class="abs big">$100K to $500K</div>
+  <div class="abs bigcap">what OurFamilyWizard's iPhone app makes in a month, before counting anything it bills on the web (Sensor Tower, October 2026)</div>
+  <div class="abs catch">But OurFamilyWizard and TalkingParents only work when <b>both</b> parents join, and a hostile ex can simply refuse.</div>
+  <div class="abs ours"><b>Parley works with one parent.</b> It writes the reply in your own texting voice, keeps a dated record for the lawyer, and teaches you to do it without help.</div>
+
+  <div class="abs src">Prices: AppMagic OFW listing, TalkingParents pricing page. Revenue: Sensor Tower free overview, iOS worldwide, Oct 2026, the tool's estimate.</div>
+</section>
+
+<!-- C -->
+<section class="slide" id="c">
+  <div class="abs eyebrow">IS IT NEW</div>
+  <h1 class="abs">How parents deal with the other parent's texts today, <i>and what each option leaves out</i></h1>
+  <div class="abs hl" id="chl"></div>
+  <table>
+    <colgroup><col style="width:370px"><col style="width:290px"><col style="width:420px"><col style="width:310px"><col style="width:310px"></colgroup>
+    <tr><th>Option and price</th><th>Works without<br>the other parent?</th><th>Who writes the reply</th><th>Record for court</th><th>Teaches you how</th></tr>
+    <tr><td class="n">OurFamilyWizard<small>$110 to $300 a year, per parent</small></td><td class="x">No, both must join</td><td>You. An AI tone check costs $9.99 extra</td><td>Yes</td><td class="x">No</td></tr>
+    <tr><td class="n">TalkingParents<small>$77 to $352 a year</small></td><td class="x">No, both must join</td><td>You</td><td>Yes</td><td class="x">No</td></tr>
+    <tr><td class="n">BestInterest<small>$10 to $30 a month</small></td><td>Yes</td><td>You. It filters the ex's texts</td><td>Partly</td><td class="x">No</td></tr>
+    <tr><td class="n">ChatGPT<small>free to $20 a month</small></td><td>Yes</td><td>AI, long and formal, reads passive-aggressive</td><td class="x">No</td><td class="x">No</td></tr>
+    <tr><td class="n">CustodyLogs<small>$40 once</small></td><td>Yes</td><td>You, from ready-made scripts</td><td>A spreadsheet</td><td class="x">No</td></tr>
+    <tr class="p" id="prow"><td class="n">Parley</td><td>Yes, just you</td><td>AI, in your own texting voice</td><td>PDF for the lawyer</td><td>Yes, 2 minutes a day</td></tr>
+  </table>
+  <div class="abs pen" id="cpen" style="left:1500px;transform:rotate(-3deg)">the only row with no gaps</div>
+  <div class="abs src">Prices from each product's pricing page or app listing, November 2026. OFW's $9.99 ToneMeter from its App Store price list (AppMagic).</div>
+</section>
+
+<!-- D -->
+<section class="slide" id="d">
+  <div class="abs eyebrow">IS IT NEW</div>
+  <h1 class="abs">Every other option either needs your ex to sign up, or stops at a one-off reply</h1>
+  <div class="abs map">
+    <div class="abs half"></div><div class="abs mid"></div><div class="abs hz"></div>
+    <div class="abs stuck">Useless if the other parent refuses to join</div>
+
+    <div class="abs dot" style="left:150px;top:420px"></div>
+    <div class="abs pt" style="left:178px;top:398px"><b>OurFamilyWizard</b>$110 to $300 a year per parent, sells a $9.99 AI tone check</div>
+    <div class="abs dot" style="left:110px;top:560px"></div>
+    <div class="abs pt" style="left:138px;top:538px"><b>TalkingParents</b>$77 to $352 a year</div>
+
+    <div class="abs dot" style="left:640px;top:520px"></div>
+    <div class="abs pt" style="left:668px;top:498px;width:260px"><b>CustodyLogs</b>$40 once, a spreadsheet and scripts</div>
+    <div class="abs dot" style="left:840px;top:410px"></div>
+    <div class="abs pt" style="left:868px;top:388px;width:250px"><b>BestInterest</b>$10 to $30 a month, filters the ex's texts</div>
+    <div class="abs dot" style="left:700px;top:250px"></div>
+    <div class="abs pt" style="left:728px;top:228px;width:300px"><b>ChatGPT</b>free to $20, long formal replies, no record</div>
+
+    <div class="abs dot pd" style="left:980px;top:84px"></div>
+    <div class="abs" style="left:640px;top:52px;width:300px;text-align:right;font-size:40px;font-weight:800;color:#fff">Parley</div>
+    <div class="abs" style="left:560px;top:104px;width:380px;text-align:right;font-size:22px;color:#a9acc4;line-height:1.3">your own voice, daily practice, a record for court</div>
+
+    <div class="abs ax" style="left:0;top:660px">Both parents must join</div>
+    <div class="abs ax" style="right:0;top:660px">Works with just you &rarr;</div>
+    <div class="abs ax" style="left:-60px;top:640px;transform:rotate(-90deg);transform-origin:0 0;white-space:nowrap">Only stores or filters messages</div>
+    <div class="abs ax" style="left:-60px;top:250px;transform:rotate(-90deg);transform-origin:0 0;white-space:nowrap">Helps you answer &rarr;</div>
+  </div>
+
+  <div class="abs side">
+    <h3>WHAT ONLY PARLEY DOES</h3>
+    <p><b>Works when only you sign up.</b> The other parent never has to know.</p>
+    <p><b>Writes like you text</b>, short and calm, not like a lawyer's letter.</p>
+    <p><b>Teaches the skill</b> in 2 minutes a day, and <b>keeps the dated record</b> for the lawyer.</p>
+    <p class="q">It's also sold differently: through a quiz funnel, which none of these competitors run on Meta.</p>
+  </div>
+</section>
+
+<!-- E -->
+<section class="slide" id="e">
+  <div class="abs eyebrow">IS IT NEW</div>
+  <h1 class="abs">The two-parent apps make good money. <span>The one closest to Parley barely sells, and it runs no ads.</span></h1>
+
+  <div class="abs chart">
+    <div class="ct">iPhone app revenue per month, worldwide, October 2026 (Sensor Tower estimate)</div>
+    <div class="bar"><div class="bn">OurFamilyWizard <span>$100K to $500K</span></div>
+      <div class="track"><div class="solid" style="width:20%"></div><div class="range" style="left:20%;width:80%"></div></div>
+      <div class="note">Both parents must join</div></div>
+    <div class="bar"><div class="bn">TalkingParents <span>$100K to $500K</span></div>
+      <div class="track"><div class="solid" style="width:20%"></div><div class="range" style="left:20%;width:80%"></div></div>
+      <div class="note">Both parents must join</div></div>
+    <div class="bar"><div class="bn">BestInterest <span>under $5K</span></div>
+      <div class="track"><div class="tiny"></div></div>
+      <div class="note" style="color:#5b6cf6">Works for one parent, filters texts, runs no Meta ads</div></div>
+    <div class="scale" style="margin-top:-12px"><span>$0</span><span>$250K</span><span>$500K</span></div>
+  </div>
+
+  <div class="abs right">
+    <div class="k">WHERE PARLEY IS DIFFERENT</div>
+    <p><b>It works with one parent</b>, like BestInterest, but it writes the reply in your own voice and <b>teaches you the skill</b>, then keeps a court-ready record.</p>
+    <p><b>And it is actually sold.</b> We use a quiz funnel, the way Zimran's Finelo does. Nobody in this niche runs one.</p>
+    <p style="font-size:24px;color:#6b6b76">Finelo's iPhone app alone makes $100K to $500K a month, and most of its money comes from the web quiz.</p>
+  </div>
+
+  <div class="abs src">Sensor Tower free overview, App Store only, so web subscriptions are not counted. Ads: Meta Ad Library, US, 15 Nov 2026.</div>
+</section>
+
+<script>
+// C: put the marker stroke and the pen note on the Parley row, wherever the table lays it out
+const r = document.getElementById('prow').getBoundingClientRect(), s = document.getElementById('c').getBoundingClientRect();
+const hl = document.getElementById('chl');
+hl.style.top = (r.top - s.top - 4) + 'px'; hl.style.height = (r.height + 8) + 'px';
+document.getElementById('cpen').style.top = (r.bottom - s.top + 14) + 'px';
+</script>
+</body></html>

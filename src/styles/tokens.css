@@ -1,0 +1,40 @@
+/* Parley design tokens — larpmotion style A, "Dusk" skin.
+   Paper #f4f5fa, white 24px cards, Plus Jakarta Sans, pastel 3D icon tiles (index.html sprite),
+   ONE gradient for action (lilac → blue). Coral/pink is reserved for "a judge would read this badly". */
+:root {
+  --bg: #f4f5fa;
+  --side: #eef0f7;
+  --card: #ffffff;
+  --line: #e3e5ee;
+  --ink: #1d1f2b;
+  --mute: #666a7a;
+  --faint: #a3a6b4;
+
+  --grad: linear-gradient(118deg, #7c5cf0 0%, #5b6cf6 45%, #3f8df5 100%);
+  --glow: rgba(91, 108, 246, .28);
+  --acc: #5b6cf6;
+  --acc-bg: #eef0ff;
+
+  --warn: #e2508f;      /* risky phrase, court lens */
+  --warn-bg: #ffe8f2;
+  --ok: #1fa572;        /* safe phrase */
+  --ok-bg: #e3f7ee;
+  --amber: #c98a00;
+  --amber-bg: #fff3c9;
+
+  --night: #0d0e1a;     /* landing hero / dark slabs */
+  --night-mute: #a9abc0;
+
+  --shadow: 0 1px 2px rgba(20, 22, 40, .05), 0 10px 30px rgba(20, 22, 40, .07);
+  --shadow-lg: 0 2px 6px rgba(20, 22, 40, .06), 0 24px 60px rgba(20, 22, 40, .12);
+  --haze: radial-gradient(60% 50% at 70% 0%, rgba(124, 92, 240, .14), transparent 70%);
+
+  --r-card: 24px;
+  --r-ctl: 14px;
+  --font: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --safe-t: env(safe-area-inset-top, 0px);
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --gutter-l: max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+}

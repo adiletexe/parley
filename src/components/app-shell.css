@@ -1,0 +1,29 @@
+.shell { display: grid; grid-template-columns: 252px minmax(0, 1fr); min-height: 100vh; min-height: 100dvh; background: var(--bg); position: relative; }
+.shell::before { content: ""; position: absolute; inset: 0 0 auto 252px; height: 280px; background: var(--haze); pointer-events: none; }
+.shell-side { position: sticky; top: 0; height: 100vh; height: 100dvh; display: flex; flex-direction: column; gap: 6px; padding: 20px 16px calc(16px + var(--safe-b)); background: var(--side); border-right: 1px solid var(--line); }
+.shell-logo { margin: 4px 6px 16px; }
+.shell-new { margin-bottom: 12px; }
+.shell-nav { display: grid; gap: 4px; }
+.shell-link { display: flex; align-items: center; gap: 12px; padding: 8px 10px; border-radius: 14px; font: 600 15px var(--font); color: var(--ink); text-decoration: none; transition: background .15s; }
+.shell-link:hover { background: color-mix(in srgb, var(--card) 60%, transparent); }
+.shell-link.on { background: var(--card); box-shadow: var(--shadow); }
+.shell-foot { margin-top: auto; display: grid; gap: 8px; }
+.shell-plan { display: block; background: var(--card); border-radius: 18px; padding: 14px; box-shadow: var(--shadow); text-decoration: none; color: var(--mute); font-size: 13px; }
+.shell-plan b { display: block; color: var(--ink); font-size: 14px; }
+.shell-bar { display: block; height: 6px; border-radius: 9px; background: var(--line); margin-top: 10px; overflow: hidden; }
+.shell-bar i { display: block; height: 100%; background: var(--grad); border-radius: 9px; }
+.shell-main { position: relative; min-width: 0; padding: 28px clamp(16px, 3vw, 36px) 48px; }
+.shell-tabs { display: none; }
+
+@media (max-width: 860px) {
+  .shell { grid-template-columns: 1fr; }
+  .shell::before { left: 0; }
+  .shell-side { display: none; }
+  .shell-main { padding: calc(18px + var(--safe-t)) var(--gutter-r) calc(96px + var(--safe-b)) var(--gutter-l); }
+  .shell-tabs { display: grid; grid-template-columns: repeat(4, 1fr); position: fixed; z-index: 40; left: 0; right: 0; bottom: 0;
+    padding: 8px var(--gutter-r) calc(8px + var(--safe-b)) var(--gutter-l); background: color-mix(in srgb, var(--card) 92%, transparent);
+    backdrop-filter: blur(14px); border-top: 1px solid var(--line); }
+  .shell-tab { display: grid; justify-items: center; gap: 2px; padding: 4px; border-radius: 12px; text-decoration: none; color: var(--mute); font: 700 11px var(--font); }
+  .shell-tab.on { color: var(--ink); background: var(--acc-bg); }
+  .demo-flag { bottom: calc(84px + var(--safe-b)); }
+}

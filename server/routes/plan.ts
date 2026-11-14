@@ -4,9 +4,23 @@ import {planDay, planState} from '../me.js';
 import type {Analysis, LensFlag, QuizAnswers} from '../../shared/types.js';
 import {
   LESSONS, TOTAL_DAYS, WEEKS, TRIGGER_LABEL, drillFor, lessonFor, triggerFromQuiz,
-  type DayStatus, type DrillAttempt, type PlanView, type Trigger,
+  type DayStatus, type DrillAttempt, type PlanView, type SessionView, type Trigger,
 } from '../plan-content.js';
 import {gradeDraft} from '../prompts/reply.js';
+import {dayPack, type DayPack, type Trigger as BankTrigger} from '../drill-bank.js';
+
+/* The daily choice session: five messages from the other parent, three replies each, pick the one you'd send.
+   The bank says which is good; this file only orders, checks, counts and stores. One row per finished session. */
+db.exec(`CREATE TABLE IF NOT EXISTS plan_sessions (
+  id TEXT PRIMARY KEY,
+  person_id TEXT NOT NULL REFERENCES people(id) ON DELETE CASCADE,
+  day INTEGER NOT NULL,
+  created_at TEXT NOT NULL,
+  correct INTEGER NOT NULL,
+  total INTEGER NOT NULL,
+  json TEXT NOT NULL
+)`);
+db.exec('CREATE INDEX IF NOT EXISTS plan_sessions_person ON plan_sessions (person_id, day)');
 
 /* The 28-day plan. Days are 24-hour steps from plan start on the person's own clock (personNow), the same count
    /api/me reports, so demo time-travel unlocks days here too. Everything the page shows — streak, calm days,
@@ -25,6 +39,48 @@ function quizOf(p: PersonRow): QuizAnswers | undefined {
   try { return p.quiz_json ? JSON.parse(p.quiz_json) as QuizAnswers : undefined; } catch { return undefined; }
 }
 
+const BANK_TRIGGERS: BankTrigger[] = ['schedule', 'money', 'partner', 'school', 'messenger', 'health'];
+/** The quiz's first "what sets it off" answer that the bank writes questions for ('past' has none). */
+function bankTriggerOf(quiz: QuizAnswers | undefined): BankTrigger | undefined {
+  const v = (quiz as Record<string, unknown> | undefined)?.triggers;
+  for (const t of Array.isArray(v) ? v : [v]) if (BANK_TRIGGERS.includes(t as BankTrigger)) return t as BankTrigger;
+}
+
+interface SessionRow {id: string; day: number; at: string; correct: number; total: number}
+export function listSessions(personId: string): SessionRow[] {
+  return db.prepare('SELECT id, day, created_at at, correct, total FROM plan_sessions WHERE person_id = ? ORDER BY created_at').all(personId) as unknown as SessionRow[];
+}
+
+/** One point per plan day with a session: the FIRST session's score, so "practice again" can't inflate the line. */
+function skillTrend(sessions: SessionRow[], skill?: string) {
+  const first = new Map<number, SessionRow>();
+  for (const r of sessions) if (!first.has(r.day)) first.set(r.day, r);
+  const pts = [...first.values()].sort((a, b) => a.day - b.day)
+    .map((r) => ({day: r.day, pct: Math.round((r.correct / Math.max(1, r.total)) * 100), skill: dayPack(r.day).skill}));
+  const same = skill ? pts.filter((p) => p.skill === skill) : [];
+  return (same.length >= 2 ? same : pts).map(({day, pct}) => ({day, pct}));
+}
+
+/** The demo case's history: a finished session on `day` with `correct` right answers, as the page would have sent it. */
+export function seedSession(personId: string, day: number, at: string, correct: number) {
+  const pack = dayPack(day);
+  const picks = pack.questions.map((q, i) => {
+    const want = i < correct;
+    const picked = Math.max(0, q.options.findIndex((o) => o.good === want));
+    return {id: q.id, picked, good: q.options[picked].good};
+  });
+  const n = picks.filter((x) => x.good).length;
+  db.prepare('INSERT INTO plan_sessions (id, person_id, day, created_at, correct, total, json) VALUES (?, ?, ?, ?, ?, ?, ?)')
+    .run(newId('s_'), personId, day, at, n, picks.length, JSON.stringify({picks, skill: pack.skill, demo: true}));
+}
+
+function sessionFor(p: PersonRow, day: number, pack: DayPack): SessionView {
+  const top = bankTriggerOf(quizOf(p));
+  const qs = [...pack.questions].sort((a, b) => Number(b.trigger === top) - Number(a.trigger === top));
+  return {day, skill: pack.skill, rule: pack.rule,
+    questions: qs.map((q) => ({id: q.id, trigger: q.trigger, them: q.them, options: q.options.map((o) => ({text: o.text, tag: o.tag, good: o.good}))}))};
+}
+
 export function listAttempts(personId: string): DrillAttempt[] {
   const rows = db.prepare('SELECT json FROM drills WHERE person_id = ? ORDER BY day, created_at').all(personId) as {json: string}[];
   return rows.map((r) => JSON.parse(r.json) as DrillAttempt);
@@ -36,6 +92,8 @@ function activity(p: PersonRow, attempts: DrillAttempt[]) {
   const active = new Set<number>();
   const risky = new Set<number>();
   for (const a of attempts) active.add(dayOfMs(p, new Date(a.at).getTime()));
+  // A finished choice session is practice too; it is stamped on the person's own clock, like drills.
+  for (const r of listSessions(p.id)) active.add(dayOfMs(p, new Date(r.at).getTime()));
 
   const analyses = db.prepare('SELECT id, created_at, json FROM analyses WHERE person_id = ?').all(p.id) as {id: string; created_at: string; json: string}[];
   const byId = new Map<string, Analysis>();
@@ -116,7 +174,16 @@ export function planView(p: PersonRow, wantDay?: number): PlanView {
     renewal = {until: p.plan_until, daysLeft, price: RENEWAL[p.plan_tier ?? ''] ?? '', remind: daysLeft <= 3};
   }
 
+  const sessions = listSessions(p.id);
+  const todayPack = dayPack(day);
+  const sessionLocked = !full && day > FREE_DAYS;
+  const doneToday = sessions.filter((r) => r.day === day);
+
   return {
+    session: sessionLocked ? null : sessionFor(p, day, todayPack),
+    sessionToday: doneToday.length ? {correct: Math.max(...doneToday.map((r) => r.correct)), total: doneToday[0].total, rounds: doneToday.length} : null,
+    skill: todayPack.skill, rule: todayPack.rule,
+    skillTrend: skillTrend(sessions, todayPack.skill),
     day, viewDay, total: TOTAL_DAYS, access: full ? 'full' : 'free', demo: !!p.demo, now: now.toISOString(),
     trigger: d.trigger, triggerLabel: TRIGGER_LABEL[d.trigger], personalised: !!quizTrigger,
     streak, calmDays, activeToday, calmList, days, weeks,
@@ -143,6 +210,43 @@ export default function register(app: Hono) {
     const p = getPerson(c.get('person').id)!;
     const want = c.req.query('day') ? Number(c.req.query('day')) : undefined;
     return c.json(planView(p, want));
+  });
+
+  app.post('/api/plan/session', async (c) => {
+    const p = getPerson(c.get('person').id)!;
+    const b = await c.req.json().catch(() => ({})) as {day?: number; answers?: {id?: unknown; picked?: unknown}[]};
+    const day = Math.floor(Number(b.day));
+    const today = planDay(p);
+    if (!(day >= 1)) return c.json({error: 'That day is not part of the plan.'}, 400);
+    if (!hasFullAccess(p) && day > FREE_DAYS) return c.json({error: 'Days 3–28 are part of the full plan.', paywall: true}, 402);
+    if (day > today) return c.json({error: `Day ${day} unlocks on its day.`}, 403);
+    if (day < today) return c.json({error: 'That session was for another day. Open today\'s.'}, 409);
+
+    const pack = dayPack(day);
+    const byId = new Map(pack.questions.map((q) => [q.id, q]));
+    const answers = Array.isArray(b.answers) ? b.answers : [];
+    const seen = new Set<string>();
+    const picks: {id: string; picked: number; good: boolean}[] = [];
+    for (const a of answers) {
+      const id = String(a?.id ?? ''), picked = Number(a?.picked);
+      const q = byId.get(id);
+      if (!q || seen.has(id) || !Number.isInteger(picked) || picked < 0 || picked >= q.options.length) return c.json({error: 'Those answers do not match today\'s session.'}, 400);
+      seen.add(id);
+      picks.push({id, picked, good: q.options[picked].good});
+    }
+    if (picks.length !== pack.questions.length) return c.json({error: 'Answer every message first.'}, 400);
+
+    const before = listSessions(p.id);
+    const firstTimeToday = !before.some((r) => r.day === day);
+    const correct = picks.filter((x) => x.good).length, total = picks.length;
+    const at = personNow(p).toISOString();
+    const id = newId('s_');
+    db.prepare('INSERT INTO plan_sessions (id, person_id, day, created_at, correct, total, json) VALUES (?, ?, ?, ?, ?, ?, ?)')
+      .run(id, p.id, day, at, correct, total, JSON.stringify({picks, skill: pack.skill}));
+    track(p.id, 'plan_session', {day, correct, total, first: firstTimeToday});
+
+    const v = planView(p);
+    return c.json({correct, total, firstTimeToday, streak: v.streak, skill: pack.skill, skillTrend: v.skillTrend});
   });
 
   app.post('/api/plan/drill', async (c) => {

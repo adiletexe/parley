@@ -7,6 +7,7 @@ import {db, type PersonRow} from './db.js';
 import {addEntry} from './journal-store.js';
 import {analyzeMessage} from './prompts/reply.js';
 import {drillFor} from './plan-content.js';
+import {seedSession} from './routes/plan.js';
 import type {Analysis, Category, Channel, Entry, EntryKind, LensFlag} from '../shared/types.js';
 import {newId} from './db.js';
 
@@ -195,6 +196,13 @@ export async function seedDemo(p: PersonRow): Promise<{entries: number; analyses
       const row = {id: newId('d_'), day, attempt: i + 1, at, draft: t.draft, score: t.score, lens: t.lens, better: t.better, trigger, message, demo: true};
       db.prepare('INSERT INTO drills (id, person_id, day, created_at, json) VALUES (?, ?, ?, ?, ?)').run(row.id, p.id, day, at, JSON.stringify(row));
     });
+  }
+
+  // Choice sessions on the days the case practised (day 6 was missed), getting steadier; today's is the jury's to do.
+  const SESSIONS: Record<number, number> = {1: 2, 2: 3, 3: 3, 4: 3, 5: 4, 7: 3, 8: 4, 9: 4, 10: 5, 11: 4};
+  for (const [d, n] of Object.entries(SESSIONS)) {
+    const day = Number(d);
+    seedSession(p.id, day, new Date(start + (day - 1) * DAY + 12.5 * HOUR).toISOString(), n);
   }
 
   const entries = (db.prepare('SELECT COUNT(*) n FROM entries WHERE person_id = ?').get(p.id) as {n: number}).n;

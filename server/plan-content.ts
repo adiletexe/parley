@@ -637,7 +637,19 @@ export interface DrillAttempt {
   lens: import('../shared/types.js').LensFlag[]; better: string; trigger: Trigger; message: string; demo?: boolean;
 }
 export type DayStatus = 'done' | 'today' | 'open' | 'upcoming' | 'locked';
+/** Today's choice session as the page gets it. `good` travels too: the feedback is instant and there is nothing to win. */
+export interface SessionView {
+  day: number; skill: string; rule: string;
+  questions: {id: string; trigger: import('./drill-bank.js').Trigger; them: string; options: {text: string; tag: string; good: boolean}[]}[];
+}
+export interface SessionResult {
+  correct: number; total: number; firstTimeToday: boolean; streak: number; skill: string; skillTrend: {day: number; pct: number}[];
+}
 export interface PlanView {
+  session: SessionView | null;  // today's session; null while the day is behind the paywall
+  sessionToday: {correct: number; total: number; rounds: number} | null;  // best of today's finished sessions
+  skill: string; rule: string;  // today's pack
+  skillTrend: {day: number; pct: number}[];  // first session's % per day, today's skill when it has 2+ points
   day: number;                 // the person's current plan day (may run past 28)
   viewDay: number;             // the day shown
   total: number;

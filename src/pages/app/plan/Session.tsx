@@ -42,7 +42,7 @@ export const bubblesOf = (message: string) => message.split('\n').map((b) => b.t
    a breath after the last bubble before the replies come in one at a time. */
 const typingMs = (text: string) => Math.min(2400, 700 + 30 * text.length);
 // The question follows the last text almost at once; the replies then come slowly, one at a time, so each gets read.
-const GAP_MS = 500, ASK_MS = 350, OPT_FIRST_MS = 1300, OPT_MS = 1100;
+const GAP_MS = 500, ASK_MS = 350, OPT_FIRST_MS = 300, OPT_MS = 1100;
 
 /** A stable shuffle per question: the order is drawn from the id (which carries the day), so a reload shows the
     same order and the position of the good reply never tells. Returns display slot → option index. */

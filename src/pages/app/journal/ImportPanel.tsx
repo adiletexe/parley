@@ -34,7 +34,7 @@ function zoneOffset(): number {
 }
 
 /** `bare`: no card and no heading, for a sheet that already has both. `start` opens straight on one source;
- *  `only` limits the list "All import options" goes back to. */
+ *  `only` limits the list "All import options" goes back to; with one source there is no list to go back to. */
 export function ImportPanel({onImported, bare, start, only}: {onImported: () => void; bare?: boolean; start?: Source; only?: Source[]}) {
   const [source, setSource] = useState<Source | null>(start ?? null);
   const sources = only ? SOURCES.filter((s) => only.includes(s.id)) : SOURCES;
@@ -99,7 +99,7 @@ export function ImportPanel({onImported, bare, start, only}: {onImported: () => 
 
       {cfg && !preview && !result && (
         <div className="fade-in">
-          <button className="btn btn-quiet jr-back" onClick={() => reset()}>‹ All import options</button>
+          {sources.length > 1 && <button className="btn btn-quiet jr-back" onClick={() => reset()}>‹ All import options</button>}
           <h3 className="jr-h3">{cfg.title}</h3>
           <ol className="jr-how">{cfg.how.map((h) => <li key={h}>{h}</li>)}</ol>
           <input ref={input} type="file" hidden accept={cfg.accept} multiple={cfg.multiple} onChange={(e) => void upload(e.target.files)} />
@@ -168,7 +168,7 @@ export function ImportPanel({onImported, bare, start, only}: {onImported: () => 
               {result.added > 0 && 'Patterns are updated.'}
             </span>
           </div>
-          <button className="btn btn-ghost" onClick={() => reset()}>Import more</button>
+          <button className="btn btn-ghost" onClick={() => reset(sources.length > 1 ? null : sources[0].id)}>Import more</button>
         </div>
       )}
     </section>

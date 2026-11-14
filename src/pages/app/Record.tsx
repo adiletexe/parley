@@ -1,20 +1,24 @@
-/* /app/record — the record as the chat it mostly is: the other parent's texts on the left (a burst is one entry with
-   a bubble per line), what you sent on the right, and everything else (late pickups, expenses, notes) as small
-   centred pills between them, each with its exhibit number. Exhibits are positions in the whole record, oldest = E-1,
-   from GET /api/timeline with no filters — the same list the PDF prints, so E-7 here is E-7 there.
-   It mostly fills itself: the reply coach logs both sides, and screenshots / exports are imported from here. Writing
-   an entry by hand is one row in the upload sheet, not a button over the chat.
-   The chat scrolls inside its own box (not the window), so the header, the calendar and the pattern chips stay put
-   while it moves; the box is sized to the screen in a layout effect. */
+/* /app/record — the record as the chat it mostly is, and nothing else in the chat: the other parent's texts on the
+   left (a burst is one entry with a bubble per line), what you sent on the right. A phone should read in one glance —
+   name, dates, chat, upload — so everything that is not a message (late pickups, expenses, notes) and every count
+   (the patterns) lives in Reports and the PDF, with an amber dot on the calendar for the day it happened. It used to
+   sit in the chat as pills and above it as a row of chips; the founder's verdict on that screen was "too many things".
+   Risky words (a threat, an insult, pressure) are underlined inside their bubble (journal/risk.ts) instead of being
+   items of their own. Messages are final — there is no Edit; tapping one shows its exhibit number, time and source,
+   with Delete tucked behind ⋯ for privacy. Exhibits are positions in the whole record, oldest = E-1, from
+   GET /api/timeline with no filters — the same list the PDF prints, so E-7 here is E-7 there.
+   The chat scrolls inside its own box (not the window), so the header and the calendar stay put while it moves; the
+   box is sized to the screen in a layout effect. */
 import {useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode, type RefObject} from 'react';
 import {createPortal} from 'react-dom';
-import type {Entry, Pattern} from '../../../shared/types';
+import type {Entry} from '../../../shared/types';
 import {Icon, type IconId} from '../../components/Icon';
 import {api, ApiError, track} from '../../lib/api';
 import {useMe} from '../../lib/me';
 import {EntryForm} from './journal/EntryForm';
 import {ImportPanel, type Source} from './journal/ImportPanel';
-import {CATEGORY, CHANNEL, PRESETS, SOURCE, entryKind, fmtDate, fmtTime, money, type JournalData, type Preset} from './journal/util';
+import {splitRisks, type RiskHit} from './journal/risk';
+import {PRESETS, SOURCE, entryKind, fmtDate, fmtTime, type Preset} from './journal/util';
 import './journal/journal.css';
 import './Record.css';
 
@@ -26,7 +30,7 @@ interface TimelineRes {
   fingerprint: string;
   share: Share | null;
 }
-type Tone = 'amber' | 'pink' | 'green' | 'grey' | 'blue';
+type Tone = 'amber' | 'grey';
 type ReportKind = 'lawyer' | 'month' | 'patterns';
 interface Report { title: string; bullets: string[]; caution: string; from: string; to: string; entries: number; cached?: boolean }
 
@@ -38,8 +42,10 @@ const REPORTS: {id: ReportKind; icon: IconId; title: string; sub: string}[] = [
 const LOG_TILES = ['late', 'noshow', 'schedule', 'kids', 'expense', 'payment'];
 
 type SheetState =
-  | null | {kind: 'add'} | {kind: 'import'; start?: Source; only?: Source[]} | {kind: 'log'; preset?: Preset}
+  | null | {kind: 'upload'} | {kind: 'import'; start?: Source; only?: Source[]} | {kind: 'log'; preset?: Preset}
   | {kind: 'share'} | {kind: 'report'; which?: ReportKind};
+
+const isMsg = (e: Entry) => e.kind === 'message_in' || e.kind === 'message_out';
 
 /* ---------- dates: entries get a display-zone day (tz.ts patches toLocale*); calendar math is on plain YYYY-MM-DD ---------- */
 const ymd = (d: Date) => d.toLocaleDateString('en-CA');
@@ -50,19 +56,6 @@ const kWeek = (k: string) => kAdd(k, -kDate(k).getUTCDay()); // US weeks start o
 const kMonth = (k: string) => k.slice(0, 8) + '01';
 const kMonthAdd = (k: string, n: number) => { const d = kDate(kMonth(k)); d.setUTCMonth(d.getUTCMonth() + n); return d.toISOString().slice(0, 10); };
 const kFmt = (k: string, o: Intl.DateTimeFormatOptions) => kDate(k).toLocaleDateString('en-US', {...o, timeZone: 'UTC'});
-
-/** What colour an entry is, on the calendar and on its pill: late / no-show amber, money green (unpaid pink),
- *  conflict pink, messages grey. */
-function toneOf(e: Entry): Tone {
-  if (e.kind === 'expense') return 'green';
-  if (e.kind === 'message_in') return e.tags.includes('tense') ? 'pink' : 'grey';
-  if (e.kind === 'message_out') return 'grey';
-  if (e.kind === 'note') return 'blue';
-  if (e.tags.includes('missed_payment') || e.tags.includes('in_front_of_kids')) return 'pink';
-  if (e.tags.some((t) => ['late_pickup', 'no_show', 'schedule_change'].includes(t))) return 'amber';
-  return 'pink';
-}
-const DOT_ORDER: Tone[] = ['amber', 'pink', 'green', 'grey'];
 
 /** The other parent's name: the quiz if it ever asks, the sample case's Jordan, or the "Name:" the coach and the
  *  demo put on received messages. Otherwise the page is just "Your record". */
@@ -77,33 +70,6 @@ function otherName(entries: Entry[], quiz: Record<string, unknown> | undefined, 
   }
   const top = [...n.entries()].sort((a, b) => b[1] - a[1])[0];
   return top && top[1] >= 2 ? top[0] : null;
-}
-
-/** A pattern as a chip: the number first, a few words, and exactly the entries it counts. */
-interface Chip { id: string; label: string; tone: Tone; ids: string[] }
-function chipsFrom(patterns: Pattern[], entries: Entry[]): Chip[] {
-  const out: Chip[] = [];
-  const plural = (n: number, one: string, many = one + 's') => `${n} ${n === 1 ? one : many}`;
-  for (const p of patterns) {
-    if (!p.entryIds.length) continue;
-    const ids = p.entryIds;
-    let label = '', tone: Tone = 'pink';
-    if (p.label === 'Late pickups') { const of = /of the last (\d+)/.exec(p.detail)?.[1]; label = of ? `${p.count}/${of} pickups late` : plural(p.count, 'late pickup'); tone = 'amber'; }
-    else if (p.label === 'Missed handoffs') { label = plural(p.count, 'no-show'); tone = 'amber'; }
-    else if (p.label.startsWith('Most tense topic')) label = `Tense topic: ${p.label.split(': ')[1]}`;
-    else if (p.label === 'Tense messages per week') label = plural(ids.length, 'tense text');
-    else if (p.label === 'Conflict in front of the children') label = `${p.count}× in front of the kids`;
-    else if (p.label === 'Missed payments') label = plural(p.count, 'missed payment');
-    else if (p.label === 'Schedule changes') { label = plural(p.count, 'schedule change'); tone = 'amber'; }
-    else label = p.label;
-    out.push({id: p.label, label, tone, ids});
-  }
-  const exp = entries.filter((e) => e.kind === 'expense' && e.amountCents);
-  if (exp.length) {
-    const chip: Chip = {id: 'expenses', label: `${money(exp.reduce((s, e) => s + (e.amountCents ?? 0), 0))} shared costs`, tone: 'green', ids: exp.map((e) => e.id)};
-    out.splice(Math.min(1, out.length), 0, chip);
-  }
-  return out;
 }
 
 /** The chat box fills the screen down to the tab bar (phones) or the page's bottom padding (computers). */
@@ -128,41 +94,43 @@ export default function Record() {
   const {me} = useMe();
   const tz = me?.tz || (() => { try { return Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'; } catch { return 'UTC'; } })();
   const today = useMemo(() => ymd(me?.now ? new Date(me.now) : new Date()), [me?.now]);
+  const now = me?.now ?? new Date().toISOString();
 
   // ---- data ----
-  const [journal, setJournal] = useState<JournalData | null>(null);
   const [tl, setTl] = useState<TimelineRes | null>(null);
   const [error, setError] = useState('');
   const load = useCallback(async () => {
     try {
-      const [t, j] = await Promise.all([
-        api<TimelineRes>(`/api/timeline?${new URLSearchParams({tz})}`),
-        api<JournalData>('/api/journal'),
-      ]);
-      setTl(t); setJournal(j); setError('');
+      const t = await api<TimelineRes>(`/api/timeline?${new URLSearchParams({tz})}`);
+      setTl(t); setError('');
       return t;
     } catch (e) { setError((e as Error).message); return null; }
   }, [tz]);
   useEffect(() => { void load(); track('record_view'); }, [load]);
 
   const entries = useMemo(() => tl?.entries ?? [], [tl]);
-  const byId = useMemo(() => new Map(entries.map((e) => [e.id, e])), [entries]);
+  const msgs = useMemo(() => entries.filter(isMsg), [entries]);
+  // The chat's days hold messages only; the calendar's dots come from everything.
   const days = useMemo(() => {
     const g: {key: string; items: RdEntry[]}[] = [];
-    for (const e of entries) { const k = dayOf(e.occurredAt); if (g.at(-1)?.key !== k) g.push({key: k, items: []}); g.at(-1)!.items.push(e); }
+    for (const e of msgs) { const k = dayOf(e.occurredAt); if (g.at(-1)?.key !== k) g.push({key: k, items: []}); g.at(-1)!.items.push(e); }
     return g;
+  }, [msgs]);
+  const logged = useMemo(() => {
+    const m = new Map<string, RdEntry[]>();
+    for (const e of entries) if (!isMsg(e)) { const k = dayOf(e.occurredAt); m.set(k, [...(m.get(k) ?? []), e]); }
+    return m;
   }, [entries]);
   const dots = useMemo(() => {
     const m = new Map<string, Tone[]>();
-    for (const d of days) {
-      const set = new Set<Tone>(d.items.map(toneOf).map((t): Tone => (t === 'blue' ? 'grey' : t)));
-      m.set(d.key, DOT_ORDER.filter((t) => set.has(t)));
-    }
+    for (const d of days) m.set(d.key, ['grey']);
+    for (const k of logged.keys()) m.set(k, [...(m.get(k) ?? []), 'amber']);
     return m;
-  }, [days]);
-  const chips = useMemo(() => chipsFrom(journal?.patterns ?? [], entries), [journal, entries]);
+  }, [days, logged]);
   const name = useMemo(() => otherName(entries, me?.quiz, !!me?.demo), [entries, me?.quiz, me?.demo]);
-  const firstDay = days[0]?.key ?? today, lastDay = days.at(-1)?.key ?? today;
+  const allDays = useMemo(() => [...dots.keys()].sort(), [dots]);
+  const firstDay = allDays[0] ?? today, lastDay = allDays.at(-1) ?? today;
+  const msgFirst = days[0]?.key ?? firstDay, msgLast = days.at(-1)?.key ?? lastDay;
 
   // ---- the scroller ----
   const rootRef = useRef<HTMLDivElement>(null);
@@ -171,6 +139,8 @@ export default function Record() {
   const [visibleDay, setVisibleDay] = useState<string | null>(null);
   const [flashDay, setFlashDay] = useState<string | null>(null);
   const [flashEntry, setFlashEntry] = useState<string | null>(null);
+  const [flash, setFlash] = useState<{tag: string; text: string} | null>(null);
+  useEffect(() => { if (!flash) return; const t = setTimeout(() => setFlash(null), 4000); return () => clearTimeout(t); }, [flash]);
   const firstScroll = useRef(false);
   useLayoutEffect(() => { // a chat opens at the newest message
     const s = scrollRef.current;
@@ -185,45 +155,39 @@ export default function Record() {
     const secs = s.querySelectorAll<HTMLElement>('[data-day]');
     let cur: string | null = null;
     for (const el of secs) { if (el.offsetTop - s.scrollTop <= 60) cur = el.dataset.day!; else break; }
+    if (s.scrollTop + s.clientHeight >= s.scrollHeight - 4 && secs.length) cur = secs[secs.length - 1].dataset.day!; // at the bottom, the last day is the one on screen
     setVisibleDay(cur ?? secs[0]?.dataset.day ?? null);
   }, []);
   const rafRef = useRef(0);
   const scrolled = () => { cancelAnimationFrame(rafRef.current); rafRef.current = requestAnimationFrame(onScroll); };
 
+  /** Scroll to a day. A day with nothing texted (only something logged) is not in the chat: go to the nearest day
+   *  that is, and say in one line what was logged, since that lives in Reports. */
   const jumpDay = useCallback((k: string, smooth = true) => {
     const s = scrollRef.current;
-    const el = s?.querySelector<HTMLElement>(`[data-day="${k}"]`);
-    if (!s || !el) return;
+    if (!s || !days.length) return;
+    let target = k;
+    if (!days.some((d) => d.key === k)) {
+      target = days.find((d) => d.key > k)?.key ?? days.at(-1)!.key;
+      const what = logged.get(k);
+      if (what?.length) setFlash({tag: kFmt(k, {month: 'short', day: 'numeric'}), text: `${what.map((e) => e.title || entryKind(e).label).join(' · ')} — it’s in your Reports`});
+    }
+    const el = s.querySelector<HTMLElement>(`[data-day="${target}"]`);
+    if (!el) return;
     s.scrollTo({top: Math.max(0, el.offsetTop - 8), behavior: smooth ? 'smooth' : 'auto'});
     setFlashDay(null);
-    requestAnimationFrame(() => setFlashDay(k));
-  }, []);
+    requestAnimationFrame(() => setFlashDay(target));
+  }, [days, logged]);
   const jumpEntry = useCallback((id: string) => {
     const s = scrollRef.current;
     const el = s?.querySelector<HTMLElement>(`[data-entry="${id}"]`);
-    if (!s || !el) return;
+    if (!s || !el) { const e = entries.find((x) => x.id === id); if (e) jumpDay(dayOf(e.occurredAt)); return; }
     s.scrollTo({top: Math.max(0, el.offsetTop - s.clientHeight / 2 + el.offsetHeight / 2), behavior: 'smooth'});
     setFlashEntry(null);
     requestAnimationFrame(() => setFlashEntry(id));
-  }, []);
+  }, [entries, jumpDay]);
   useEffect(() => { if (!flashDay) return; const t = setTimeout(() => setFlashDay(null), 1800); return () => clearTimeout(t); }, [flashDay]);
   useEffect(() => { if (!flashEntry) return; const t = setTimeout(() => setFlashEntry(null), 1800); return () => clearTimeout(t); }, [flashEntry]);
-
-  // ---- a pattern chip highlights its entries; ‹ › steps through them ----
-  const [chipId, setChipId] = useState<string | null>(null);
-  const [hlAt, setHlAt] = useState(0);
-  const chip = chips.find((c) => c.id === chipId) ?? null;
-  const hits = useMemo(() => (chip ? chip.ids.filter((id) => byId.has(id)).sort((a, b) => byId.get(a)!.exhibit - byId.get(b)!.exhibit) : []), [chip, byId]);
-  const hitSet = useMemo(() => new Set(hits), [hits]);
-  const pickChip = (c: Chip) => {
-    if (chipId === c.id) { setChipId(null); return; }
-    setChipId(c.id);
-    const list = c.ids.filter((id) => byId.has(id)).sort((a, b) => byId.get(a)!.exhibit - byId.get(b)!.exhibit);
-    setHlAt(list.length - 1);
-    if (list.length) jumpEntry(list.at(-1)!);
-    track('record_chip', {chip: c.id});
-  };
-  const stepHit = (d: number) => { const i = Math.min(hits.length - 1, Math.max(0, hlAt + d)); setHlAt(i); jumpEntry(hits[i]); };
 
   // ---- calendar ----
   const [calMonth, setCalMonth] = useState(false);
@@ -234,9 +198,8 @@ export default function Record() {
 
   // ---- sheets ----
   const [sheet, setSheet] = useState<SheetState>(null);
-  const [flash, setFlash] = useState('');
-  useEffect(() => { if (!flash) return; const t = setTimeout(() => setFlash(''), 3500); return () => clearTimeout(t); }, [flash]);
   const reload = () => { void load(); };
+  const openReports = () => { setSheet({kind: 'report'}); track('record_reports_open'); };
 
   // After an import: refresh, then scroll to the newest day the import brought in.
   const imported = async () => {
@@ -248,18 +211,21 @@ export default function Record() {
     const last = batch.reduce((a, b) => (a.occurredAt > b.occurredAt ? a : b));
     setTimeout(() => jumpDay(dayOf(last.occurredAt)), 120);
   };
+  // Something written down by hand is not a message, so it never shows in the chat — say where it went.
   function saved(e: Entry, created: boolean) {
-    if (created) { setSheet(null); setFlash(e.title || 'Entry saved'); }
-    void load().then(() => { if (created) setTimeout(() => jumpEntry(e.id), 120); });
+    if (created) { setSheet(null); setFlash({tag: 'Saved', text: `${e.title || 'Your note'} — it’s in your Reports and the PDF`}); }
+    void load();
   }
 
   const pdfHref = `/api/timeline/pdf?${new URLSearchParams({tz})}`;
   const pdfClick = () => track('timeline_pdf_click', {entries: entries.length, from: 'record'});
   const empty = tl && tl.range.total === 0;
-  const sub = entries.length
-    ? `${entries.length} ${entries.length === 1 ? 'entry' : 'entries'} · ${kFmt(firstDay, {month: 'short', day: 'numeric'})}${firstDay === lastDay ? '' : ` – ${kFmt(lastDay, {month: 'short', day: 'numeric'})}`}`
-    : 'Fills itself from your replies and screenshots';
-  const openScreens = () => { setSheet({kind: 'import', start: 'screenshot'}); track('record_upload_open'); };
+  const range = `${kFmt(msgFirst, {month: 'short', day: 'numeric'})}${msgFirst === msgLast ? '' : ` – ${kFmt(msgLast, {month: 'short', day: 'numeric'})}`}`;
+  // two nowrap halves, so a narrow phone breaks it at the dot instead of cutting the dates off
+  const sub: ReactNode = msgs.length
+    ? <><span>{msgs.length} {msgs.length === 1 ? 'message' : 'messages'}</span> · <span>{range}</span></>
+    : entries.length ? 'No messages yet — upload a screenshot' : 'Fills itself from your replies and screenshots';
+  const openUpload = () => { setSheet({kind: 'upload'}); track('record_upload_open'); };
 
   // ---- render ----
   const header = (
@@ -270,13 +236,13 @@ export default function Record() {
         <p>{sub}</p>
       </div>
       {!empty && tl && (
-        <a className="btn rd-pdf-btn" href={pdfHref} download onClick={pdfClick} aria-disabled={!entries.length}>
-          <Icon id="pdf" size={22} />PDF
-        </a>
+        <>
+          <button type="button" className="rd-rep-pill" onClick={openReports}><span aria-hidden="true">✦</span>Reports</button>
+          <a className="btn rd-pdf-btn" href={pdfHref} download onClick={pdfClick} aria-disabled={!entries.length}>
+            <Icon id="pdf" size={22} />PDF
+          </a>
+        </>
       )}
-      <button type="button" className="btn rd-icon-btn" onClick={() => setSheet({kind: 'add'})} aria-label="Add to your record: screenshots, exports or a note" title="Add screenshots, an export or a note">
-        <Icon id="upload" size={24} />
-      </button>
     </header>
   );
 
@@ -292,7 +258,7 @@ export default function Record() {
     );
   } else if (!tl) {
     chat = <div className="rd-center rd-loading"><span className="spin" /> Opening your record…</div>;
-  } else if (empty) {
+  } else if (empty || !days.length) {
     chat = (
       <div className="rd-center">
         <section className="rd-empty fade-in">
@@ -300,78 +266,38 @@ export default function Record() {
           <h2>Your record fills itself</h2>
           <p>Every reply you write with Parley lands here, dated, with their message next to it. Add screenshots of your chat
             with the other parent and we’ll read them in too.</p>
-          <p>Each message and event gets an exhibit number — E-1, E-2… — so it’s one PDF for your lawyer when you need it.</p>
+          <p>Each message gets an exhibit number, so it’s one PDF for your lawyer when you need it.</p>
           <div className="rd-empty-acts">
-            <button type="button" className="btn btn-primary" onClick={openScreens}><Icon id="camera" size={24} />Upload screenshots</button>
+            <button type="button" className="btn btn-primary" onClick={() => setSheet({kind: 'import', start: 'screenshot', only: ['screenshot']})}><Icon id="camera" size={24} />Upload screenshots</button>
             <button type="button" className="btn btn-ghost" onClick={() => setSheet({kind: 'import', only: ['whatsapp', 'pdf']})}><Icon id="chat" size={24} />WhatsApp or OFW export</button>
           </div>
-          <button type="button" className="btn btn-quiet" onClick={() => setSheet({kind: 'log'})}>+ Write a note instead</button>
+          <button type="button" className="btn btn-quiet" onClick={() => setSheet({kind: 'log'})}>Write down something that happened</button>
           <p className="rd-privacy"><Icon id="lock" size={20} />Private to you. The other parent never sees Parley.</p>
         </section>
       </div>
     );
   } else {
-    chat = (
-      <Chat days={days} name={name} now={journal?.now ?? new Date().toISOString()} onChanged={reload}
-        flashDay={flashDay} flashEntry={flashEntry} hits={chip ? hitSet : null} current={chip ? hits[hlAt] : null} tz={tz} />
-    );
+    chat = <Chat days={days} name={name} now={now} onChanged={reload} flashDay={flashDay} flashEntry={flashEntry} onReports={openReports} />;
   }
-
-  const reportsCard = (
-    <section className="card rd-side-card">
-      <div className="card-h"><Icon id="bolt" size={24} />AI reports</div>
-      <div className="rd-rep-btns">
-        {REPORTS.map((r) => (
-          <button key={r.id} type="button" className="rd-opt" onClick={() => setSheet({kind: 'report', which: r.id})}>
-            <Icon id={r.icon} size={32} /><span><b>{r.title}</b><small>{r.sub}</small></span><i aria-hidden="true">›</i>
-          </button>
-        ))}
-      </div>
-      <p className="rd-foot">Written from your entries only, with exhibit numbers. Not legal advice.</p>
-    </section>
-  );
 
   return (
     <div className="rd fade-in" ref={rootRef}>
       <div className="rd-col">
         {header}
         {tl && !empty && (
-          <>
-            <div className="rd-cal-m">
-              <Calendar mode={calMonth ? 'month' : 'week'} anchor={anchorDay} setAnchor={setAnchor} dots={dots} today={today}
-                selected={visibleDay} first={firstDay} last={lastDay} onPick={pickDay} onToggle={() => setCalMonth((m) => !m)} />
-            </div>
-            <div className="rd-chips" role="toolbar" aria-label="Patterns in your record">
-              <button type="button" className="rd-chipb rd-chip-ai" onClick={() => setSheet({kind: 'report'})}>
-                <span aria-hidden="true">✦</span>Reports
-              </button>
-              {chips.map((c) => (
-                <button key={c.id} type="button" className={`rd-chipb t-${c.tone}` + (chipId === c.id ? ' on' : '')} aria-pressed={chipId === c.id} onClick={() => pickChip(c)}>
-                  {c.label}
-                </button>
-              ))}
-            </div>
-            {chip && (
-              <div className="rd-hl fade-in" role="status">
-                <span className="rd-hl-t"><b>{chip.label}</b> · {hits.length ? `${hlAt + 1} of ${hits.length}` : 'none here'}</span>
-                <button type="button" className="rd-hl-b" onClick={() => stepHit(-1)} disabled={hlAt <= 0} aria-label="Earlier">‹</button>
-                <button type="button" className="rd-hl-b" onClick={() => stepHit(1)} disabled={hlAt >= hits.length - 1} aria-label="Later">›</button>
-                <button type="button" className="rd-hl-x" onClick={() => setChipId(null)}>Done</button>
-              </div>
-            )}
-          </>
+          <div className="rd-cal-m">
+            <Calendar mode={calMonth ? 'month' : 'week'} anchor={anchorDay} setAnchor={setAnchor} dots={dots} today={today}
+              selected={visibleDay} first={firstDay} last={lastDay} onPick={pickDay} onToggle={() => setCalMonth((m) => !m)} />
+          </div>
         )}
         <div className="rd-scroll" ref={scrollRef} onScroll={scrolled}>
           {chat}
         </div>
-        {flash && <p className="rd-flash fade-in" role="status"><span className="chip chip-ok">Saved</span>{flash}</p>}
+        {flash && <p className="rd-flash fade-in" role="status"><span className="chip chip-ok">{flash.tag}</span><span>{flash.text}</span></p>}
         {tl && !empty && (
-          <div className="rd-compose">
-            <button type="button" className="rd-field" onClick={openScreens}>
-              <Icon id="camera" size={26} /><span>Upload screenshots of your chat</span>
-            </button>
-            <button type="button" className="rd-plus-btn" onClick={() => setSheet({kind: 'add'})} aria-label="More ways to add: export or a note">+</button>
-          </div>
+          <button type="button" className="btn btn-primary rd-upload" onClick={openUpload}>
+            <Icon id="camera" size={26} />Upload screenshots
+          </button>
         )}
       </div>
 
@@ -381,50 +307,51 @@ export default function Record() {
             <Calendar mode="month" anchor={anchorDay} setAnchor={setAnchor} dots={dots} today={today}
               selected={visibleDay} first={firstDay} last={lastDay} onPick={pickDay} />
           </section>
-          {reportsCard}
           <section className="card rd-side-card">
-            <div className="card-h"><Icon id="scale" size={24} />For your lawyer</div>
-            <p className="rd-lawyer-p">{entries.length} {entries.length === 1 ? 'entry' : 'entries'}, numbered E-1 to E-{entries.length}, with patterns and the full text of each.</p>
-            <a className="btn btn-primary btn-block" href={pdfHref} download onClick={pdfClick}><Icon id="pdf" size={22} />Download PDF</a>
-            <button type="button" className="btn btn-ghost btn-block" onClick={() => setSheet({kind: 'share'})}><Icon id="lock" size={22} />{tl.share ? 'Share link is on' : 'Share a read-only link'}</button>
-            <p className="rd-fp" title="SHA-256 of exactly these entries. It is printed on every page of the PDF; any edit changes it.">
-              <Icon id="shield" size={20} /><span>Fingerprint <code>{tl.fingerprint.slice(0, 10)}…{tl.fingerprint.slice(-6)}</code></span>
-            </p>
+            <div className="card-h"><span className="rd-spark" aria-hidden="true">✦</span>Reports</div>
+            <div className="rd-rep-btns">
+              {REPORTS.map((r) => (
+                <button key={r.id} type="button" className="rd-opt" onClick={() => setSheet({kind: 'report', which: r.id})}>
+                  <Icon id={r.icon} size={32} /><span><b>{r.title}</b><small>{r.sub}</small></span><i aria-hidden="true">›</i>
+                </button>
+              ))}
+            </div>
+            <div className="rd-side-acts">
+              <a className="btn btn-ghost" href={pdfHref} download onClick={pdfClick}><Icon id="pdf" size={22} />PDF</a>
+              <button type="button" className="btn btn-ghost" onClick={() => setSheet({kind: 'share'})}><Icon id="lock" size={22} />{tl.share ? 'Link is on' : 'Share'}</button>
+            </div>
+            <p className="rd-foot">Late pickups, expenses and notes are counted here and in the PDF. Not legal advice.</p>
           </section>
-          <p className="rd-foot">Times in {tz.replace(/_/g, ' ')}. Exhibit numbers match the PDF: oldest = E-1. Parley is not a law firm and doesn’t give legal advice.</p>
         </aside>
       )}
 
-      {sheet?.kind === 'add' && (
-        <Sheet title="Add to your record" onClose={() => setSheet(null)}>
-          <div className="rd-rowopts">
-            <button type="button" className="rd-opt rd-opt-main" onClick={openScreens}>
-              <Icon id="camera" size={40} /><span><b>Screenshots of your chat</b><small>Texts, iMessage, Messenger — up to 8 at a time</small></span><i aria-hidden="true">›</i>
+      {sheet?.kind === 'upload' && (
+        <Sheet title="Upload screenshots" onClose={() => setSheet(null)}>
+          <ImportPanel bare start="screenshot" only={['screenshot']} onImported={() => void imported()} />
+          <div className="rd-more">
+            <button type="button" className="rd-row" onClick={() => setSheet({kind: 'import', only: ['whatsapp', 'pdf']})}>
+              <Icon id="chat" size={28} /><span>WhatsApp export or OFW PDF</span><i aria-hidden="true">›</i>
             </button>
-            <button type="button" className="rd-opt" onClick={() => setSheet({kind: 'import', only: ['whatsapp', 'pdf']})}>
-              <Icon id="chat" size={40} /><span><b>WhatsApp export or OFW PDF</b><small>Also TalkingParents message reports</small></span><i aria-hidden="true">›</i>
+            <button type="button" className="rd-row" onClick={() => setSheet({kind: 'log'})}>
+              <Icon id="pencil" size={28} /><span>Write down something that happened</span><i aria-hidden="true">›</i>
             </button>
-            <button type="button" className="rd-opt" onClick={() => setSheet({kind: 'log'})}>
-              <Icon id="pencil" size={40} /><span><b>+ Note</b><small>A late pickup, a no-show, an expense — by hand</small></span><i aria-hidden="true">›</i>
-            </button>
-            <button type="button" className="rd-opt" onClick={() => setSheet({kind: 'share'})}>
-              <Icon id="lock" size={40} /><span><b>Share with your lawyer</b><small>{tl?.share ? 'Your read-only link is on' : 'A read-only link to the PDF'}</small></span><i aria-hidden="true">›</i>
+            <button type="button" className="rd-row" onClick={() => setSheet({kind: 'share'})}>
+              <Icon id="lock" size={28} /><span>Share with your lawyer</span><i aria-hidden="true">›</i>
             </button>
           </div>
           <p className="rd-privacy"><Icon id="lock" size={20} />Only you can see this. The other parent never sees Parley.</p>
         </Sheet>
       )}
       {sheet?.kind === 'import' && (
-        <Sheet title={sheet.start === 'screenshot' ? 'Upload screenshots' : 'Import a chat'} onClose={() => setSheet(null)} onBack={() => setSheet({kind: 'add'})}>
+        <Sheet title={sheet.start === 'screenshot' ? 'Upload screenshots' : 'Import a chat'} onClose={() => setSheet(null)} onBack={empty ? undefined : () => setSheet({kind: 'upload'})}>
           <ImportPanel bare start={sheet.start} only={sheet.only} onImported={() => void imported()} />
         </Sheet>
       )}
       {sheet?.kind === 'log' && (
-        <Sheet title={sheet.preset ? sheet.preset.label : 'Add a note'} onClose={() => setSheet(null)}
-          onBack={sheet.preset ? () => setSheet({kind: 'log'}) : () => setSheet({kind: 'add'})}>
+        <Sheet title={sheet.preset ? sheet.preset.label : 'What happened?'} onClose={() => setSheet(null)}
+          onBack={sheet.preset ? () => setSheet({kind: 'log'}) : empty ? undefined : () => setSheet({kind: 'upload'})}>
           {sheet.preset ? (
-            <EntryForm key={sheet.preset.id} preset={sheet.preset} now={journal?.now ?? new Date().toISOString()}
-              onSaved={saved} onCancel={() => setSheet({kind: 'log'})} />
+            <EntryForm key={sheet.preset.id} preset={sheet.preset} now={now} onSaved={saved} onCancel={() => setSheet({kind: 'log'})} />
           ) : (
             <LogPicker onPick={(p) => setSheet({kind: 'log', preset: p})} />
           )}
@@ -436,7 +363,7 @@ export default function Record() {
         </Sheet>
       )}
       {sheet?.kind === 'report' && (
-        <Sheet title={sheet.which ? REPORTS.find((r) => r.id === sheet.which)!.title : 'AI reports'} onClose={() => setSheet(null)}
+        <Sheet title={sheet.which ? REPORTS.find((r) => r.id === sheet.which)!.title : 'Reports'} onClose={() => setSheet(null)}
           onBack={sheet.which ? () => setSheet({kind: 'report'}) : undefined}>
           {sheet.which
             ? <ReportBody key={sheet.which} kind={sheet.which} tz={tz} onExhibit={(n) => { const e = entries.find((x) => x.exhibit === n); if (e) { setSheet(null); setTimeout(() => jumpEntry(e.id), 60); } }} />
@@ -447,7 +374,7 @@ export default function Record() {
                     <Icon id={r.icon} size={40} /><span><b>{r.title}</b><small>{r.sub}</small></span><i aria-hidden="true">›</i>
                   </button>
                 ))}
-                <p className="rd-foot">Written from your entries only, citing exhibit numbers. Parley doesn’t give legal advice.</p>
+                <p className="rd-foot">Written from your whole record — messages, late pickups, expenses, notes — citing exhibit numbers. Parley doesn’t give legal advice.</p>
               </div>
             )}
         </Sheet>
@@ -456,60 +383,70 @@ export default function Record() {
   );
 }
 
-/* ---------- the chat ---------- */
+/* ---------- the chat: bubbles only ---------- */
 
-function Chat({days, name, now, onChanged, flashDay, flashEntry, hits, current, tz}: {
+function Chat({days, name, now, onChanged, flashDay, flashEntry, onReports}: {
   days: {key: string; items: RdEntry[]}[]; name: string | null; now: string; onChanged: () => void;
-  flashDay: string | null; flashEntry: string | null; hits: Set<string> | null; current: string | null; tz: string;
+  flashDay: string | null; flashEntry: string | null; onReports: () => void;
 }) {
   const [open, setOpen] = useState<string | null>(null);
-  const [editing, setEditing] = useState<string | null>(null);
-  const [confirmDel, setConfirmDel] = useState<string | null>(null);
+  const [menu, setMenu] = useState(false);
+  const [confirmDel, setConfirmDel] = useState(false);
+  const [tip, setTip] = useState<{id: string; hit: RiskHit} | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const thisYear = new Date(now).getFullYear();
 
   async function del(id: string) {
     setBusy(true); setError('');
-    try { await api(`/api/journal/${id}`, {method: 'DELETE'}); setConfirmDel(null); setOpen(null); onChanged(); }
+    try { await api(`/api/journal/${id}`, {method: 'DELETE'}); setOpen(null); onChanged(); }
     catch (e) {
-      if (e instanceof ApiError && e.status === 404) { setConfirmDel(null); setOpen(null); onChanged(); }
+      if (e instanceof ApiError && e.status === 404) { setOpen(null); onChanged(); }
       else setError((e as Error).message);
     }
     setBusy(false);
   }
-  const toggle = (id: string) => { setOpen(open === id ? null : id); setConfirmDel(null); setError(''); };
-  // An opened entry's details land under it; bring them into view when they open below the fold.
+  const toggle = (id: string) => { setOpen(open === id ? null : id); setMenu(false); setConfirmDel(false); setError(''); setTip(null); };
+  const showTip = (id: string, hit: RiskHit) => {
+    setTip(tip?.id === id && tip.hit.start === hit.start ? null : {id, hit}); setOpen(null);
+    track('record_risk_tap', {kind: hit.kind});
+  };
+  // An opened entry's line lands under it; bring it into view when it opens below the fold.
   useEffect(() => {
-    if (!open) return;
-    requestAnimationFrame(() => document.querySelector(`[data-entry="${open}"] .rd-det`)?.scrollIntoView({block: 'nearest', behavior: 'smooth'}));
-  }, [open]);
+    const id = open ?? tip?.id;
+    if (!id) return;
+    requestAnimationFrame(() => document.querySelector(`[data-entry="${id}"] .rd-det, [data-entry="${id}"] .rd-tip`)?.scrollIntoView({block: 'nearest', behavior: 'smooth'}));
+  }, [open, tip]);
 
   const detail = (e: RdEntry) => (
-    <div className={'rd-det fade-in' + (e.kind === 'message_out' ? ' r' : e.kind === 'message_in' ? ' l' : '')}>
-      {!e.kind.startsWith('message') && e.text && <p className="rd-det-text">{e.text}</p>}
+    <div className="rd-det fade-in">
       <p className="rd-det-meta">
-        <b>E-{e.exhibit}</b> · {fmtDate(e.occurredAt, {weekday: 'short', month: 'short', day: 'numeric', year: 'numeric'})}, {fmtTime(e.occurredAt)} · {CHANNEL[e.channel]} · {CATEGORY[e.category]}
-        {e.amountCents != null ? ` · ${money(e.amountCents)}` : ''}<br />{SOURCE[e.source]}
+        <b>E-{e.exhibit}</b> · {fmtDate(e.occurredAt, {weekday: 'short', month: 'short', day: 'numeric'})}, {fmtTime(e.occurredAt)} · {SOURCE[e.source]}
       </p>
-      {confirmDel === e.id ? (
-        <div className="rd-confirm" role="alertdialog" aria-label="Delete this entry?">
-          <span>Delete this for good? It won’t be in the PDF anymore, and the exhibits after it renumber.</span>
+      <span className="rd-det-more">
+        <button type="button" className="rd-dots" onClick={() => { setMenu((m) => !m); setConfirmDel(false); }} aria-expanded={menu} aria-label="More">⋯</button>
+        {menu && !confirmDel && <button type="button" className="rd-menu fade-in" onClick={() => setConfirmDel(true)}><Icon id="trash" size={20} />Delete</button>}
+      </span>
+      {confirmDel && (
+        <div className="rd-confirm fade-in" role="alertdialog" aria-label="Delete this message?">
+          <span>Delete this for good? It won’t be in the PDF anymore, and the exhibit numbers after it shift.</span>
           <button type="button" className="btn rd-danger" disabled={busy} onClick={() => void del(e.id)}>{busy ? <span className="spin" /> : 'Delete'}</button>
-          <button type="button" className="btn btn-quiet" onClick={() => setConfirmDel(null)}>Keep it</button>
-        </div>
-      ) : (
-        <div className="rd-acts">
-          <button type="button" className="btn btn-ghost" onClick={() => setEditing(e.id)}><Icon id="pencil" size={20} />Edit</button>
-          <button type="button" className="btn btn-quiet" onClick={() => setConfirmDel(e.id)}><Icon id="trash" size={20} />Delete</button>
+          <button type="button" className="btn btn-quiet" onClick={() => { setConfirmDel(false); setMenu(false); }}>Keep it</button>
         </div>
       )}
-      {error && confirmDel === e.id && <p className="jr-error" role="alert">{error}</p>}
+      {error && <p className="jr-error" role="alert">{error}</p>}
     </div>
   );
 
+  // their bubble with the risky words marked; a mark is its own button, so tapping it doesn't open the bubble
+  const marked = (e: RdEntry, text: string) => splitRisks(text).map((p, i) => (typeof p === 'string' ? p : (
+    <mark key={i} role="button" tabIndex={0} className={'rd-risk k-' + p.kind + (tip?.id === e.id && tip.hit.start === p.start ? ' on' : '')}
+      onClick={(ev) => { ev.stopPropagation(); showTip(e.id, p); }}
+      onKeyDown={(ev) => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); ev.stopPropagation(); showTip(e.id, p); } }}>{p.text}</mark>
+  )));
+
   return (
-    <div className={'rd-chat' + (hits ? ' rd-hlmode' : '')}>
+    <div className="rd-chat">
       {days.map((d) => {
         const date = kDate(d.key);
         const label = kFmt(d.key, {weekday: 'short', month: 'short', day: 'numeric', ...(date.getUTCFullYear() !== thisYear ? {year: 'numeric'} : {})});
@@ -517,48 +454,29 @@ function Chat({days, name, now, onChanged, flashDay, flashEntry, hits, current, 
           <section key={d.key} data-day={d.key} className={'rd-day' + (flashDay === d.key ? ' flash' : '')}>
             <div className="rd-sep"><span>{label}</span></div>
             {d.items.map((e) => {
-              const cls = (hits ? (hits.has(e.id) ? ' hit' : ' dim') : '') + (current === e.id || flashEntry === e.id ? ' cur' : '');
-              if (editing === e.id) return (
-                <div key={e.id} data-entry={e.id} className="rd-editing">
-                  <EntryForm entry={e} now={now} onCancel={() => setEditing(null)} onSaved={() => { setEditing(null); onChanged(); }} />
-                </div>
-              );
+              const inc = e.kind === 'message_in';
+              const lines = inc ? e.text.split(/\n+/).map((s) => s.trim()).filter(Boolean) : [e.text.trim()];
+              const bubbles = lines.length ? lines : [e.title];
               const isOpen = open === e.id;
-              if (e.kind === 'message_in' || e.kind === 'message_out') {
-                const inc = e.kind === 'message_in';
-                const lines = inc ? e.text.split(/\n+/).map((s) => s.trim()).filter(Boolean) : [e.text.trim()];
-                const bubbles = lines.length ? lines : [e.title];
-                return (
-                  <div key={e.id} data-entry={e.id} className={'rd-msg ' + (inc ? 'in' : 'out') + cls}>
-                    <button type="button" className="rd-bubbles" onClick={() => toggle(e.id)} aria-expanded={isOpen}
-                      aria-label={`${inc ? (name ?? 'The other parent') : 'You'}, ${fmtTime(e.occurredAt)}, exhibit E-${e.exhibit}`}>
-                      {bubbles.map((b, i) => <span key={i} className="rd-bub">{b}</span>)}
-                    </button>
-                    <span className="rd-meta">
-                      {e.tags.includes('tense') && inc && <i className="rd-tense">Tense</i>}
-                      {fmtTime(e.occurredAt)} · <b>E-{e.exhibit}</b>
-                    </span>
-                    {isOpen && detail(e)}
-                  </div>
-                );
-              }
-              const k = entryKind(e);
               return (
-                <div key={e.id} data-entry={e.id} className={'rd-sys' + cls}>
-                  <button type="button" className={`rd-pill t-${toneOf(e)}`} onClick={() => toggle(e.id)} aria-expanded={isOpen}>
-                    <Icon id={k.icon} size={22} />
-                    <span className="rd-pill-t">{e.title || k.label}</span>
-                    {e.amountCents != null && <span className="rd-pill-a">{money(e.amountCents)}</span>}
-                    <span className="rd-pill-x">E-{e.exhibit}</span>
-                  </button>
-                  {isOpen && detail(e)}
+                <div key={e.id} data-entry={e.id} className={'rd-msg ' + (inc ? 'in' : 'out') + (flashEntry === e.id ? ' cur' : '') + (isOpen ? ' open' : '')}>
+                  <div className="rd-bubbles" role="button" tabIndex={0} onClick={() => toggle(e.id)} aria-expanded={isOpen}
+                    onKeyDown={(ev) => { if (ev.target === ev.currentTarget && (ev.key === 'Enter' || ev.key === ' ')) { ev.preventDefault(); toggle(e.id); } }}
+                    aria-label={`${inc ? (name ?? 'The other parent') : 'You'}, ${fmtTime(e.occurredAt)}`}>
+                    {bubbles.map((b, i) => <span key={i} className="rd-bub">{inc ? marked(e, b) : b}</span>)}
+                  </div>
+                  {tip?.id === e.id && (
+                    <p className={'rd-tip fade-in k-' + tip.hit.kind} role="status">
+                      <b>{tip.hit.label}</b> · <button type="button" onClick={onReports}>it’s in your Reports</button>
+                    </p>
+                  )}
+                  {isOpen ? detail(e) : <span className="rd-meta">{fmtTime(e.occurredAt)}</span>}
                 </div>
               );
             })}
           </section>
         );
       })}
-      <p className="rd-foot rd-chat-foot">Times in {tz.replace(/_/g, ' ')}. Numbered as in the PDF: oldest = E-1.</p>
     </div>
   );
 }
@@ -611,13 +529,13 @@ function Calendar({mode, anchor, setAnchor, dots, today, selected, first, last, 
               aria-label={kFmt(k, {weekday: 'long', month: 'long', day: 'numeric'}) + (ds ? '' : ', nothing logged')} aria-current={k === selected ? 'date' : undefined}>
               {mode === 'week' && <span className="wd">{kFmt(k, {weekday: 'short'})}</span>}
               <span className="n">{Number(k.slice(8))}</span>
-              <span className="dots">{(ds ?? []).slice(0, 3).map((t) => <i key={t} className={'t-' + t} />)}</span>
+              <span className="dots">{(ds ?? []).map((t) => <i key={t} className={'t-' + t} />)}</span>
             </button>
           );
         })}
       </div>
       {mode === 'month' && (
-        <p className="rd-cal-key"><i className="t-amber" />Late / no-show <i className="t-green" />Money <i className="t-pink" />Conflict <i className="t-grey" />Messages</p>
+        <p className="rd-cal-key"><i className="t-grey" />Messages <i className="t-amber" />Something logged</p>
       )}
     </div>
   );

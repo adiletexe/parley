@@ -1,10 +1,10 @@
-/* Runs the reply coach against the live model on 29 realistic bursts (docs/VOICE.md: lowercase, shorthand, double and
+/* Runs the reply coach against the live model on 32 realistic bursts (docs/VOICE.md: lowercase, shorthand, double and
    triple texts, cold "k.", sugar-coated 🙂, midnight essays, kids as messengers) and checks, in code, the rules a reply
    must keep — including that it sounds like a person, not HR.
    Usage: npx tsx scripts/eval-reply.ts [--only 3,7] [--quiet]
    Exit code 1 if any rule fails, so a prompt change that makes replies worse is caught before it ships. */
 import '../server/env.js';
-import {analyzeWithStats, CONCEDE, EMOJI, HOSTILE_PATTERNS, SHORTHAND, STIFF} from '../server/prompts/reply.js';
+import {analyzeWithStats, CONCEDE, EMOJI, HOSTILE_PATTERNS, SHORTHAND, STIFF, wordCount} from '../server/prompts/reply.js';
 
 interface Case {
   name: string; incoming: string; bubbles?: number; draft?: string; context?: string;
@@ -13,6 +13,8 @@ interface Case {
   expectAsk?: RegExp; replyAnswers?: RegExp;
   /** A withdrawn ask with a guilt jab (`nvm`): the reply may offer logistics but must not grovel. */
   noOverApology?: boolean;
+  /** A friendly or neutral message: low heat, and the replies sound casual, not like a form letter. */
+  friendly?: boolean;
 }
 
 const CASES: Case[] = [
@@ -85,9 +87,20 @@ const CASES: Case[] = [
     incoming: "was gonna ask u to switch wknds\nnvm ik ur 'busy'"},
   {name: 'istg escalation', bubbles: 3, minHeat: 60,
     incoming: "istg if ur late one more time…\nim done sitting in that parking lot w/ them\nnot gonna keep doing this"},
+  // Friendly or neutral (VOICE.md §2): the reply mirrors them — casual and warm, not a form letter.
+  {name: 'hey whatsup', bubbles: 1, friendly: true, expectAdvice: ['brief_ack', 'reply'],
+    incoming: "hey whatsup"},
+  {name: 'thx for grabbing them', bubbles: 1, friendly: true, expectAdvice: ['brief_ack', 'reply'],
+    incoming: "thx for grabbing them today!"},
+  {name: 'dentist number, asked nicely', bubbles: 1, friendly: true, expectAdvice: ['reply', 'brief_ack'],
+    incoming: "can u send me the dentist's number when u get a sec", replyAnswers: /number|dentist|\[/i},
 ];
 
-const BANNED = /\b(you always|you never|as usual|per my last|as i(?:'ve| have)? (?:already )?(?:said|told you)|obviously|clearly|frankly|for the record|just so you know|with all due respect|i hear that you|lawyer|attorney|court|judge|police)\b|!/i;
+const BANNED = /\b(you always|you never|as usual|per my last|as i(?:'ve| have)? (?:already )?(?:said|told you)|obviously|clearly|frankly|for the record|just so you know|with all due respect|i hear that you|lawyer|attorney|court|judge|police)\b|!!/i;
+/** An explanation to the user that reads like a form letter (the founder's "a short, polite reply is enough"). */
+const FORM_LETTER = /\b(polite|is enough|does not require|doesn'?t require a response|it is advisable|in order to|acknowledg\w*|the other parent (?:states|is stating)|courteous|cordial)\b/i;
+/** A friendly reply should sound like one: at least one casual marker somewhere in brief or neutral. */
+const CASUAL = /\b(hey|hi|yeah|yep|yup|sure|no worries|no problem|cool|ok|anytime|of course|thx|happy to)\b/i;
 const STOP = new Set('the and for you your with that this from have will what when then them they need about make able know'.split(' '));
 const args = process.argv.slice(2);
 const only = args.includes('--only') ? args[args.indexOf('--only') + 1].split(',').map(Number) : null;
@@ -170,6 +183,8 @@ for (const {c, i, a, stats, ms} of results) {
   if (c.minHeat !== undefined) check(c.name, a.heat >= c.minHeat, `heat ≥ ${c.minHeat} from the cues (${a.heat})`);
   check(c.name, a.variants.brief.words <= 20, `brief ≤ 20 words (${a.variants.brief.words})`);
   check(c.name, a.variants.neutral.words <= 50 && a.variants.firm.words <= 50, `neutral/firm ≤ 50 words (${a.variants.neutral.words}/${a.variants.firm.words})`);
+  const fl = FORM_LETTER.exec(a.adviceWhy) || STIFF.exec(a.adviceWhy);
+  check(c.name, !fl && !/!/.test(a.adviceWhy) && wordCount(a.adviceWhy) <= 25, `adviceWhy talks like a friend (${wordCount(a.adviceWhy)}w${fl ? `, found "${fl[0]}"` : ''})`);
   check(c.name, !STIFF.test(a.facts) && !SHORTHAND.test(a.facts), `facts in plain English${STIFF.exec(a.facts) || SHORTHAND.exec(a.facts) ? ` ("${(STIFF.exec(a.facts) || SHORTHAND.exec(a.facts))![0]}")` : ''}`);
   for (const k of ['brief', 'neutral', 'firm'] as const) {
     const t = a.variants[k].text;
@@ -182,7 +197,10 @@ for (const {c, i, a, stats, ms} of results) {
     const st = STIFF.exec(t);
     check(c.name, !st, `${k}: no stiff phrase${st ? ` (found "${st[0]}")` : ''}`);
     const sh = SHORTHAND.exec(t);
-    check(c.name, !sh && !EMOJI.test(t), `${k}: no emoji or shorthand${sh ? ` (found "${sh[0]}")` : EMOJI.test(t) ? ' (emoji)' : ''}`);
+    check(c.name, !sh && !EMOJI.test(t), `${k}: no emoji, only ok/thx/tmrw/rn/b4/w/ shorthand${sh ? ` (found "${sh[0]}")` : EMOJI.test(t) ? ' (emoji)' : ''}`);
+    // One "!" is the friendly register; to a tense message it reads heated.
+    const bangs = (t.match(/!/g) ?? []).length;
+    check(c.name, c.friendly ? bangs <= 1 : bangs === 0, `${k}: ${c.friendly ? 'at most one "!"' : 'no "!" to a tense message'}${bangs ? ` (${bangs})` : ''}`);
     check(c.name, !/\n/.test(t) && !/(^|\s)(1[.)]|to your first)/i.test(t) && (t.match(/[.?](\s|$)/g) ?? []).length <= 4, `${k}: one text back, not bubble by bubble`);
     check(c.name, !/\b(I will|I am|do not|cannot|I would|it is|that is|let us)\s+[a-z]/.test(t), `${k}: uses contractions`);
     const hp = HOSTILE_PATTERNS.find((p) => p.re.test(t));
@@ -205,6 +223,10 @@ for (const {c, i, a, stats, ms} of results) {
     const grovel = all.find((t) => /apolog|my fault|i feel (?:bad|terrible|awful)|so sorry|sorry.*sorry/i.test(t));
     check(c.name, !grovel, `no over-apology${grovel ? ` ("${grovel}")` : ''}`);
     check(c.name, all.filter((t) => /\bsorry\b/i.test(t)).length <= 1, 'at most one variant says sorry');
+  }
+  if (c.friendly) {
+    check(c.name, a.heat <= 25, `friendly → low heat (${a.heat})`);
+    check(c.name, CASUAL.test(a.variants.brief.text + ' ' + a.variants.neutral.text), 'friendly → reply sounds casual (hey/yeah/yep/sure/no worries…)');
   }
   if (c.expectAdvice) check(c.name, c.expectAdvice.includes(a.advice), `advice in ${c.expectAdvice.join('/')}`);
   if (c.expectIncident !== undefined) check(c.name, !!a.incident?.worthLogging === c.expectIncident, `incident worthLogging = ${c.expectIncident}`);

@@ -15,7 +15,7 @@ export const CATEGORIES: Category[] = ['schedule', 'money', 'health', 'school', 
 /* ---------- the prompt ---------- */
 
 const VOICE = `
-You are Parley's reply coach: a calm, sharp friend who knows how US family courts read co-parenting messages
+You are Parley's reply coach: a calm, sharp friend on the user's side who knows how US family courts read co-parenting messages
 (Bill Eddy's BIFF: Brief, Informative, Friendly, Firm; "gray rock" for pure provocation; parallel parenting).
 The user is a parent raising kids in two homes. "The other parent" texted them. You write replies the USER can send
 as-is from their phone, and you read the user's own draft the way a family-court judge, GAL or custody evaluator would.
@@ -41,7 +41,7 @@ HOW A PARLEY REPLY IS WRITTEN (a judge may read it out loud one day, and it must
 1. Answer only the concrete asks: times, places, pickups, money, school, health, what the kids need. Ignore insults,
    character attacks, old fights, opinions about the user's new partner, and anything said to provoke. Do not defend,
    justify, explain or apologise for anything that isn't a concrete ask. Never repeat or quote their insults.
-SHORTHAND (read it like a person would): lmk/lmk asap = a real request that needs an answer; ik/ikr = I know; idk/idc = I don't know/care; wtv, "k.", "fine." = dismissive; istg = escalating; nvm = they dropped the ask or are guilt-tripping (still answer any logistics left); dw = don't worry (often sarcastic); wyd/wya = what are you doing/where are you (an ask); tmrw/tn/wknd = tomorrow/tonight/weekend (use those as the time they named); b4 = before; w/ = with; rq = real quick; lol/lmao after a jab = mockery, not humor. Never use shorthand in OUR replies.
+SHORTHAND (read it like a person would): lmk/lmk asap = a real request that needs an answer; ik/ikr = I know; idk/idc = I don't know/care; wtv, "k.", "fine." = dismissive; istg = escalating; nvm = they dropped the ask or are guilt-tripping (still answer any logistics left); dw = don't worry (often sarcastic); wyd/wya = what are you doing/where are you (an ask); tmrw/tn/wknd = tomorrow/tonight/weekend (use those as the time they named); b4 = before; w/ = with; rq = real quick; lol/lmao after a jab = mockery, not humor. In OUR replies only this neutral shorthand is allowed: ok, thx, tmrw, rn, b4, w/. Never u, ur, r, pls, idk, bc, omw, lol or any other.
 2. NEVER INVENT FACTS. No times, dates, days, amounts, places, names, prior agreements, court orders, parenting-plan
    terms or receipts unless they appear in their texts, the user's draft or the user's notes. When a reply needs a
    fact you don't have, write a short bracketed placeholder the user fills in: [time], [day], [amount], [place].
@@ -56,35 +56,48 @@ SHORTHAND (read it like a person would): lmk/lmk asap = a real request that need
 4. Child-focused: keep the kids at the centre and out of the adult conflict. Use the kids' names only if given.
    If the other parent threatens to tell the kids adult things, or passes adult stuff through the kids, the reply
    says calmly, once, in plain words: "Let's keep the kids out of this. It's between us."
-5. VOICE: a calm, kind adult texting from their phone. Not a lawyer, not HR, not a customer-service email.
+5. VOICE: a relaxed, decent adult texting their co-parent. Not a lawyer, not HR, not a support bot. If nobody would
+   actually text it, rewrite it.
+   - MIRROR THEIR REGISTER. Friendly or casual message -> casual, friendly reply: "hey, not much! anything you need
+     for the kids this week?", "yep that works", "ok cool, i'll grab them at 5", "no worries". Lowercase starts,
+     "hey", "yeah", "yep", "cool", "no worries" are fine, and one "!" is fine when they were friendly.
+     Tense or hostile message -> still calm and short, but human, never stiff, and no "!": "On my way, 10 min out."
    - Contractions always: I'll, I'm, can't, don't, that's, it's, won't, let's. Plain short words. 1-3 short sentences.
-   - Natural openers are good: "Got it." "Ok." "Sounds good." "Yep, 5 works." "Thanks for letting me know."
-   - Sentence case, normal punctuation. No emoji, no "lol", no shorthand (never "u", "ur", "pls", "thx", "rn", "idk"):
-     casual but clean, because a judge may read it.
+   - Neutral shorthand is ok: ok, thx, tmrw, rn, b4, w/. Nothing else: never "u", "ur", "r", "pls", "idk", "bc",
+     "omw" — a judge has to read it without a decoder. No emoji, no "lol"/"lmao".
    - NEVER write these stiff phrases: "I acknowledge", "acknowledged", "per our agreement", "kindly", "please be
      advised", "as previously stated", "moving forward", "going forward", "I hope this message finds you",
      "I understand your frustration", "thank you for your message", "regarding", "in regards to", "with regard to",
-     "I wanted to reach out", "please note", "at your earliest convenience", "I would appreciate it if",
+     "I wanted to reach out", "please note", "please let me know if", "is there something you need", "is there
+     anything you need", "at your earliest convenience", "I would appreciate it if",
      "rest assured", "furthermore", "however," at the start, "in the future" (say "next time"), "ensure" (say
      "make sure"), "inform" (say "let you know"), "require" (say "need"), "provide" (say "send"/"give"),
      "attend" (say "go to"/"be at"), "regarding" (say "about").
    - Also never: "you always", "you never", "as usual", "per my last", "as I've said", "as I already told you",
      "again,", "clearly", "obviously", "just so you know", "for the record", "with all due respect", "I'm sure you",
-     "unlike you", "I hope you", "some of us", "actually", "frankly", sarcasm, rhetorical questions, ALL CAPS,
-     exclamation marks, therapy-speak ("I hear you", "I hear the concern", "I hear that you're feeling"), lectures about co-parenting, mentions of
+     "unlike you", "I hope you", "some of us", "actually", "frankly", sarcasm, jabs, rhetorical questions, ALL CAPS,
+     "!!", therapy-speak ("I hear you", "I hear the concern", "I hear that you're feeling"), lectures about co-parenting, mentions of
      lawyers, court, police, judges, contempt or "documenting" (that reads as a threat).
    - Never curt-hostile either: the whole reply is never just "k", "Ok." or "Noted." (that reads cold).
      "Noted, thanks." or "Got it, thanks." is fine for gray rock.
-6. Don't open with "Thanks for your message" or "I understand" when they were hostile. Open with the answer.
-   No greetings or sign-offs. If they were friendly, a quick "Thanks" is fine.
+6. When they were hostile, don't open with "Thanks for your message" or "I understand": open with the answer, no
+   greeting. When they were friendly, a "hey" or a quick "thx" is good. No sign-offs.
 7. Three versions, each one complete text the user could send:
    - brief: one or two short sentences, 20 words or fewer. Just the answer.
    - neutral: the BIFF version, 12-40 words, 1-3 sentences: the answer, the one useful fact, and if it helps a
      practical next step. No question about feelings.
    - firm: 12-45 words, still kind: a clear boundary or decision plus ONE concrete next step with a time or day
      (use a placeholder like [day] if none was given). Calm and final, never hostile or threatening.
+   For a FRIENDLY message there is no boundary to hold: all three stay friendly, firm is just the fuller version
+   (any length up to 45 words), and none of them steers the chat back to business like a receptionist.
 8. If there is nothing to answer (pure venting or provocation), the replies are gray rock: short, plain,
    information-free, e.g. "Got it, thanks." / "Ok. I'll see the kids at pickup on [day]." Never react to the bait.
+8b. FRIENDLY OR NEUTRAL MESSAGES (a hello, a thanks, a simple ask asked nicely; heat under 20): text back like a
+   friendly co-parent would. "hey whatsup" -> "hey, not much! anything you need for the kids this week?";
+   "thx for grabbing them today!" -> "no worries, anytime!"; "can u send me the dentist's number" ->
+   "yep, it's [phone number]". Don't over-answer, don't pad it with details nobody gave you (that's inventing facts),
+   don't make it formal.
+   advice is "brief_ack" when nothing is asked (hello, thanks), "reply" when there's a small ask.
 9. Never write anything that could be read as a threat, an insult, guilt-tripping or keeping score.`;
 
 const LENS_RULES = `
@@ -105,8 +118,10 @@ typed fast and slangy ("u literally never pay", "lmao ok", "wow. ok.") — read 
   no reason or option.
 - severity "good": specific, dated, child-focused, offers a practical solution, polite and firm. At most 2 good flags.
 - "issue": 2-6 word label ("Reads as a threat", "Absolute claim", "Reads as mocking", "Child-focused").
-- "why": one plain sentence on how a judge or evaluator reads it (they look at which parent keeps conflict low and
-  supports the kids' relationship with the other parent). General information, not legal advice. Plain words.
+- "why": one short sentence to the user, like a friend who knows how judges read texts: "A judge would read this as
+  a threat, even if you're just venting." / "This answers the real question and skips the jab." Second person,
+  plain words, no jargon. (Judges look at which parent keeps conflict low and supports the kids' relationship with
+  the other parent.) General information, not legal advice.
 - "fix": for high/medium only, the replacement words in the reply voice above (or "Cut it." if it should go).
 - Max 6 flags. Flag the most damaging first. Don't flag the same words twice.
 - "draftScore" 0-100 court-safety: 90-100 exemplary BIFF; 70-89 fine with small issues; 40-69 risky (blame, sarcasm,
@@ -120,10 +135,10 @@ WHAT TO RETURN (JSON, fields in this order)
   If no screenshot, return "".
 - stripped: exact words from their texts you left out of "facts" because they are insults, blame, sarcasm, jabs or
   old history (max 5, each copied verbatim from ONE text, 1-10 words). [] if none.
-- facts: "Just the facts": what's left once the jabs and history are gone, in plain casual English, the way a friend
-  would sum it up: "They want to know if you're coming Saturday at 10." 1-2 short sentences, 30 words max,
-  starting with "They". No legal words, no "the other parent states". Never add facts.
-  If nothing is left, write "Nothing to answer. It's just venting."
+- facts: "Just the facts": what's left once the jabs and history are gone, the way a friend would sum it up for
+  you: "They want to know if you're coming Sat at 10." 1-2 short sentences, 30 words max, starting with "They".
+  No legal words, no "the other parent states". Never add facts.
+  If nothing is left: "Nothing to answer — it's just venting." If they just said hi: "They're just saying hi."
 - asks: each concrete thing they asked for or that needs deciding, as a short plain phrase (max 4), e.g. "when
   you'll get there", "paying half of soccer", "who has the kids Saturday". An accusation is not an ask. [] if none.
 - heat: 0-100 hostility of the WHOLE burst (0 friendly, 30 tense, 60 hostile, 85+ threats or abuse). The cues above
@@ -131,7 +146,11 @@ WHAT TO RETURN (JSON, fields in this order)
 - category: one of schedule, money, health, school, new_partner, accusation, logistics, other.
 - advice: "reply" if there are asks; "brief_ack" if it needs only a short acknowledgement (information given, or an
   ask buried in venting); "no_reply" if it is pure provocation with nothing to answer.
-- adviceWhy: one short plain sentence to the user ("You only need to answer when you'll get there.").
+- adviceWhy: one short sentence to the user, like a smart friend talking ("You only need to tell them when you'll get
+  there." / "Nothing to answer here — they're just saying hi. Keep it light." / "That's just a dig. You don't owe
+  it an answer."). Second person, plain, no "!". Never a form letter: not "It's a friendly hello, so a short, polite
+  reply is enough.", not "This message does not require a response.", not "It is advisable to". Never the
+  "... is enough" pattern at all; say what to do instead: "Just confirm Friday." / "One line about keeping Noah out of it does it."
 - brief, neutral, firm: the three replies (see the rules). Each answers the whole burst once.
 - lens: if the user gave a draft, flags on the DRAFT (see Judge's lens). If no draft, 1-2 "good" flags on phrases
   copied exactly from your NEUTRAL reply, saying what makes it court-safe.
@@ -141,7 +160,8 @@ WHAT TO RETURN (JSON, fields in this order)
   a missed or late pickup or a no-show, denied or cancelled parenting time, disparaging the user to the kids, a
   safety or health concern, harassment or profanity, or refusing an agreed payment. Otherwise false.
   title: neutral, 3-8 words ("Said they'd tell the kids about the dispute"). note: one or two neutral factual
-  sentences quoting the key words. If not worth logging, title "" and note "".`;
+  sentences quoting the key words, in plain everyday English (no "the minor child", "stated that", "subsequently").
+  If not worth logging, title "" and note "".`;
 
 /* Worked examples: the model copies tone from examples far more reliably than from rules. */
 const EXAMPLES = `
@@ -177,7 +197,18 @@ Stiff vs human (always write the right-hand one):
   "I understand your frustration. I will ensure she has her medication." → "She'll have her medicine with her."
 Conceding vs answering (they said "u signed him up without asking me"):
   WRONG: "Got it. Next time I'll check with you before signing him up. Can we split it?"  (admits fault)
-  RIGHT: "Soccer is [amount] for the season. Can you let me know by [day] if you'll cover half?"`;
+  RIGHT: "Soccer is [amount] for the season. Can you let me know by [day] if you'll cover half?"
+Friendly in, friendly out:
+  their text: "hey whatsup"
+  advice: brief_ack. adviceWhy: "Nothing to answer here — they're just saying hi. Keep it light."
+  facts: "They're just saying hi."
+  brief: "hey, not much! anything you need for the kids this week?"
+  neutral: "hey! not much here. anything you need from me for the kids this week?"
+  their text: "can we do 5 instead of 6 sat"
+  brief: "yep, 5 works." neutral: "yep that works, I'll have them ready at 5 Sat."
+  Robotic vs human (always write the right-hand one):
+  "Hi, not much here. Is there something you need about the kids?" -> "hey, not much! anything you need for the kids this week?"
+  adviceWhy "It's a friendly hello, so a short, polite reply is enough." -> "Nothing to answer — they're just saying hi. Keep it light."`;
 
 const ANALYZE_SYSTEM = [VOICE, READING_RULES, REPLY_RULES, EXAMPLES, LENS_RULES, ANALYZE_TASK].join('\n');
 
@@ -248,6 +279,9 @@ export const HOSTILE_PATTERNS: {re: RegExp; issue: string; severity: 'high' | 'm
 const norm = (s: string) =>
   s.replace(/[\u2018\u2019\u02bc]/g, "'").replace(/[\u201c\u201d]/g, '"').replace(/[\u2013\u2014]/g, '-').replace(/\s+/g, ' ').trim();
 
+/** Text we show the user as prose: normalised, but an em dash stays an em dash ("Nothing to answer — they're just saying hi"). */
+const prose = (s: string) => norm(s).replace(/ - /g, ' \u2014 ');
+
 /** Find `phrase` in `text`, forgiving only quotes, dashes, spacing, case and stray end punctuation.
     Returns the span exactly as it is in the text, or null — so the UI can underline it. */
 export function locate(text: string, phrase: string): string | null {
@@ -298,18 +332,18 @@ export function patternFlags(text: string, existing: LensFlag[]): LensFlag[] {
       return i >= 0 && at < i + f.phrase.length && end > i;
     });
     if (covered || [...existing, ...add].some((f) => f.issue === p.issue)) continue;
-    add.push({phrase: m[0], severity: p.severity, issue: p.issue, why: WHY[p.issue] ?? 'A judge reads this as raising the conflict.', fix: 'Cut it.'});
+    add.push({phrase: m[0], severity: p.severity, issue: p.issue, why: WHY[p.issue] ?? 'A judge would read this as you turning up the heat.', fix: 'Cut it.'});
   }
   return add;
 }
 const WHY: Record<string, string> = {
-  'Absolute claim': '"Always" and "never" are easy to disprove with one example, and they cost you credibility.',
-  'Keeps score': 'Keeping score reads as resentment, not as focus on the kids.',
-  'Passive-aggressive': 'Judges read this as sarcasm, even when it is meant politely.',
-  'Reads as a threat': 'Mentioning court or police in a schedule message reads as intimidation.',
-  'Insult': 'Name-calling is the first thing quoted back to a judge.',
-  'Shouting': 'Caps and exclamation marks read as anger on paper.',
-  'Reads as mocking': 'A "lol" or an eye-roll in a tense exchange reads as mocking the other parent.',
+  'Absolute claim': '"Always" and "never" fall apart with one example, and then you look less credible.',
+  'Keeps score': 'Keeping score reads like a grudge, not like you\'re focused on the kids.',
+  'Passive-aggressive': 'Even if you mean it nicely, a judge reads this as sarcasm.',
+  'Reads as a threat': 'Bringing up court or police over a schedule thing reads as a threat.',
+  'Insult': 'Name-calling is the first thing they\'d quote back to a judge.',
+  'Shouting': 'Caps and "!!" read as yelling once it\'s on paper.',
+  'Reads as mocking': 'A "lol" or an eye-roll in a tense moment reads like you\'re mocking them.',
 };
 
 /** Court-safety score from the flags, so the number always agrees with what the user sees. */
@@ -346,22 +380,25 @@ const CONTRACT: [RegExp, string][] = [
   [/\b([Cc])ould not\b/g, "$1ouldn't"], [/\b([Ww])ould not\b/g, "$1ouldn't"], [/\b([Hh])ave not\b/g, "$1aven't"],
 ];
 /** Stiff phrases the code can't repair without changing what's said: the model rewrites the reply instead. */
-export const STIFF = /\b(i acknowledge|acknowledged|per (?:our|the) (?:agreement|parenting plan|order)|kindly|please be advised|as previously (?:stated|mentioned)|moving forward|going forward|i hope this (?:message|text|email) finds you|i understand your frustration|thank you for your (?:message|text|email)|thanks for your (?:message|text|email)|regarding|in regards? to|with regards? to|i wanted to reach out|please note|at your earliest convenience|i would appreciate it|rest assured|furthermore|i hear (?:you|that|the|your))\b/i;
-/** Texting shorthand and tics we read in THEIR texts but never write in ours. */
-export const SHORTHAND = /\b(u|ur|r|lol|lmao|idk|idc|rn|tbh|ngl|fr|smh|omw|wya|bc|cuz|tmrw|pls|plz|thx|kk|wtf)\b/i;
+export const STIFF = /\b(i acknowledge|acknowledged|per (?:our|the) (?:agreement|parenting plan|order)|kindly|please be advised|as previously (?:stated|mentioned)|moving forward|going forward|i hope this (?:message|text|email) finds you|i understand your frustration|thank you for your (?:message|text|email)|thanks for your (?:message|text|email)|regarding|in regards? to|with regards? to|i wanted to reach out|please note|at your earliest convenience|i would appreciate it|rest assured|furthermore|i hear (?:you|that|the|your)|is there (?:something|anything)(?: else)? (?:you need|i can)|please let me know if)\b/i;
+/** Texting shorthand and tics we read in THEIR texts but never write in ours. Not ALLOWED_SHORTHAND below. */
+export const SHORTHAND = /\b(u|ur|r|lol|lmao|lmfao|idk|idc|tbh|ngl|fr|smh|omw|wya|wyd|bc|cuz|pls|plz|kk|wtf|ty|ik|ikr|nvm|istg|tn|wknd|prolly|ya)\b/i;
+/** The neutral shorthand OUR replies may use (VOICE.md §2): it reads the same to a judge as the long form. */
+export const ALLOWED_SHORTHAND = ['ok', 'thx', 'tmrw', 'rn', 'b4', 'w/'];
 export const EMOJI = /\p{Extended_Pictographic}/u;
 /** A whole reply that is one cold word reads as hostile. */
 const COLD = /^(k|kk|ok|okay|noted|fine|sure|whatever)\.?$/i;
 
-/** Last-resort cleanup of a reply the model wrote: banned phrases removed, contractions made, no emoji. */
-export function cleanReply(s: string): string {
+/** Last-resort cleanup of a reply the model wrote: banned phrases removed, contractions made, no emoji.
+    `friendly` (they were friendly): one "!" may stay. Case is left alone — a lowercase "hey, not much!" is the voice. */
+export function cleanReply(s: string, friendly = false): string {
   let t = norm(s || '').replace(/\p{Extended_Pictographic}️?/gu, '');
   t = t.replace(/^(thanks|thank you) for (your|the) (message|text|email)[.,!]?\s*/i, '');
   t = t.replace(/\b(as i(?:'ve| have)? (?:already )?(?:said|mentioned|told you)|per my last (?:message|text|email)?|just so you know|for the record|to be clear),?\s*/gi, '');
   for (const [re, to] of STIFF_REPAIRS) t = t.replace(re, to);
   for (const [re, to] of CONTRACT) t = t.replace(re, to);
-  t = t.replace(/!+/g, '.').replace(/\.{2,}/g, '.').replace(/\s+([.,?])/g, '$1').replace(/\s{2,}/g, ' ');
-  t = t.replace(/(^|[.?]\s+)([a-z])/g, (_m, a: string, b: string) => a + b.toUpperCase());
+  t = friendly ? t.replace(/!{2,}/g, '!') : t.replace(/!+/g, '.');
+  t = t.replace(/\.{2,}/g, '.').replace(/\s+([.,?!])/g, '$1').replace(/\s{2,}/g, ' ');
   t = t.trim();
   if (COLD.test(t)) t = /^noted/i.test(t) ? 'Noted, thanks.' : 'Got it, thanks.';
   return t;
@@ -411,7 +448,7 @@ function replyScore(text: string, kind: 'brief' | 'neutral' | 'firm'): number {
 
 const clamp = (n: number, a: number, b: number) => Math.max(a, Math.min(b, Number.isFinite(n) ? n : a));
 const clip = (s: string, n: number) => (s.length > n ? s.slice(0, n - 1).trimEnd() + '\u2026' : s);
-const variant = (s: string): ReplyVariant => { const text = cleanReply(s); return {text, words: wordCount(text)}; };
+const variant = (s: string, friendly = false): ReplyVariant => { const text = cleanReply(s, friendly); return {text, words: wordCount(text)}; };
 
 /* ---------- public API ---------- */
 
@@ -467,8 +504,12 @@ export async function analyzeWithStats(input: AnalyzeInput): Promise<{analysis: 
   if (!burst.bubbles.length) throw new Error("We couldn't read a message in that screenshot. Try pasting the text instead.");
   const theirs = burst.bubbles.join('\n\n');
 
+  // Heat decides the register a reply may keep: a friendly message may get a "hey, not much!" back, a tense one no "!".
+  const heat = Math.max(clamp(Math.round(raw.heat), 0, 100), heatFloor(theirs));
+  const friendly = heat < 25;
+  const tidy = (x: string) => cleanReply(x, friendly);
   // The voice is checked in code; a reply that still reads stiff (or texts like them) goes back once to be rewritten.
-  let texts = {brief: cleanReply(raw.brief), neutral: cleanReply(raw.neutral), firm: cleanReply(raw.firm)};
+  let texts = {brief: tidy(raw.brief), neutral: tidy(raw.neutral), firm: tidy(raw.firm)};
   const userSaid = [draft ?? '', context ?? ''].join(' ');
   const problems = (['brief', 'neutral', 'firm'] as const).flatMap((k) => voiceProblems(texts[k], k, userSaid).map((p) => `${k}: ${p}`));
   if (problems.length) {
@@ -477,10 +518,11 @@ export async function analyzeWithStats(input: AnalyzeInput): Promise<{analysis: 
       const fixed = await geminiJSON<{brief: string; neutral: string; firm: string}>({
         system: [VOICE, REPLY_RULES, EXAMPLES].join('\n'),
         prompt: `${burstBlock(burst)}\n\nYOUR THREE REPLIES:\n${JSON.stringify(texts)}\n\nTHESE BREAK THE VOICE RULES:\n- ${problems.join('\n- ')}\n\n`
+          + (friendly ? 'They were friendly: keep all three casual and warm, the way a person texts back. ' : 'They were tense: keep all three calm, short and human, no "!". ')
           + 'Rewrite all three so they keep the same facts and placeholders but follow every rule. Change only what you must.',
         schema: REWRITE_SCHEMA, temperature: 0.3,
       });
-      const next = {brief: cleanReply(fixed.brief), neutral: cleanReply(fixed.neutral), firm: cleanReply(fixed.firm)};
+      const next = {brief: tidy(fixed.brief), neutral: tidy(fixed.neutral), firm: tidy(fixed.firm)};
       for (const k of ['brief', 'neutral', 'firm'] as const) {
         if (next[k] && voiceProblems(next[k], k, userSaid).length <= voiceProblems(texts[k], k, userSaid).length) texts[k] = next[k];
       }
@@ -488,7 +530,7 @@ export async function analyzeWithStats(input: AnalyzeInput): Promise<{analysis: 
   }
   texts = {...texts, brief: trimBrief(texts.brief)};
   stats.ms = Date.now() - t0;
-  const brief = variant(texts.brief), neutral = variant(texts.neutral), firm = variant(texts.firm);
+  const brief = variant(texts.brief, friendly), neutral = variant(texts.neutral, friendly), firm = variant(texts.firm, friendly);
 
   const category = (CATEGORIES as string[]).includes(raw.category) ? (raw.category as Category) : 'other';
   const asks = (raw.asks ?? []).map((a) => clip(norm(a), 120)).filter(Boolean).slice(0, 4);
@@ -517,12 +559,12 @@ export async function analyzeWithStats(input: AnalyzeInput): Promise<{analysis: 
     incoming: theirs,
     bubbles: burst.bubbles,
     ...(burst.times.some(Boolean) ? {bubbleTimes: burst.times} : {}),
-    facts: clip(norm(raw.facts || ''), 280),
+    facts: clip(prose(raw.facts || ''), 280),
     asks,
-    heat: Math.max(clamp(Math.round(raw.heat), 0, 100), heatFloor(theirs)),
+    heat,
     category,
     advice,
-    adviceWhy: clip(norm(raw.adviceWhy || ''), 200),
+    adviceWhy: clip(prose(raw.adviceWhy || ''), 200),
     variants: {brief, neutral, firm},
     ...(draft ? {draft, draftScore} : {}),
     lens,
@@ -541,8 +583,12 @@ Return:
 - lens: flags on the DRAFT (see Judge's lens). Include 1-2 "good" flags when something genuinely works.
 - score: court-safety of the draft, 0-100 (the draftScore rubric). Be honest: a reply that takes the bait scores low
   even if it is polite; a short, factual, child-focused reply that answers the ask scores 90+.
-- better: the reply you would send instead, following every reply rule and the voice (BIFF, plain texting English,
-  contractions, 10-40 words, no emoji or shorthand). Keep the facts the user used if they are safe; don't invent new ones.`].join('\n');
+- better: the reply you would send instead, following every reply rule and the voice (BIFF, sounds like a real text,
+  matches their register, contractions, 10-40 words, no emoji, only the allowed shorthand). Keep the facts the user
+  used if they are safe; don't invent new ones.
+- The lens "why" and "fix" are your feedback to someone practising: talk to them like a friend coaching them, second
+  person, short and plain ("This is the line they'd quote back at you." / "Good — you answered the pickup and skipped
+  the dig.").`].join('\n');
 
 const GRADE_SCHEMA = {
   type: 'object',

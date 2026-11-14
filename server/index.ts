@@ -15,10 +15,11 @@ import timeline from './routes/timeline.js';
 import plan from './routes/plan.js';
 import demo from './routes/demo.js';
 import report from './routes/report.js';
+import keyboard from './routes/keyboard.js';
 
 const app = new Hono();
-// A lawyer opening a shared timeline link isn't a Parley user: no guest row, no cookie.
-app.use('/api/*', (c, next) => (c.req.path.startsWith('/api/timeline/share/') ? next() : session(c, next)));
+// A lawyer opening a shared timeline link isn't a Parley user: no guest row, no cookie. The keyboard names itself by device.
+app.use('/api/*', (c, next) => (c.req.path.startsWith('/api/timeline/share/') || c.req.path.startsWith('/api/kb/') ? next() : session(c, next)));
 
 app.get('/api/health', (c) => c.json({ok: true}));
 app.post('/api/event', async (c) => {
@@ -28,7 +29,7 @@ app.post('/api/event', async (c) => {
 });
 app.get('/api/me', (c) => c.json(toMe(getPerson(c.get('person').id)!)));
 
-for (const register of [quiz, billing, reply, journal, timeline, plan, demo, report]) register(app);
+for (const register of [quiz, billing, reply, journal, timeline, plan, demo, report, keyboard]) register(app);
 
 app.notFound((c) => (c.req.path.startsWith('/api/') ? c.json({error: 'Not found'}, 404) : spa(c)));
 app.onError((err, c) => {

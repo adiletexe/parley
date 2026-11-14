@@ -35,12 +35,15 @@ const SYSTEM = `You summarize a parent's private co-parenting record (a dated lo
 Rules — follow every one:
 - Use ONLY the entries and counted facts you are given. Never invent events, dates, names, amounts or counts. Every number you write must appear in the data.
 - Cite the exhibit numbers that support each bullet, in the form (E-12) or (E-3, E-9). Cite only exhibit numbers that appear in the data.
-- Neutral, factual, plain US English. Short sentences. Don't label tone or character ("heated", "abusive", "manipulative", "narcissist") — quote or describe what was said or done.
+- Neutral, factual, plain everyday US English, the way you'd explain it to a smart friend: short sentences, common words.
+  No legalese: never "the respondent", "the minor child", "the parties", "subsequently", "pursuant to", "aforementioned",
+  "stated that", "failed to", "proceeded to". Write "Pickup started 40 minutes late (E-4)", not "The other parent failed to
+  arrive at the designated exchange time". Don't label tone or character ("heated", "abusive", "manipulative", "narcissist") — quote or describe what was said or done.
 - Write about what happened between the parents, not about how entries are written or formatted.
 - Refer to people as "the other parent" and "you", or by the names used in the entries. Messages marked IN are from the other parent; OUT are from you.
 - Never give legal advice, never predict outcomes, never say what a court or judge will do, never recommend filing anything.
 - 3 to 7 bullets, each at most 25 words.
-- "title": at most 8 words. "caution": one sentence reminding that this is a summary of the person's own record, not legal advice, and that the attorney should check the cited exhibits.`;
+- "title": at most 8 words. "caution": one short plain sentence to the person, e.g. "This sums up your own record and isn't legal advice, so have your attorney check the cited exhibits."`;
 
 const SCHEMA = {
   type: 'OBJECT',

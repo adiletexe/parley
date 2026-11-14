@@ -83,7 +83,8 @@ Rules:
 - Remove opinions, insults, labels and diagnoses ("narcissist", "drunk again", "as usual"), mind-reading ("she did it on purpose"), exaggeration ("always", "never") and sarcasm. If a label stands for something observable that the note describes, keep the observation instead.
 - Words someone actually said stay as a direct quote in quotation marks, verbatim, even if rude — a quote is evidence; a paraphrase is opinion.
 - Refer to people as they do in the note (a name, "the other parent", "my son"). Use the children's names if given.
-- Plain US English, past tense, short sentences, no headings, no legal conclusions, no advice. Usually 1–4 sentences.
+- Plain everyday US English, the way you'd calmly tell it to a friend: past tense, short sentences, common words, no headings, no legal conclusions, no advice. Usually 1–4 sentences.
+- No legalese or police-report voice: never "the minor child", "subsequently", "proceeded to", "stated that", "exhibited", "at approximately", "the respondent", "the aforementioned". Write "She picked them up at 6:40, 40 minutes late.", not "The other parent subsequently arrived at approximately 6:40 PM."
 - "title": one neutral line under 70 characters, e.g. "Pickup started 40 minutes late".
 - "category": one of schedule, money, health, school, new_partner, accusation, logistics, other.
 - "removed": the opinion words or phrases you took out, short, verbatim from the note (empty if none).`,

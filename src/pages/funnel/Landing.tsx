@@ -11,7 +11,7 @@ import './funnel.css';
 // A real burst (docs/VOICE.md): three texts in a row, lowercase, a jab and an eye-roll.
 const BURST = ['im not paying half of soccer', 'u signed her up without even asking me', 'typical. 🙄'];
 const ANGRY = 'wow. u ALWAYS do this. pay ur half or im taking it to my lawyer';
-const CALM = "Soccer's $180 for the fall. Here's the receipt. Can you let me know by Friday if you'll cover half?";
+const CALM = "fall soccer is $180, sent you the receipt. can you do your $90 by friday?";
 
 const FAQ: [string, string, string?][] = [
   ['Is Parley legal advice?', "No. Parley is not a law firm and doesn't give legal advice. It helps you write calmer messages and keep your texts in order. For advice about your case, talk to a family-law attorney."],
@@ -53,20 +53,21 @@ export default function Landing() {
           <div className="fn-hmeta"><span className="fn-ticks"><span>Works without the other parent</span><span>Only you see it</span><span>Cancel any time</span></span></div>
         </div>
 
-        <div className="fn-l-ex" aria-label="An example">
-          <div className="fn-l-col">
-            <small>They text</small>
-            <div className="fn-l-stack">{BURST.map((b, i) => <p key={i} className="fn-l-them">{b}</p>)}</div>
-          </div>
-          <div className="fn-l-col">
-            <small>What you want to send</small>
-            <p className="fn-l-you bad">{ANGRY}</p>
-            <p className="fn-score bad"><i aria-hidden="true" />A judge would read this badly</p>
-          </div>
-          <div className="fn-l-col">
-            <small>What you send with Parley</small>
-            <p className="fn-l-you">{CALM}</p>
-            <p className="fn-score"><i aria-hidden="true" />A judge would read this well</p>
+        {/* One chat, the way it looks on a phone: their burst, the reply you almost sent (crossed out in pen),
+            the one you sent instead. Labels are handwritten notes, not UI chrome. */}
+        <div className="fn-chat" aria-label="An example chat">
+          <div className="fn-chat-top"><span className="fn-chat-av">J</span><b>Jordan</b><small>Tue 9:41 PM</small></div>
+          <div className="fn-chat-body">
+            {BURST.map((b, i) => <p key={i} className="fn-chat-in">{b}</p>)}
+            <div className="fn-chat-row">
+              <span className="fn-chat-note bad">what you want to send</span>
+              <p className="fn-chat-out struck">{ANGRY}</p>
+            </div>
+            <div className="fn-chat-row">
+              <span className="fn-chat-note">what you send instead</span>
+              <p className="fn-chat-out">{CALM}</p>
+            </div>
+            <small className="fn-chat-meta">Delivered</small>
           </div>
         </div>
       </section>

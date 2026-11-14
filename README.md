@@ -6,7 +6,7 @@ Parents raising kids in two homes have to keep messaging each other, and in a cu
 
 Track: **Skills** · Business Cup 2.0 (Zimran)
 
-**Live:** https://77-42-12-77.sslip.io — no sign-up.
+**Live:** https://parley.adiletfndr.com — no sign-up.
 
 ## For the jury (2 minutes)
 1. Open **/demo** → "Open the sample case" (clearly labelled demo data: six weeks of a real-looking case, day 12 of the plan).

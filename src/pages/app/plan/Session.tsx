@@ -1,8 +1,9 @@
 /* The daily session: five messages, three replies each, tap the one you'd send. One action per screen —
    their texts, the question, three replies; the tag under a reply is the only explanation anyone gets.
    Their side arrives the way it does on a phone (docs/VOICE.md): a burst of bubbles, each after a moment of
-   "typing…", and only then the three replies, drawn as texts you might send. Reduced motion shows it all at once. */
-import {useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react';
+   "typing…" as long as the text takes to read, and only then the three replies, one at a time, in an order
+   shuffled per question. A tap or Space shows it all; reduced motion shows it all at once. */
+import {useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState} from 'react';
 import {Icon} from '../../../components/Icon';
 import {api, track} from '../../../lib/api';
 import type {SessionResult, SessionView} from '../../../../server/plan-content';
@@ -35,7 +36,23 @@ export function Burst({bubbles, shown = bubbles.length, typing = false}: {bubble
 /** A plan-content drill message is the same burst with one bubble per line. */
 export const bubblesOf = (message: string) => message.split('\n').map((b) => b.trim()).filter(Boolean);
 
-const FIRST_MS = 450, NEXT_MS = 600;
+/* Reading pace. The first version gave each bubble ~0.5s, so the next one landed while the last was still being
+   read and the replies were up the instant the burst ended. Now the dots last about as long as the bubble takes
+   to read (typing longer for a longer text), the burst settles before the next dots start, and the question waits
+   a breath after the last bubble before the replies come in one at a time. */
+const typingMs = (text: string) => Math.min(2400, 700 + 30 * text.length);
+const GAP_MS = 500, ASK_MS = 1500, OPT_MS = 450;
+
+/** A stable shuffle per question: the order is drawn from the id (which carries the day), so a reload shows the
+    same order and the position of the good reply never tells. Returns display slot → option index. */
+function orderFor(id: string, n: number): number[] {
+  let h = 2166136261;
+  for (let k = 0; k < id.length; k++) h = Math.imul(h ^ id.charCodeAt(k), 16777619);
+  const rnd = () => { h = (h + 0x6d2b79f5) | 0; let t = Math.imul(h ^ (h >>> 15), 1 | h); t ^= t + Math.imul(t ^ (t >>> 7), 61 | t); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  const o = Array.from({length: n}, (_, k) => k);
+  for (let k = n - 1; k > 0; k--) { const j = Math.floor(rnd() * (k + 1)); [o[k], o[j]] = [o[j], o[k]]; }
+  return o;
+}
 
 export function Session({session, onExit, onDone}: {
   session: SessionView; onExit: () => void; onDone: (r: SessionResult, picks: Pick[]) => void;
@@ -45,25 +62,38 @@ export function Session({session, onExit, onDone}: {
   const [picks, setPicks] = useState<Pick[]>([]);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState('');
-  const timer = useRef<number | undefined>(undefined);
   const q = qs[i];
   const mine = picks[i];
   const last = i === qs.length - 1;
   const total = q.them.length;
-  // How many of this message's bubbles are on screen; the replies wait for the last one.
-  const [shown, setShown] = useState(() => (reduced() ? qs[0].them.length : 0));
-  const ready = shown >= total;
+  const nOpts = q.options.length;
+  const order = useMemo(() => orderFor(q.id, nOpts), [q.id, nOpts]);
+  // What of this message is on screen: bubbles, the dots, the question, and how many replies. Replies can be
+  // picked as soon as they show.
+  const [view, setView] = useState(() => (reduced() ? {shown: total, typing: false, ask: true, opts: nOpts} : {shown: 0, typing: false, ask: false, opts: 0}));
+  const done = view.opts >= nOpts;
+  const timers = useRef<number[]>([]);
+  const clear = () => { timers.current.forEach((x) => window.clearTimeout(x)); timers.current = []; };
+  const skip = useCallback(() => { clear(); setView({shown: total, typing: false, ask: true, opts: nOpts}); }, [total, nOpts]);
 
   // Layout effect: the next message's bubbles must not flash in for a frame before the typing starts.
   useLayoutEffect(() => {
-    if (reduced()) { setShown(total); return; }
-    setShown(0);
-    const ts: number[] = [];
-    for (let k = 0, t = 0; k < total; k++) { t += k === 0 ? FIRST_MS : NEXT_MS; ts.push(window.setTimeout(() => setShown(k + 1), t)); }
-    return () => ts.forEach((x) => window.clearTimeout(x));
-  }, [q.id, total]);
+    clear();
+    if (reduced()) { setView({shown: total, typing: false, ask: true, opts: nOpts}); return; }
+    setView({shown: 0, typing: true, ask: false, opts: 0});
+    const at = (t: number, f: () => void) => timers.current.push(window.setTimeout(f, t));
+    let t = 0;
+    q.them.forEach((b, k) => {
+      if (k > 0) { t += GAP_MS; at(t, () => setView((v) => ({...v, typing: true}))); }
+      t += typingMs(b);
+      at(t, () => setView((v) => ({...v, shown: k + 1, typing: false})));
+    });
+    t += ASK_MS;
+    at(t, () => setView((v) => ({...v, ask: true})));
+    for (let k = 1; k <= nOpts; k++) at(t + k * OPT_MS, () => setView((v) => ({...v, opts: k})));
+    return clear;
+  }, [q.id, total, nOpts]);
 
-  useEffect(() => () => window.clearTimeout(timer.current), []);
   // On a phone the button lands under the tab bar; bring it up once there is something to press.
   const nextBtn = useRef<HTMLButtonElement>(null);
   useEffect(() => { if (mine) nextBtn.current?.scrollIntoView({block: 'nearest', behavior: reduced() ? 'auto' : 'smooth'}); }, [mine]);
@@ -77,28 +107,26 @@ export function Session({session, onExit, onDone}: {
   }, [session.day, onDone]);
 
   const next = useCallback(() => {
-    window.clearTimeout(timer.current);
     if (picks.length <= i || busy) return;
     if (last) void submit(picks);
     else setI(i + 1);
   }, [picks, i, last, busy, submit]);
 
   function choose(k: number) {
-    if (mine || busy || !ready) return;
+    if (mine || busy || order.indexOf(k) >= view.opts) return;
     const good = q.options[k].good;
-    const all = [...picks, {id: q.id, picked: k, good}];
-    setPicks(all);
+    setPicks([...picks, {id: q.id, picked: k, good}]);
     buzz(good ? 12 : [18, 40, 18]);
     track('plan_session_pick', {day: session.day, q: i + 1, good});
-    // A right answer moves on by itself; a wrong one waits, so the good card can be read.
-    if (good) timer.current = window.setTimeout(() => { if (last) void submit(all); else setI((n) => n + 1); }, 1200);
+    // No auto-advance, right or wrong: the tag under each reply is the lesson, and it needs reading. Next moves on.
   }
 
   useEffect(() => {
     const key = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLElement && /INPUT|TEXTAREA/.test(e.target.tagName)) return;
-      if (['1', '2', '3'].includes(e.key)) choose(Number(e.key) - 1);
-      else if (e.key === ' ' && !ready) { e.preventDefault(); setShown(total); }
+      // 1–3 name the slots as drawn, not the options as written.
+      if (['1', '2', '3'].includes(e.key)) { const k = order[Number(e.key) - 1]; if (k !== undefined) choose(k); }
+      else if (e.key === ' ' && !done) { e.preventDefault(); skip(); }
       else if (e.key === 'Enter' && mine) { e.preventDefault(); next(); }
       else if (e.key === 'Escape') onExit();
     };
@@ -107,7 +135,8 @@ export function Session({session, onExit, onDone}: {
   });
 
   return (
-    <section className="card pl-sess fade-in" aria-label="Today's session">
+    // A tap anywhere skips the pacing: some people read faster than the dots.
+    <section className="card pl-sess fade-in" aria-label="Today's session" onClick={() => { if (!done) skip(); }}>
       <div className="pl-sess-top">
         <button className="pl-x" onClick={onExit} aria-label="Leave the session">
           <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" /></svg>
@@ -116,19 +145,19 @@ export function Session({session, onExit, onDone}: {
       </div>
 
       <div className="pl-q" key={q.id}>
-        {/* A tap on the chat skips the typing: some people read faster than the dots. */}
-        <div className="pl-chat" onClick={() => setShown(total)}>
-          <Burst bubbles={q.them} shown={shown} typing={!ready} />
+        <div className="pl-chat">
+          <Burst bubbles={q.them} shown={view.shown} typing={view.typing} />
         </div>
-        {ready && (
+        {view.ask && (
           <>
             <h2 className="pl-ask">Which would you send?</h2>
             <div className="pl-opts" role="group" aria-label="Three replies">
-              {q.options.map((o, k) => {
+              {order.slice(0, view.opts).map((k) => {
+                const o = q.options[k];
                 const state = !mine ? '' : k === mine.picked ? (o.good ? 'ok' : 'bad') : o.good ? 'ok reveal' : 'dim';
                 const told = state === 'ok' || state === 'bad' || state === 'ok reveal';
                 return (
-                  <button key={k} className={'pl-opt ' + state} style={{animationDelay: `${k * 70}ms`}} disabled={!!mine}
+                  <button key={k} className={'pl-opt ' + state} disabled={!!mine}
                     aria-pressed={mine?.picked === k} onClick={() => choose(k)}>
                     <span className="pl-opt-t">{o.text}</span>
                     {told && (

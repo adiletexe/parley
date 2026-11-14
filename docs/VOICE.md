@@ -39,6 +39,10 @@ A calm, kind adult texting from their phone — **not a lawyer, not HR.**
 They must be what a stressed parent *really* sends: "lmao ok", "u literally never pay on time so", "omg here we go",
 "maybe if u actually showed up for once", "wow. ok.", a 4-line over-explanation, "my lawyer will hear about this",
 "fine take them then 🙄". Tempting, human, realistic — not cartoon villains.
+In a drill all THREE options are texted the same way — lowercase starts, "ok", "yep", "fyi", light shorthand
+(u, thx, tmrw, b4, w/) in any of them, the good one included — or the good one is the only tidy sentence and gets
+picked by its tone. At most one wrong option per question is openly heated; the other sounds calm and is wrong in
+content (gives in, accepts the blame, no time, answers a different thing, a polite dig). Week 4: no heated ones.
 
 ## 4. Data shape
 - A burst is `string[]` (bubbles in order). Optional times as `{text, at}` where shown.

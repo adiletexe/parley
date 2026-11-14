@@ -12,8 +12,7 @@ const Pricing = lazy(() => import('./pages/funnel/Pricing'));
 const Welcome = lazy(() => import('./pages/funnel/Welcome'));
 const Demo = lazy(() => import('./pages/funnel/Demo'));
 const Reply = lazy(() => import('./pages/app/Reply'));
-const Journal = lazy(() => import('./pages/app/Journal'));
-const Timeline = lazy(() => import('./pages/app/Timeline'));
+const Record = lazy(() => import('./pages/app/Record'));
 const Plan = lazy(() => import('./pages/app/Plan'));
 const Settings = lazy(() => import('./pages/app/Settings'));
 
@@ -35,8 +34,9 @@ createRoot(document.getElementById('root')!).render(
             <Route path="/app" element={<AppShell />}>
               <Route index element={<Navigate to="/app/reply" replace />} />
               <Route path="reply" element={<Reply />} />
-              <Route path="journal" element={<Journal />} />
-              <Route path="timeline" element={<Timeline />} />
+              <Route path="record" element={<Record />} />
+              <Route path="journal" element={<Navigate to="/app/record" replace />} />
+              <Route path="timeline" element={<Navigate to="/app/record" replace />} />
               <Route path="plan" element={<Plan />} />
               <Route path="settings" element={<Settings />} />
             </Route>

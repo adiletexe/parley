@@ -20,10 +20,14 @@
   .shell::before { left: 0; }
   .shell-side { display: none; }
   .shell-main { padding: calc(18px + var(--safe-t)) var(--gutter-r) calc(96px + var(--safe-b)) var(--gutter-l); }
-  .shell-tabs { display: grid; grid-template-columns: repeat(4, 1fr); position: fixed; z-index: 40; left: 0; right: 0; bottom: 0;
+  .shell-tabs { display: grid; grid-template-columns: repeat(3, 1fr); position: fixed; z-index: 40; left: 0; right: 0; bottom: 0;
     padding: 8px var(--gutter-r) calc(8px + var(--safe-b)) var(--gutter-l); background: color-mix(in srgb, var(--card) 92%, transparent);
     backdrop-filter: blur(14px); border-top: 1px solid var(--line); }
   .shell-tab { display: grid; justify-items: center; gap: 2px; padding: 4px; border-radius: 12px; text-decoration: none; color: var(--mute); font: 700 11px var(--font); }
   .shell-tab.on { color: var(--ink); background: var(--acc-bg); }
-  .demo-flag { bottom: calc(84px + var(--safe-b)); }
 }
+
+/* Demo notice sits in the page flow at the top, never over content. */
+.shell-demo { position: relative; z-index: 1; margin: 0 0 16px; padding: 8px 12px; border-radius: 12px; background: var(--amber-bg); color: var(--amber); font: 600 12.5px var(--font); }
+.shell-demo b { color: var(--ink); }
+.shell-demo a { color: inherit; font-weight: 700; }

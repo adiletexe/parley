@@ -6,10 +6,9 @@ import {useMe} from '../lib/me';
 import './app-shell.css';
 
 const NAV: {to: string; label: string; icon: IconId; short: string}[] = [
-  {to: '/app/reply', label: 'Reply coach', short: 'Reply', icon: 'chat'},
-  {to: '/app/journal', label: 'Journal', short: 'Journal', icon: 'book'},
-  {to: '/app/timeline', label: 'Court timeline', short: 'Timeline', icon: 'scale'},
-  {to: '/app/plan', label: '28-day calm plan', short: 'Plan', icon: 'target'},
+  {to: '/app/reply', label: 'Reply', short: 'Reply', icon: 'reply'},
+  {to: '/app/record', label: 'Record', short: 'Record', icon: 'record'},
+  {to: '/app/plan', label: 'Practice', short: 'Practice', icon: 'target'},
 ];
 
 export function AppShell() {
@@ -19,8 +18,7 @@ export function AppShell() {
     <div className="shell">
       <aside className="shell-side">
         <div className="shell-logo"><Logo to="/app/reply" /></div>
-        <Link to="/app/reply?new=1" className="btn btn-primary shell-new">+ New reply</Link>
-        <nav className="shell-nav">
+                <nav className="shell-nav">
           {NAV.map((n) => (
             <NavLink key={n.to} to={n.to} className={({isActive}) => 'shell-link' + (isActive ? ' on' : '')}>
               <Icon id={n.icon} size={30} />{n.label}
@@ -38,7 +36,7 @@ export function AppShell() {
           <Link to="/app/settings" className="shell-link"><Icon id="lock" size={30} />Privacy & plan</Link>
         </div>
       </aside>
-      <main className="shell-main">{me ? <Outlet /> : <div style={{minHeight: '50vh', display: 'grid', placeItems: 'center'}}><span className="spin" /></div>}</main>
+      <main className="shell-main">{me?.demo && <div className="shell-demo"><b>Sample case</b> · demo data, everything runs live · <Link to="/demo">What to try</Link></div>}{me ? <Outlet /> : <div style={{minHeight: '50vh', display: 'grid', placeItems: 'center'}}><span className="spin" /></div>}</main>
       <nav className="shell-tabs" aria-label="Sections">
         {NAV.map((n) => (
           <NavLink key={n.to} to={n.to} className={({isActive}) => 'shell-tab' + (isActive ? ' on' : '')}>
@@ -46,7 +44,6 @@ export function AppShell() {
           </NavLink>
         ))}
       </nav>
-      {me?.demo && <div className="demo-flag">Demo data · sample case</div>}
     </div>
   );
 }

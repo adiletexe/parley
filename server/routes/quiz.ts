@@ -18,12 +18,16 @@ export interface QuizProfile {
   focus: string;                  // what matters most, given the court stage
   goal: string;                   // option id
   goalLabel: string;
-  minutesPerWeek: number;         // midpoint of the bucket they picked
+  minutesPerWeek: number;         // midpoint of the bucket they picked; 0 when not asked (the short quiz drops it)
   tensePerWeek: number;           // illustrative starting point for the reveal chart
   kids?: string;
+  role?: 'mom' | 'dad';           // screen 1. Stored for segmenting, never said back on a page
+  ageBand?: '25_34' | '35_45';
 }
 
+// ages, channels, support and time were asked by the longer quiz; they are still accepted and read, never required.
 const KEYS: Record<string, 'one' | 'many' | 'text'> = {
+  role: 'one', age: 'one',
   kids: 'one', ages: 'many', channels: 'many', tension: 'one', triggers: 'many', reaction: 'many',
   court: 'one', support: 'one', time: 'one', goal: 'one', name: 'text',
 };
@@ -42,6 +46,7 @@ const COURT: Record<string, {label: string; focus: string; weight: number}> = {
   active: {label: 'Active custody case', focus: 'Every message court-safe, every exchange on a dated record', weight: 2},
   hearing: {label: 'Hearing coming up', focus: 'A clean, court-ready timeline before the hearing', weight: 2},
   modification: {label: 'Changing the current order', focus: 'A dated record of what is actually happening now', weight: 2},
+  gal: {label: 'GAL or evaluator involved', focus: 'Calm, consistent messages an evaluator can read', weight: 2},
 };
 const GOALS: Record<string, string> = {
   fewer_fights: 'Fewer fights',
@@ -66,6 +71,8 @@ export function deriveProfile(a: QuizAnswers): QuizProfile {
   let score = tension.score;
   score += Math.min(2, Math.max(0, triggers.length - 1));
   score += COURT[court]?.weight ?? 0;
+  // The old quiz asked about a GAL separately; the short one folds it into the court question.
+  if (court !== 'gal' && (a.support === 'gal' || a.support === 'both')) score += 1;
   if (reactions.includes('fast') || reactions.includes('long')) score += 1;
   if (triggers.includes('messenger')) score += 1;
   score = Math.min(10, score);
@@ -84,9 +91,11 @@ export function deriveProfile(a: QuizAnswers): QuizProfile {
     focus: (COURT[court] ?? COURT.none).focus,
     goal: goal in GOALS ? goal : 'peace',
     goalLabel: GOALS[goal] ?? GOALS.peace,
-    minutesPerWeek: TIME[one(a.time) ?? ''] ?? 120,
+    minutesPerWeek: TIME[one(a.time) ?? ''] ?? 0,
     tensePerWeek: tension.perWeek,
     kids: one(a.kids),
+    role: a.role === 'mom' || a.role === 'dad' ? a.role : undefined,
+    ageBand: a.age === '25_34' || a.age === '35_45' ? a.age : undefined,
   };
 }
 

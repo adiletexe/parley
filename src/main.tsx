@@ -25,6 +25,7 @@ createRoot(document.getElementById('root')!).render(
         <Suspense fallback={<Loading />}>
           <Routes>
             <Route path="/" element={<Landing />} />
+            <Route path="/about" element={<Navigate to="/" replace />} />
             <Route path="/quiz" element={<Quiz />} />
             <Route path="/quiz/:step" element={<Quiz />} />
             <Route path="/your-plan" element={<PlanReveal />} />

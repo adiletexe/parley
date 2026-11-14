@@ -1,9 +1,10 @@
-/* The 1-minute check (/quiz/:step): one question per screen, big icon cards, auto-advance on a single choice,
-   an insight screen after every two or three questions, then a real "building your plan" step.
+/* The 1-minute check (/quiz and /quiz/:step). Screen 1 is where ads land, BetterMe-style: four illustrated cards
+   (who you are, roughly how old), one tap and you are in. Then one question per screen, big icon cards,
+   auto-advance on a single choice, two insight screens, then a real "building your plan" step.
    Every answer is saved to the server as it is given (POST /api/quiz merges), so /your-plan and the paywall
    can personalise even if someone leaves halfway. Facts on insight screens come only from the spec's list. */
 import {useEffect, useMemo, useRef, useState, type ReactNode} from 'react';
-import {Link, useNavigate, useParams} from 'react-router-dom';
+import {Link, useLocation, useNavigate, useParams} from 'react-router-dom';
 import {Icon, type IconId} from '../../components/Icon';
 import {Logo} from '../../components/Logo';
 import {ChannelIcon} from '../../components/ChannelIcon';
@@ -11,12 +12,16 @@ import type {Channel} from '../../../shared/types';
 import {api, track} from '../../lib/api';
 import {useMe} from '../../lib/me';
 import type {QuizAnswers} from '../../../shared/types';
+import momYoung from '../../assets/people/mom-25-34.svg';
+import momOlder from '../../assets/people/mom-35-45.svg';
+import dadYoung from '../../assets/people/dad-25-34.svg';
+import dadOlder from '../../assets/people/dad-35-45.svg';
 import './funnel.css';
 
 type Opt = {id: string; label: string; sub?: string; icon: IconId; channel?: Channel};
 type Q = {kind: 'q'; id: string; mode: 'one' | 'many'; title: ReactNode; sub?: string; options: Opt[]; side: string};
 type Insight = {kind: 'insight'; id: string};
-type Step = Q | Insight | {kind: 'name'; id: 'name'} | {kind: 'build'; id: 'build'};
+type Step = {kind: 'start'; id: 'who'} | Q | Insight | {kind: 'name'; id: 'name'} | {kind: 'build'; id: 'build'};
 
 const QS: Record<string, Q> = {
   kids: {kind: 'q', id: 'kids', mode: 'one', side: 'Kids', title: <>How many kids move between <span className="gt">two homes</span>?</>,
@@ -25,24 +30,6 @@ const QS: Record<string, Q> = {
       {id: '1', label: 'One', sub: 'One child', icon: 'kids-1'},
       {id: '2', label: 'Two', sub: 'Two children', icon: 'kids-2'},
       {id: '3plus', label: 'Three or more', sub: 'A full house', icon: 'kids-3'},
-    ]},
-  ages: {kind: 'q', id: 'ages', mode: 'many', side: 'Ages', title: <>How <span className="gt">old</span> are they?</>,
-    sub: 'Pick all that apply.',
-    options: [
-      {id: 'u5', label: 'Under 5', sub: 'Naps, daycare, handoffs', icon: 'age-baby'},
-      {id: '5to9', label: '5 to 9', sub: 'School runs and practices', icon: 'age-school'},
-      {id: '10to13', label: '10 to 13', sub: 'Phones, opinions, activities', icon: 'age-tween'},
-      {id: '14plus', label: '14 and older', sub: 'Their own plans and voice', icon: 'age-teen'},
-    ]},
-  channels: {kind: 'q', id: 'channels', mode: 'many', side: 'Messages on', title: <>Where do most messages with <span className="gt">the other parent</span> happen?</>,
-    sub: 'Pick all that apply.',
-    options: [
-      {id: 'sms', label: 'Text messages', sub: 'iMessage or SMS', icon: 'ch-text'},
-      {id: 'whatsapp', label: 'WhatsApp', sub: 'Chats and voice notes', icon: 'ask', channel: 'whatsapp'},
-      {id: 'email', label: 'Email', sub: 'Longer back-and-forth', icon: 'ch-email'},
-      {id: 'ofw', label: 'OurFamilyWizard', sub: 'Co-parenting app', icon: 'ch-ofw'},
-      {id: 'talkingparents', label: 'TalkingParents', sub: 'Co-parenting app', icon: 'ch-tp'},
-      {id: 'in_person', label: 'In person or by phone', sub: 'Mostly at handoffs', icon: 'ch-inperson'},
     ]},
   tension: {kind: 'q', id: 'tension', mode: 'one', side: 'Tense messages', title: <>How often do messages <span className="gt">turn tense</span>?</>,
     options: [
@@ -75,24 +62,10 @@ const QS: Record<string, Q> = {
     options: [
       {id: 'none', label: 'No court involvement', sub: 'We work it out between us', icon: 'court-none'},
       {id: 'mediation', label: 'Mediation', sub: 'Working with a mediator', icon: 'court-mediation'},
-      {id: 'active', label: 'Active custody case', sub: 'A case is open now', icon: 'court-active'},
+      {id: 'active', label: 'Active custody case', sub: 'A case is open, maybe with a lawyer', icon: 'court-active'},
       {id: 'hearing', label: 'A hearing is coming up', sub: 'A date is on the calendar', icon: 'court-hearing'},
       {id: 'modification', label: 'Changing the current order', sub: 'Modification', icon: 'court-modify'},
-    ]},
-  support: {kind: 'q', id: 'support', mode: 'one', side: 'Support', title: <>Is anyone else <span className="gt">involved</span>?</>,
-    options: [
-      {id: 'lawyer', label: 'A lawyer', sub: 'Family-law attorney', icon: 'lawyer'},
-      {id: 'gal', label: 'A GAL or custody evaluator', sub: 'Appointed by the court', icon: 'gal'},
-      {id: 'both', label: 'Both', sub: 'A lawyer and a GAL or evaluator', icon: 'lawyer-gal'},
-      {id: 'nobody', label: 'Not right now', sub: 'Handling it myself', icon: 'solo'},
-    ]},
-  time: {kind: 'q', id: 'time', mode: 'one', side: 'Time a week', title: <>How much of your week do these messages <span className="gt">take</span>?</>,
-    sub: 'Reading, re-reading, drafting, and the hour after.',
-    options: [
-      {id: 'lt1', label: 'Under an hour', icon: 'time-1'},
-      {id: '1to3', label: '1 to 3 hours', icon: 'time-3'},
-      {id: '3to6', label: '3 to 6 hours', icon: 'time-6'},
-      {id: '6plus', label: 'More than 6 hours', icon: 'time-6p'},
+      {id: 'gal', label: 'A GAL or evaluator is involved', sub: 'Appointed by the court', icon: 'gal'},
     ]},
   goal: {kind: 'q', id: 'goal', mode: 'one', side: 'Goal', title: <>What would help <span className="gt">most</span> right now?</>,
     options: [
@@ -104,18 +77,25 @@ const QS: Record<string, Q> = {
 };
 
 const STEPS: Step[] = [
-  QS.kids, QS.ages, QS.channels,
-  {kind: 'insight', id: 'record'},
+  {kind: 'start', id: 'who'},
   QS.tension, QS.triggers, QS.reaction,
   {kind: 'insight', id: 'judge'},
-  QS.court, QS.support,
-  {kind: 'insight', id: 'lawyer'},
-  QS.time, QS.goal,
-  {kind: 'insight', id: 'biff'},
+  QS.court, QS.kids,
+  {kind: 'insight', id: 'record'},
+  QS.goal,
   {kind: 'name', id: 'name'},
   {kind: 'build', id: 'build'},
 ];
-const QUESTION_COUNT = STEPS.filter((s) => s.kind === 'q' || s.kind === 'name').length;
+const asked = (s: Step) => s.kind === 'q' || s.kind === 'name' || s.kind === 'start';
+const QUESTION_COUNT = STEPS.filter(asked).length;
+
+/* Screen 1. Kept as role + age band in the answers; the role is never said back to anyone. */
+const WHO: {role: 'mom' | 'dad'; age: '25_34' | '35_45'; label: string; img: string}[] = [
+  {role: 'mom', age: '25_34', label: 'Mom · 25 to 34', img: momYoung},
+  {role: 'mom', age: '35_45', label: 'Mom · 35 to 45', img: momOlder},
+  {role: 'dad', age: '25_34', label: 'Dad · 25 to 34', img: dadYoung},
+  {role: 'dad', age: '35_45', label: 'Dad · 35 to 45', img: dadOlder},
+];
 const STORE = 'parley_quiz';
 
 function loadLocal(): QuizAnswers {
@@ -127,6 +107,7 @@ const asList = (v: QuizAnswers[string]) => (Array.isArray(v) ? v : typeof v === 
 export default function Quiz() {
   const params = useParams();
   const nav = useNavigate();
+  const {pathname} = useLocation();
   const {refresh} = useMe();
   const idx = Math.min(STEPS.length, Math.max(1, Number(params.step) || 1)) - 1;
   const step = STEPS[idx];
@@ -142,8 +123,8 @@ export default function Quiz() {
   useEffect(() => {
     leaving.current = false;
     window.scrollTo(0, 0);
-    track(idx === 0 ? 'quiz_start' : 'quiz_step', {step: idx + 1, id: step.id});
-  }, [idx, step.id]);
+    track(idx === 0 ? 'quiz_start' : 'quiz_step', {step: idx + 1, id: step.id, bare: pathname === '/quiz' || undefined});
+  }, [idx, step.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function save(patch: QuizAnswers) {
     setAnswers((a) => {
@@ -153,11 +134,15 @@ export default function Quiz() {
     });
     return api('/api/quiz', {body: {answers: patch}}).catch(() => {});
   }
-  const go = (n: number) => nav(n < 0 ? '/' : `/quiz/${n + 1}`);
+  const go = (n: number) => nav(n <= 0 ? '/quiz' : `/quiz/${n + 1}`);
   const next = () => { if (leaving.current) return; leaving.current = true; go(idx + 1); };
 
-  const qNumber = STEPS.slice(0, idx + 1).filter((s) => s.kind === 'q' || s.kind === 'name').length;
+  const qNumber = STEPS.slice(0, idx + 1).filter(asked).length;
   const pct = Math.round(((idx + (step.kind === 'build' ? 1 : 0)) / (STEPS.length - 1)) * 100);
+
+  if (step.kind === 'start') {
+    return <Start onPick={(w) => { if (leaving.current) return; leaving.current = true; track('quiz_answer', {id: 'who', value: `${w.role}_${w.age}`}); void save({role: w.role, age: w.age}); setTimeout(() => go(1), 220); }} />;
+  }
 
   return (
     <div className="fn-quiz">
@@ -247,14 +232,13 @@ function NameStep({initial, onDone}: {initial: string; onDone: (name: string) =>
 
 function InsightScreen({id, answers, onNext}: {id: string; answers: QuizAnswers; onNext: () => void}) {
   const triggers = asList(answers.triggers);
-  const reactions = asList(answers.reaction);
-  const court = typeof answers.court === 'string' ? answers.court : 'none';
   let body: ReactNode;
   if (id === 'record') {
+    // Saved answers from the longer quiz may still carry channels; new ones get the usual three.
     const ch = asList(answers.channels).filter((c) => c !== 'in_person');
     body = (
       <>
-        <div className="fn-ins-vis"><RecordVisual channels={ch.length ? ch : ['sms', 'email']} /></div>
+        <div className="fn-ins-vis"><RecordVisual channels={ch.length ? ch : ['sms', 'whatsapp', 'email']} /></div>
         <h1 className="fn-qh">Your messages are <span className="gt">already a record</span>.</h1>
         <p className="fn-qsub">Any text, chat or email can be screenshotted and read in court, sometimes months later. Parley keeps every exchange in one private, dated place, and works solo: the other parent never has to join anything.</p>
         <p className="fn-fact"><Icon id="app-cost" size={28} /><span>Shared co-parenting apps like OurFamilyWizard cost <b>$110–300 a year per parent</b>, and both parents have to sign up.</span></p>
@@ -268,31 +252,6 @@ function InsightScreen({id, answers, onNext}: {id: string; answers: QuizAnswers;
         <h1 className="fn-qh">{t ? <>Tense messages about <span className="gt">{TRIGGER_WORD[t] ?? 'the schedule'}</span> are common. Your reply is what counts.</> : <>A judge reads <span className="gt">your</span> messages too.</>}</h1>
         <p className="fn-qsub">In many states, judges weigh which parent supports the child's relationship with the other parent. A calm, brief reply to a hostile message tends to read well. A heated one can cost credibility.</p>
         <p className="fn-fact"><Icon id="judge-lens" size={28} /><span>Parley shows you how your own draft might read to a judge <b>before</b> you send it, phrase by phrase.</span></p>
-      </>
-    );
-  } else if (id === 'lawyer') {
-    const inCourt = court === 'active' || court === 'hearing' || court === 'modification';
-    body = (
-      <>
-        <div className="fn-ins-vis"><CostVisual /></div>
-        <h1 className="fn-qh">{inCourt ? <>Your lawyer shouldn't have to read <span className="gt">every text</span>.</> : <>Calm, written, dated: what keeps it <span className="gt">out of court</span>.</>}</h1>
-        <p className="fn-qsub">{inCourt
-          ? 'Lawyers often bill for the time spent reading messages. A clean, dated timeline with the facts pulled out turns a pile of screenshots into a few pages.'
-          : 'Contested custody is slow and expensive. Short, factual messages and a tidy record make it easier to settle things between the two of you.'}</p>
-        <p className="fn-fact"><Icon id="legal-fees" size={28} /><span>Average divorce attorney fees run about <b>$11,300</b> <small>(Martindale-Nolo)</small>.</span></p>
-      </>
-    );
-  } else {
-    const line = reactions.includes('fast') ? 'Replying right away is the most natural thing in the world. The plan builds a short pause into it, so the reply you send is the one you meant.'
-      : reactions.includes('long') ? 'Long explanations come from wanting to be understood. The plan helps you say the same thing in under 25 words, which is much harder to argue with.'
-      : reactions.includes('quiet') ? 'Going quiet protects you. The plan helps you tell which messages need an answer, and which can safely get none.'
-      : 'The plan trains one piece of it a day, with a short lesson and a practice message to answer.';
-    body = (
-      <>
-        <div className="fn-ins-vis"><BiffVisual /></div>
-        <h1 className="fn-qh">Brief. Informative. Friendly. Firm. <span className="gt">BIFF</span>.</h1>
-        <p className="fn-qsub">BIFF is a method from mediator and author Bill Eddy for answering hostile messages. {line}</p>
-        <p className="fn-fact"><Icon id="path" size={28} /><span>Your 28 days: <b>brief and factual</b>, <b>not taking the bait</b>, <b>firm boundaries</b>, <b>court-ready habits</b>.</span></p>
       </>
     );
   }
@@ -333,29 +292,10 @@ function JudgeVisual() {
   );
 }
 
-function CostVisual() {
-  return (
-    <div className="fn-vcost">
-      <div className="fn-vcost-pile">{Array.from({length: 7}).map((_, i) => <i key={i} style={{transform: `rotate(${(i % 3) * 4 - 4}deg) translate(${(i % 2) * 8}px, ${i * 7}px)`}} />)}</div>
-      <svg className="fn-vrec-arrow" viewBox="0 0 40 24" aria-hidden="true"><path d="M2 12h32m-8-8 8 8-8 8" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-      <div className="fn-vcost-page">
-        <b>Timeline</b>
-        {['E-1', 'E-2', 'E-3', 'E-4'].map((e) => <div key={e}><em>{e}</em><i /></div>)}
-        <small>PDF · dated</small>
-      </div>
-    </div>
-  );
-}
-
-function BiffVisual() {
-  const L: [string, string][] = [['B', 'Brief'], ['I', 'Informative'], ['F', 'Friendly'], ['F', 'Firm']];
-  return <div className="fn-vbiff">{L.map(([l, w], i) => <div key={i} style={{animationDelay: `${i * 110}ms`}}><b>{l}</b><span>{w}</span></div>)}</div>;
-}
-
 /* ---------- the side card: their answers filling in, like larpmotion's "your workspace" ---------- */
 
 function SideCard({answers, building}: {answers: QuizAnswers; building: boolean}) {
-  const rows = ['kids', 'channels', 'tension', 'triggers', 'court', 'goal'].map((k) => {
+  const rows = ['tension', 'triggers', 'court', 'kids', 'goal'].map((k) => {
     const v = asList(answers[k]);
     return {k, label: QS[k].side, value: v.length ? (k === 'triggers' ? labelOf(k, v[0]) : v.map((x) => labelOf(k, x)).join(', ')) : ''};
   });
@@ -449,6 +389,44 @@ function Build({answers, onDone}: {answers: QuizAnswers; onDone: () => Promise<v
         <div className="fn-err">{err} <button className="btn btn-ghost" onClick={() => void finish()}>Try again</button></div>
       )}
       <p className="fn-legal">Parley is not a law firm and doesn't give legal advice. <Link to="/">Home</Link></p>
+    </div>
+  );
+}
+
+/* ---------- screen 1: where ads land. No paste box: the first tap is the first answer. ---------- */
+
+function Start({onPick}: {onPick: (w: (typeof WHO)[number]) => void}) {
+  const [picked, setPicked] = useState<string | null>(null);
+  return (
+    <div className="fn-quiz fn-s1">
+      <header className="fn-s1-top">
+        <Logo />
+        <Link to="/demo" className="fn-s1-demo" onClick={() => track('quiz_demo_link')}><span className="fn-dot" />Jury demo</Link>
+      </header>
+      <main className="fn-s1-in fade-in">
+        <span className="fn-s1-kick">28-day calm co-parenting plan</span>
+        <h1 className="fn-s1-h">Answer your ex without <span className="gt">hurting your case</span></h1>
+        <p className="fn-s1-sub">Pick yours to start · 1-minute quiz</p>
+        <div className="fn-s1-grid" role="radiogroup" aria-label="Who are you">
+          {WHO.map((w) => {
+            const id = `${w.role}_${w.age}`;
+            return (
+              <button key={id} className={'fn-s1-card' + (picked === id ? ' on' : '')} role="radio" aria-checked={picked === id}
+                onClick={() => { setPicked(id); onPick(w); }}>
+                <img src={w.img} alt="" width={240} height={240} />
+                <span className="fn-s1-bar"><b>{w.label}</b><i aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6" /></svg>
+                </i></span>
+              </button>
+            );
+          })}
+        </div>
+        <p className="fn-s1-legal">By continuing you agree to our <Link to="/#faq">Terms</Link> and <Link to="/#privacy">Privacy Policy</Link></p>
+      </main>
+      <footer className="fn-s1-foot">
+        <Link to="/" onClick={() => track('quiz_about_link')}>See how it works</Link>
+        <p>Parley is not a law firm and doesn't give legal advice.</p>
+      </footer>
     </div>
   );
 }

@@ -30,11 +30,15 @@ function focusLines(a: QuizAnswers, p: QuizProfile): string[] {
   if (r.includes('quiet')) out.push('Knowing when a message needs no reply at all');
   if (r.includes('friend') || r.includes('lawyer')) out.push('A second opinion in seconds: the judge’s lens on your draft');
   out.push(`Practice messages about ${p.topTriggerLabel.toLowerCase()}`);
-  if (p.courtStage === 'active' || p.courtStage === 'hearing' || p.courtStage === 'modification') out.push('A dated, court-ready PDF timeline of every exchange');
+  if (['active', 'hearing', 'modification', 'gal'].includes(p.courtStage)) out.push('A dated, court-ready PDF timeline of every exchange');
   else out.push('A private, dated record, kept in case you ever need it');
   if (Array.isArray(a.triggers) && a.triggers.includes('messenger')) out.push('Ways to keep the kids out of the message chain');
   return out.slice(0, 4);
 }
+
+const REACTION: Record<string, string> = {
+  fast: 'Reply right away', long: 'Write a long explanation', quiet: 'Go quiet for a while', friend: 'Ask a friend first', lawyer: 'Run it by your lawyer',
+};
 
 const hours = (m: number) => (m < 60 ? `${m} min` : `${Math.round((m / 60) * 10) / 10} h`);
 
@@ -54,7 +58,7 @@ export default function PlanReveal() {
         <div className="card fn-err-card">
           <Icon id="path" size={48} />
           <h2>Your plan starts with a 1-minute check</h2>
-          <p>Eleven quick questions about your situation, and we build the 28 days around them.</p>
+          <p>Eight quick questions about your situation, and we build the 28 days around them.</p>
           <button className="btn btn-primary btn-lg" onClick={() => nav('/quiz')}>Take the 1-minute check</button>
         </div>
       </div>
@@ -64,6 +68,8 @@ export default function PlanReveal() {
   const name = data.name;
   const lvl = LEVEL[p.conflictLevel];
   const goalMinutes = Math.max(20, Math.round(p.minutesPerWeek * 0.35 / 10) * 10);
+  // The short quiz no longer asks about time; only answers saved by the old one have it.
+  const firstMove = REACTION[Array.isArray(answers.reaction) ? answers.reaction[0] : ''];
   const cta = (where: string) => track('plan_reveal_cta', {where});
 
   return (
@@ -91,7 +97,9 @@ export default function PlanReveal() {
               <div><dt><Icon id="trigger" size={30} />What sets it off most</dt><dd>{p.topTriggerLabel}</dd></div>
               <div><dt><Icon id="court-active" size={30} />Where things stand</dt><dd>{p.courtStageLabel}</dd></div>
               <div><dt><Icon id="goal" size={30} />What matters most now</dt><dd>{p.focus}</dd></div>
-              <div><dt><Icon id="time-3" size={30} />Time on messages</dt><dd>~{hours(p.minutesPerWeek)} a week <span className="fn-arrow">→</span> goal: under {hours(goalMinutes)}</dd></div>
+              {p.minutesPerWeek > 0
+                ? <div><dt><Icon id="time-3" size={30} />Time on messages</dt><dd>~{hours(p.minutesPerWeek)} a week <span className="fn-arrow">→</span> goal: under {hours(goalMinutes)}</dd></div>
+                : firstMove && <div><dt><Icon id="re-fast" size={30} />When a hard message lands</dt><dd>{firstMove}</dd></div>}
             </dl>
           </section>
 

@@ -16,7 +16,8 @@ import plan from './routes/plan.js';
 import demo from './routes/demo.js';
 
 const app = new Hono();
-app.use('/api/*', session);
+// A lawyer opening a shared timeline link isn't a Parley user: no guest row, no cookie.
+app.use('/api/*', (c, next) => (c.req.path.startsWith('/api/timeline/share/') ? next() : session(c, next)));
 
 app.get('/api/health', (c) => c.json({ok: true}));
 app.post('/api/event', async (c) => {

@@ -31,6 +31,9 @@ export interface Analysis {
   lens: LensFlag[];                       // flags on the draft if given, else on the recommended variant
   incident?: { worthLogging: boolean; title: string; note: string };  // e.g. a threat to involve the kids
   demo?: boolean;
+  stripped?: string[];                    // exact words left out of `facts` (insults, blame, old history) — shown as "stripped"
+  replyScore?: number;                    // 0..100 court-safety of the suggested (neutral) reply, scored in code
+  usedVariant?: 'brief' | 'neutral' | 'firm';  // set once the user copied/saved a reply (it was logged to the journal)
 }
 
 export type EntryKind = 'message_in' | 'message_out' | 'incident' | 'note' | 'expense';

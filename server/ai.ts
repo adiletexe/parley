@@ -3,6 +3,8 @@
    AI_PROVIDER=gemini|anthropic picks the first choice; if it fails with an account/quota error (402/403/429)
    and the other provider has a key, the call is retried there, so one depleted account doesn't take the product down. */
 
+import Anthropic from '@anthropic-ai/sdk';
+
 export interface AiImage { mimeType: string; dataBase64: string }   // image/* or application/pdf
 
 export interface AiCall {
@@ -20,7 +22,16 @@ const env = (k: string) => (process.env[k] || '').trim();
 const hasGemini = () => !!env('GEMINI_API_KEY');
 const hasClaude = () => !!env('ANTHROPIC_API_KEY');
 
+/* A ceiling on model calls per day, so a loop or a scraper can't drain the API balance (AI_DAILY_CAP, default 400). */
+let capDay = '', capUsed = 0;
+function spendOne() {
+  const day = new Date().toISOString().slice(0, 10);
+  if (day !== capDay) { capDay = day; capUsed = 0; }
+  if (++capUsed > Number(env('AI_DAILY_CAP') || 400)) throw new AiError('Parley is very busy right now. Please try again in a little while.', 429);
+}
+
 export async function geminiJSON<T>(opts: AiCall): Promise<T> {
+  spendOne();
   const first = env('AI_PROVIDER') === 'anthropic' || !hasGemini() ? 'anthropic' : 'gemini';
   const order: ('gemini' | 'anthropic')[] = first === 'gemini' ? ['gemini', 'anthropic'] : ['anthropic', 'gemini'];
   let last: unknown = new Error('No AI provider is configured (set GEMINI_API_KEY or ANTHROPIC_API_KEY)');
@@ -62,36 +73,38 @@ async function callGemini<T>(opts: AiCall): Promise<T> {
 }
 
 /* ---------------- Claude ---------------- */
+/* Structured outputs (output_config.format) keep the answer schema-shaped; forced tool_choice is a 400 on current models.
+   Server-side fallbacks ("default") re-run a declined request on a fallback model inside the same call. */
+let claude: Anthropic | null = null;
+
 async function callClaude<T>(opts: AiCall): Promise<T> {
-  const content: object[] = [];
+  claude ??= new Anthropic({apiKey: env('ANTHROPIC_API_KEY'), maxRetries: 1});
+  const content: Anthropic.Beta.BetaContentBlockParam[] = [];
   for (const im of opts.images ?? []) {
     content.push(im.mimeType === 'application/pdf'
       ? {type: 'document', source: {type: 'base64', media_type: 'application/pdf', data: im.dataBase64}}
-      : {type: 'image', source: {type: 'base64', media_type: im.mimeType, data: im.dataBase64}});
+      : {type: 'image', source: {type: 'base64', media_type: im.mimeType as 'image/png', data: im.dataBase64}});
   }
   content.push({type: 'text', text: opts.prompt});
-  // Forcing a single tool whose input_schema is our schema is the reliable way to get schema-shaped JSON from Claude.
-  const body = {
-    model: env('ANTHROPIC_MODEL') || 'claude-sonnet-5-5',
-    max_tokens: 4096,
-    temperature: opts.temperature ?? 0.4,
-    system: opts.system,
-    tools: [{name: 'respond', description: 'Return the answer in exactly this structure.', input_schema: toJsonSchema(opts.schema)}],
-    tool_choice: {type: 'tool', name: 'respond'},
-    messages: [{role: 'user', content}],
-  };
-  return withRetry(async (signal) => {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST', signal,
-      headers: {'content-type': 'application/json', 'x-api-key': env('ANTHROPIC_API_KEY'), 'anthropic-version': '2023-06-01'},
-      body: JSON.stringify(body),
-    });
-    if (!res.ok) throw new AiError(`Claude ${res.status}: ${(await res.text()).slice(0, 300)}`, res.status === 529 ? 503 : res.status);
-    const j = await res.json() as {content?: {type: string; input?: unknown}[]};
-    const use = j.content?.find((b) => b.type === 'tool_use');
-    if (!use?.input) throw new AiError('Claude returned no structured answer', 502);
-    return use.input as T;
-  }, opts.timeoutMs);
+  try {
+    const res = await claude.beta.messages.create({
+      model: env('ANTHROPIC_MODEL') || 'claude-opus-5-5',
+      max_tokens: 16000,
+      betas: ['server-side-fallback-2026-07-01'],
+      fallbacks: 'default',
+      // Low effort: these are short structured answers and the person is waiting on them.
+      output_config: {effort: (env('ANTHROPIC_EFFORT') || 'low') as 'low', format: {type: 'json_schema', schema: toJsonSchema(opts.schema) as Record<string, unknown>}},
+      system: opts.system,
+      messages: [{role: 'user', content}],
+    }, {timeout: opts.timeoutMs ?? 90_000});
+    if (res.stop_reason === 'refusal') throw new AiError('The model declined this request', 422);
+    const text = res.content.map((b) => (b.type === 'text' ? b.text : '')).join('');
+    try { return JSON.parse(text) as T; } catch { throw new AiError('Claude returned invalid JSON', 502); }
+  } catch (e) {
+    if (e instanceof AiError) throw e;
+    if (e instanceof Anthropic.APIError) throw new AiError(`Claude ${e.status}: ${e.message.slice(0, 300)}`, e.status ?? 0);
+    throw e;
+  }
 }
 
 /** Gemini's responseSchema allows upper-case OpenAPI types and `nullable`; JSON Schema wants lower-case types. */
@@ -104,6 +117,7 @@ function toJsonSchema(s: unknown): unknown {
     else if (k === 'nullable' || k === 'propertyOrdering') continue;
     else out[k] = toJsonSchema(v);
   }
+  if (out.type === 'object' && out.properties && !('additionalProperties' in out)) out.additionalProperties = false;
   return out;
 }
 

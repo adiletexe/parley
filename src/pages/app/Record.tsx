@@ -392,6 +392,9 @@ function Chat({days, name, now, onChanged, flashDay, flashEntry, onReports}: {
   const [open, setOpen] = useState<string | null>(null);
   const [menu, setMenu] = useState(false);
   const [confirmDel, setConfirmDel] = useState(false);
+  const [editing, setEditing] = useState<string | null>(null);
+  const [draft, setDraft] = useState('');
+  const [copied, setCopied] = useState(false);
   const [tip, setTip] = useState<{id: string; hit: RiskHit} | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -406,7 +409,24 @@ function Chat({days, name, now, onChanged, flashDay, flashEntry, onReports}: {
     }
     setBusy(false);
   }
-  const toggle = (id: string) => { setOpen(open === id ? null : id); setMenu(false); setConfirmDel(false); setError(''); setTip(null); };
+  const toggle = (id: string) => { setOpen(open === id ? null : id); setMenu(false); setConfirmDel(false); setEditing(null); setError(''); setTip(null); };
+  /* Fix text: screenshots are read by AI and can be misread, so a message's words can be corrected. The edit is
+     saved as-is and marked "edited" in the record. */
+  async function saveEdit(id: string) {
+    const text = draft.trim();
+    if (!text) return;
+    setBusy(true); setError('');
+    try {
+      const cur = days.flatMap((d) => d.items).find((x) => x.id === id);
+      const tags = [...new Set([...(cur?.tags ?? []), 'edited'])];
+      await api(`/api/journal/${id}`, {method: 'PATCH', body: {text, tags}});
+      setEditing(null); setMenu(false); onChanged();
+    } catch (e) { setError((e as Error).message); }
+    setBusy(false);
+  }
+  async function copy(text: string) {
+    try { await navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 1400); } catch { /* clipboard refused */ }
+  }
   const showTip = (id: string, hit: RiskHit) => {
     setTip(tip?.id === id && tip.hit.start === hit.start ? null : {id, hit}); setOpen(null);
     track('record_risk_tap', {kind: hit.kind});
@@ -421,15 +441,27 @@ function Chat({days, name, now, onChanged, flashDay, flashEntry, onReports}: {
   const detail = (e: RdEntry) => (
     <div className="rd-det fade-in">
       <p className="rd-det-meta">
-        <b>E-{e.exhibit}</b> · {fmtDate(e.occurredAt, {weekday: 'short', month: 'short', day: 'numeric'})}, {fmtTime(e.occurredAt)} · {SOURCE[e.source]}
+        {fmtDate(e.occurredAt, {weekday: 'short', month: 'short', day: 'numeric'})}, {fmtTime(e.occurredAt)} · {SOURCE[e.source]}{e.tags?.includes('edited') ? ' · edited' : ''}
       </p>
-      <span className="rd-det-more">
-        <button type="button" className="rd-dots" onClick={() => { setMenu((m) => !m); setConfirmDel(false); }} aria-expanded={menu} aria-label="More">⋯</button>
-        {menu && !confirmDel && <button type="button" className="rd-menu fade-in" onClick={() => setConfirmDel(true)}><Icon id="trash" size={20} />Delete</button>}
-      </span>
+      <button type="button" className="rd-dots" onClick={() => { setMenu((m) => !m); setConfirmDel(false); setEditing(null); }} aria-expanded={menu} aria-label="More">⋯</button>
+      {menu && !confirmDel && editing !== e.id && (
+        <div className="rd-menu-card fade-in" role="menu">
+          <button type="button" role="menuitem" onClick={() => void copy(e.text)}><Icon id="scripts" size={22} />{copied ? 'Copied' : 'Copy text'}</button>
+          <button type="button" role="menuitem" onClick={() => { setEditing(e.id); setDraft(e.text); }}><Icon id="pencil" size={22} />Fix text</button>
+          <button type="button" role="menuitem" className="danger" onClick={() => setConfirmDel(true)}><Icon id="trash" size={22} />Delete</button>
+        </div>
+      )}
+      {editing === e.id && (
+        <div className="rd-confirm fade-in">
+          <span>Fix what the screenshot got wrong. It'll show as edited.</span>
+          <textarea className="field rd-edit" value={draft} onChange={(ev) => setDraft(ev.target.value)} rows={Math.min(6, draft.split('\n').length + 1)} />
+          <button type="button" className="btn btn-primary" disabled={busy || !draft.trim()} onClick={() => void saveEdit(e.id)}>{busy ? <span className="spin" /> : 'Save'}</button>
+          <button type="button" className="btn btn-quiet" onClick={() => setEditing(null)}>Cancel</button>
+        </div>
+      )}
       {confirmDel && (
         <div className="rd-confirm fade-in" role="alertdialog" aria-label="Delete this message?">
-          <span>Delete this for good? It won’t be in the PDF anymore, and the exhibit numbers after it shift.</span>
+          <span>Delete this for good? It won't be in your record or the PDF anymore.</span>
           <button type="button" className="btn rd-danger" disabled={busy} onClick={() => void del(e.id)}>{busy ? <span className="spin" /> : 'Delete'}</button>
           <button type="button" className="btn btn-quiet" onClick={() => { setConfirmDel(false); setMenu(false); }}>Keep it</button>
         </div>

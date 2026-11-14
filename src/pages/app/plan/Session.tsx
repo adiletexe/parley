@@ -41,7 +41,8 @@ export const bubblesOf = (message: string) => message.split('\n').map((b) => b.t
    to read (typing longer for a longer text), the burst settles before the next dots start, and the question waits
    a breath after the last bubble before the replies come in one at a time. */
 const typingMs = (text: string) => Math.min(2400, 700 + 30 * text.length);
-const GAP_MS = 500, ASK_MS = 1500, OPT_MS = 450;
+// The question follows the last text almost at once; the replies then come slowly, one at a time, so each gets read.
+const GAP_MS = 500, ASK_MS = 350, OPT_FIRST_MS = 1300, OPT_MS = 1100;
 
 /** A stable shuffle per question: the order is drawn from the id (which carries the day), so a reload shows the
     same order and the position of the good reply never tells. Returns display slot → option index. */
@@ -90,7 +91,7 @@ export function Session({session, onExit, onDone}: {
     });
     t += ASK_MS;
     at(t, () => setView((v) => ({...v, ask: true})));
-    for (let k = 1; k <= nOpts; k++) at(t + k * OPT_MS, () => setView((v) => ({...v, opts: k})));
+    for (let k = 1; k <= nOpts; k++) at(t + OPT_FIRST_MS + (k - 1) * OPT_MS, () => setView((v) => ({...v, opts: k})));
     return clear;
   }, [q.id, total, nOpts]);
 

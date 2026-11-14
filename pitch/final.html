@@ -87,7 +87,7 @@ h2 span, h1 span { color: var(--mute); }
 
 /* 4/5/6 · product */
 .prod .copy { left: 120px; top: 420px; width: 700px; }
-.prod h2 { font-size: 60px; width: 740px !important; }
+.prod h2 { font-size: 60px; width: 740px; }
 .prod .copy li { list-style: none; font-size: 27px; line-height: 1.42; color: var(--mute); padding: 18px 0; border-top: 1px solid var(--line); }
 .prod .copy li b { color: var(--fg); }
 .prod .phones { right: 110px; top: 110px; display: flex; gap: 48px; align-items: flex-start; }
@@ -172,6 +172,71 @@ h2 span, h1 span { color: var(--mute); }
 .s10n .sub { left: 120px; top: 730px; font-size: 26px; color: var(--mute); font-weight: 600; }
 .s10n .end { left: 1040px; top: 300px; }
 .s10n .src { width: 860px; }
+
+/* 7 · ad wall */
+.s7b .wall { left: 120px; top: 380px; width: 1680px; display: flex; gap: 22px; align-items: flex-start; }
+.s7b .wall-note { left: 120px; top: 730px; font-size: 22px; color: var(--mute); font-weight: 600; }
+.s7b .proof { left: 120px; bottom: 112px; width: 1680px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; padding-top: 26px; }
+.s7b .proof .num { font-size: 52px; } .s7b .proof .cap { font-size: 18px; }
+.ad { width: 318px; height: 320px; border-radius: 16px; overflow: hidden; position: relative; flex: none; color: #1b1b1b; }
+.s7b .wall .ad:nth-child(odd) { transform: rotate(-1.5deg); } .s7b .wall .ad:nth-child(even) { transform: rotate(1.5deg); margin-top: 18px; }
+.ad.notes { background: #fbf6e6; padding: 28px 22px 18px; }
+.ad.notes::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 5px; background: #f2c200; }
+.ad.notes small { color: #c49a00; font-size: 14px; font-weight: 600; }
+.ad.notes h4 { font-size: 24px; font-weight: 800; line-height: 1.12; margin: 10px 0; text-transform: uppercase; }
+.ad.notes p { font-size: 16px; line-height: 1.35; margin: 0 0 8px; }
+.ad.notes mark { background: #ffe680; }
+.ad.notes u { position: absolute; left: 22px; bottom: 18px; font-size: 16px; font-weight: 800; }
+.ad.imsg { background: #fff; padding: 20px 16px; display: flex; flex-direction: column; gap: 8px; }
+.ad.imsg .who { text-align: center; font-size: 13px; color: #8a8a8e; font-weight: 600; }
+.ad.imsg .m { font-size: 16px; line-height: 1.3; padding: 9px 13px; border-radius: 17px; max-width: 86%; }
+.ad.imsg .i { background: #e9e9eb; align-self: flex-start; }
+.ad.imsg .o { background: #e2508f; color: #fff; align-self: flex-end; text-decoration: line-through; }
+.ad.imsg .g { background: #2f6bff; color: #fff; align-self: flex-end; }
+.ad.imsg .cta { margin-top: auto; text-align: center; font-size: 15px; font-weight: 800; color: #2f6bff; }
+.ad.poll { background: #fff; padding: 24px 20px; display: flex; flex-direction: column; gap: 10px; }
+.ad.poll .q { font-size: 22px; font-weight: 800; line-height: 1.15; margin-bottom: 4px; }
+.ad.poll .opt { font-size: 16px; border: 2px solid #e3e5ee; border-radius: 12px; padding: 9px 12px; }
+.ad.poll .opt.on { border-color: #1fa572; background: #e3f7ee; font-weight: 700; }
+.ad.poll .foot { margin-top: auto; font-size: 14px; color: #5b6cf6; font-weight: 800; }
+.ad.bill { background: #fff; padding: 24px 22px; font-family: ui-monospace, Menlo, monospace; display: flex; flex-direction: column; gap: 10px; }
+.ad.bill .hd { font-size: 14px; letter-spacing: .08em; color: #666; border-bottom: 1px dashed #bbb; padding-bottom: 10px; }
+.ad.bill .ln, .ad.bill .tot { display: flex; justify-content: space-between; font-size: 15px; }
+.ad.bill .tot { border-top: 1px dashed #bbb; padding-top: 10px; font-weight: 800; color: #c0245e; font-size: 18px; }
+.ad.bill .ft { margin-top: auto; font-family: var(--font); font-weight: 800; font-size: 17px; }
+.ad.pov { background: #111; color: #fff; padding: 24px 20px; display: flex; flex-direction: column; gap: 12px; }
+.ad.pov .tag { font-size: 14px; font-weight: 800; background: #fe2c55; align-self: flex-start; padding: 3px 9px; border-radius: 6px; }
+.ad.pov .big { font-size: 26px; font-weight: 800; line-height: 1.15; }
+.ad.pov .bub { background: #2a2a2e; border-radius: 16px; padding: 10px 14px; font-size: 16px; align-self: flex-start; }
+.ad.pov .ft { margin-top: auto; font-size: 16px; color: #aaa; font-weight: 700; }
+/* 8 · funnel */
+.s8f .flow { left: 120px; top: 330px; width: 1680px; display: flex; align-items: flex-start; justify-content: space-between; }
+.s8f .st { width: 240px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.s8f .st b { font-size: 21px; font-weight: 800; margin-top: 18px; display: block; }
+.s8f .st span { font-size: 16px; color: var(--mute); margin-top: 4px; display: block; }
+.s8f .ar { font-size: 40px; color: var(--acc); font-weight: 800; padding-top: 200px; }
+.s8f .ad.mini { width: 217px; height: 446px; padding-top: 40px; }
+.s8f .ad.mini h4 { font-size: 26px; }
+.s8f .why { left: 120px; bottom: 96px; width: 1680px; display: flex; gap: 70px; align-items: flex-end; border-top: 1px solid var(--line); padding-top: 24px; }
+.s8f .why .num { font-size: 52px; }
+.s8f .why .cap { font-size: 18px; color: var(--mute); margin-top: 6px; }
+.s8f .why .live { margin-left: auto; text-align: right; }
+.s8f .why .live .u { font-size: 40px; font-weight: 800; letter-spacing: -.02em; }
+/* 10 · money and close */
+.s10c .blocks { left: 120px; top: 360px; width: 1680px; display: grid; grid-template-columns: 1fr 1fr; gap: 36px; }
+.s10c .blk { background: var(--card); border: 1px solid var(--line); border-radius: 32px; padding: 36px 40px; }
+.s10c .blk .t { color: var(--acc); letter-spacing: .12em; text-transform: uppercase; font-size: 15px; }
+.s10c .blk .num { font-size: 76px; margin-top: 14px; }
+.s10c .blk p { font-size: 21px; color: var(--mute); line-height: 1.45; margin-top: 12px; }
+.s10c .blk p b { color: var(--fg); }
+.s10c .close { left: 120px; top: 700px; width: 1680px; display: flex; justify-content: space-between; align-items: center; }
+.s10c .close .h { font-size: 56px; font-weight: 800; letter-spacing: -.03em; }
+.s10c .close .h span { color: var(--mute); }
+.s10c .close .u { font-size: 40px; font-weight: 800; margin-top: 12px; }
+.s10c .close .u span { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.s10c .close .s { font-size: 19px; color: var(--mute); margin-top: 8px; }
+.s10c .chat.mini { width: 640px; padding: 26px 30px; }
+.s10c .chat.mini .b { font-size: 21px; }
 </style>
 </head>
 <body>
@@ -224,23 +289,6 @@ h2 span, h1 span { color: var(--mute); }
   <div class="pg">2</div>
 </section>
 
-<!-- 3 · COMPETITORS -->
-<section class="slide s3">
-  <div class="mark"><i></i>Parley</div>
-  <div class="kick">What parents use today</div>
-  <h2>They already pay. <span>But the big apps only work if both parents sign up.</span></h2>
-  <table>
-    <tr><th style="width:250px">Option</th><th>Price</th><th>Needs the other parent</th><th>Writes the reply</th><th>Record for court</th><th>Teaches the skill</th></tr>
-    <tr><td>OurFamilyWizard</td><td>$110 to $300 / year, each parent</td><td class="n">Yes, and they can just refuse</td><td>Tone check on top tiers</td><td class="y">Yes</td><td class="n">No</td></tr>
-    <tr><td>TalkingParents</td><td>$77 to $352 / year</td><td class="n">Yes</td><td>Top tier only</td><td class="y">Yes</td><td class="n">No</td></tr>
-    <tr><td>BestInterest</td><td>$10 to $30 / month</td><td class="y">No</td><td class="y">Yes</td><td>Partly</td><td class="n">No</td></tr>
-    <tr><td>ChatGPT</td><td>$0 to $20 / month</td><td class="y">No</td><td>Long and formal, reads passive-aggressive</td><td class="n">No</td><td class="n">No</td></tr>
-    <tr class="us"><td>Parley</td><td>$19.99 first 4 weeks</td><td class="y">No, works alone</td><td class="y">Yes, in their own texting voice</td><td class="y">Yes, PDF for the lawyer</td><td class="y">28-day practice</td></tr>
-  </table>
-  <p class="src">Prices from each product's pricing page, November 2026.</p>
-  <div class="pg">3</div>
-</section>
-
 <!-- 4 · REPLY -->
 <section class="slide prod">
   <div class="mark"><i></i>Parley</div>
@@ -256,14 +304,32 @@ h2 span, h1 span { color: var(--mute); }
     <div class="iphone iphone--black" style="--s:0.92; --shift:72" data-shot="shots/reply-result.png"></div>
     <div class="low"><div class="iphone iphone--black" style="--s:0.92" data-shot="shots/lens.png"></div></div>
   </div>
+  <div class="pg">3</div>
+</section>
+
+<!-- 6 · PRACTICE -->
+<section class="slide prod">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">The product · 2 of 3 · Skills track</div>
+  <h2 style="width:760px;font-size:60px">Most parents fire back. We teach them not to.</h2>
+  <ul class="copy">
+    <li><b>5 real texts a day</b> from the other parent. Pick the reply you'd send.</li>
+    <li><b>All three choices sound human,</b> so the right one is earned, not guessed.</li>
+    <li><b>Wrong pick? See why,</b> then write your own and get graded like a judge would.</li>
+    <li><b>28-day path, streak, reminders.</b> They come back daily; they renew for the record.</li>
+  </ul>
+  <div class="phones">
+    <div class="iphone iphone--black" style="--s:0.92; --shift:72" data-shot="shots/drill-2.png"></div>
+    <div class="low"><div class="iphone iphone--black" style="--s:0.92; --shift:0" data-shot="shots/plan.png"></div></div>
+  </div>
   <div class="pg">4</div>
 </section>
 
 <!-- 5 · RECORD -->
 <section class="slide prod">
   <div class="mark"><i></i>Parley</div>
-  <div class="kick">The product · 2 of 3</div>
-  <h2 style="width:800px">Every message, dated. One PDF for the lawyer.</h2>
+  <div class="kick">The product · 3 of 3</div>
+  <h2 style="width:640px;font-size:56px">Your lawyer gets one clean file, not 200 screenshots.</h2>
   <ul class="copy">
     <li><b>Upload screenshots</b> or a WhatsApp export. The other parent never knows.</li>
     <li><b>Threats and insults are flagged</b> right in the chat.</li>
@@ -277,57 +343,68 @@ h2 span, h1 span { color: var(--mute); }
   <div class="pg">5</div>
 </section>
 
-<!-- 6 · PRACTICE -->
-<section class="slide prod">
+<!-- 3 · COMPETITORS -->
+<section class="slide s3">
   <div class="mark"><i></i>Parley</div>
-  <div class="kick">The product · 3 of 3 · Skills track</div>
-  <h2 style="width:800px">Staying calm is a skill. Two minutes a day.</h2>
-  <ul class="copy">
-    <li><b>5 real texts a day</b> from the other parent. Pick the reply you'd send.</li>
-    <li><b>All three choices sound human,</b> so the right one is earned, not guessed.</li>
-    <li><b>Wrong pick? See why,</b> then write your own and get graded like a judge would.</li>
-    <li><b>28-day path, streak, reminders.</b> They come back daily; they renew for the record.</li>
-  </ul>
-  <div class="phones">
-    <div class="iphone iphone--black" style="--s:0.92; --shift:72" data-shot="shots/drill-2.png"></div>
-    <div class="low"><div class="iphone iphone--black" style="--s:0.92; --shift:0" data-shot="shots/plan.png"></div></div>
-  </div>
+  <div class="kick">What parents use today</div>
+  <h2>They already pay. <span>But the big apps only work if both parents sign up.</span></h2>
+  <table>
+    <tr><th style="width:250px">Option</th><th>Price</th><th>Needs the other parent</th><th>Writes the reply</th><th>Record for court</th><th>Teaches the skill</th></tr>
+    <tr><td>OurFamilyWizard</td><td>$110 to $300 / year, each parent</td><td class="n">Yes, and they can just refuse</td><td>Tone check on top tiers</td><td class="y">Yes</td><td class="n">No</td></tr>
+    <tr><td>TalkingParents</td><td>$77 to $352 / year</td><td class="n">Yes</td><td>Top tier only</td><td class="y">Yes</td><td class="n">No</td></tr>
+    <tr><td>BestInterest</td><td>$10 to $30 / month</td><td class="y">No</td><td class="y">Yes</td><td>Partly</td><td class="n">No</td></tr>
+    <tr><td>ChatGPT</td><td>$0 to $20 / month</td><td class="y">No</td><td>Long and formal, reads passive-aggressive</td><td class="n">No</td><td class="n">No</td></tr>
+    <tr class="us"><td>Parley</td><td>$19.99 first 4 weeks</td><td class="y">No, works alone</td><td class="y">Yes, in their own texting voice</td><td class="y">Yes, PDF for the lawyer</td><td class="y">28-day practice</td></tr>
+  </table>
+  <p class="src">Prices from each product's pricing page, November 2026.</p>
   <div class="pg">6</div>
 </section>
 
-<!-- 7 · MARKETING -->
-<section class="slide s7">
+<!-- 7 · WHY ADS ARE CHEAP -->
+<section class="slide s7b">
   <div class="mark"><i></i>Parley</div>
   <div class="kick">How we get customers cheaply</div>
-  <h2 style="width:1500px">Competitors run polished ads. <span>We'll run the ads that convert, in a niche nobody runs them in.</span></h2>
-  <div class="cols">
-    <div class="col">
-      <h3>Competitors today</h3>
-      <p>Glossy, corporate, written for the judge. No quiz funnels.</p>
-      <div class="thumbs"><img src="research/img/cp-ofw-quote.jpg"><img src="research/img/cp-ofw-before.jpg"></div>
-    </div>
-    <div class="col">
-      <h3>Zimran's playbook</h3>
-      <p>Plain native statics, one message, dozens of tests a day.</p>
-      <div class="thumbs"><img src="research/img/fin-notes.jpg"><img src="research/img/fin-notebook.jpg"></div>
-    </div>
-    <div class="col">
-      <h3>Parley's ads</h3>
-      <p>The ad <i>is</i> the product: a real-looking text thread, fixed.</p>
-      <div class="thumbs">
-        <div class="ad notes"><small>‹ Notes</small><h4>Read it the way a judge will.</h4><p>Before you hit send.</p><p>Paste their text. Get a <mark>calm reply that holds up in court</mark> in 10 seconds.</p><u>TAP TO TRY</u></div>
-        <div class="ad imsg"><div class="who">Jordan</div><div class="m i">so ur not coming. wow.</div><div class="m o">here we go again 🙄</div><div class="m g">Running 10 min late, be there by 5:40.</div><div class="cta">Fix your reply in 10 sec →</div></div>
-      </div>
-    </div>
+  <h2 style="width:1700px;font-size:58px">Every angry text is a free ad. <span>This niche writes its own creatives.</span></h2>
+  <div class="wall">
+    <div class="ad notes"><small>‹ Notes</small><h4>Read it the way a judge will.</h4><p>Before you hit send.</p><p>Paste their text. Get a <mark>calm reply</mark> in 10 seconds.</p><u>TAP TO TRY</u></div>
+    <div class="ad imsg"><div class="who">Jordan</div><div class="m i">so ur not coming. wow.</div><div class="m o">here we go again</div><div class="m g">Running 10 min late, there by 5:40.</div><div class="cta">Fix your reply in 10 sec</div></div>
+    <div class="ad poll"><div class="q">Rate my reply to my ex</div><div class="opt">A · "k."</div><div class="opt">B · "wow, again??"</div><div class="opt on">C · "Got it, I'll be there at 5."</div><div class="foot">Tap to see what a judge picks</div></div>
+    <div class="ad bill"><div class="hd">LAW OFFICE · INVOICE</div><div class="ln"><span>Read 1 text from ex</span><span>$349</span></div><div class="ln"><span>Read your reply</span><span>$349</span></div><div class="tot"><span>TOTAL</span><span>$698</span></div><div class="ft">Or answer it right the first time.</div></div>
+    <div class="ad pov"><div class="tag">POV</div><div class="big">your ex texts you at 11:48 pm</div><div class="bub">istg if he shows up saturday</div><div class="ft">what do you send?</div></div>
   </div>
+  <div class="wall-note">Zimran's format (plain native statics, dozens of tests a day) fits a fight everyone recognizes.</div>
   <div class="proof rule">
-    <div><div class="num">75 · 43 · 0</div><div class="cap">active Meta ads: OurFamilyWizard, TalkingParents, BestInterest. <b>None use a quiz.</b></div></div>
-    <div><div class="num">11.6% <span style="color:var(--dim);font-size:34px">vs 7.0%</span></div><div class="cap">hit rate of plain-text ads vs high-production ads on Meta</div></div>
-    <div><div class="num">5B</div><div class="cap">TikTok views on #coparenting. The audience is already watching.</div></div>
-    <div><div class="num">Share</div><div class="cap">Instagram Reels and TikTok Spark ads can be sent to a friend: free extra reach.</div></div>
+    <div><div class="num">0</div><div class="cap">competitors run a quiz funnel. OFW ~75 ads, TalkingParents ~43, BestInterest 0.</div></div>
+    <div><div class="num">11.6% <span style="color:var(--dim);font-size:34px">vs 7.0%</span></div><div class="cap">plain-text ads win more often than polished ones on Meta</div></div>
+    <div><div class="num">5B</div><div class="cap">TikTok views on #coparenting. People already watch these fights.</div></div>
+    <div><div class="num">Share</div><div class="cap">Reels and Spark ads can be sent to a friend: reach we don't pay for</div></div>
   </div>
-  <p class="src" style="bottom:40px">Meta Ad Library, US, active ads, 14 Nov 2026 · Motion Creative Benchmarks 2026 (550K ads) · hashtagradar · Meta & TikTok ad specs. Ads always say "the other parent", never "your ex" (Meta personal-attributes policy).</p>
+  <p class="src" style="bottom:40px">Meta Ad Library (US, 14 Nov 2026) · Motion Creative Benchmarks 2026 (550K ads) · hashtagradar · Meta and TikTok ad specs. Ads say "the other parent", never "your ex" (Meta policy). Ad ideas are ours, examples only.</p>
   <div class="pg">7</div>
+</section>
+
+<!-- 8 · FUNNEL -->
+<section class="slide s8f">
+  <div class="mark"><i></i>Parley</div>
+  <div class="kick">From ad to paid plan · built and live</div>
+  <h2 style="width:1700px;font-size:58px">One minute from an ad to a paid plan. <span>Zimran's quiz funnel.</span></h2>
+  <div class="flow">
+    <div class="st"><div class="ad notes mini"><small>‹ Notes</small><h4>Read it the way a judge will.</h4><p>Paste their text. Get a <mark>calm reply</mark>.</p><u>TAP TO TRY</u></div><b>1 · Plain ad</b><span>dozens tested a day</span></div>
+    <div class="ar">→</div>
+    <div class="st"><div class="iphone iphone--black" style="--s:.5; --tab:0" data-shot="shots/onb-quiz.png"></div><b>2 · 11 questions</b><span>their kids, their ex, their case</span></div>
+    <div class="ar">→</div>
+    <div class="st"><div class="iphone iphone--black" style="--s:.5; --tab:0" data-shot="shots/onb-insight.png"></div><b>3 · 4 "good to know"</b><span>a fact after every few answers</span></div>
+    <div class="ar">→</div>
+    <div class="st"><div class="iphone iphone--black" style="--s:.5; --tab:0" data-shot="shots/onb-plan.png"></div><b>4 · Their own plan</b><span>built from their answers</span></div>
+    <div class="ar">→</div>
+    <div class="st"><div class="iphone iphone--black" style="--s:.5; --tab:0" data-shot="shots/onb-pricing.png"></div><b>5 · Price</b><span>$19.99 first 4 weeks</span></div>
+  </div>
+  <div class="why">
+    <div><div class="num">~19</div><div class="cap">screens, about a minute</div></div>
+    <div><div class="num">0</div><div class="cap">sign-up or free tier: they pay for the plan they just built</div></div>
+    <div class="live"><div class="cap">Try the whole funnel now</div><div class="u">parley.adiletfndr.com</div></div>
+  </div>
+  <div class="pg">8</div>
 </section>
 
 <!-- 8 · UNIT ECONOMICS -->
@@ -358,48 +435,30 @@ h2 span, h1 span { color: var(--mute); }
     </table>
   </div>
   <p class="src" style="bottom:40px">CPM: Triple Whale Aug 2025 to Jul 2026 · CTR: LocaliQ/WordStream 2026 (Legal) · quiz steps: Adapty 2025 · renewals: RevenueCat 2025 (61.7% renew once; we use 50% for a web intro price), 89% kept each period after · LTV = $21 first payment + $29.99 renewals over ~5 paid months minus 2.9%+30¢ Stripe, 5% refunds and AI ($0.06/reply). Model: pitch/model.mjs in the repo.</p>
-  <div class="pg">8</div>
-</section>
-
-<!-- 9 · PATH TO $100M -->
-<section class="slide s9">
-  <div class="mark"><i></i>Parley</div>
-  <div class="kick">Business model</div>
-  <h2 style="width:1500px">$100M a year is 2% of US custodial parents.</h2>
-  <div class="blocks">
-    <div class="blk"><div class="t">Paying parents needed</div><div class="num">257K</div><p>× $29.99 every 4 weeks × 13 = <b>$100M ARR</b>. Out of 12.9M custodial parents, and the other parent is a second market.</p></div>
-    <div class="blk"><div class="t">Ad spend to hold it</div><div class="num">$2M<span style="font-size:36px;color:var(--mute)"> / mo</span></div><p>A customer stays ~5 months, so we add <b>~49K a month</b> at $40 each. Revenue is $8.3M a month.</p></div>
-    <div class="blk"><div class="t">Why they renew</div><div class="num">Record</div><p>The dated record is needed until the case ends: months, not days. <b>Leaving means losing the evidence trail.</b></p></div>
-  </div>
-  <div class="price">
-    <div><b>No free tier</b><span>like Zimran: paid intro period</span></div>
-    <div><b>$6.99</b><span>1 week, then $29.99 / 4 wks</span></div>
-    <div class="pop"><b>$19.99</b><span>4 weeks · most popular</span></div>
-    <div><b>$49.99</b><span>12 weeks, then $69.99</span></div>
-    <div><b>14 days</b><span>money back, cancel in one click</span></div>
-  </div>
   <div class="pg">9</div>
 </section>
 
-<!-- 10 · LIVE -->
-<section class="slide s10n">
+<!-- 10 · $100M AND CLOSE -->
+<section class="slide s10c">
   <div class="mark"><i></i>Parley</div>
-  <div class="kick">Live now · no sign-up</div>
-  <h1>One calm text. <span>Parley writes it.</span></h1>
-  <div class="url">parley.adiletfndr.com<span class="gradtxt">/demo</span></div>
-  <div class="sub">Test card 4242 4242 4242 4242 · github.com/adiletexe/parley</div>
-  <div class="chat end">
-    <div class="head"><div class="av">D</div><b>Dad</b><span>With Parley</span></div>
-    <div class="th">
-      <div class="b in">Mom asks him to get their son to sleep in his own bed</div>
-      <div class="b out" style="opacity:.35;text-decoration:line-through">I will not coparent with you, get that straight</div>
-      <div class="b out good">Ok, I'll keep him in his own bed this week. Let's check in Sunday on how it went.</div>
+  <div class="kick">Business model</div>
+  <h2 style="width:1500px">$100M a year is 1% of parents in two homes.</h2>
+  <div class="blocks">
+    <div class="blk"><div class="t">Paying parents needed</div><div class="num">257K</div><p>× $29.99 every 4 weeks × 13 = <b>$100M a year</b>. Out of ~25M parents raising kids in two homes.</p></div>
+    <div class="blk"><div class="t">Ad spend to hold it</div><div class="num">$2M<span style="font-size:36px;color:var(--mute)"> / mo</span></div><p>A customer stays ~5 months, so we add <b>~49K a month</b> at $40 each. Revenue is $8.3M a month.</p></div>
+  </div>
+  <div class="close">
+    <div class="l"><div class="h">One calm text. <span>Parley writes it.</span></div><div class="u">parley.adiletfndr.com<span>/demo</span></div><div class="s">No sign-up · test card 4242 4242 4242 4242 · github.com/adiletexe/parley</div></div>
+    <div class="chat mini">
+      <div class="th">
+        <div class="b out" style="opacity:.4;text-decoration:line-through">I will not coparent with you, get that straight</div>
+        <div class="b out good">Ok, I'll keep him in his own bed this week. Let's check in Sunday.</div>
+      </div>
     </div>
   </div>
-  <p class="src">Parley is not a law firm and doesn't give legal advice.</p>
+  <p class="src" style="bottom:40px">~25M = 12.9M custodial parents (US Census P60-269) and the other parent. Parley is not a law firm and doesn't give legal advice.</p>
   <div class="pg">10</div>
 </section>
-
 <script src="design-options/iphone.js"></script>
 </body>
 </html>

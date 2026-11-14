@@ -67,6 +67,7 @@ export interface Me {
   day: number;                   // day of the 28-day plan (1-based), honours demo time-travel
   now: string;                   // server "now" for this person (demo time-travel shifts it)
   freeRepliesLeft: number;
+  tz?: string;                   // show dates in this IANA zone (the demo case lives in US Eastern)
 }
 
 export interface QuizAnswers {

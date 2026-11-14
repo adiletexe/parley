@@ -25,5 +25,6 @@ export function toMe(p: PersonRow): Me {
     day: planDay(p),
     now: personNow(p).toISOString(),
     freeRepliesLeft: Math.max(0, FREE_REPLIES - p.free_replies_used),
+    tz: p.demo ? 'America/New_York' : undefined,
   };
 }

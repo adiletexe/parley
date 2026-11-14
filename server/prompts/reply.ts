@@ -199,6 +199,8 @@ export function verifyFlags(text: string, flags: LensFlag[], max = 6): LensFlag[
     const span = locate(text, f.phrase);
     if (!span) continue;
     const at = text.indexOf(span);
+    // A "shouting" flag must point at the shouting itself (caps or "!!"), not at the words next to it.
+    if (/shout/i.test(f.issue || '') && !/!{2,}|\b[A-Z]{4,}\b/.test(span)) continue;
     if (taken.some(([a, b]) => at < b && at + span.length > a)) continue;
     const sev = f.severity === 'high' || f.severity === 'medium' || f.severity === 'good' ? f.severity : 'medium';
     out.push({
@@ -224,7 +226,7 @@ export function patternFlags(text: string, existing: LensFlag[]): LensFlag[] {
       const i = text.indexOf(f.phrase);
       return i >= 0 && at < i + f.phrase.length && end > i;
     });
-    if (covered) continue;
+    if (covered || [...existing, ...add].some((f) => f.issue === p.issue)) continue;
     add.push({phrase: m[0], severity: p.severity, issue: p.issue, why: WHY[p.issue] ?? 'A judge reads this as raising the conflict.', fix: 'Cut it.'});
   }
   return add;

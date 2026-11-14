@@ -38,7 +38,7 @@ export function AppShell() {
           <Link to="/app/settings" className="shell-link"><Icon id="lock" size={30} />Privacy & plan</Link>
         </div>
       </aside>
-      <main className="shell-main"><Outlet /></main>
+      <main className="shell-main">{me ? <Outlet /> : <div style={{minHeight: '50vh', display: 'grid', placeItems: 'center'}}><span className="spin" /></div>}</main>
       <nav className="shell-tabs" aria-label="Sections">
         {NAV.map((n) => (
           <NavLink key={n.to} to={n.to} className={({isActive}) => 'shell-tab' + (isActive ? ' on' : '')}>

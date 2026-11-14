@@ -78,7 +78,7 @@ function sessionFor(p: PersonRow, day: number, pack: DayPack): SessionView {
   const top = bankTriggerOf(quizOf(p));
   const qs = [...pack.questions].sort((a, b) => Number(b.trigger === top) - Number(a.trigger === top));
   return {day, skill: pack.skill, rule: pack.rule,
-    questions: qs.map((q) => ({id: q.id, trigger: q.trigger, them: q.them, options: q.options.map((o) => ({text: o.text, tag: o.tag, good: o.good}))}))};
+    questions: qs.map((q) => ({id: q.id, trigger: q.trigger, them: [...q.them], options: q.options.map((o) => ({text: o.text, tag: o.tag, good: o.good}))}))};
 }
 
 export function listAttempts(personId: string): DrillAttempt[] {
@@ -270,7 +270,7 @@ export default function register(app: Hono) {
       `Plan day ${day}: "${lesson.title}" — skill: ${lesson.skill}.`,
       `Task: ${lesson.drill.task}`,
       `What a good reply does here: ${lesson.drill.goal}`,
-      `The other parent wrote:\n"""${message}"""`,
+      `The other parent sent these texts (one per line, in order):\n"""${message}"""`,
     ].join('\n');
 
     let g: ReturnType<typeof clean>;

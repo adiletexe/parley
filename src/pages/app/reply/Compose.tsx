@@ -1,9 +1,12 @@
 /* The one job of the empty screen: get their message in. One field, where it came from as a chip, one button.
-   The draft and the screenshot are there but cost nothing until asked for. */
-import {useEffect, useRef, useState} from 'react';
+   The draft and the screenshot are there but cost nothing until asked for. People send bursts, not letters: paste
+   several texts (one per line, or a blank line between, or a chat export) and the preview shows them as the
+   separate bubbles we'll read — split by the same code the server uses. */
+import {useEffect, useMemo, useRef, useState} from 'react';
 import type {Channel} from '../../../../shared/types';
 import {ChannelIcon} from '../../../components/ChannelIcon';
 import {Icon} from '../../../components/Icon';
+import {splitBurst} from './burst';
 import {SAMPLES, type Sample} from './samples';
 
 export interface ComposeValue { incoming: string; draft: string; image: File | null; channel: Channel }
@@ -46,6 +49,7 @@ export function Compose({value, onChange, onSubmit, onSample, busy}: {
   }
 
   const ready = !!(value.incoming.trim() || value.image);
+  const burst = useMemo(() => splitBurst(value.incoming), [value.incoming]);
 
   return (
     <>
@@ -54,9 +58,16 @@ export function Compose({value, onChange, onSubmit, onSample, busy}: {
         onDragOver={(e) => { e.preventDefault(); setDrag(true); }} onDragLeave={() => setDrag(false)}
         onDrop={(e) => { e.preventDefault(); setDrag(false); pick(e.dataTransfer.files[0]); }}>
         <textarea ref={input} id="rc-in" className="field rc-in" rows={4} maxLength={6000} aria-label="Their message"
-          placeholder={value.image ? 'Anything the screenshot does not show (optional)' : 'Paste their message…'}
+          placeholder={value.image ? 'Anything the screenshot does not show (optional)' : 'Paste what they sent…\nSent a few texts in a row? Paste them all, one per line.'}
           value={value.incoming} onChange={(e) => onChange({...value, incoming: e.target.value})}
           onKeyDown={(e) => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey) && ready && !busy) onSubmit(); }} />
+
+        {burst.bubbles.length > 1 && (
+          <div className="rc-preview fade-in" aria-label={`Read as ${burst.bubbles.length} texts`}>
+            <span className="rc-preview-h">{burst.bubbles.length} texts · we'll answer them once</span>
+            {burst.bubbles.map((b, i) => <p key={i} className="rc-preview-b">{b}</p>)}
+          </div>
+        )}
 
         <div className="rc-src" role="group" aria-label="Where they sent it">
           {SOURCES.map((s) => (

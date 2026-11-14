@@ -29,6 +29,8 @@ function parseParams(q: Record<string, string | undefined>): Params {
   const categories = [...new Set((q.categories ?? '').split(',').map((s) => s.trim()).filter(isCategory))];
   return {from, to, categories, tz: safeTz(q.tz)};
 }
+/** The sample case lives in US Eastern time; whoever opens it (a judge in Almaty included) sees its own clock. */
+const caseTz = (p: Params, person: {demo: number}): Params => (person.demo ? {...p, tz: 'America/New_York'} : p);
 
 /** Patterns as the timeline shows them: only ones that rest on entries in this view (the reply-time habit is a
  *  coaching number, not evidence), with their exhibit numbers. */
@@ -89,7 +91,7 @@ const shareOut = (c: Context, s: ShareRow) => ({
 export default function register(app: Hono) {
   app.get('/api/timeline', (c) => {
     const person = c.get('person');
-    const p = parseParams(c.req.query());
+    const p = caseTz(parseParams(c.req.query()), c.get('person'));
     const {entries, patterns, fingerprint: fp} = timelineFor(person.id, p);
     const all = listEntries(person.id);
     const count = (k: Entry['kind']) => entries.filter((e) => e.kind === k).length;
@@ -112,7 +114,7 @@ export default function register(app: Hono) {
 
   app.get('/api/timeline/pdf', async (c) => {
     const person = c.get('person');
-    const p = parseParams(c.req.query());
+    const p = caseTz(parseParams(c.req.query()), c.get('person'));
     const {bytes, filename, count} = await pdfFor(person, p);
     track(person.id, 'timeline_pdf', {entries: count, from: p.from, to: p.to, categories: p.categories});
     return sendPdf(c, bytes, filename, 'attachment');
@@ -122,7 +124,7 @@ export default function register(app: Hono) {
   app.post('/api/timeline/share', async (c) => {
     const person = c.get('person');
     const b = await c.req.json().catch(() => ({})) as Record<string, string | undefined>;
-    const p = parseParams(b);
+    const p = caseTz(parseParams(b), c.get('person'));
     db.prepare('DELETE FROM timeline_shares WHERE person_id = ?').run(person.id);
     const token = randomBytes(24).toString('base64url');
     const created = nowIso();
@@ -155,7 +157,7 @@ export default function register(app: Hono) {
     }
     db.prepare('UPDATE timeline_shares SET views = views + 1 WHERE token = ?').run(token);
     track(owner.id, 'timeline_share_viewed');
-    const {bytes, filename} = await pdfFor(owner, JSON.parse(s.params) as Params);
+    const {bytes, filename} = await pdfFor(owner, caseTz(JSON.parse(s.params) as Params, owner));
     return sendPdf(c, bytes, filename, 'inline');
   });
 }

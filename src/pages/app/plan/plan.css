@@ -61,27 +61,37 @@
 .pl-end .pl-dots { max-width: 220px; margin: 0 auto; width: 100%; }
 
 .pl-q { display: grid; gap: 14px; animation: pl-in .28s ease both; }
-.pl-them { justify-self: start; max-width: 88%; background: var(--bg); border-radius: 20px 20px 20px 6px; padding: 12px 16px; }
-.pl-them p { font-size: 16px; line-height: 1.45; }
-.pl-ask { font-size: 15px; font-weight: 700; color: var(--mute); letter-spacing: 0; }
-.pl-opts { display: grid; gap: 10px; }
-.pl-opt { display: flex; align-items: flex-start; gap: 12px; width: 100%; text-align: left; background: var(--card); color: var(--ink);
-  border: 2px solid var(--line); border-bottom-width: 4px; border-radius: 18px; padding: 14px 14px 12px; font: 600 15px/1.45 var(--font);
-  cursor: pointer; transition: border-color .15s, background .15s, opacity .2s, transform .1s; }
-.pl-opt:hover:not([disabled]) { border-color: color-mix(in srgb, var(--acc) 45%, var(--line)); }
-.pl-opt:active:not([disabled]) { transform: translateY(2px); border-bottom-width: 2px; margin-top: 2px; }
+
+/* their burst: grey bubbles on the left, stacked like a phone shows them; the tail only on the last */
+.pl-chat { display: grid; min-height: 52px; }
+.pl-burst { display: grid; gap: 4px; justify-items: start; }
+.pl-them { max-width: 85%; background: var(--bg); color: var(--ink); border-radius: 20px 20px 20px 8px; padding: 9px 14px;
+  font-size: 16px; line-height: 1.4; white-space: pre-wrap; overflow-wrap: anywhere; animation: pl-bub .22s ease both; }
+.pl-burst .pl-them:not(:first-child) { border-top-left-radius: 8px; }
+.pl-typing { display: inline-flex; gap: 4px; align-items: center; padding: 13px 14px; }
+.pl-typing i { width: 7px; height: 7px; border-radius: 50%; background: var(--faint); animation: pl-dot 1s infinite ease-in-out; }
+.pl-typing i:nth-child(2) { animation-delay: .15s; }
+.pl-typing i:nth-child(3) { animation-delay: .3s; }
+
+.pl-ask { font-size: 15px; font-weight: 700; color: var(--mute); letter-spacing: 0; animation: pl-in .2s ease both; }
+
+/* the three replies: texts you might send, so they sit on the right as outlined blue bubbles */
+.pl-opts { display: grid; gap: 10px; justify-items: end; }
+.pl-opt { display: grid; gap: 6px; justify-items: start; max-width: 88%; text-align: left; background: var(--card); color: var(--ink);
+  border: 2px solid color-mix(in srgb, var(--acc) 55%, var(--line)); border-radius: 20px 20px 8px 20px; padding: 10px 14px;
+  font: 600 15px/1.4 var(--font); cursor: pointer; animation: pl-in .24s ease both;
+  transition: border-color .15s, background .15s, opacity .2s, transform .1s; }
+.pl-opt:hover:not([disabled]) { border-color: var(--acc); background: var(--acc-bg); }
+.pl-opt:active:not([disabled]) { transform: scale(.98); }
 .pl-opt:focus-visible { outline: 3px solid var(--acc); outline-offset: 2px; }
 .pl-opt[disabled] { cursor: default; }
-.pl-opt-k { flex: none; width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--line); display: grid; place-items: center; margin-top: 1px; }
-.pl-opt-k svg { width: 14px; height: 14px; }
-.pl-opt-t { display: grid; gap: 4px; min-width: 0; }
-.pl-opt-t em { font: 700 13px var(--font); font-style: normal; }
+.pl-opt-t { min-width: 0; overflow-wrap: anywhere; }
+.pl-opt em { display: inline-flex; align-items: center; gap: 5px; font: 700 13px var(--font); font-style: normal; }
+.pl-opt em svg { width: 14px; height: 14px; flex: none; }
 .pl-opt.ok { border-color: var(--ok); background: var(--ok-bg); }
-.pl-opt.ok .pl-opt-k { background: var(--ok); border-color: var(--ok); }
 .pl-opt.ok em { color: var(--ok); }
 .pl-opt.ok:not(.reveal) { animation: pl-pop .32s ease; }
 .pl-opt.bad { border-color: var(--warn); background: var(--warn-bg); animation: pl-shake .36s ease; }
-.pl-opt.bad .pl-opt-k { background: var(--warn); border-color: var(--warn); }
 .pl-opt.bad em { color: var(--warn); }
 .pl-opt.dim { opacity: .45; }
 
@@ -145,10 +155,12 @@
 .pl-legal { color: var(--faint); font-size: 12px; text-align: center; }
 
 @keyframes pl-in { from { opacity: 0; transform: translateY(6px); } }
+@keyframes pl-bub { from { opacity: 0; transform: translateY(4px) scale(.97); } }
+@keyframes pl-dot { 0%, 60%, 100% { opacity: .35; transform: none; } 30% { opacity: 1; transform: translateY(-3px); } }
 @keyframes pl-pop { 0% { transform: scale(1); } 40% { transform: scale(1.03); } 100% { transform: scale(1); } }
 @keyframes pl-shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-6px); } 40% { transform: translateX(5px); } 60% { transform: translateX(-3px); } 80% { transform: translateX(2px); } }
 @media (prefers-reduced-motion: reduce) {
-  .pl-q, .pl-next, .pl-end-n, .pl-opt.ok, .pl-opt.bad { animation: none !important; }
+  .pl-q, .pl-next, .pl-end-n, .pl-opt, .pl-them, .pl-ask, .pl-typing i { animation: none !important; }
   .pl-opt, .pl-dots li { transition: none; }
 }
 

@@ -13,7 +13,7 @@ import './Reply.css';
 
 interface Recent { id: string; createdAt: string; facts: string; incoming: string; heat: number; advice: string; usedVariant: string | null }
 
-const STEPS = ['Reading their message', 'Stripping the insults', 'Finding what needs an answer', 'Writing three calm replies'];
+const STEPS = ['Reading their texts', 'Leaving out the jabs', 'Finding what needs an answer', 'Writing one calm reply, three ways'];
 const CHANNEL_KEY = 'parley.channel';
 
 function lastChannel(): Channel {

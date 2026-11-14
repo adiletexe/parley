@@ -96,6 +96,11 @@ export function Result({a, channel, onUpdate}: {a: AnalysisView; channel: Channe
     } finally { setBusy(null); }
   }
 
+  // Their burst as the texts they sent (older analyses have one bubble). The time under the last one is the one the
+  // chat export showed; without one, when it was pasted.
+  const bubbles = a.bubbles?.length ? a.bubbles : [a.incoming];
+  const lastTime = a.bubbleTimes?.[bubbles.length - 1] || '';
+
   const risky = a.lens.filter((f) => f.severity !== 'good').length;
   const hasDraft = !!a.draft && a.draftScore !== undefined;
   const saved = savedAt || a.logged?.exchange;
@@ -103,8 +108,8 @@ export function Result({a, channel, onUpdate}: {a: AnalysisView; channel: Channe
   return (
     <div className="rc-result">
       <div className="rc-they fade-in">
-        <div className="rc-bubble"><Theirs text={a.incoming} stripped={a.stripped ?? []} /></div>
-        <p className="rc-bubble-meta"><ChannelTag channel={channel} /> · {fmt(new Date(a.createdAt))}</p>
+        {bubbles.map((b, i) => <div key={i} className="rc-bubble"><Theirs text={b} stripped={a.stripped ?? []} /></div>)}
+        <p className="rc-bubble-meta"><ChannelTag channel={channel} /> · {lastTime || fmt(new Date(a.createdAt))}</p>
       </div>
       <p className="rc-asks">
         {a.asks.length > 0
@@ -118,8 +123,12 @@ export function Result({a, channel, onUpdate}: {a: AnalysisView; channel: Channe
             <button key={t.k} role="tab" aria-selected={tab === t.k} className={tab === t.k ? 'on' : ''} onClick={() => setTab(t.k)} title={t.hint}>{t.label}</button>
           ))}
         </div>
-        <textarea ref={box} id="rc-reply" className="field rc-reply" value={text} rows={3}
-          onChange={(e) => setTexts({...texts, [tab]: e.target.value})} aria-label="Your reply (you can edit it)" />
+        {/* The reply is the text you'll send, so it looks like one: your bubble, on the right. Tap to edit. */}
+        <div className="rc-out">
+          <textarea ref={box} id="rc-reply" className="rc-reply" value={text} rows={2} spellCheck
+            onChange={(e) => setTexts({...texts, [tab]: e.target.value})} aria-label="Your reply (you can edit it)" />
+          <span className="rc-out-meta">{edited ? 'Edited' : 'Tap to edit'}</span>
+        </div>
         {/\[[^\]]+\]/.test(text) && <p className="rc-fill">Fill in the <b>[brackets]</b> before you send — we never guess dates, times or amounts.</p>}
         <p className={'rc-verdict ' + (v.ok ? 'ok' : 'warn')}><Icon id="scale" size={22} />{v.text}</p>
         <button className="btn btn-primary btn-lg rc-copy" onClick={() => log('copy')} disabled={!!busy || !text.trim()}>

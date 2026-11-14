@@ -18,6 +18,7 @@ export interface Lesson {
   minutes: number;
   read: string[];           // 2–4 short paragraphs
   example: {them: string; bad: string; good: string; why: string};
+  /** Each message is a burst as it arrives on a phone (docs/VOICE.md): one bubble per line, joined with \n. */
   drill: {task: string; goal: string; messages: Record<Trigger, string>};
 }
 
@@ -46,11 +47,11 @@ export const LESSONS: Lesson[] = [
     },
     drill: {task: 'Reply in 40 words or fewer. Answer the practical question only.', goal: 'Under 40 words, one clear answer, no defending yourself.',
       messages: {
-        schedule: "Are you even taking them this weekend or are you going to cancel last minute like always? I need to know by tonight, I have plans.",
-        money: "The dentist bill came. $180. I assume you'll pretend you never got it like last time?",
-        partner: "Is HE going to be there this weekend? Because I don't want my kids around someone I've never met.",
-        school: "Parent-teacher conference is Thursday. Not that you care, but are you coming or not?",
-        kids: "Emma says you told her she can skip practice at your place. Nice. Are you taking her Saturday or not?",
+        schedule: "r u even taking them this weekend\nor r u gonna cancel last min like always\ni need to know TONIGHT i have plans",
+        money: "dentist bill came. $180\nim guessing u'll pretend u never got it like last time?",
+        partner: "is HE gonna be there this weekend\nbc i dont want my kids around someone ive never met",
+        school: "conference is thursday\nnot that u care\nr u coming or not",
+        kids: "emma says u told her she can skip practice at ur place\nnice.\nr u taking her saturday or not",
       }}}),
   L({day: 2, week: 1, title: 'Find the ask', skill: 'Just the facts', minutes: 2,
     read: [
@@ -66,11 +67,11 @@ export const LESSONS: Lesson[] = [
     },
     drill: {task: 'Answer only the real ask. Ignore everything else.', goal: 'The ask is answered; no reply to the insults or the history.',
       messages: {
-        schedule: "You were 25 minutes late on Sunday. Again. The kids sat in the car crying. I need you to confirm 5:00 sharp this Sunday or I'm done waiting.",
-        money: "Half of soccer is $120. You signed them up without asking me, so honestly you should pay all of it. When are you sending it?",
-        partner: "Your girlfriend posted my kids on Instagram. Take it down. And tell me if she's going to be at the recital.",
-        school: "Noah's teacher emailed ME because you never answer. He needs the reading log signed by Friday. Can you manage that?",
-        kids: "Noah told me you said I'm 'the reason' you can't come to his game. Are you coming to the game Saturday at 10 or not?",
+        schedule: "u were 25 min late sunday. AGAIN\nthe kids sat in the car crying\nconfirm 5 sharp this sunday or im done waiting",
+        money: "half of soccer is $120\ntbh u should pay all of it since u signed them up without asking\nso when r u sending it",
+        partner: "ur gf posted my kids on insta\ntake it down\nand is she coming to the recital??",
+        school: "noahs teacher emailed ME bc u never answer\nreading log needs signing by friday\ncan u manage that",
+        kids: "noah says u told him im 'the reason' u cant come to his game\nr u coming saturday at 10 or not",
       }}}),
   L({day: 3, week: 1, title: 'Facts, not feelings', skill: 'Informative', minutes: 3,
     read: [
@@ -86,11 +87,11 @@ export const LESSONS: Lesson[] = [
     },
     drill: {task: 'Reply with at least one concrete fact (a date, time, place or amount). No feelings words.', goal: 'Contains a specific fact; no "I feel / you make me / I can\'t believe".',
       messages: {
-        schedule: "I'm not driving to your side of town anymore. Figure out the exchange yourself.",
-        money: "Where's the child support? It's the 5th. I'm not a bank.",
-        partner: "I'm not okay with your boyfriend driving my kids. Who is picking them up Friday?",
-        school: "The school says Emma missed two days while at your house. What happened?",
-        kids: "Noah came back saying he doesn't have to listen to me at your house. When were you planning to tell me what he's allowed to do?",
+        schedule: "im not driving to ur side of town anymore\nfigure out the exchange urself",
+        money: "wheres the support\nits the 5th\nim not a bank",
+        partner: "im not ok with ur boyfriend driving my kids\nwho's picking them up friday?",
+        school: "school says emma missed 2 days at ur house\nwhat happened",
+        kids: "noah came back saying he doesnt have to listen to me at ur house\nwhen were u planning on telling me the rules over there",
       }}}),
   L({day: 4, week: 1, title: 'One friendly line', skill: 'Friendly', minutes: 2,
     read: [
@@ -106,11 +107,11 @@ export const LESSONS: Lesson[] = [
     },
     drill: {task: 'Open with one genuinely friendly or neutral line, then answer. No sarcasm.', goal: 'One short warm/neutral line, no sarcasm or exclamation-mark irony.',
       messages: {
-        schedule: "We're back from the lake a day early. I guess you can have them Sunday if you're not too busy.",
-        money: "I paid for the school photos since SOMEONE never does. You owe me $34.",
-        partner: "Since you clearly don't care what I think, I'm telling you anyway: Emma doesn't like your girlfriend.",
-        school: "Emma got an A on her science project. I helped her all weekend, obviously.",
-        kids: "Emma wants to show you her new bike. She asked me to ask you since you never answer her.",
+        schedule: "we're back from the lake a day early\nguess u can have them sunday if ur not too busy 🙃",
+        money: "Just a friendly reminder 🙂\nI paid for school photos since SOMEONE never does\nu owe me $34",
+        partner: "since u clearly dont care what i think\nemma doesnt like ur girlfriend. just so u know",
+        school: "emma got an A on her science project!!\ni helped her all weekend obviously",
+        kids: "emma wants to show u her new bike\nshe asked me to ask u bc u never answer her",
       }}}),
   L({day: 5, week: 1, title: 'Close the loop', skill: 'Firm', minutes: 2,
     read: [
@@ -126,11 +127,11 @@ export const LESSONS: Lesson[] = [
     },
     drill: {task: 'Reply and end with a clear next step or plan B. No questions that invite debate.', goal: 'Ends with a concrete next step; no rhetorical questions.',
       messages: {
-        schedule: "Fine, swap weekends, but don't expect me to do you favors after this.",
-        money: "I'll pay my half of camp when I feel like it. You can wait.",
-        partner: "If your new girlfriend is coming to the game I'm not going. Your choice.",
-        school: "I signed Noah up for tutoring Tuesdays. You can drive him on your weeks, or not, whatever.",
-        kids: "Emma says she wants to live with me. Maybe you should think about why.",
+        schedule: "fine swap weekends\nbut dont expect any favors after this",
+        money: "ill pay my half of camp when i feel like it\nu can wait",
+        partner: "if ur new gf is coming to the game im not going\nur choice",
+        school: "signed noah up for tutoring tuesdays\nu can drive him on ur weeks. or not. whatever",
+        kids: "emma says she wants to live with me\nmaybe think about why",
       }}}),
   L({day: 6, week: 1, title: "Don't JADE", skill: 'No defending', minutes: 3,
     read: [
@@ -146,11 +147,11 @@ export const LESSONS: Lesson[] = [
     },
     drill: {task: 'Reply to the accusation without justifying, arguing, defending or explaining.', goal: 'No "actually / the reason / I only / that\'s not true".',
       messages: {
-        schedule: "You 'forgot' it was my weekend? You did it on purpose to keep them from my mom's birthday.",
-        money: "You spent the support money on yourself. Emma's shoes have holes in them.",
-        partner: "You introduced the kids to your boyfriend way too early. Real mature.",
-        school: "Noah failed his spelling test because you don't practise with him. Thanks a lot.",
-        kids: "Emma came home crying because you yelled at her. What is wrong with you?",
+        schedule: "u 'forgot' it was my weekend??\nu did it on purpose so they'd miss my moms birthday",
+        money: "u spent the support money on urself\nemmas shoes have holes in them",
+        partner: "u introduced the kids to ur bf WAY too early\nreal mature",
+        school: "noah failed his spelling test bc u dont practice with him\nthanks alot",
+        kids: "emma came home crying bc u yelled at her\nwhat is wrong with u",
       }}}),
   L({day: 7, week: 1, title: 'The screenshot test', skill: 'Read it like a judge', minutes: 2,
     read: [
@@ -166,11 +167,11 @@ export const LESSONS: Lesson[] = [
     },
     drill: {task: 'Write a full BIFF reply: brief, informative, one friendly line, firm close.', goal: 'All four BIFF parts; nothing you would mind a judge reading.',
       messages: {
-        schedule: "I'm taking the kids to my parents' for Thanksgiving. I know it's your year. Sue me.",
-        money: "I'm not paying half of the braces. You picked the orthodontist without asking me.",
-        partner: "If your new partner moves in, I'm going back to court. The kids don't need a stranger in the house.",
-        school: "I'm switching Emma to the other school. It's better. I don't need your permission.",
-        kids: "Noah said you told him I'm lying about the trip. Stop putting him in the middle or I will.",
+        schedule: "taking the kids to my parents for thanksgiving\ni know its ur year\nsue me",
+        money: "im not paying half of the braces\nu picked the orthodontist without even asking me",
+        partner: "if ur new partner moves in im going back to court\nthe kids dont need a stranger in the house",
+        school: "im switching emma to the other school. its better\ndont need ur permission",
+        kids: "noah said u told him im lying about the trip\nstop putting him in the middle or i will",
       }}}),
 
   // ---------------- Week 2 — Don't take the bait ----------------
@@ -188,11 +189,11 @@ export const LESSONS: Lesson[] = [
     },
     drill: {task: 'Reply without using "always", "never", "typical" or any blame word.', goal: 'No absolutes, no blame, no mirroring their tone.',
       messages: {
-        schedule: "Of course you're late again. You've never once been on time in your life.",
-        money: "Typical. You always have money for yourself and never for the kids.",
-        partner: "As usual your new boyfriend comes before your own children.",
-        school: "You never check the school portal. Emma missed a field trip because of you. Again.",
-        kids: "The kids always come back from your place exhausted and rude. Every single time.",
+        schedule: "late AGAIN\nof course\nu have literally never been on time in ur life",
+        money: "typical\nalways money for urself never for the kids",
+        partner: "as usual ur new bf comes before ur own kids",
+        school: "u NEVER check the school portal\nemma missed the field trip bc of u\nagain.",
+        kids: "the kids ALWAYS come back from ur place exhausted and rude\nevery. single. time.",
       }}}),
   L({day: 9, week: 2, title: 'Gray rock', skill: 'Gray rock', minutes: 3,
     read: [
@@ -208,11 +209,11 @@ export const LESSONS: Lesson[] = [
     },
     drill: {task: 'Write a gray-rock reply: flat, short, no emotion, no opinion.', goal: 'Under 20 words, no emotion words, no punctuation drama.',
       messages: {
-        schedule: "Enjoy your weekend with them. Hope it's worth it since it's the only time you bother.",
-        money: "Must be nice to buy them toys while I'm paying for actual groceries.",
-        partner: "Saw your new girlfriend at Target. Classy. Hope the kids like her more than I do.",
-        school: "I went to the school play alone. Again. But I'm sure you were very busy.",
-        kids: "Emma says your house is boring. Can't say I'm surprised.",
+        schedule: "enjoy ur weekend with them\nhope its worth it since its the only time u bother",
+        money: "must be nice buying them toys\nwhile im paying for actual groceries 🙄",
+        partner: "saw ur new gf at target lol\nclassy\nhope the kids like her more than i do",
+        school: "went to the school play alone. again.\nbut im sure u were VERY busy",
+        kids: "emma says ur house is boring\ncant say im surprised",
       }}}),
   L({day: 10, week: 2, title: 'One topic only', skill: 'Stay on topic', minutes: 2,
     read: [
@@ -228,11 +229,11 @@ export const LESSONS: Lesson[] = [
     },
     drill: {task: 'Pick the one child-related item that needs an answer and reply to only that.', goal: 'Exactly one topic addressed; the rest left alone.',
       messages: {
-        schedule: "You missed the swap time, you didn't bring the car seat, your house is a mess, and I need to know if you're doing Halloween or not.",
-        money: "You're behind on support, you bought Emma a phone without asking, and the co-pay for Noah's visit is $35. Pay it.",
-        partner: "Your boyfriend was at the exchange, which is not okay, you look ridiculous, and Noah needs his soccer cleats back by Saturday.",
-        school: "You never answer the teacher, you let Emma skip homework, and the field trip form needs a signature by Wednesday.",
-        kids: "The kids are disrespectful after your weekends, you badmouth me, and Noah forgot his inhaler at your place. I need it tonight.",
+        schedule: "u missed the swap time, didnt bring the car seat, ur place is a mess\nand r u doing halloween or not",
+        money: "ur behind on support, u bought emma a phone without asking\nand noahs copay is $35. pay it",
+        partner: "ur bf was at the exchange which is NOT ok\nu looked ridiculous btw\nnoah needs his cleats back by saturday",
+        school: "u never answer the teacher, u let emma skip homework\nfield trip form needs a signature by wednesday",
+        kids: "the kids are disrespectful after ur weekends and u badmouth me\nnoah left his inhaler at ur place. i need it tonight",
       }}}),
   L({day: 11, week: 2, title: 'When not to reply', skill: 'No reply / brief ack', minutes: 2,
     read: [
@@ -248,11 +249,11 @@ export const LESSONS: Lesson[] = [
     },
     drill: {task: 'Decide: brief acknowledgement or a short answer. Write what you would actually send (5–20 words).', goal: 'Minimal reply that handles only what must be handled.',
       messages: {
-        schedule: "Just letting you know I think this whole schedule is a joke and the judge was biased. Anyway, pickup is still 5.",
-        money: "I want you to know I'm keeping track of every dollar I spend on them. Every. Dollar.",
-        partner: "My lawyer says your new partner is a problem. Just thought you should know.",
-        school: "FYI I'll be at the school concert. Try not to embarrass the kids.",
-        kids: "The kids told me all about your weekend. Interesting choices.",
+        schedule: "just saying this whole schedule is a joke and the judge was biased\nanyway pickup is still 5",
+        money: "fyi im keeping track of every dollar i spend on them\nevery. dollar.",
+        partner: "my lawyer says ur new partner is a problem\njust thought u should know",
+        school: "ill be at the school concert\ntry not to embarrass the kids 🙂",
+        kids: "the kids told me ALL about ur weekend\ninteresting choices",
       }}}),
   L({day: 12, week: 2, title: 'History is not on the agenda', skill: 'No relitigating', minutes: 3,
     read: [
@@ -268,11 +269,11 @@ export const LESSONS: Lesson[] = [
     },
     drill: {task: 'Reply without touching the past. Only this week, only the kids.', goal: 'No mention of the relationship, the separation or old events.',
       messages: {
-        schedule: "After everything you did, you think you get Christmas morning? Give me one reason.",
-        money: "You left me with the debt and now you want me to split ballet? Unbelievable.",
-        partner: "You were seeing him before we split, weren't you. And now the kids have to meet him.",
-        school: "You never went to a single school meeting when we were married. Why start now?",
-        kids: "Noah asked why you left. I told him the truth. Your turn to explain yourself.",
+        schedule: "after everything u did u think u get christmas morning??\ngive me one reason",
+        money: "u left me with the debt and now u want me to split ballet\nunbelievable",
+        partner: "u were seeing him before we split werent u\nand now the kids have to meet him",
+        school: "u never went to ONE school meeting when we were married\nwhy start now",
+        kids: "noah asked why u left\ni told him the truth\nur turn to explain urself",
       }}}),
   L({day: 13, week: 2, title: 'The new-partner hook', skill: 'Keep partners out', minutes: 2,
     read: [
@@ -288,11 +289,11 @@ export const LESSONS: Lesson[] = [
     },
     drill: {task: 'Reply without defending or criticising any partner. Answer only the practical concern.', goal: 'No opinion about any partner; one practical answer.',
       messages: {
-        schedule: "Is your boyfriend doing the exchange again? Because if he is, I'm not handing them over.",
-        money: "I'm not paying half of anything while your girlfriend lives there for free.",
-        partner: "Emma says your new girlfriend tucks her in. That's MY job. Stop it.",
-        school: "Your new partner showed up at the school pickup. The teacher asked me who she was. Explain.",
-        kids: "Noah called your boyfriend 'dad' by accident and cried about it. Happy now?",
+        schedule: "is ur bf doing the exchange again\nbc if he is im not handing them over",
+        money: "im not paying half of anything\nwhile ur gf lives there for free",
+        partner: "emma says ur new gf tucks her in??\nthats MY job\nstop it",
+        school: "ur new partner showed up at school pickup\nthe teacher asked me who she was\nexplain",
+        kids: "noah called ur bf 'dad' by accident and cried about it\nhappy now?",
       }}}),
   L({day: 14, week: 2, title: 'The late-night message', skill: 'Pause, then reply', minutes: 2,
     read: [
@@ -308,11 +309,11 @@ export const LESSONS: Lesson[] = [
     },
     drill: {task: 'This came in at 11:48 pm. Write the reply you would send in the morning.', goal: 'Calm, short, ignores the bait, handles any real logistics.',
       messages: {
-        schedule: "(11:48 pm) You think you can just change Sunday because you feel like it?? The kids were counting on it. You're selfish. Answer me.",
-        money: "(11:48 pm) I just saw the bill. You charged the kids' card for YOUR stuff didn't you. I'm done. Answer me.",
-        partner: "(11:48 pm) Why is she posting photos with MY kids at midnight? Answer me right now.",
-        school: "(11:48 pm) Emma just told me she's failing math and you KNEW. You hid it. What else are you hiding?",
-        kids: "(11:48 pm) Noah called me crying from your house. What did you do? Call me NOW.",
+        schedule: "so u think u can just change sunday bc u feel like it?? the kids were counting on it\nselfish\nanswer me",
+        money: "just saw the bill. u put YOUR stuff on the kids card didnt u\nim done\nhello??",
+        partner: "why is she posting pics with MY kids at midnight\nanswer me right now",
+        school: "emma just told me shes failing math and u KNEW\nu hid it\nwhat else r u hiding",
+        kids: "noah called me crying from ur house\nwhat did u do\ncall me NOW",
       }}}),
 
   // ---------------- Week 3 — Boundaries & firm requests ----------------
@@ -330,11 +331,11 @@ export const LESSONS: Lesson[] = [
     },
     drill: {task: 'Set one calm boundary about what YOU will do, then handle the real question.', goal: 'Boundary phrased as your own action, no threat.',
       messages: {
-        schedule: "I'm calling you tonight to sort out the holidays and you'd better answer this time.",
-        money: "Call me so we can discuss money. I'm not doing this over text.",
-        partner: "I'm coming to the door at pickup to meet your boyfriend whether you like it or not.",
-        school: "I'll be texting the kids' teacher about you too since you won't listen to me.",
-        kids: "I'm going to keep calling Emma on your nights until you answer me.",
+        schedule: "calling u tonight about the holidays\nu better pick up this time",
+        money: "call me so we can talk money\nim not doing this over text",
+        partner: "im coming to the door at pickup to meet ur bf\nwhether u like it or not",
+        school: "im texting the kids teacher about u too\nsince u wont listen to me",
+        kids: "im gonna keep calling emma on ur nights\nuntil u answer me",
       }}}),
   L({day: 16, week: 3, title: 'Ask with a date', skill: 'Requests + deadline', minutes: 2,
     read: [
@@ -350,11 +351,11 @@ export const LESSONS: Lesson[] = [
     },
     drill: {task: 'Make one clear request with a specific date or time.', goal: 'A specific ask + a specific date; polite; no threat.',
       messages: {
-        schedule: "Yeah yeah, I'll tell you about the summer schedule when I know.",
-        money: "I'll pay you back for the glasses at some point. Stop nagging.",
-        partner: "I'll think about whether the kids can go to your partner's family thing. Don't rush me.",
-        school: "I'll sign the permission slip when I get around to it.",
-        kids: "I'll give Noah's tablet back when he's earned it. It's at my house, deal with it.",
+        schedule: "yeah yeah ill tell u about summer when i know",
+        money: "ill pay u back for the glasses at some point\nstop nagging",
+        partner: "ill think about whether they can go to ur partners family thing\ndont rush me",
+        school: "ill sign the permission slip when i get around to it",
+        kids: "noah gets his tablet back when he earns it\nits at my house. deal with it",
       }}}),
   L({day: 17, week: 3, title: 'Let the plan be the referee', skill: 'Point to the order', minutes: 2,
     read: [
@@ -370,11 +371,11 @@ export const LESSONS: Lesson[] = [
     },
     drill: {task: 'Reply by pointing calmly to the parenting plan (or your usual arrangement).', goal: 'References the plan/arrangement neutrally; no threat, no lawyer talk.',
       messages: {
-        schedule: "I'm taking them for the whole first week of summer. Don't bother arguing.",
-        money: "I'm not paying for extracurriculars anymore. They're your idea.",
-        partner: "From now on your boyfriend can't be at your house on your weekends. My rule.",
-        school: "I'm the one who decides about school. I'm their real parent.",
-        kids: "The kids don't have to come to you if they don't want to. Emma doesn't want to.",
+        schedule: "taking them the whole first week of summer\ndont bother arguing",
+        money: "not paying for extracurriculars anymore\nthey were ur idea",
+        partner: "from now on ur bf cant be at ur house on ur weekends\nmy rule",
+        school: "i decide about school\nim their REAL parent",
+        kids: "the kids dont have to come to u if they dont want to\nemma doesnt want to",
       }}}),
   L({day: 18, week: 3, title: 'Kids are not messengers', skill: 'Adults talk to adults', minutes: 3,
     read: [
@@ -390,11 +391,11 @@ export const LESSONS: Lesson[] = [
     },
     drill: {task: 'Reply in a way that moves the conversation back to the adults, without blame.', goal: 'Asks for direct communication; no blame; kids kept out.',
       messages: {
-        schedule: "I told Noah to tell you I'm picking them up early Friday. Did he not say?",
-        money: "Emma will tell you how much you owe for her ballet. She knows.",
-        partner: "I asked the kids to let you know I'm not comfortable with your partner. They said they would.",
-        school: "Noah was supposed to give you the report card. Not my problem if he didn't.",
-        kids: "Emma says you said she can get a phone. Tell her yourself that you're wrong.",
+        schedule: "i told noah to tell u im picking them up early friday\ndid he not say??",
+        money: "emma will tell u how much u owe for ballet\nshe knows",
+        partner: "i asked the kids to tell u im not comfortable with ur partner\nthey said they would",
+        school: "noah was supposed to give u the report card\nnot my problem if he didnt",
+        kids: "emma says u said she can get a phone\ntell her urself ur wrong",
       }}}),
   L({day: 19, week: 3, title: 'No, kindly', skill: 'Declining', minutes: 2,
     read: [
@@ -410,11 +411,11 @@ export const LESSONS: Lesson[] = [
     },
     drill: {task: 'Say no clearly and kindly. At most one reason; an alternative only if real.', goal: 'Clear "no", no over-explaining, no apology spiral.',
       messages: {
-        schedule: "Take them this Saturday too. You owe me after last month.",
-        money: "I need you to cover all of camp this year. I'm short. You can afford it.",
-        partner: "Bring the kids to my boyfriend's birthday on your Sunday. It's important to me.",
-        school: "You're doing all the school runs next month. I'm busy.",
-        kids: "Noah wants an extra night with me on your week. You're going to say yes, right?",
+        schedule: "take them this saturday too\nu owe me after last month",
+        money: "need u to cover all of camp this year\nim short\nu can afford it",
+        partner: "bring the kids to my bfs birthday on ur sunday\nits important to me",
+        school: "ur doing all the school runs next month\nim busy",
+        kids: "noah wants an extra night with me on ur week\nur gonna say yes right?",
       }}}),
   L({day: 20, week: 3, title: "Threats: don't match, document", skill: 'Threat response', minutes: 3,
     read: [
@@ -430,11 +431,11 @@ export const LESSONS: Lesson[] = [
     },
     drill: {task: 'Reply to a threat without matching it. Child focus only.', goal: 'No counter-threat, no lawyer/court talk, stays calm.',
       messages: {
-        schedule: "Cancel on me one more time and I'll make sure you never get another weekend.",
-        money: "Pay up by Friday or I'm telling the judge you abandoned them financially.",
-        partner: "If she's there when I drop off, I'm calling the cops. Try me.",
-        school: "If you show up at the school meeting, I'll make a scene in front of the teacher.",
-        kids: "Keep it up and I'll tell the kids what kind of person you really are.",
+        schedule: "cancel on me one more time\nand ill make sure u never get another weekend",
+        money: "pay up by friday\nor im telling the judge u abandoned them financially",
+        partner: "if shes there when i drop off im calling the cops\ntry me",
+        school: "u show up to that school meeting and ill make a scene in front of the teacher",
+        kids: "keep it up\nill tell the kids what kind of person u really are",
       }}}),
   L({day: 21, week: 3, title: 'Two good options', skill: 'Offer choices', minutes: 2,
     read: [
@@ -450,11 +451,11 @@ export const LESSONS: Lesson[] = [
     },
     drill: {task: 'Reply with two concrete options you could live with, and ask them to choose.', goal: 'Exactly two specific options; neutral; firm on the essentials.',
       messages: {
-        schedule: "The exchange time doesn't work for me anymore. Figure something out.",
-        money: "I can't pay the $300 for Noah's camp at once. Your problem.",
-        partner: "I don't want your partner at the handoff. Not negotiable.",
-        school: "I'm not doing the Tuesday school run anymore. Work changed.",
-        kids: "Emma wants to call me every night at your place but you make it impossible.",
+        schedule: "the exchange time doesnt work for me anymore\nfigure something out",
+        money: "cant do the $300 for noahs camp all at once\nur problem",
+        partner: "i dont want ur partner at the handoff\nnot negotiable",
+        school: "not doing the tuesday school run anymore\nwork changed",
+        kids: "emma wants to call me every night at ur place\nbut u make it impossible",
       }}}),
 
   // ---------------- Week 4 — Court-ready habits ----------------
@@ -472,11 +473,11 @@ export const LESSONS: Lesson[] = [
     },
     drill: {task: 'Write a short written confirmation of what was agreed in person.', goal: 'Starts with "To confirm", states date/time/what, invites correction, no accusation.',
       messages: {
-        schedule: "(said at pickup) Okay, you take them the 23rd to the 26th and I get New Year's. Don't make me regret it.",
-        money: "(said on the phone) Fine, we'll split the braces 60/40, you pay 60. I'll send the first payment next month.",
-        partner: "(said at the door) Alright, your partner can drive them to swim on Thursdays. Only Thursdays.",
-        school: "(said after the meeting) Okay, Emma does tutoring Mondays, you drive, I pay.",
-        kids: "(said at pickup) Fine, Noah can call me at 7 on your nights. Just make sure he does.",
+        schedule: "(at pickup) Ok fine, you take them the 23rd to the 26th and I get New Year's. Don't make me regret it.",
+        money: "(on the phone) Fine, we split the braces 60/40, you pay the 60. I'll send my first part next month.",
+        partner: "(at the door) Alright, your partner can drive them to swim on Thursdays. Only Thursdays.",
+        school: "(after the meeting) Ok, Emma does tutoring Mondays. You drive, I pay.",
+        kids: "(at pickup) Fine, Noah can call me at 7 on your nights. Just make sure he actually does.",
       }}}),
   L({day: 23, week: 4, title: 'Dates, times, amounts', skill: 'Precise details', minutes: 2,
     read: [
@@ -492,11 +493,11 @@ export const LESSONS: Lesson[] = [
     },
     drill: {task: 'Reply using exact dates, times or amounts. No vague words like "late", "soon" or "half".', goal: 'At least two specific details; no vague time/money words.',
       messages: {
-        schedule: "You were super late last week and I'm sick of it. Be on time this weekend.",
-        money: "You still owe me for a bunch of stuff from the summer.",
-        partner: "Your girlfriend kept the kids out late again on Saturday. Not okay.",
-        school: "You missed some of the school stuff this month, again.",
-        kids: "Noah says he hasn't talked to you in ages. Maybe call him sometime.",
+        schedule: "u were super late last week and im sick of it\nbe on time this weekend",
+        money: "u still owe me for a bunch of stuff from the summer",
+        partner: "ur gf kept the kids out late AGAIN saturday\nnot ok",
+        school: "u missed some of the school stuff this month\nagain",
+        kids: "noah says he hasnt talked to u in ages\nmaybe call him sometime",
       }}}),
   L({day: 24, week: 4, title: 'Expenses with receipts', skill: 'Reimbursement requests', minutes: 2,
     read: [
@@ -512,11 +513,11 @@ export const LESSONS: Lesson[] = [
     },
     drill: {task: 'Write a reimbursement request: item, date, total, their share, receipt, deadline.', goal: 'All six parts; no commentary on their behaviour.',
       messages: {
-        schedule: "I'm not paying for the extra daycare day. That was your schedule change, not mine.",
-        money: "Send me receipts for everything or I'm not paying a cent. Everything.",
-        partner: "I'm not paying for anything your girlfriend bought them.",
-        school: "What do you mean I owe for the school trip? Nobody told me.",
-        kids: "Emma says you bought her new glasses. If you want money for them, you should have asked first.",
+        schedule: "im not paying for the extra daycare day\nthat was UR schedule change not mine",
+        money: "send me receipts for everything or im not paying a cent\nEVERYTHING",
+        partner: "not paying for anything ur gf bought them",
+        school: "what do u mean i owe for the school trip??\nnobody told me",
+        kids: "emma says u bought her new glasses\nif u want money for them u shouldve asked first",
       }}}),
   L({day: 25, week: 4, title: 'Answer an accusation with facts', skill: 'Factual response', minutes: 3,
     read: [
@@ -532,11 +533,11 @@ export const LESSONS: Lesson[] = [
     },
     drill: {task: 'Answer the accusation once, with times and details. No counter-accusation.', goal: 'Specific facts, what you did, next step; no blame back.',
       messages: {
-        schedule: "You left the kids alone in the car at the exchange. Noah told me. That's neglect.",
-        money: "You didn't buy Noah's medication this month. He ran out at your house.",
-        partner: "Your boyfriend yelled at Emma. She's scared to go back. What are you doing about it?",
-        school: "Emma says you never make her do homework. Her teacher is worried. This is on you.",
-        kids: "Noah came back with a bruise on his arm. What happened at your house?",
+        schedule: "u left the kids alone in the car at the exchange\nnoah told me\nthats neglect",
+        money: "u didnt buy noahs medication this month\nhe ran out at ur house",
+        partner: "ur bf yelled at emma\nshes scared to go back\nwhat r u doing about it",
+        school: "emma says u never make her do homework\nher teacher is worried\nthis is on u",
+        kids: "noah came back with a bruise on his arm\nwhat happened at ur house",
       }}}),
   L({day: 26, week: 4, title: 'Log it, then answer it', skill: 'Reply vs record', minutes: 2,
     read: [
@@ -552,11 +553,11 @@ export const LESSONS: Lesson[] = [
     },
     drill: {task: 'Write the short neutral reply you would send. (Keep the score-keeping for your journal.)', goal: 'No counting, no "again", no "I\'m keeping track"; next step only.',
       messages: {
-        schedule: "Not coming tonight. Something came up. Sunday maybe.",
-        money: "Support's going to be late this month. You'll get it when you get it.",
-        partner: "I let my new partner pick them up today since you weren't answering. Whatever.",
-        school: "Didn't make it to the conference. Tell me what they said I guess.",
-        kids: "Told the kids they can call me whenever they want from your house. Don't stop them.",
+        schedule: "not coming tonight\nsomething came up\nsunday maybe",
+        money: "supports gonna be late this month\nu'll get it when u get it",
+        partner: "let my new partner pick them up today since u werent answering\nwhatever",
+        school: "didnt make it to the conference\ntell me what they said i guess",
+        kids: "told the kids they can call me whenever they want from ur house\ndont stop them",
       }}}),
   L({day: 27, week: 4, title: 'The calm handoff', skill: 'Logistics only', minutes: 2,
     read: [
@@ -572,11 +573,11 @@ export const LESSONS: Lesson[] = [
     },
     drill: {task: 'Write a pure-logistics handoff message (time, place, what\'s coming).', goal: 'Time + place + items; nothing else.',
       messages: {
-        schedule: "Exchange is at 5 tomorrow. Don't be late and don't bring drama.",
-        money: "When you drop off, bring the $60 for the field trip. Cash.",
-        partner: "When you drop them off Sunday, come alone.",
-        school: "Drop them at school Monday, and make sure Emma has her project. Last time she didn't.",
-        kids: "Noah says he left his blanket at your place. He can't sleep without it. Bring it.",
+        schedule: "exchange is 5 tmrw\ndont be late and dont bring drama",
+        money: "when u drop off bring the $60 for the field trip\ncash",
+        partner: "when u drop them off sunday come alone",
+        school: "drop them at school monday\nmake sure emma has her project. last time she didnt",
+        kids: "noah left his blanket at ur place\nhe cant sleep without it\nbring it",
       }}}),
   L({day: 28, week: 4, title: 'Your playbook', skill: 'Everything together', minutes: 3,
     read: [
@@ -592,11 +593,11 @@ export const LESSONS: Lesson[] = [
     },
     drill: {task: 'The final drill. Use everything: BIFF, no bait, one topic, specific details.', goal: 'A reply you would be proud to see as an exhibit.',
       messages: {
-        schedule: "You've been late 5 times, you cancel constantly, and now you want the long weekend? Over my dead body. I'll call my lawyer Monday.",
-        money: "You're $400 behind, you buy yourself new things every week, and if you don't pay by Friday I'm going to the judge and telling him everything.",
-        partner: "You chose that person over your kids. They're crying every time they come back. If she's there this weekend, they're not coming. Period.",
-        school: "Emma is failing because of you, you never read the teacher's emails, and I'm enrolling her in a new school whether you agree or not.",
-        kids: "Noah says he hates going to your house and I'm not going to force him anymore. Maybe ask yourself why your own son doesn't want to see you.",
+        schedule: "late 5 times, u cancel constantly, and now u want the long weekend?? over my dead body\ncalling my lawyer monday",
+        money: "ur $400 behind and u buy urself new stuff every week\nif u dont pay by friday im going to the judge and telling him everything",
+        partner: "u chose that person over ur kids. they cry every time they come back\nif shes there this weekend theyre not coming. period.",
+        school: "emma is failing bc of u and u never read the teachers emails\nim enrolling her in a new school whether u agree or not",
+        kids: "noah says he hates going to ur house and im not forcing him anymore. maybe ask urself why ur own son doesnt want to see u",
       }}}),
 ];
 
@@ -640,7 +641,7 @@ export type DayStatus = 'done' | 'today' | 'open' | 'upcoming' | 'locked';
 /** Today's choice session as the page gets it. `good` travels too: the feedback is instant and there is nothing to win. */
 export interface SessionView {
   day: number; skill: string; rule: string;
-  questions: {id: string; trigger: import('./drill-bank.js').Trigger; them: string; options: {text: string; tag: string; good: boolean}[]}[];
+  questions: {id: string; trigger: import('./drill-bank.js').Trigger; them: string[]; options: {text: string; tag: string; good: boolean}[]}[];
 }
 export interface SessionResult {
   correct: number; total: number; firstTimeToday: boolean; streak: number; skill: string; skillTrend: {day: number; pct: number}[];

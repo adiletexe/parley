@@ -18,7 +18,9 @@ export interface ReplyVariant { text: string; words: number }
 export interface Analysis {
   id: string;
   createdAt: string;
-  incoming: string;                       // their message, as given
+  incoming: string;                       // their message, as given (bubbles joined by blank lines)
+  bubbles?: string[];                     // the same message as the separate texts they sent, in order (see docs/VOICE.md)
+  bubbleTimes?: string[];                 // the time each bubble was sent, as shown in a chat export ("9:41 PM"); "" when unknown
   facts: string;                          // their message with insults and history stripped: only what concerns the child
   asks: string[];                         // concrete requests/questions that need an answer
   heat: number;                           // 0 calm … 100 hostile, of THEIR message

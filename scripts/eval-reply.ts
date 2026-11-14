@@ -1,55 +1,81 @@
-/* Runs the reply coach against the live model on 25 realistic messages and checks, in code, the rules a
-   reply must keep. Usage: npx tsx scripts/eval-reply.ts [--only 3,7] [--quiet]
+/* Runs the reply coach against the live model on 26 realistic bursts (docs/VOICE.md: lowercase, shorthand, double and
+   triple texts, cold "k.", sugar-coated 🙂, midnight essays, kids as messengers) and checks, in code, the rules a reply
+   must keep — including that it sounds like a person, not HR.
+   Usage: npx tsx scripts/eval-reply.ts [--only 3,7] [--quiet]
    Exit code 1 if any rule fails, so a prompt change that makes replies worse is caught before it ships. */
 import '../server/env.js';
-import {analyzeWithStats, HOSTILE_PATTERNS, wordCount} from '../server/prompts/reply.js';
+import {analyzeWithStats, CONCEDE, EMOJI, HOSTILE_PATTERNS, SHORTHAND, STIFF} from '../server/prompts/reply.js';
 
-interface Case { name: string; incoming: string; draft?: string; context?: string; expectFlags?: string[]; expectIncident?: boolean; expectAdvice?: string[] }
+interface Case {
+  name: string; incoming: string; bubbles?: number; draft?: string; context?: string;
+  expectFlags?: string[]; expectIncident?: boolean; expectAdvice?: string[]; minHeat?: number;
+}
 
 const CASES: Case[] = [
-  {name: 'late pickup', incoming: "You were 40 minutes late AGAIN on Sunday. The kids sat there with their shoes on waiting for you. Do you even care? Pickup is at 5, not whenever you feel like it. Will you be there on time this Friday or not?",
-    expectIncident: false},
-  {name: 'soccer fees', incoming: "I'm not paying half of soccer. You signed him up without asking me. Typical. You never think about anyone but yourself.",
-    draft: "You always do this. I told you about soccer in August and you said fine. Typical. I'll see you in court if you don't pay your half by Friday!!",
-    expectFlags: ['You always do this', "I'll see you in court"]},
-  {name: 'new partner', incoming: "I don't want that man anywhere near my kids. I don't know him and neither do you really. If he's at the house this weekend I'm keeping them.",
-    expectIncident: true},
-  {name: 'weekend swap + kids threat', incoming: "I need to switch weekends, I have a work trip the 14th. If you say no I'm telling the kids it's because you don't care about my job and you're being difficult. Let me know today.",
-    draft: "Fine, swap. But if you tell the kids anything like that I swear you will regret it. You are pathetic for even saying it.",
-    expectFlags: ['you will regret it', 'You are pathetic'], expectIncident: true},
-  {name: 'fever accusation', incoming: "Emma had a 102 fever when you dropped her off and you didn't say a word. What kind of parent sends a sick kid to school? I had to leave work to get her. Did you give her anything or not?"},
-  {name: 'pure insult', incoming: "You're a joke of a parent. Everyone sees it. The kids will figure it out too eventually.",
-    expectAdvice: ['no_reply', 'brief_ack']},
-  {name: 'lawyer threat', incoming: "My lawyer is going to hear about how you handled the dentist thing. Don't bother explaining. Just send me the dentist's number so I can call them myself."},
-  {name: 'thanksgiving', incoming: "Thanksgiving is mine this year, it's an odd year. I'm picking them up Wednesday after school and bringing them back Sunday. Don't make this a fight like last year."},
-  {name: 'braces', incoming: "The orthodontist says Noah needs braces, $4,800. You'll pay half obviously since you're the one who always forgets to make him brush. I need an answer this week.",
-    draft: "I'm not paying a dime until I see the quote myself. Maybe if you fed him less sugar he wouldn't need braces."},
-  {name: 'school conference', incoming: "Why did I have to hear from the teacher that there was a parent-teacher conference? You hid it from me on purpose. When is the next one?"},
-  {name: 'poisoning accusation', incoming: "Noah told me you called me crazy in front of him. Stop poisoning my kids against me. I'm writing all this down.",
-    expectIncident: true},
-  {name: 'phone calls', incoming: "You didn't let them call me last night. Again. They're supposed to be able to call me at 7. What happened?"},
-  {name: 'child support late', incoming: "Where's the support payment? It was due on the 1st. I'm not your bank. Pay it."},
-  {name: 'long ramble', incoming: "I can't believe I even have to write this. Ever since you moved out you've made every single thing harder, from the school forms to the stupid soccer schedule to the way you let them stay up until 11 on your weekends. My mom said she saw you on your phone the whole time at the birthday party. Whatever. I'm not going to fight about it. Anyway Lily has a dentist appointment on Tuesday at 3:30 and you need to tell me if you can take her or if I have to take off work again like always. Also she needs new cleats."},
-  {name: 'guilt trip', incoming: "Emma cried all night because she misses me. Hope you're happy keeping her from me for a whole week."},
-  {name: 'friendly logistics', incoming: "Hey, can you grab Emma's jacket from my car at pickup? It's in the back seat. Thanks"},
-  {name: 'travel consent', incoming: "I'm taking the kids to Florida for spring break. I'm telling you, not asking. I need the passports from your place by next week, and don't play games like last time."},
-  {name: 'screen time criticism', incoming: "They came back glued to their iPads again. Do you just park them in front of a screen all weekend? It's lazy parenting. They also said they had pizza three nights in a row."},
-  {name: 'haircut', incoming: "You cut Noah's hair without asking me?? His hair is NOT yours to decide. You had no right."},
-  {name: 'withholding kids', incoming: "You won't see them this weekend if you don't pay me the $300 for camp by Friday. Your choice.",
-    draft: "You can't keep them from me, that's against the order and I'll call the police. I'll pay when I get the receipt like we agreed.",
-    expectFlags: ["I'll call the police"], expectIncident: true},
-  {name: 'relocation', incoming: "FYI I got a job in Denver. We're moving in June. We'll figure out your time later."},
-  {name: 'drinking accusation', incoming: "You were drunk at pickup. I could smell it. I'm not letting the kids get in the car with you next time.",
-    expectIncident: true},
-  {name: 'last minute cancel', incoming: "Can't take them Saturday, something came up. Deal with it."},
-  {name: 'sarcastic delay', incoming: "Wow, thanks for finally answering. Only took you 3 days. So are you coming to the recital on the 9th or not?",
-    draft: "Sorry, I've been busy actually working. Yes I'll be at the recital, as I already told Emma."},
-  {name: 'counselor', incoming: "I found a therapist for Emma. First session is Thursday at 4. I don't need your permission and I don't want you calling her."},
+  {name: 'rapid-fire late', bubbles: 3, minHeat: 40,
+    incoming: "9:41 PM ur seriously 40 min late AGAIN\n9:41 PM emma is sitting here crying\n9:58 PM hello??"},
+  {name: 'friendly reminder 🙂', bubbles: 2, minHeat: 30,
+    incoming: "Just a friendly reminder 🙂\n\nsoccer is $240 and SOME of us actually pay on time"},
+  {name: 'soccer + slang draft', bubbles: 3,
+    incoming: "im not paying half of soccer\nu signed him up without even asking me\ntypical.",
+    draft: "lmao ok. u literally never pay for anything so idk why im surprised. pay ur half by friday or im taking it to my lawyer",
+    expectFlags: ['u literally never pay', 'my lawyer', 'lmao']},
+  {name: 'soccer signed up without asking', bubbles: 1,
+    incoming: "I'm not paying half of soccer. You signed him up without asking me. Typical. You never think about anyone but yourself."},
+  {name: 'cold k.', bubbles: 1, expectAdvice: ['brief_ack', 'no_reply', 'reply'],
+    incoming: "k."},
+  {name: 'cold after swap', bubbles: 3,
+    incoming: "[11/12, 6:02 PM] Jordan: fine. whatever.\n[11/12, 6:02 PM] Jordan: take them sat then\n[11/12, 6:40 PM] Jordan: but im getting them back by 6 sunday not 8"},
+  {name: 'new partner threat', bubbles: 3, expectIncident: true, minHeat: 60,
+    incoming: "i dont want that guy anywhere near my kids\nu barely know him\nif hes at ur place this weekend im keeping them. period."},
+  {name: 'tell the kids + slang draft', bubbles: 2, expectIncident: true,
+    incoming: "need to switch weekends, work trip on the 14th\nif u say no im telling the kids its bc u dont care about my job",
+    draft: "omg here we go. fine swap. but if u tell them that ur gonna regret it fr. ur pathetic for even saying it 🙄",
+    expectFlags: ['regret it', 'pathetic', '🙄']},
+  {name: 'fever', bubbles: 3,
+    incoming: "emma had a 102 fever when u dropped her off\nand u didnt say a word??\ndid u give her anything or not"},
+  {name: 'pure insult lol', bubbles: 2, expectAdvice: ['no_reply', 'brief_ack'],
+    incoming: "ur a joke of a parent\neveryone sees it lol"},
+  {name: 'lawyer + ask', bubbles: 2,
+    incoming: "my lawyer is gonna hear about the dentist thing dont bother explaining\n\njust send me the dentists number so i can call them myself"},
+  {name: 'thanksgiving logistics sting', bubbles: 2,
+    incoming: "thanksgiving is mine this yr. picking them up wed after school, back sunday 5pm\ndont make it a whole thing like last yr"},
+  {name: 'braces midnight essay', bubbles: 1,
+    incoming: "1:12 AM so the orthodontist says noah needs braces which is $4,800 and honestly i shouldnt even have to ask but ur paying half obviously since ur the one who never makes him brush when hes at ur place and i'm the one who takes him to every single appointment while u do whatever u do, so i need an answer this week not in a month like the camp thing",
+    draft: "Im not paying a dime until I see the quote myself. Maybe if u fed him less sugar he wouldnt need braces"},
+  {name: 'conference hidden', bubbles: 3,
+    incoming: "why did i have to hear about the conference from the teacher\nu hid it on purpose\nwhen is the next one"},
+  {name: 'kid as messenger', bubbles: 2, expectIncident: true,
+    incoming: "noah told me u called me crazy in front of him\nstop poisoning my kids against me. im writing all of this down"},
+  {name: 'missed call', bubbles: 4, minHeat: 30,
+    incoming: "7:04 PM they were supposed to call me at 7\n7:20 PM ??\n7:45 PM wow ok\n8:10 PM so ur just not letting them call me now"},
+  {name: 'support late', bubbles: 3,
+    incoming: "wheres the support\nit was due on the 1st\nim not ur bank"},
+  {name: 'dentist ramble', bubbles: 1,
+    incoming: "ever since u moved out u made every single thing harder. the school forms, soccer, letting them stay up til 11 on ur weekends. my mom saw u on ur phone the whole party. whatever im not gonna fight about it. lily has the dentist tues at 3:30, can u take her or do i have to take off work AGAIN. also she needs new cleats"},
+  {name: 'guilt trip', bubbles: 2,
+    incoming: "emma cried all night bc she misses me\nhope ur happy 🙃"},
+  {name: 'friendly logistics', bubbles: 2, expectAdvice: ['reply', 'brief_ack'],
+    incoming: "hey can u grab emmas jacket from my car at pickup\nback seat. thx"},
+  {name: 'florida + passports', bubbles: 3,
+    incoming: "taking the kids to florida for spring break\nim telling u not asking\nneed the passports from ur place by next week and dont play games like last time"},
+  {name: 'withholding kids + draft', bubbles: 2, expectIncident: true,
+    incoming: "u wont see them this weekend if u dont send the $300 for camp by friday\nur choice 👍",
+    draft: "wtf?? u cant keep them from me thats against the order and ill call the police. ill pay when i get the receipt like we agreed",
+    expectFlags: ["ill call the police", 'wtf']},
+  {name: 'drinking accusation', bubbles: 2, expectIncident: true,
+    incoming: "u were drunk at pickup i could smell it\nthe kids arent getting in the car with u next time"},
+  {name: 'last minute cancel', bubbles: 2,
+    incoming: "cant take them sat something came up\ndeal with it"},
+  {name: 'recital + sarcasm draft', bubbles: 2,
+    incoming: "wow thanks for finally answering. only took u 3 days\nr u coming to the recital on the 9th or not",
+    draft: "lol sorry some of us actually work. yes im coming to the recital, i already told emma"},
+  {name: 'therapist', bubbles: 3,
+    incoming: "[11/10, 4:15 PM] Sam: found a therapist for emma\n[11/10, 4:15 PM] Sam: first session thurs at 4\n[11/10, 4:16 PM] Sam: i dont need ur permission and i dont want u calling her"},
 ];
 
 const BANNED = /\b(you always|you never|as usual|per my last|as i(?:'ve| have)? (?:already )?(?:said|told you)|obviously|clearly|frankly|for the record|just so you know|with all due respect|i hear that you|lawyer|attorney|court|judge|police)\b|!/i;
 const STOP = new Set('the and for you your with that this from have will what when then them they need about make able know'.split(' '));
-
 const args = process.argv.slice(2);
 const only = args.includes('--only') ? args[args.indexOf('--only') + 1].split(',').map(Number) : null;
 const quiet = args.includes('--quiet');
@@ -65,7 +91,12 @@ function check(name: string, ok: boolean, what: string) {
 function invented(reply: string, source: string): string[] {
   const toks = reply.replace(/\[[^\]]*\]/g, '').match(/\$?\d[\d,.:]*(?:\s?(?:am|pm))?/gi) ?? [];
   const src = source.toLowerCase().replace(/,/g, '');
-  return toks.filter((t) => !src.includes(t.toLowerCase().replace(/[,.]$/, '').replace(/,/g, '').replace(/\s?(am|pm)$/, '')));
+  // Half of an amount they named ("my $120 half" of $240) is arithmetic, not invention.
+  const halves = new Set((src.match(/\d+(?:\.\d+)?/g) ?? []).map((n) => String(Number(n) / 2)));
+  return toks.filter((t) => {
+    const k = t.toLowerCase().replace(/[,.]$/, '').replace(/,/g, '').replace(/\s?(am|pm)$/, '').replace(/:00$/, '');
+    return !src.includes(k) && !halves.has(k.replace(/^\$/, ''));
+  });
 }
 
 async function runOne(c: Case, i: number) {
@@ -102,10 +133,11 @@ await Promise.all(Array.from({length: 5}, async () => {
 
 results.sort((x, y) => x.i - y.i);
 const times: number[] = [];
+let rewrites = 0;
 for (const {c, i, a, stats, ms} of results) {
   times.push(ms);
   console.log(`\n#${i} ${c.name}  (${(ms / 1000).toFixed(1)}s, heat ${a.heat}, ${a.category}, ${a.advice})`);
-  console.log(`   THEY: ${c.incoming}`);
+  (a.bubbles ?? [a.incoming]).forEach((b, k) => console.log(`   THEY ${a.bubbleTimes?.[k] || ''}> ${b}`));
   console.log(`   FACTS: ${a.facts}`);
   console.log(`   STRIPPED: ${JSON.stringify(a.stripped)}`);
   console.log(`   ASKS: ${JSON.stringify(a.asks)}`);
@@ -117,15 +149,29 @@ for (const {c, i, a, stats, ms} of results) {
     console.log(`   DRAFT SCORE: ${a.draftScore}  (model flags ${stats.flagsFromModel}, dropped ${stats.flagsDropped}, added by code ${stats.flagsAddedByCode})`);
   }
   for (const f of a.lens) console.log(`   LENS ${f.severity}: "${f.phrase}" — ${f.issue}. ${f.why}${f.fix ? ` Fix: ${f.fix}` : ''}`);
-  console.log(`   REPLY SCORE: ${a.replyScore}`);
+  console.log(`   REPLY SCORE: ${a.replyScore}${stats.rewrites ? `  (rewritten once: ${stats.rewriteWhy.join('; ')})` : ''}`);
+  rewrites += stats.rewrites;
 
   const source = [c.incoming, c.draft ?? '', c.context ?? ''].join(' ');
-  check(c.name, a.variants.brief.words <= 30, `brief ≤ 30 words (${a.variants.brief.words})`);
-  check(c.name, a.variants.neutral.words <= 75 && a.variants.firm.words <= 75, `neutral/firm ≤ 75 words (${a.variants.neutral.words}/${a.variants.firm.words})`);
+  if (c.bubbles !== undefined) check(c.name, (a.bubbles?.length ?? 1) === c.bubbles, `read as ${c.bubbles} text(s) (${a.bubbles?.length ?? 1})`);
+  if (c.minHeat !== undefined) check(c.name, a.heat >= c.minHeat, `heat ≥ ${c.minHeat} from the cues (${a.heat})`);
+  check(c.name, a.variants.brief.words <= 20, `brief ≤ 20 words (${a.variants.brief.words})`);
+  check(c.name, a.variants.neutral.words <= 50 && a.variants.firm.words <= 50, `neutral/firm ≤ 50 words (${a.variants.neutral.words}/${a.variants.firm.words})`);
+  check(c.name, !STIFF.test(a.facts) && !SHORTHAND.test(a.facts), `facts in plain English${STIFF.exec(a.facts) || SHORTHAND.exec(a.facts) ? ` ("${(STIFF.exec(a.facts) || SHORTHAND.exec(a.facts))![0]}")` : ''}`);
   for (const k of ['brief', 'neutral', 'firm'] as const) {
     const t = a.variants[k].text;
     const m = BANNED.exec(t);
     check(c.name, !m, `${k}: no banned phrase${m ? ` (found "${m[0]}")` : ''}`);
+    // No admission of fault or promise that accepts their framing, unless the user's own draft/notes said it.
+    const cm = CONCEDE.exec(t);
+    const theirOwn = cm && (c.draft ?? '').concat(' ', c.context ?? '').toLowerCase().includes(cm[0].toLowerCase());
+    check(c.name, !cm || !!theirOwn, `${k}: no admission or concession${cm && !theirOwn ? ` (found "${cm[0]}")` : ''}`);
+    const st = STIFF.exec(t);
+    check(c.name, !st, `${k}: no stiff phrase${st ? ` (found "${st[0]}")` : ''}`);
+    const sh = SHORTHAND.exec(t);
+    check(c.name, !sh && !EMOJI.test(t), `${k}: no emoji or shorthand${sh ? ` (found "${sh[0]}")` : EMOJI.test(t) ? ' (emoji)' : ''}`);
+    check(c.name, !/\n/.test(t) && !/(^|\s)(1[.)]|to your first)/i.test(t) && (t.match(/[.?](\s|$)/g) ?? []).length <= 4, `${k}: one text back, not bubble by bubble`);
+    check(c.name, !/\b(I will|I am|do not|cannot|I would|it is|that is|let us)\s+[a-z]/.test(t), `${k}: uses contractions`);
     const hp = HOSTILE_PATTERNS.find((p) => p.re.test(t));
     check(c.name, !hp, `${k}: no hostile pattern${hp ? ` (${hp.issue})` : ''}`);
     const inv = invented(t, source);
@@ -154,6 +200,7 @@ for (const {c, i, a, stats, ms} of results) {
 }
 
 times.sort((a, b) => a - b);
+console.log(`\nvoice rewrites needed: ${rewrites}/${results.length}`);
 console.log(`\n${results.length} cases · median ${(times[Math.floor(times.length / 2)] / 1000).toFixed(1)}s · max ${(times[times.length - 1] / 1000).toFixed(1)}s`);
 console.log(fails ? `${fails} failed:\n${failLines.join('\n')}` : 'all good');
 process.exit(fails ? 1 : 0);

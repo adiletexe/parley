@@ -1,6 +1,8 @@
 /* The daily session: five messages, three replies each, tap the one you'd send. One action per screen —
-   the bubble, the question, three cards; the tag under a card is the only explanation anyone gets. */
-import {useCallback, useEffect, useRef, useState} from 'react';
+   their texts, the question, three replies; the tag under a reply is the only explanation anyone gets.
+   Their side arrives the way it does on a phone (docs/VOICE.md): a burst of bubbles, each after a moment of
+   "typing…", and only then the three replies, drawn as texts you might send. Reduced motion shows it all at once. */
+import {useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react';
 import {Icon} from '../../../components/Icon';
 import {api, track} from '../../../lib/api';
 import type {SessionResult, SessionView} from '../../../../server/plan-content';
@@ -20,6 +22,21 @@ export function Dots({total, picks, at}: {total: number; picks: Pick[]; at?: num
   );
 }
 
+/** Their texts as stacked grey bubbles on the left. `shown` bubbles are visible; `typing` adds the dots after them. */
+export function Burst({bubbles, shown = bubbles.length, typing = false}: {bubbles: string[]; shown?: number; typing?: boolean}) {
+  return (
+    <div className="pl-burst" role="log" aria-live="polite" aria-label="Their texts">
+      {bubbles.slice(0, shown).map((b, k) => <p key={k} className="pl-them">{b}</p>)}
+      {typing && <p className="pl-them pl-typing" aria-label="typing"><i /><i /><i /></p>}
+    </div>
+  );
+}
+
+/** A plan-content drill message is the same burst with one bubble per line. */
+export const bubblesOf = (message: string) => message.split('\n').map((b) => b.trim()).filter(Boolean);
+
+const FIRST_MS = 450, NEXT_MS = 600;
+
 export function Session({session, onExit, onDone}: {
   session: SessionView; onExit: () => void; onDone: (r: SessionResult, picks: Pick[]) => void;
 }) {
@@ -32,6 +49,19 @@ export function Session({session, onExit, onDone}: {
   const q = qs[i];
   const mine = picks[i];
   const last = i === qs.length - 1;
+  const total = q.them.length;
+  // How many of this message's bubbles are on screen; the replies wait for the last one.
+  const [shown, setShown] = useState(() => (reduced() ? qs[0].them.length : 0));
+  const ready = shown >= total;
+
+  // Layout effect: the next message's bubbles must not flash in for a frame before the typing starts.
+  useLayoutEffect(() => {
+    if (reduced()) { setShown(total); return; }
+    setShown(0);
+    const ts: number[] = [];
+    for (let k = 0, t = 0; k < total; k++) { t += k === 0 ? FIRST_MS : NEXT_MS; ts.push(window.setTimeout(() => setShown(k + 1), t)); }
+    return () => ts.forEach((x) => window.clearTimeout(x));
+  }, [q.id, total]);
 
   useEffect(() => () => window.clearTimeout(timer.current), []);
   // On a phone the button lands under the tab bar; bring it up once there is something to press.
@@ -54,7 +84,7 @@ export function Session({session, onExit, onDone}: {
   }, [picks, i, last, busy, submit]);
 
   function choose(k: number) {
-    if (mine || busy) return;
+    if (mine || busy || !ready) return;
     const good = q.options[k].good;
     const all = [...picks, {id: q.id, picked: k, good}];
     setPicks(all);
@@ -68,6 +98,7 @@ export function Session({session, onExit, onDone}: {
     const key = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLElement && /INPUT|TEXTAREA/.test(e.target.tagName)) return;
       if (['1', '2', '3'].includes(e.key)) choose(Number(e.key) - 1);
+      else if (e.key === ' ' && !ready) { e.preventDefault(); setShown(total); }
       else if (e.key === 'Enter' && mine) { e.preventDefault(); next(); }
       else if (e.key === 'Escape') onExit();
     };
@@ -85,25 +116,34 @@ export function Session({session, onExit, onDone}: {
       </div>
 
       <div className="pl-q" key={q.id}>
-        <div className="pl-them"><p>{q.them}</p></div>
-        <h2 className="pl-ask">Which would you send?</h2>
-        <div className="pl-opts" role="group" aria-label="Three replies">
-          {q.options.map((o, k) => {
-            const state = !mine ? '' : k === mine.picked ? (o.good ? 'ok' : 'bad') : o.good ? 'ok reveal' : 'dim';
-            return (
-              <button key={k} className={'pl-opt ' + state} disabled={!!mine} aria-pressed={mine?.picked === k} onClick={() => choose(k)}>
-                <span className="pl-opt-k" aria-hidden="true">
-                  {state.startsWith('ok') ? <svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                    : state === 'bad' ? <svg viewBox="0 0 24 24"><path d="M7 7l10 10M17 7L7 17" stroke="#fff" strokeWidth="3" strokeLinecap="round" /></svg> : null}
-                </span>
-                <span className="pl-opt-t">
-                  {o.text}
-                  {(state === 'ok' || state === 'bad' || state === 'ok reveal') && <em>{o.tag}</em>}
-                </span>
-              </button>
-            );
-          })}
+        {/* A tap on the chat skips the typing: some people read faster than the dots. */}
+        <div className="pl-chat" onClick={() => setShown(total)}>
+          <Burst bubbles={q.them} shown={shown} typing={!ready} />
         </div>
+        {ready && (
+          <>
+            <h2 className="pl-ask">Which would you send?</h2>
+            <div className="pl-opts" role="group" aria-label="Three replies">
+              {q.options.map((o, k) => {
+                const state = !mine ? '' : k === mine.picked ? (o.good ? 'ok' : 'bad') : o.good ? 'ok reveal' : 'dim';
+                const told = state === 'ok' || state === 'bad' || state === 'ok reveal';
+                return (
+                  <button key={k} className={'pl-opt ' + state} style={{animationDelay: `${k * 70}ms`}} disabled={!!mine}
+                    aria-pressed={mine?.picked === k} onClick={() => choose(k)}>
+                    <span className="pl-opt-t">{o.text}</span>
+                    {told && (
+                      <em>
+                        {state.startsWith('ok') ? <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                          : <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17" stroke="currentColor" strokeWidth="3" strokeLinecap="round" /></svg>}
+                        {o.tag}
+                      </em>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </>
+        )}
       </div>
 
       <p className="pl-sr" aria-live="polite">{mine ? `${mine.good ? 'Good choice' : 'Not that one'}: ${q.options[mine.picked].tag}` : ''}</p>

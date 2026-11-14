@@ -7,17 +7,26 @@ import {Logo} from '../../components/Logo';
 import {track} from '../../lib/api';
 import './funnel.css';
 
-const EXAMPLE = "I'm not paying half of soccer. You signed her up without asking me. Typical. You never think about anyone but yourself.";
+// The example is a real burst (docs/VOICE.md): three texts in a row, lowercase, a jab and an eye-roll.
+const EXAMPLE_BURST = ['im not paying half of soccer', 'u signed her up without even asking me', 'typical. 🙄'];
+const EXAMPLE = EXAMPLE_BURST.join('\n');
+// The first draft is what a stressed parent really sends back, typed fast.
 const DRAFT_PARTS: {t: string; flag?: string}[] = [
-  {t: 'Wow. '},
-  {t: 'You ALWAYS do this', flag: 'An absolute. Reads as an attack, not a fact.'},
+  {t: 'wow. '},
+  {t: 'u ALWAYS do this', flag: 'An absolute. Reads as an attack, not a fact.'},
   {t: '. '},
-  {t: "Maybe if you actually showed up to a game you'd know why it matters", flag: 'A dig at their parenting. Judges notice these.'},
-  {t: '. Pay your half '},
-  {t: "or I'll take it to my lawyer", flag: 'Can read as a threat.'},
-  {t: '.'},
+  {t: 'maybe if u actually showed up to a game ud know why it matters', flag: 'A dig at their parenting. Judges notice these.'},
+  {t: '. pay ur half '},
+  {t: 'or im taking it to my lawyer', flag: 'Can read as a threat.'},
 ];
-const REPLY = "Fall soccer is $180. I've attached the receipt. Please let me know by Friday whether you'll cover half.";
+const REPLY = "Soccer's $180 for the fall. Here's the receipt. Can you let me know by Friday if you'll cover half?";
+const REPLY_WORDS = REPLY.split(/\s+/).length;
+// A run of texts from one sender, drawn the way a phone draws it: stacked, rounded on the outside only.
+const stack = {display: 'grid', gap: 4, justifyItems: 'start', alignContent: 'start'} as const;
+const bubbleR = (i: number, big = false) => {
+  const r = big ? 20 : 18;
+  return {borderRadius: `${i === 0 ? r : 6}px ${r}px ${r}px 6px`, padding: big ? '10px 16px' : '9px 14px'};
+};
 
 export default function Landing() {
   const nav = useNavigate();
@@ -75,12 +84,14 @@ export default function Landing() {
         <div className="fn-hero-peek" aria-hidden="true">
           <div className="fn-peek">
             <div className="fn-peek-h"><Icon id="reply" size={24} /><span>They wrote · Text</span></div>
-            <div className="fn-peek-them">{EXAMPLE}</div>
-            <div className="fn-peek-facts"><b>Just the facts</b> Doesn't want to split the soccer fee. Says they weren't asked first.</div>
+            <div style={stack}>
+              {EXAMPLE_BURST.map((b, i) => <div key={i} className="fn-peek-them" style={bubbleR(i)}>{b}</div>)}
+            </div>
+            <div className="fn-peek-facts"><b>Just the facts</b> They don't want to pay half of soccer. They weren't asked first.</div>
             <div className="fn-peek-reply">
               <div className="fn-peek-tabs"><span className="on">Brief</span><span>Neutral</span><span>Firm</span></div>
               <p>{REPLY}</p>
-              <div className="fn-peek-foot"><span className="chip chip-ok">Court-safety 94</span><span className="fn-peek-w">18 words</span></div>
+              <div className="fn-peek-foot"><span className="chip chip-ok">Court-safety 94</span><span className="fn-peek-w">{REPLY_WORDS} words</span></div>
             </div>
           </div>
         </div>
@@ -126,10 +137,12 @@ export default function Landing() {
         <div className="fn-ex-grid">
           <div className="card fn-ex-them">
             <div className="card-h"><Icon id="reply" size={24} />They wrote</div>
-            <p className="fn-bubble">{EXAMPLE}</p>
+            <div style={stack}>
+              {EXAMPLE_BURST.map((b, i) => <p key={i} className="fn-bubble" style={bubbleR(i, true)}>{b}</p>)}
+            </div>
             <div className="fn-ex-facts">
               <small>Just the facts</small>
-              <p>Doesn't want to split the soccer fee. Says they weren't asked before sign-up.</p>
+              <p>They don't want to pay half of soccer, because they weren't asked first.</p>
               <small>What needs an answer</small>
               <p>Who pays for soccer.</p>
             </div>
@@ -148,7 +161,7 @@ export default function Landing() {
             ) : (
               <div className="fn-ex-body fade-in" key="p">
                 <p className="fn-draft good">{REPLY}</p>
-                <ul className="fn-flags ok"><li><b>18 words</b>Brief and on topic.</li><li><b>One clear ask, one date</b>Firm without a threat.</li><li><b>No history, no labels</b>Nothing to argue with.</li></ul>
+                <ul className="fn-flags ok"><li><b>{REPLY_WORDS} words</b>Brief, plain, sounds like a person.</li><li><b>One clear ask, one date</b>Firm without a threat.</li><li><b>No history, no labels</b>Nothing to argue with.</li></ul>
                 <Score n={94} />
               </div>
             )}

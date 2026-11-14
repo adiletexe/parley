@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 import {api, ApiError} from '../../../lib/api';
 import type {DrillAttempt, PlanView} from '../../../../server/plan-content';
 import {Score, scoreTone, scoreWord} from './parts';
+import {Burst, bubblesOf} from './Session';
 
 type Drill = NonNullable<PlanView['drill']>;
 
@@ -34,7 +35,7 @@ export function BonusDrill({day, drill}: {day: number; drill: Drill}) {
 
   return (
     <section className="card pl-bonus fade-in" aria-label="Bonus: write your own reply">
-      <div className="pl-them"><p>{tries[0]?.message ?? drill.message}</p></div>
+      <Burst bubbles={bubblesOf(tries[0]?.message ?? drill.message)} />
 
       {last && (
         <div className="pl-result fade-in" key={last.id}>

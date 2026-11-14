@@ -1,10 +1,13 @@
 /* The Parley Keyboard (iOS roadmap prototype, a separate repo): a keyboard extension has no web cookie, so it names
-   itself by a random device id the container app made, and we keep a guest person per device here.
-   Demo terms: it doesn't spend free replies, but each device gets KB_DAILY_LIMIT analyses a day. */
+   itself by a random device id the container app made, and we keep a person per device here.
+   Same paywall as the web app: the device's person needs an active plan (or to be the demo case), and even then
+   each device gets KB_DAILY_LIMIT analyses a day. */
 import type {Hono} from 'hono';
 import {db, createPerson, getPerson, newId, nowIso, personNow, track} from '../db.js';
 import {analyzeMessage} from '../prompts/reply.js';
 import type {Analysis} from '../../shared/types.js';
+import {hasAccess, PAYWALL} from '../me.js';
+import {syncRenewals} from './billing.js';
 
 db.exec(`
 CREATE TABLE IF NOT EXISTS kb_devices (
@@ -40,6 +43,9 @@ export default function register(app: Hono) {
     const draft = typeof b.draft === 'string' ? b.draft.slice(0, 4000) : '';
     if (!incoming.trim()) return c.json({error: 'Copy their texts first, then tap Paste their texts.'}, 400);
     if (incoming.length > 6000) return c.json({error: 'That message is very long. Copy just the part you need to answer.'}, 413);
+
+    // No plan, no model call — checked before the day's count, so a locked device doesn't burn its tries.
+    if (!hasAccess(syncRenewals(personFor(device)))) return c.json(PAYWALL, 402);
 
     // Count the call before the model runs, so a burst of parallel taps can't slip past the limit.
     const day = new Date().toISOString().slice(0, 10);

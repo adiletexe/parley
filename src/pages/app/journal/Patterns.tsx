@@ -3,13 +3,13 @@ import type {Pattern} from '../../../../shared/types';
 import {Icon, type IconId} from '../../../components/Icon';
 
 export const ICON = (label: string): IconId =>
-  /late/i.test(label) ? 'clock' : /missed hand/i.test(label) ? 'noshow' : /tense topic/i.test(label) ? 'flame' : /per week/i.test(label) ? 'bolt'
-    : /children/i.test(label) ? 'kids' : /payment/i.test(label) ? 'dollarx' : /schedule/i.test(label) ? 'calendar' : /reply time/i.test(label) ? 'timer' : 'target';
+  /late/i.test(label) ? 'clock' : /missed hand/i.test(label) ? 'noshow' : /tense topic/i.test(label) ? 'flame' : /per week/i.test(label) ? 'chart'
+    : /children/i.test(label) ? 'kids' : /payment/i.test(label) ? 'dollarx' : /schedule/i.test(label) ? 'calendar' : /reply time/i.test(label) ? 'timer' : 'chart';
 
 export function Patterns({patterns, entryCount, active, onPick}: {patterns: Pattern[]; entryCount: number; active: string | null; onPick: (p: Pattern | null) => void}) {
   return (
     <section className="card jr-patterns">
-      <div className="card-h"><Icon id="search" size={24} />Patterns</div>
+      <div className="card-h"><Icon id="chart" size={24} />Patterns</div>
       {patterns.length === 0 ? (
         <p className="jr-sub">
           {entryCount < 5

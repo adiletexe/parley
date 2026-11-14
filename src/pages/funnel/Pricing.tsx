@@ -1,5 +1,7 @@
 /* /pricing — the paywall, then the built-in TEST checkout as a sheet over it.
-   Honest by construction: the renewal price sits right under every CTA at the CTA's size, the guarantee has no
+   Hard paywall, no free tier and no free trial (the Finelo/Coursiv model): a paid introductory period, then the
+   plan renews on its own. The intro price is big above the CTA and the renewal price sits right under the CTA at
+   the same size. Honest by construction: the guarantee has no
    conditions, and there are no reviews, press logos, promo codes or countdowns that are not real. */
 import {useEffect, useMemo, useRef, useState, type FormEvent} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
@@ -7,7 +9,7 @@ import {Logo} from '../../components/Logo';
 import {Icon, type IconId} from '../../components/Icon';
 import {api, ApiError, track} from '../../lib/api';
 import {useMe} from '../../lib/me';
-import {addDays, label, longDate, renewalLine, shortDate, usd, planTitle, type BillingStatus, type PlanOffer, type PlansRes, type QuizProfile, type Tier} from './billing-api';
+import {addDays, firstPeriod, label, longDate, renewalLine, termsLine, shortDate, usd, planTitle, type BillingStatus, type PlanOffer, type PlansRes, type QuizProfile, type Tier} from './billing-api';
 import './billing.css';
 
 export default function Pricing() {
@@ -40,7 +42,7 @@ export default function Pricing() {
         <Logo to="/" />
         <div className="bl-top-r">
           <span className="chip chip-amber">Test mode</span>
-          <Link to="/app/reply" className="btn btn-quiet">Not now</Link>
+          <Link to="/" className="btn btn-quiet">Not now</Link>
         </div>
       </header>
 
@@ -53,7 +55,7 @@ export default function Pricing() {
 
         {active && me?.plan.until && (
           <div className="bl-active">
-            <Icon id="shield" size={32} />
+            <Icon id="crown" size={32} />
             <div>Your plan is active until <b>{longDate(me.plan.until)}</b>. Buying again adds the time after it. <Link to="/app/settings">Manage plan</Link></div>
           </div>
         )}
@@ -71,15 +73,15 @@ export default function Pricing() {
         <section className="card">
           <h2 className="bl-h2">What you <span className="gt">get</span></h2>
           <div className="bl-rows">
-            <Row icon="chat" title="Unlimited calm replies" sub="Paste their message, get a brief, neutral or firm reply in seconds — BIFF, child-focused, no bait taken." />
-            <Row icon="scale" title="The judge's lens on every draft" sub="Risky phrases underlined before you send, with why and a safer wording, and a court-safety score." />
-            <Row icon="book" title="A dated record and a court-ready PDF" sub="Every exchange and incident on a private timeline, exported with exhibit numbers for your lawyer." />
-            <Row icon="target" title="All 28 days of the calm plan" sub="A 2-minute lesson and a real drill each day — write, get graded, try again, and watch the score climb." />
+            <Row icon="reply" title="Unlimited calm replies" sub="Paste their message, get a brief, neutral or firm reply in seconds — BIFF, child-focused, no bait taken." />
+            <Row icon="judge-lens" title="The judge's lens on every draft" sub="Risky phrases underlined before you send, with why and a safer wording, and a court-safety score." />
+            <Row icon="record" title="A dated record and a court-ready PDF" sub="Every exchange and incident on a private timeline, exported with exhibit numbers for your lawyer." />
+            <Row icon="path" title="All 28 days of the calm plan" sub="A 2-minute lesson and a real drill each day — write, get graded, try again, and watch the score climb." />
           </div>
         </section>
 
         <section className="card bl-guarantee">
-          <Icon id="shield" size={52} />
+          <Icon id="refund" size={52} />
           <div>
             <b>14-day money-back guarantee, no conditions</b>
             <span>Ask within 14 days of your first payment and you get all of it back. No forms, no questions.</span>
@@ -112,6 +114,10 @@ export default function Pricing() {
               <p>Courts decide what evidence they admit, and rules differ by state. The PDF is a clean, dated, chronological summary with exhibit numbers and an integrity fingerprint — the kind of organised record lawyers ask clients to keep. Show it to your attorney.</p>
             </details>
             <details>
+              <summary>Is there a free trial?</summary>
+              <p>No. The first price is a smaller introductory price for your first period. After that the plan renews at the regular price until you cancel, and the app stays locked if it doesn't renew. Changed your mind? Ask within 14 days of your first payment and you get all of it back.</p>
+            </details>
+            <details>
               <summary>How do I cancel?</summary>
               <p>Settings → Cancel in one click. Your plan stays on until the end of the period you paid for, and nothing renews after that. We remind you in the app 3 days before each renewal.</p>
             </details>
@@ -127,7 +133,7 @@ export default function Pricing() {
 
         <p className="bl-legal">
           Parley is not a law firm and doesn't give legal advice. Prices in US dollars. This build uses a test checkout — no real card is charged.
-          {' '}<Link to="/app/reply">Keep using the free version</Link>
+          {' '}Just looking? <Link to="/demo">Open the sample case</Link>
         </p>
       </main>
 
@@ -161,11 +167,11 @@ function Summary({profile}: {profile: QuizProfile | null}) {
       </p>
       <div className="bl-chips">
         {profile.conflictLevel && (
-          <span className="bl-chip"><Icon id="flame" size={24} />Conflict <b>{profile.conflictLevel === 'high' ? 'High' : profile.conflictLevel === 'medium' ? 'Medium' : 'Low'}</b></span>
+          <span className="bl-chip"><Icon id="gauge" size={24} />Conflict <b>{profile.conflictLevel === 'high' ? 'High' : profile.conflictLevel === 'medium' ? 'Medium' : 'Low'}</b></span>
         )}
-        {trigger && <span className="bl-chip"><Icon id="bolt" size={24} />Sets it off <b>{trigger}</b></span>}
-        {stage && <span className="bl-chip"><Icon id="scale" size={24} />Court <b>{stage}</b></span>}
-        {goal && <span className="bl-chip"><Icon id="target" size={24} />Goal <b>{goal}</b></span>}
+        {trigger && <span className="bl-chip"><Icon id="trigger" size={24} />Sets it off <b>{trigger}</b></span>}
+        {stage && <span className="bl-chip"><Icon id="court-active" size={24} />Court <b>{stage}</b></span>}
+        {goal && <span className="bl-chip"><Icon id="goal" size={24} />Goal <b>{goal}</b></span>}
       </div>
     </>
   );
@@ -220,18 +226,20 @@ function Picker({plans, tier, setTier, plan, onGo}: {plans: PlanOffer[]; tier: T
             <span className="bl-radio" />
             <span>
               <span className="bl-plan-name">{p.name}</span>
-              <span className="bl-plan-sub" style={{display: 'block'}}><b>{usd(p.priceCents)}</b> today · then {usd(p.renewCents)} / {p.renewLabel}</span>
+              <span className="bl-plan-sub" style={{display: 'block'}}><b>{usd(p.priceCents)}</b> for the {firstPeriod(p)} · then {usd(p.renewCents)} / {p.renewLabel}</span>
             </span>
             <span className="bl-perday"><b>{usd(p.perDayCents)}</b><span>per day</span></span>
           </button>
         ))}
       </div>
-      <button className="btn btn-primary btn-lg" onClick={onGo}>Get my plan — {usd(plan.priceCents)}</button>
-      <p className="bl-terms">{renewalLine(plan)}</p>
+      <p className="bl-intro"><b>{usd(plan.priceCents)}</b> for your {firstPeriod(plan)}</p>
+      <button className="btn btn-primary btn-lg" onClick={onGo}>Get my plan</button>
+      <p className="bl-intro bl-then">{renewalLine(plan)}</p>
+      <p className="bl-terms">{termsLine(plan)}</p>
       <div className="bl-trust">
-        <span><Icon id="shield" size={20} />14-day money-back</span>
+        <span><Icon id="refund" size={20} />14-day money-back</span>
         <span><Icon id="lock" size={20} />Private</span>
-        <span><Icon id="clock" size={20} />Cancel in one click</span>
+        <span><Icon id="one-click" size={20} />Cancel in one click</span>
       </div>
     </div>
   );
@@ -346,7 +354,7 @@ function Checkout({plan, testCard, now, active, activeUntil, onClose}: {plan: Pl
         ) : (
           <>
             <div className="bl-sheet-h">
-              <h2 id="bl-co-title"><Icon id="lock" size={30} />Checkout</h2>
+              <h2 id="bl-co-title"><Icon id="secure-card" size={30} />Checkout</h2>
               <button className="bl-x" onClick={onClose} disabled={phase === 'paying'} aria-label="Close checkout">×</button>
             </div>
 
@@ -387,8 +395,8 @@ function Checkout({plan, testCard, now, active, activeUntil, onClose}: {plan: Pl
               <button className="btn btn-primary btn-lg bl-pay" type="submit" disabled={phase === 'paying'}>
                 {phase === 'paying' ? <><span className="spin" />Processing…</> : <>Pay {usd(plan.priceCents)}</>}
               </button>
-              <p className="bl-terms">{renewalLine(plan)}</p>
-              <p className="bl-small">14-day money-back guarantee, no conditions. Parley is not a law firm and doesn't give legal advice.</p>
+              <p className="bl-terms"><b>{usd(plan.priceCents)} today</b>, {renewalLine(plan)}.</p>
+              <p className="bl-small">Cancel in one click in Settings. We remind you 3 days before each renewal. 14-day money-back guarantee, no conditions. Parley is not a law firm and doesn't give legal advice.</p>
             </form>
           </>
         )}

@@ -15,7 +15,7 @@ interface Preview {
 interface Result { added: number; duplicates: number; skipped: number }
 
 const SOURCES: {id: Source; icon: IconId; title: string; sub: string; accept: string; multiple?: boolean; how: string[]}[] = [
-  {id: 'whatsapp', icon: 'chat', title: 'WhatsApp chat', sub: 'The .txt or .zip from “Export chat”', accept: '.txt,.zip,text/plain,application/zip',
+  {id: 'whatsapp', icon: 'import-chat', title: 'WhatsApp chat', sub: 'The .txt or .zip from “Export chat”', accept: '.txt,.zip,text/plain,application/zip',
     how: ['Open the chat with the other parent.', 'iPhone: tap their name → Export Chat → Without Media. Android: ⋮ → More → Export chat → Without media.', 'Save the file, then choose it here. It’s read on our server and never shared.']},
   {id: 'pdf', icon: 'pdf', title: 'OurFamilyWizard or TalkingParents', sub: 'A PDF message report', accept: 'application/pdf,.pdf',
     how: ['OurFamilyWizard: Message Board → Reports → Message Report → PDF.', 'TalkingParents: Records → Messages → choose a date range → Download PDF.', 'Big history? Export a few months at a time.']},

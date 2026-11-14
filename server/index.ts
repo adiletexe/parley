@@ -6,7 +6,8 @@ import {serveStatic} from '@hono/node-server/serve-static';
 import {readFileSync, existsSync} from 'node:fs';
 import {session} from './session.js';
 import {getPerson, track} from './db.js';
-import {toMe} from './me.js';
+import {toMe, hasAccess, PAYWALL} from './me.js';
+import {syncRenewals} from './routes/billing.js';
 import quiz from './routes/quiz.js';
 import billing from './routes/billing.js';
 import reply from './routes/reply.js';
@@ -27,7 +28,23 @@ app.post('/api/event', async (c) => {
   if (typeof b.name === 'string' && b.name.length < 60) track(c.get('person').id, b.name, b.data);
   return c.json({ok: true});
 });
-app.get('/api/me', (c) => c.json(toMe(getPerson(c.get('person').id)!)));
+app.get('/api/me', (c) => c.json(toMe(syncRenewals(getPerson(c.get('person').id)!))));
+
+/* Hard paywall: everything the product does sits behind an active plan (or the demo case), checked here once for
+   every route of the paid modules so no endpoint can be forgotten. Renewals are rolled first, so a plan that
+   renewed overnight is not mistaken for a lapsed one. The lawyer's read-only share link stays open: it is the
+   payer's own record, already paid for. */
+const PAID = /^\/api\/(reply|journal|timeline|plan|record)(\/|$)/;
+app.use('/api/*', async (c, next) => {
+  if (!PAID.test(c.req.path) || c.req.path.startsWith('/api/timeline/share/')) return next();
+  const p = syncRenewals(getPerson(c.get('person').id)!);
+  if (!hasAccess(p)) {
+    track(p.id, 'paywall_api', {path: c.req.path});
+    return c.json(PAYWALL, 402);
+  }
+  c.set('person', p);
+  return next();
+});
 
 for (const register of [quiz, billing, reply, journal, timeline, plan, demo, report, keyboard]) register(app);
 

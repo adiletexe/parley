@@ -1,7 +1,11 @@
 import type {Me, PlanState, QuizAnswers} from '../shared/types.js';
 import {personNow, type PersonRow} from './db.js';
 
-export const FREE_REPLIES = 3;
+/* No free tier (the Finelo/Coursiv model): every paid action needs an active plan. The demo case is the one
+   exception — the jury has to use the whole product with no sign-up and no card (case FAQ). */
+export const hasAccess = (p: PersonRow) => !!p.demo || planState(p) === 'active';
+/** The one 402 every paid endpoint answers with; the web app turns `paywall: true` into the way to /pricing. */
+export const PAYWALL = {error: 'This is part of the Parley plan. Pick a plan to unlock it.', paywall: true} as const;
 
 export function planState(p: PersonRow): PlanState {
   if (!p.plan_until) return 'none';
@@ -24,7 +28,7 @@ export function toMe(p: PersonRow): Me {
     plan: {state: planState(p), tier: (p.plan_tier as Me['plan']['tier']) ?? undefined, until: p.plan_until ?? undefined, startedAt: p.plan_started ?? undefined},
     day: planDay(p),
     now: personNow(p).toISOString(),
-    freeRepliesLeft: Math.max(0, FREE_REPLIES - p.free_replies_used),
+    access: hasAccess(p),
     tz: p.demo ? 'America/New_York' : undefined,
   };
 }

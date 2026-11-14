@@ -63,6 +63,12 @@
 
 .bl-cta { display: grid; gap: 12px; }
 .bl-cta .btn { width: 100%; }
+/* The introductory price above the CTA and the renewal price under it are the SAME size (Finelo's layout):
+   what it costs after the first period is never the small print. */
+.bl-intro { font: 800 22px/1.25 var(--font); letter-spacing: -.02em; color: var(--ink); text-align: center; text-wrap: pretty; }
+.bl-intro b { font-weight: 800; }
+.bl-then { font-weight: 700; color: var(--ink); }
+.bl-cta .bl-terms { font-size: 13.5px; font-weight: 500; color: var(--mute); }
 /* Same size as the CTA's own label: the renewal terms are not small print. */
 .bl-terms { font-size: 16px; font-weight: 600; line-height: 1.45; color: var(--ink); text-align: center; text-wrap: pretty; }
 .bl-trust { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 14px; font-size: 12.5px; color: var(--mute); font-weight: 600; }

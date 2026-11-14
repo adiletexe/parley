@@ -1,9 +1,9 @@
 /* The reply coach API. One model call per analysis; the result is stored so it can be reopened, used and logged.
-   Free people get FREE_REPLIES analyses (counted only when one succeeds); an active plan or the demo is unlimited. */
+   Every route here needs an active plan or the demo case (the paywall gate in server/index.ts, and again below). */
 import type {Context, Hono} from 'hono';
 import type {Analysis, Channel, Entry} from '../../shared/types.js';
 import {db, getPerson, newId, nowIso, personNow, track, type PersonRow} from '../db.js';
-import {FREE_REPLIES, planState} from '../me.js';
+import {hasAccess, PAYWALL} from '../me.js';
 import {analyzeMessage} from '../prompts/reply.js';
 import {addEntry, titleFrom} from '../journal-store.js';
 import type {AiImage} from '../ai.js';
@@ -22,8 +22,6 @@ const VARIANTS = ['brief', 'neutral', 'firm'] as const;
 type Variant = (typeof VARIANTS)[number];
 type LogRow = {analysis_id: string; in_entry: string | null; out_entry: string | null; incident_entry: string | null; variant: string | null};
 
-const unlimited = (p: PersonRow) => !!p.demo || planState(p) === 'active';
-const freeLeft = (p: PersonRow) => (unlimited(p) ? null : Math.max(0, FREE_REPLIES - p.free_replies_used));
 
 function loadAnalysis(personId: string, id: string): Analysis | undefined {
   const r = db.prepare('SELECT json FROM analyses WHERE id = ? AND person_id = ?').get(id, personId) as {json: string} | undefined;
@@ -72,9 +70,10 @@ async function readInput(c: Context): Promise<{incoming: string; draft: string; 
 export default function register(app: Hono) {
   app.post('/api/reply/analyze', async (c) => {
     const person = getPerson(c.get('person').id)!;
-    if (!unlimited(person) && person.free_replies_used >= FREE_REPLIES) {
+    // Checked again here, not only in the gate: this is the call that spends money on the model.
+    if (!hasAccess(person)) {
       track(person.id, 'reply_paywall');
-      return c.json({error: `You've used your ${FREE_REPLIES} free replies. Unlock the plan to keep going.`, paywall: true}, 402);
+      return c.json(PAYWALL, 402);
     }
     const input = await readInput(c);
     if (typeof input === 'string') return c.json({error: input}, 400);
@@ -86,10 +85,8 @@ export default function register(app: Hono) {
 
     const a: Analysis = {id: newId('a_'), createdAt: personNow(person).toISOString(), ...out, ...(person.demo ? {demo: true} : {})};
     db.prepare('INSERT INTO analyses (id, person_id, created_at, json) VALUES (?, ?, ?, ?)').run(a.id, person.id, nowIso(), JSON.stringify(a));
-    if (!unlimited(person)) db.prepare('UPDATE people SET free_replies_used = free_replies_used + 1 WHERE id = ?').run(person.id);
     track(person.id, 'reply_analyzed', {heat: a.heat, advice: a.advice, draft: !!a.draft, image: input.images.length > 0, category: a.category});
-    const after = getPerson(person.id)!;
-    return c.json({...withLog(a), freeRepliesLeft: freeLeft(after)});
+    return c.json(withLog(a));
   });
 
   /** Copying or saving a reply logs both sides of the exchange to the journal, once. */
@@ -154,7 +151,7 @@ export default function register(app: Hono) {
       return {id: a.id, createdAt: a.createdAt, facts: a.facts, incoming: a.incoming.slice(0, 160), category: a.category, heat: a.heat, advice: a.advice,
         draftScore: a.draftScore, usedVariant: l?.variant ?? null, demo: !!a.demo};
     });
-    return c.json({items, freeRepliesLeft: freeLeft(getPerson(person.id)!)});
+    return c.json({items});
   });
 
   app.get('/api/reply/:id', (c) => {

@@ -10,7 +10,7 @@ import {api, track} from '../../../lib/api';
 import {useMe} from '../../../lib/me';
 import {Highlighted, Lens, tone} from './Lens';
 
-export type AnalysisView = Analysis & {logged?: {exchange: boolean; incident: boolean}; freeRepliesLeft?: number | null};
+export type AnalysisView = Analysis & {logged?: {exchange: boolean; incident: boolean}};
 type Variant = 'brief' | 'neutral' | 'firm';
 
 const TABS: {k: Variant; label: string; hint: string}[] = [
@@ -132,7 +132,7 @@ export function Result({a, channel, onUpdate}: {a: AnalysisView; channel: Channe
           <span className="rc-out-meta">{edited ? 'Edited' : 'Tap to edit'}</span>
         </div>
         {/\[[^\]]+\]/.test(text) && <p className="rc-fill">Fill in the <b>[brackets]</b> before you send — we never guess dates, times or amounts.</p>}
-        <p className={'rc-verdict ' + (v.ok ? 'ok' : 'warn')}><Icon id="scale" size={22} />{v.text}</p>
+        <p className={'rc-verdict ' + (v.ok ? 'ok' : 'warn')}><Icon id="judge-lens" size={22} />{v.text}</p>
         <button className="btn btn-primary btn-lg rc-copy" onClick={() => log('copy')} disabled={!!busy || !text.trim()}>
           {busy === 'copy' ? <span className="spin" /> : null}{copied ? 'Copied' : 'Copy reply'}
         </button>

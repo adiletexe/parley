@@ -27,9 +27,13 @@ export const longDate = (iso?: string) => iso ? new Date(iso).toLocaleDateString
 export const shortDate = (iso?: string) => iso ? new Date(iso).toLocaleDateString('en-US', {month: 'short', day: 'numeric'}) : '';
 export const addDays = (iso: string, days: number) => new Date(new Date(iso).getTime() + days * 86_400_000).toISOString();
 
-/** The words that sit under every CTA, the same size as the CTA's price. */
-export const renewalLine = (p: PlanOffer) =>
-  `${usd(p.priceCents)} today, then ${usd(p.renewCents)} every ${p.renewLabel} until you cancel. Cancel in one click in Settings. We remind you 3 days before each renewal.`;
+/** "first week" / "first 4 weeks": the introductory period a plan's price pays for. */
+export const firstPeriod = (p: PlanOffer) => (p.days === 7 ? 'first week' : `first ${p.name}`);
+/** The words that sit under every CTA, the same size as the introductory price above it (Finelo-style). */
+export const renewalLine = (p: PlanOffer) => `then ${usd(p.renewCents)} every ${p.renewLabel} until you cancel`;
+/** The small print under that, which is still not small: no free trial, how to cancel, the reminder. */
+export const termsLine = (p: PlanOffer) =>
+  `No free trial: you pay ${usd(p.priceCents)} today for your ${firstPeriod(p)}, and the plan renews on its own. Cancel in one click in Settings. We remind you 3 days before each renewal.`;
 
 /* Quiz values come from another module; known ones get a human label, anything else is de-snaked. */
 const LABELS: Record<string, string> = {

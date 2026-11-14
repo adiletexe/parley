@@ -1,7 +1,7 @@
 /* The Practice home: four weeks as a path of days, Duolingo-shaped but quieter. Each week opens with a tinted
    banner (its skill and %, or seven dots when folded); the days sit on a gentle sine with a dotted line between
    them. A node tells its state by shape and colour before anyone reads it: green check = done, big gradient with
-   a bubble = today, grey outline = missed (tap to catch up), grey lock = later, lilac lock = full plan.
+   a bubble = today, grey outline = missed (tap to catch up), grey lock = later, lilac lock = needs a plan (unreachable now: the shell locks the whole page without one).
    Positions are computed here, not by CSS, so the line and the nodes are drawn from the same numbers. */
 import {useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties} from 'react';
 import {Link} from 'react-router-dom';
@@ -11,7 +11,7 @@ import type {PathDay, PlanHome} from '../../../../server/routes/plan';
 const SIZE = {node: 56, today: 76, milestone: 64};
 const STEP = 100;      // centre to centre, vertically
 const BUBBLE = 40;     // extra room above today for its "Start · 2 min" bubble
-const WEEK_ICON: Record<number, IconId> = {1: 'chat', 2: 'shield', 3: 'target', 4: 'record'};
+const WEEK_ICON: Record<number, IconId> = {1: 'brief', 2: 'no-bait', 3: 'boundary', 4: 'timeline'};
 
 const reduced = () => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -156,12 +156,12 @@ function Node({d, size, big, x, y, w, today, now, tipOpen, setTip, onAct, pop, h
   const label = d.state === 'done' ? `Day ${d.day} · ${score}`
     : d.state === 'today' ? `Day ${d.day} · today`
     : d.state === 'missed' ? `Day ${d.day} · catch up`
-    : d.state === 'paywall' ? 'Full plan'
+    : d.state === 'paywall' ? 'With a plan'
     : `Day ${d.day}`;
   const aria = d.state === 'done' ? `Day ${d.day}, done, ${d.correct} of ${d.total} right`
     : d.state === 'today' ? `Day ${d.day}, today. Start the 2-minute session`
     : d.state === 'missed' ? `Day ${d.day}, missed. Catch up`
-    : d.state === 'paywall' ? `Day ${d.day}, in the full plan`
+    : d.state === 'paywall' ? `Day ${d.day}, with a plan`
     : `Day ${d.day}, ${when(d.day, today, now).toLowerCase()}`;
 
   const glyph = d.milestone && d.state !== 'missed' ? <Trophy />
@@ -183,7 +183,7 @@ function Node({d, size, big, x, y, w, today, now, tipOpen, setTip, onAct, pop, h
       <div className={'pl-stop' + (pop ? ' pop' : '')} style={{left: x, top: y}} {...(isToday ? {'data-today': ''} : {})}>
         {big && (
           <span className={'pl-bubble' + (d.state === 'paywall' ? ' pay' : '')} aria-hidden="true">
-            {d.state === 'paywall' ? 'Unlock · full plan' : 'Start · 2 min'}
+            {d.state === 'paywall' ? 'Unlock with a plan' : 'Start · 2 min'}
           </span>
         )}
         <button className={`pl-node ${d.state}` + (d.milestone ? ' ms' : '') + (big ? ' big' : '')}
@@ -213,8 +213,8 @@ function Node({d, size, big, x, y, w, today, now, tipOpen, setTip, onAct, pop, h
           {d.state === 'future' && <span className="pl-tip-when"><Lock />{when(d.day, today, now)}</span>}
           {d.state === 'paywall' && (
             <>
-              <span>Days 3–28 are in the full plan.</span>
-              <Link to="/pricing" className="btn btn-primary">Unlock all 28 days</Link>
+              <span>Practice comes with a plan.</span>
+              <Link to="/pricing" className="btn btn-primary">See plans</Link>
             </>
           )}
         </div>

@@ -35,9 +35,9 @@ type ReportKind = 'lawyer' | 'month' | 'patterns';
 interface Report { title: string; bullets: string[]; caution: string; from: string; to: string; entries: number; cached?: boolean }
 
 const REPORTS: {id: ReportKind; icon: IconId; title: string; sub: string}[] = [
-  {id: 'lawyer', icon: 'scale', title: 'Summary for my lawyer', sub: 'The main facts, with exhibit numbers'},
+  {id: 'lawyer', icon: 'lawyer', title: 'Summary for my lawyer', sub: 'The main facts, with exhibit numbers'},
   {id: 'month', icon: 'calendar', title: 'This month in brief', sub: 'What happened in the last 30 days'},
-  {id: 'patterns', icon: 'target', title: 'Patterns & concerns', sub: 'What keeps repeating, and how often'},
+  {id: 'patterns', icon: 'chart', title: 'Patterns & concerns', sub: 'What keeps repeating, and how often'},
 ];
 const LOG_TILES = ['late', 'noshow', 'schedule', 'kids', 'expense', 'payment'];
 
@@ -269,7 +269,7 @@ export default function Record() {
           <p>Each message gets an exhibit number, so it’s one PDF for your lawyer when you need it.</p>
           <div className="rd-empty-acts">
             <button type="button" className="btn btn-primary" onClick={() => setSheet({kind: 'import', start: 'screenshot', only: ['screenshot']})}><Icon id="camera" size={24} />Upload screenshots</button>
-            <button type="button" className="btn btn-ghost" onClick={() => setSheet({kind: 'import', only: ['whatsapp', 'pdf']})}><Icon id="chat" size={24} />WhatsApp or OFW export</button>
+            <button type="button" className="btn btn-ghost" onClick={() => setSheet({kind: 'import', only: ['whatsapp', 'pdf']})}><Icon id="import-chat" size={24} />WhatsApp or OFW export</button>
           </div>
           <button type="button" className="btn btn-quiet" onClick={() => setSheet({kind: 'log'})}>Write down something that happened</button>
           <p className="rd-privacy"><Icon id="lock" size={20} />Private to you. The other parent never sees Parley.</p>
@@ -330,13 +330,13 @@ export default function Record() {
           <ImportPanel bare start="screenshot" only={['screenshot']} onImported={() => void imported()} />
           <div className="rd-more">
             <button type="button" className="rd-row" onClick={() => setSheet({kind: 'import', only: ['whatsapp', 'pdf']})}>
-              <Icon id="chat" size={28} /><span>WhatsApp export or OFW PDF</span><i aria-hidden="true">›</i>
+              <Icon id="import-chat" size={28} /><span>WhatsApp export or OFW PDF</span><i aria-hidden="true">›</i>
             </button>
             <button type="button" className="rd-row" onClick={() => setSheet({kind: 'log'})}>
               <Icon id="pencil" size={28} /><span>Write down something that happened</span><i aria-hidden="true">›</i>
             </button>
             <button type="button" className="rd-row" onClick={() => setSheet({kind: 'share'})}>
-              <Icon id="lock" size={28} /><span>Share with your lawyer</span><i aria-hidden="true">›</i>
+              <Icon id="lawyer" size={28} /><span>Share with your lawyer</span><i aria-hidden="true">›</i>
             </button>
           </div>
           <p className="rd-privacy"><Icon id="lock" size={20} />Only you can see this. The other parent never sees Parley.</p>

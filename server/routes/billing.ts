@@ -57,7 +57,7 @@ const getSub = (id: string) => db.prepare('SELECT * FROM subscriptions WHERE per
 type CheckoutRow = {id: string; tier: string; provider: string; status: string; created_at: string; json: string | null};
 
 /** Roll a lapsed, not-cancelled plan into its next period(s). Returns the fresh person row. */
-function syncRenewals(p: PersonRow): PersonRow {
+export function syncRenewals(p: PersonRow): PersonRow {
   const sub = getSub(p.id);
   if (!sub || sub.status !== 'active' || !p.plan_until) return p;
   const now = personNow(p).getTime();

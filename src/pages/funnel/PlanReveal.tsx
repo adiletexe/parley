@@ -16,10 +16,10 @@ const LEVEL: Record<QuizProfile['conflictLevel'], {word: string; line: string; c
 };
 
 const WEEKS: {n: number; icon: IconId; title: string; sub: string}[] = [
-  {n: 1, icon: 'bolt', title: 'Brief & factual', sub: 'Say it in 25 words. Keep only the facts.'},
-  {n: 2, icon: 'shield', title: "Don't take the bait", sub: 'Gray rock for provocations. Answer only the ask.'},
-  {n: 3, icon: 'flag', title: 'Boundaries & firm requests', sub: 'Clear asks with a deadline, no threats.'},
-  {n: 4, icon: 'scale', title: 'Court-ready habits', sub: 'Log it the same day. Build the timeline.'},
+  {n: 1, icon: 'brief', title: 'Brief & factual', sub: 'Say it in 25 words. Keep only the facts.'},
+  {n: 2, icon: 'no-bait', title: "Don't take the bait", sub: 'Gray rock for provocations. Answer only the ask.'},
+  {n: 3, icon: 'boundary', title: 'Boundaries & firm requests', sub: 'Clear asks with a deadline, no threats.'},
+  {n: 4, icon: 'timeline', title: 'Court-ready habits', sub: 'Log it the same day. Build the timeline.'},
 ];
 
 function focusLines(a: QuizAnswers, p: QuizProfile): string[] {
@@ -52,7 +52,7 @@ export default function PlanReveal() {
     return (
       <div className="fn-rev fn-center">
         <div className="card fn-err-card">
-          <Icon id="target" size={48} />
+          <Icon id="path" size={48} />
           <h2>Your plan starts with a 1-minute check</h2>
           <p>Eleven quick questions about your situation, and we build the 28 days around them.</p>
           <button className="btn btn-primary btn-lg" onClick={() => nav('/quiz')}>Take the 1-minute check</button>
@@ -78,7 +78,7 @@ export default function PlanReveal() {
 
         <div className="fn-rev-grid">
           <section className="card fn-prof">
-            <div className="card-h"><Icon id="user" size={24} />Where you are today</div>
+            <div className="card-h"><Icon id="you-here" size={24} />Where you are today</div>
             <div className="fn-level">
               <div>
                 <small>Message tension</small>
@@ -88,15 +88,15 @@ export default function PlanReveal() {
               <p>{lvl.line}</p>
             </div>
             <dl className="fn-dl">
-              <div><dt><Icon id="flame" size={30} />What sets it off most</dt><dd>{p.topTriggerLabel}</dd></div>
-              <div><dt><Icon id="scale" size={30} />Where things stand</dt><dd>{p.courtStageLabel}</dd></div>
-              <div><dt><Icon id="target" size={30} />What matters most now</dt><dd>{p.focus}</dd></div>
-              <div><dt><Icon id="clock" size={30} />Time on messages</dt><dd>~{hours(p.minutesPerWeek)} a week <span className="fn-arrow">→</span> goal: under {hours(goalMinutes)}</dd></div>
+              <div><dt><Icon id="trigger" size={30} />What sets it off most</dt><dd>{p.topTriggerLabel}</dd></div>
+              <div><dt><Icon id="court-active" size={30} />Where things stand</dt><dd>{p.courtStageLabel}</dd></div>
+              <div><dt><Icon id="goal" size={30} />What matters most now</dt><dd>{p.focus}</dd></div>
+              <div><dt><Icon id="time-3" size={30} />Time on messages</dt><dd>~{hours(p.minutesPerWeek)} a week <span className="fn-arrow">→</span> goal: under {hours(goalMinutes)}</dd></div>
             </dl>
           </section>
 
           <section className="card fn-chart-card">
-            <div className="card-h"><Icon id="target" size={24} />Tense messages per week</div>
+            <div className="card-h"><Icon id="chart" size={24} />Tense messages per week</div>
             <TenseChart start={p.tensePerWeek} />
             <p className="fn-chart-note">Your goal, not a promise. It's illustrative: shorter, calmer replies tend to mean shorter threads. You'll see your real numbers in the journal.</p>
           </section>
@@ -128,8 +128,7 @@ export default function PlanReveal() {
 
         <section className="fn-rev-cta">
           <Link to="/pricing" className="btn btn-primary btn-lg" onClick={() => cta('unlock')}>Unlock my plan</Link>
-          <Link to="/app/reply" className="btn btn-ghost btn-lg" onClick={() => cta('try_free')}>Try the reply coach free</Link>
-          <p>3 free replies, no sign-up. Parley is not a law firm and doesn't give legal advice.</p>
+          <p>From $6.99 for your first week. Cancel in one click. Parley is not a law firm and doesn't give legal advice.</p>
         </section>
       </main>
     </div>

@@ -12,6 +12,11 @@ export function MeProvider({children}: {children: ReactNode}) {
     try { const m = await api<Me>('/api/me'); installDisplayZone(m.tz); setMe(m); return m; } catch { return null; }
   }, []);
   useEffect(() => { void refresh(); }, [refresh]);
+  useEffect(() => {
+    const on = () => { void refresh(); };
+    window.addEventListener('parley:paywall', on);
+    return () => window.removeEventListener('parley:paywall', on);
+  }, [refresh]);
   return <Ctx.Provider value={{me, refresh}}>{children}</Ctx.Provider>;
 }
 

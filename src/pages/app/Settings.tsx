@@ -145,11 +145,11 @@ function PlanCard({st, ask, setAsk, busy, actErr, cancel, resume}: {
   if (st.state !== 'active') {
     return (
       <>
-        {head(<span className="chip chip-amber">{st.state === 'expired' ? 'Ended' : 'Free'}</span>, st.state === 'expired' ? 'Your plan has ended' : 'Free version')}
+        {head(<span className="chip chip-amber">{st.state === 'expired' ? 'Ended' : 'No plan'}</span>, st.state === 'expired' ? 'Your plan has ended' : 'No plan yet')}
         <p style={{color: 'var(--mute)'}}>
           {st.state === 'expired'
-            ? `It ended on ${longDate(st.until)}. Your journal and timeline are still here.`
-            : 'Three free replies and days 1–2 of the calm plan. Unlock unlimited replies, the judge\'s lens and all 28 days.'}
+            ? `It ended on ${longDate(st.until)}. Your record is still here: pick a plan to open it again, or download it below.`
+            : 'Calm replies, the judge\'s lens, your record and all 28 days of practice come with a plan. Plans start at $6.99 for the first week.'}
         </p>
         <div className="bl-actions"><Link to="/pricing" className="btn btn-primary">See plans</Link></div>
       </>

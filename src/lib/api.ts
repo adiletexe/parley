@@ -15,6 +15,8 @@ export async function api<T>(path: string, opts: {method?: string; body?: unknow
   const data = isJson ? await res.json() : await res.text();
   if (!res.ok) {
     const msg = (isJson && (data as {error?: string}).error) || `Request failed (${res.status})`;
+    // A plan that ran out while a page was open: tell MeProvider, so the shell swaps the page for the locked card.
+    if (res.status === 402 && isJson && (data as {paywall?: boolean}).paywall) window.dispatchEvent(new Event('parley:paywall'));
     throw new ApiError(msg, res.status, data);
   }
   return data as T;

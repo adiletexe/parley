@@ -103,8 +103,6 @@ export default function Reply() {
     } catch { setError("The sample screenshot didn't load. Check your connection and try again."); }
   }
 
-  const unlimited = !!me && (me.demo || me.plan.state === 'active');
-  const left = me && !unlimited ? me.freeRepliesLeft : null;
   const steps = form.draft.trim() ? [...STEPS, 'Reading your draft like a judge'] : STEPS;
   const showResult = !!result && !editing;
   const edit = () => { if (!result) return; setEditing(true); setFormState((f) => ({...f, incoming: result.incoming, draft: result.draft ?? '', images: []})); };
@@ -127,8 +125,8 @@ export default function Reply() {
         {paywall && (
           <section className="card rc-paywall fade-in">
             <div>
-              <b>You've used your 3 free replies.</b>
-              <p>The 28-day calm plan gives you unlimited replies, the judge's read on every draft and a court-ready record.</p>
+              <b>Your plan isn't active.</b>
+              <p>Pick a plan to keep getting calm replies, the judge's read on every draft and a court-ready record.</p>
             </div>
             <Link className="btn btn-primary" to="/pricing" onClick={() => track('reply_paywall_click')}>See plans</Link>
           </section>
@@ -158,7 +156,6 @@ export default function Reply() {
         )}
 
         <p className="rc-foot">
-          {left !== null && !paywall && <>{left > 0 ? `${left} free ${left === 1 ? 'reply' : 'replies'} left` : 'That was your last free reply'} · <Link to="/pricing">Unlimited with the plan</Link><br /></>}
           {!showResult && <>Private. The other parent never sees Parley.<br /></>}
           Parley is not a law firm and doesn't give legal advice.
         </p>

@@ -68,7 +68,7 @@ export interface Me {
   plan: { state: PlanState; tier?: '1w' | '4w' | '12w' | 'year'; until?: string; startedAt?: string };
   day: number;                   // day of the 28-day plan (1-based), honours demo time-travel
   now: string;                   // server "now" for this person (demo time-travel shifts it)
-  freeRepliesLeft: number;
+  access: boolean;               // may use the paid app: an active plan, or the demo case
   tz?: string;                   // show dates in this IANA zone (the demo case lives in US Eastern)
 }
 

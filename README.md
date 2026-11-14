@@ -6,7 +6,7 @@ Parents raising kids in two homes have to keep messaging each other, and in a cu
 
 Track: **Skills** · Business Cup 2.0 (Zimran)
 
-**Live:** https://parley.adiletfndr.com — no sign-up.
+**Live:** https://parley.adiletfndr.com — the jury path (/demo) needs no sign-up and no card.
 
 ## For the jury (2 minutes)
 1. Open **/demo** → "Open the sample case" (clearly labelled demo data: six weeks of a real-looking case, day 12 of the plan).
@@ -16,7 +16,18 @@ Track: **Skills** · Business Cup 2.0 (Zimran)
 5. **28-day plan** — write today's drill, get graded, retry, watch the score climb. Use the demo clock (+7 days) to see a week pass.
 6. **Pricing** — test checkout: card `4242 4242 4242 4242`, any future date, any CVC. No real money moves.
 
-Or start from the landing page as a new visitor: paste a message, or take the 1-minute check → personal plan → paywall.
+Or start from the landing page as a new visitor: landing → 1-minute check → personal plan → paywall → test checkout → welcome → the app.
+
+## How it makes money
+A hard paywall with no free tier and no free trial, the model Zimran's Finelo and Coursiv use: a paid introductory period, then the plan renews on its own until you cancel.
+
+| Plan | First period | Then |
+|---|---|---|
+| 1 week | $6.99 | $29.99 every 4 weeks |
+| **4 weeks** (most popular) | $19.99 | $29.99 every 4 weeks |
+| 12 weeks | $49.99 | $69.99 every 12 weeks |
+
+14-day money-back guarantee, one-click cancel in Settings, a reminder 3 days before each renewal. Every paid endpoint (replies, record, imports, reports, PDF, practice, keyboard) answers **402** without an active plan — one gate in `server/index.ts`; the app shows a locked card that leads to /pricing. The demo case (/demo) is the one exception, so the jury can use everything without paying. Text pasted on the landing is not run before payment: it is kept in the browser and answered right after checkout.
 
 ## What's real
 - Replies, "just the facts", asks, Judge's-lens flags and screenshot reading are model calls on the user's input (Claude Opus 5.5 with structured outputs; Gemini as a fallback).
@@ -36,6 +47,6 @@ npm run dev            # web on :5173, API on :8787
 Production build: `npm run build && npm start`. Deploy: `deploy/deploy.sh` (box set up once with `deploy/provision.sh`).
 
 ## Privacy
-Guest by default; the other parent never sees Parley. "Download my data" and "Delete everything" are in Settings. Secrets live only in the server's `.env`.
+No account or email needed (a private cookie keeps your session); the other parent never sees Parley. "Download my data" and "Delete everything" are in Settings. Secrets live only in the server's `.env`.
 
 Parley is not a law firm and doesn't give legal advice.

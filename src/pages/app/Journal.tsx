@@ -85,9 +85,9 @@ export default function Journal() {
       <Header hasEntries={s.total > 0} />
 
       <div className="jr-stats">
-        <Stat icon="chat" n={s.messages.toLocaleString('en-US')} label="Messages" sub={s.messages ? `${s.messagesIn} received` : 'none yet'} />
+        <Stat icon="messages" n={s.messages.toLocaleString('en-US')} label="Messages" sub={s.messages ? `${s.messagesIn} received` : 'none yet'} />
         <Stat icon="flag" n={String(s.incidents)} label="Incidents" sub={s.incidents ? 'logged by you' : 'none yet'} />
-        <Stat icon="receipt" n={String(s.expenses)} label="Expenses" sub={s.expenses ? `${money(s.expenseCents)} total` : 'none yet'} />
+        <Stat icon="dollar" n={String(s.expenses)} label="Expenses" sub={s.expenses ? `${money(s.expenseCents)} total` : 'none yet'} />
         <Stat icon="calendar" n={s.first && s.last ? `${Math.max(1, Math.round((Date.parse(s.last) - Date.parse(s.first)) / 86_400_000) + 1)} days` : '—'} label="Covering"
           sub={s.first && s.last ? `${fmtDate(s.first, {month: 'short', day: 'numeric'})} – ${fmtDate(s.last, {month: 'short', day: 'numeric'})}` : 'no entries yet'} />
       </div>
@@ -109,7 +109,7 @@ export default function Journal() {
 
           <section className="card jr-record" ref={listTop}>
             <div className="jr-record-h">
-              <div className="card-h"><Icon id="book" size={24} />Your record</div>
+              <div className="card-h"><Icon id="record" size={24} />Your record</div>
               {s.total > 0 && <span className="jr-count">{filtered ? `${shown.length} of ${s.total}` : `${s.total} entries`}</span>}
             </div>
             {s.total > 0 && (
@@ -154,12 +154,12 @@ function Header({hasEntries}: {hasEntries?: boolean}) {
         <h1>Every handoff, <span className="gt">on the record</span>.</h1>
         <p className="jr-lede">A private, dated log of messages, incidents and expenses — kept in calm, factual language a judge can read.</p>
       </div>
-      {hasEntries && <Link to="/app/record" className="btn btn-ghost jr-tl"><Icon id="scale" size={26} />Court timeline</Link>}
+      {hasEntries && <Link to="/app/record" className="btn btn-ghost jr-tl"><Icon id="timeline" size={26} />Court timeline</Link>}
     </header>
   );
 }
 
-function Stat({icon, n, label, sub}: {icon: 'chat' | 'flag' | 'receipt' | 'calendar'; n: string; label: string; sub: string}) {
+function Stat({icon, n, label, sub}: {icon: 'messages' | 'flag' | 'dollar' | 'calendar'; n: string; label: string; sub: string}) {
   return (
     <div className="jr-stat">
       <Icon id={icon} size={34} />

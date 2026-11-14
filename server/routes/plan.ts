@@ -1,6 +1,6 @@
 import type {Hono} from 'hono';
 import {db, newId, personNow, getPerson, track, type PersonRow} from '../db.js';
-import {planDay, planState} from '../me.js';
+import {hasAccess, planDay, planState, PAYWALL} from '../me.js';
 import type {Analysis, LensFlag, QuizAnswers} from '../../shared/types.js';
 import {
   LESSONS, TOTAL_DAYS, WEEKS, TRIGGER_LABEL, drillFor, lessonFor, triggerFromQuiz,
@@ -27,13 +27,13 @@ db.exec('CREATE INDEX IF NOT EXISTS plan_sessions_person ON plan_sessions (perso
    weekly numbers, first → best — is counted here from stored rows; the model only grades a draft. */
 
 const DAY = 86_400_000;
-const FREE_DAYS = 2;
 const MAX_ATTEMPTS_PER_DAY = 8;
 const RENEWAL: Record<string, string> = {'1w': '$29.99 every 4 weeks', '4w': '$29.99 every 4 weeks', '12w': '$69.99 every 12 weeks', year: 'yearly'};
 
 const startMs = (p: PersonRow) => new Date(p.plan_started ?? p.created_at).getTime();
 const dayOfMs = (p: PersonRow, t: number) => Math.floor((t - startMs(p)) / DAY) + 1;
-const hasFullAccess = (p: PersonRow) => !!p.demo || planState(p) === 'active';
+// No free days: the whole plan is behind the paywall (gate in server/index.ts). Kept as a check here too.
+const hasFullAccess = hasAccess;
 
 function quizOf(p: PersonRow): QuizAnswers | undefined {
   try { return p.quiz_json ? JSON.parse(p.quiz_json) as QuizAnswers : undefined; } catch { return undefined; }
@@ -141,7 +141,7 @@ function pathOf(p: PersonRow, sessions: SessionRow[], day: number, full: boolean
   const path: PathDay[] = LESSONS.map((l) => {
     const rows = by.get(l.day) ?? [];
     const best = rows.reduce<SessionRow | undefined>((a, r) => (!a || r.correct > a.correct ? r : a), undefined);
-    const state: PathDay['state'] = !full && l.day > FREE_DAYS ? 'paywall' : best ? 'done' : l.day === day ? 'today' : l.day < day ? 'missed' : 'future';
+    const state: PathDay['state'] = !full ? 'paywall' : best ? 'done' : l.day === day ? 'today' : l.day < day ? 'missed' : 'future';
     return {day: l.day, week: l.week, title: l.title, milestone: l.day % 7 === 0, state,
       correct: best?.correct, total: best?.total, rounds: rows.length};
   });
@@ -174,7 +174,7 @@ export function planView(p: PersonRow, wantDay?: number): PlanHome {
   const today = Math.min(day, TOTAL_DAYS);
   const days = LESSONS.map((l) => {
     const tries = byDay.get(l.day) ?? [];
-    const status: DayStatus = !full && l.day > FREE_DAYS ? 'locked' : l.day > day ? 'upcoming' : tries.length ? 'done' : l.day === today ? 'today' : 'open';
+    const status: DayStatus = !full ? 'locked' : l.day > day ? 'upcoming' : tries.length ? 'done' : l.day === today ? 'today' : 'open';
     return {day: l.day, week: l.week, title: l.title, status,
       first: tries[0]?.score, best: tries.length ? Math.max(...tries.map((t) => t.score)) : undefined};
   });
@@ -196,7 +196,7 @@ export function planView(p: PersonRow, wantDay?: number): PlanHome {
   const trend = days.filter((d) => d.best !== undefined).map((d) => ({day: d.day, first: d.first!, best: d.best!}));
 
   const viewDay = Math.min(Math.max(1, wantDay && Number.isFinite(wantDay) ? Math.floor(wantDay) : today), TOTAL_DAYS);
-  const locked: PlanView['locked'] = !full && viewDay > FREE_DAYS ? 'paywall' : viewDay > day ? 'upcoming' : undefined;
+  const locked: PlanView['locked'] = !full ? 'paywall' : viewDay > day ? 'upcoming' : undefined;
   // A drill is written in the person's own trigger once they've told us; the attempts keep the message they actually saw.
   const d = drillFor(viewDay, quizTrigger);
   const tries = byDay.get(viewDay) ?? [];
@@ -209,7 +209,7 @@ export function planView(p: PersonRow, wantDay?: number): PlanHome {
 
   const sessions = listSessions(p.id);
   const todayPack = dayPack(day);
-  const sessionLocked = !full && day > FREE_DAYS;
+  const sessionLocked = !full;
   const doneToday = sessions.filter((r) => r.day === day);
 
   return {
@@ -252,7 +252,7 @@ export default function register(app: Hono) {
     const p = getPerson(c.get('person').id)!;
     const day = Math.floor(Number(c.req.query('day')));
     if (!(day >= 1 && day <= TOTAL_DAYS)) return c.json({error: 'That day is not part of the plan.'}, 400);
-    if (!hasFullAccess(p) && day > FREE_DAYS) return c.json({error: 'Days 3–28 are part of the full plan.', paywall: true}, 402);
+    if (!hasFullAccess(p)) return c.json(PAYWALL, 402);
     if (day > planDay(p)) return c.json({error: `Day ${day} unlocks on its day.`}, 403);
     return c.json(sessionFor(p, day, dayPack(day)));
   });
@@ -263,7 +263,7 @@ export default function register(app: Hono) {
     const day = Math.floor(Number(b.day));
     const today = planDay(p);
     if (!(day >= 1)) return c.json({error: 'That day is not part of the plan.'}, 400);
-    if (!hasFullAccess(p) && day > FREE_DAYS) return c.json({error: 'Days 3–28 are part of the full plan.', paywall: true}, 402);
+    if (!hasFullAccess(p)) return c.json(PAYWALL, 402);
     if (day > today) return c.json({error: `Day ${day} unlocks on its day.`}, 403);
     // A past day is a catch-up or a repeat: it scores under its own day, and (stamped now) counts as today's practice.
 
@@ -302,7 +302,7 @@ export default function register(app: Hono) {
     if (!(day >= 1 && day <= TOTAL_DAYS)) return c.json({error: 'That day is not part of the plan.'}, 400);
     if (draft.length < 3) return c.json({error: 'Write a reply first — even one line.'}, 400);
     if (draft.length > 1500) return c.json({error: 'That reply is very long. Try saying it in a few sentences.'}, 400);
-    if (!hasFullAccess(p) && day > FREE_DAYS) return c.json({error: 'Days 3–28 are part of the full plan.', paywall: true}, 402);
+    if (!hasFullAccess(p)) return c.json(PAYWALL, 402);
     if (day > planDay(p)) return c.json({error: `Day ${day} unlocks on its day.`}, 403);
 
     const prior = listAttempts(p.id).filter((a) => a.day === day);

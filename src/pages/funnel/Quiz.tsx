@@ -22,84 +22,84 @@ const QS: Record<string, Q> = {
   kids: {kind: 'q', id: 'kids', mode: 'one', side: 'Kids', title: <>How many kids move between <span className="gt">two homes</span>?</>,
     sub: 'So the examples you practice with sound like your family.',
     options: [
-      {id: '1', label: 'One', sub: 'One child', icon: 'heart'},
-      {id: '2', label: 'Two', sub: 'Two children', icon: 'smile'},
-      {id: '3plus', label: 'Three or more', sub: 'A full house', icon: 'family'},
+      {id: '1', label: 'One', sub: 'One child', icon: 'kids-1'},
+      {id: '2', label: 'Two', sub: 'Two children', icon: 'kids-2'},
+      {id: '3plus', label: 'Three or more', sub: 'A full house', icon: 'kids-3'},
     ]},
   ages: {kind: 'q', id: 'ages', mode: 'many', side: 'Ages', title: <>How <span className="gt">old</span> are they?</>,
     sub: 'Pick all that apply.',
     options: [
-      {id: 'u5', label: 'Under 5', sub: 'Naps, daycare, handoffs', icon: 'heart'},
-      {id: '5to9', label: '5 to 9', sub: 'School runs and practices', icon: 'smile'},
-      {id: '10to13', label: '10 to 13', sub: 'Phones, opinions, activities', icon: 'book'},
-      {id: '14plus', label: '14 and older', sub: 'Their own plans and voice', icon: 'user'},
+      {id: 'u5', label: 'Under 5', sub: 'Naps, daycare, handoffs', icon: 'age-baby'},
+      {id: '5to9', label: '5 to 9', sub: 'School runs and practices', icon: 'age-school'},
+      {id: '10to13', label: '10 to 13', sub: 'Phones, opinions, activities', icon: 'age-tween'},
+      {id: '14plus', label: '14 and older', sub: 'Their own plans and voice', icon: 'age-teen'},
     ]},
   channels: {kind: 'q', id: 'channels', mode: 'many', side: 'Messages on', title: <>Where do most messages with <span className="gt">the other parent</span> happen?</>,
     sub: 'Pick all that apply.',
     options: [
-      {id: 'sms', label: 'Text messages', sub: 'iMessage or SMS', icon: 'chat', channel: 'sms'},
+      {id: 'sms', label: 'Text messages', sub: 'iMessage or SMS', icon: 'ch-text'},
       {id: 'whatsapp', label: 'WhatsApp', sub: 'Chats and voice notes', icon: 'ask', channel: 'whatsapp'},
-      {id: 'email', label: 'Email', sub: 'Longer back-and-forth', icon: 'scripts', channel: 'email'},
-      {id: 'ofw', label: 'OurFamilyWizard', sub: 'Co-parenting app', icon: 'family', channel: 'ofw'},
-      {id: 'talkingparents', label: 'TalkingParents', sub: 'Co-parenting app', icon: 'split', channel: 'talkingparents'},
-      {id: 'in_person', label: 'In person or by phone', sub: 'Mostly at handoffs', icon: 'user', channel: 'in_person'},
+      {id: 'email', label: 'Email', sub: 'Longer back-and-forth', icon: 'ch-email'},
+      {id: 'ofw', label: 'OurFamilyWizard', sub: 'Co-parenting app', icon: 'ch-ofw'},
+      {id: 'talkingparents', label: 'TalkingParents', sub: 'Co-parenting app', icon: 'ch-tp'},
+      {id: 'in_person', label: 'In person or by phone', sub: 'Mostly at handoffs', icon: 'ch-inperson'},
     ]},
   tension: {kind: 'q', id: 'tension', mode: 'one', side: 'Tense messages', title: <>How often do messages <span className="gt">turn tense</span>?</>,
     options: [
-      {id: 'rarely', label: 'Rarely', sub: 'Mostly logistics', icon: 'smile'},
-      {id: 'monthly', label: 'A few times a month', sub: 'Usually around something specific', icon: 'calendar'},
-      {id: 'weekly', label: 'Every week', sub: 'There is usually something', icon: 'clock'},
-      {id: 'daily', label: 'Most days', sub: 'Hard to get a break', icon: 'flame'},
+      {id: 'rarely', label: 'Rarely', sub: 'Mostly logistics', icon: 'freq-rare'},
+      {id: 'monthly', label: 'A few times a month', sub: 'Usually around something specific', icon: 'freq-month'},
+      {id: 'weekly', label: 'Every week', sub: 'There is usually something', icon: 'freq-week'},
+      {id: 'daily', label: 'Most days', sub: 'Hard to get a break', icon: 'freq-daily'},
     ]},
   triggers: {kind: 'q', id: 'triggers', mode: 'many', side: 'Sets it off', title: <>What usually <span className="gt">sets it off</span>?</>,
     sub: 'Pick all that apply. Start with the biggest one.',
     options: [
-      {id: 'schedule', label: 'Schedule changes', sub: 'Swaps, late pickups, holidays', icon: 'calendar'},
-      {id: 'money', label: 'Money and shared costs', sub: 'Support, fees, who pays what', icon: 'receipt'},
-      {id: 'partner', label: 'A new partner', sub: 'Who is around the kids', icon: 'heart'},
-      {id: 'school', label: 'School and health', sub: 'Decisions, appointments, meds', icon: 'book'},
-      {id: 'messenger', label: 'The kids carrying messages', sub: '"Tell your mom…" "Ask your dad…"', icon: 'family'},
-      {id: 'past', label: 'Old arguments', sub: 'Things from before coming back', icon: 'flag'},
+      {id: 'schedule', label: 'Schedule changes', sub: 'Swaps, late pickups, holidays', icon: 'tr-schedule'},
+      {id: 'money', label: 'Money and shared costs', sub: 'Support, fees, who pays what', icon: 'tr-money'},
+      {id: 'partner', label: 'A new partner', sub: 'Who is around the kids', icon: 'tr-partner'},
+      {id: 'school', label: 'School and health', sub: 'Decisions, appointments, meds', icon: 'tr-school'},
+      {id: 'messenger', label: 'The kids carrying messages', sub: '"Tell your mom…" "Ask your dad…"', icon: 'tr-messenger'},
+      {id: 'past', label: 'Old arguments', sub: 'Things from before coming back', icon: 'tr-past'},
     ]},
   reaction: {kind: 'q', id: 'reaction', mode: 'many', side: 'First move', title: <>When a hard message lands, what do you <span className="gt">usually do</span>?</>,
     sub: 'There is no wrong answer. Most people do a mix.',
     options: [
-      {id: 'fast', label: 'Reply right away', sub: 'Get it over with', icon: 'bolt'},
-      {id: 'long', label: 'Write a long explanation', sub: 'So it is finally understood', icon: 'scripts'},
-      {id: 'quiet', label: 'Go quiet for a while', sub: 'Until it feels safe to answer', icon: 'clock'},
-      {id: 'friend', label: 'Ask a friend first', sub: '"Does this sound okay?"', icon: 'ask'},
-      {id: 'lawyer', label: 'Run it by my lawyer', sub: 'When it feels serious', icon: 'scale'},
+      {id: 'fast', label: 'Reply right away', sub: 'Get it over with', icon: 're-fast'},
+      {id: 'long', label: 'Write a long explanation', sub: 'So it is finally understood', icon: 're-long'},
+      {id: 'quiet', label: 'Go quiet for a while', sub: 'Until it feels safe to answer', icon: 're-quiet'},
+      {id: 'friend', label: 'Ask a friend first', sub: '"Does this sound okay?"', icon: 're-friend'},
+      {id: 'lawyer', label: 'Run it by my lawyer', sub: 'When it feels serious', icon: 're-lawyer'},
     ]},
   court: {kind: 'q', id: 'court', mode: 'one', side: 'Court', title: <>Where do things stand with <span className="gt">the court</span>?</>,
     sub: 'This decides what your plan puts first.',
     options: [
-      {id: 'none', label: 'No court involvement', sub: 'We work it out between us', icon: 'home'},
-      {id: 'mediation', label: 'Mediation', sub: 'Working with a mediator', icon: 'split'},
-      {id: 'active', label: 'Active custody case', sub: 'A case is open now', icon: 'scale'},
-      {id: 'hearing', label: 'A hearing is coming up', sub: 'A date is on the calendar', icon: 'calendar'},
-      {id: 'modification', label: 'Changing the current order', sub: 'Modification', icon: 'scripts'},
+      {id: 'none', label: 'No court involvement', sub: 'We work it out between us', icon: 'court-none'},
+      {id: 'mediation', label: 'Mediation', sub: 'Working with a mediator', icon: 'court-mediation'},
+      {id: 'active', label: 'Active custody case', sub: 'A case is open now', icon: 'court-active'},
+      {id: 'hearing', label: 'A hearing is coming up', sub: 'A date is on the calendar', icon: 'court-hearing'},
+      {id: 'modification', label: 'Changing the current order', sub: 'Modification', icon: 'court-modify'},
     ]},
   support: {kind: 'q', id: 'support', mode: 'one', side: 'Support', title: <>Is anyone else <span className="gt">involved</span>?</>,
     options: [
-      {id: 'lawyer', label: 'A lawyer', sub: 'Family-law attorney', icon: 'shield'},
-      {id: 'gal', label: 'A GAL or custody evaluator', sub: 'Appointed by the court', icon: 'search'},
-      {id: 'both', label: 'Both', sub: 'A lawyer and a GAL or evaluator', icon: 'target'},
-      {id: 'nobody', label: 'Not right now', sub: 'Handling it myself', icon: 'user'},
+      {id: 'lawyer', label: 'A lawyer', sub: 'Family-law attorney', icon: 'lawyer'},
+      {id: 'gal', label: 'A GAL or custody evaluator', sub: 'Appointed by the court', icon: 'gal'},
+      {id: 'both', label: 'Both', sub: 'A lawyer and a GAL or evaluator', icon: 'lawyer-gal'},
+      {id: 'nobody', label: 'Not right now', sub: 'Handling it myself', icon: 'solo'},
     ]},
   time: {kind: 'q', id: 'time', mode: 'one', side: 'Time a week', title: <>How much of your week do these messages <span className="gt">take</span>?</>,
     sub: 'Reading, re-reading, drafting, and the hour after.',
     options: [
-      {id: 'lt1', label: 'Under an hour', icon: 'timer'},
-      {id: '1to3', label: '1 to 3 hours', icon: 'clock'},
-      {id: '3to6', label: '3 to 6 hours', icon: 'calendar'},
-      {id: '6plus', label: 'More than 6 hours', icon: 'flame'},
+      {id: 'lt1', label: 'Under an hour', icon: 'time-1'},
+      {id: '1to3', label: '1 to 3 hours', icon: 'time-3'},
+      {id: '3to6', label: '3 to 6 hours', icon: 'time-6'},
+      {id: '6plus', label: 'More than 6 hours', icon: 'time-6p'},
     ]},
   goal: {kind: 'q', id: 'goal', mode: 'one', side: 'Goal', title: <>What would help <span className="gt">most</span> right now?</>,
     options: [
-      {id: 'fewer_fights', label: 'Fewer fights', sub: 'Shorter threads, less back-and-forth', icon: 'smile'},
-      {id: 'record', label: 'A clean record for court', sub: 'Everything dated, in one place', icon: 'scale'},
-      {id: 'peace', label: 'Peace of mind', sub: 'Less dread when the phone buzzes', icon: 'heart'},
-      {id: 'kids', label: 'Keeping the kids out of it', sub: 'They should not carry this', icon: 'family'},
+      {id: 'fewer_fights', label: 'Fewer fights', sub: 'Shorter threads, less back-and-forth', icon: 'goal-calm'},
+      {id: 'record', label: 'A clean record for court', sub: 'Everything dated, in one place', icon: 'goal-record'},
+      {id: 'peace', label: 'Peace of mind', sub: 'Less dread when the phone buzzes', icon: 'goal-peace'},
+      {id: 'kids', label: 'Keeping the kids out of it', sub: 'They should not carry this', icon: 'goal-kids'},
     ]},
 };
 
@@ -257,7 +257,7 @@ function InsightScreen({id, answers, onNext}: {id: string; answers: QuizAnswers;
         <div className="fn-ins-vis"><RecordVisual channels={ch.length ? ch : ['sms', 'email']} /></div>
         <h1 className="fn-qh">Your messages are <span className="gt">already a record</span>.</h1>
         <p className="fn-qsub">Any text, chat or email can be screenshotted and read in court, sometimes months later. Parley keeps every exchange in one private, dated place, and works solo: the other parent never has to join anything.</p>
-        <p className="fn-fact"><Icon id="receipt" size={28} /><span>Shared co-parenting apps like OurFamilyWizard cost <b>$110–300 a year per parent</b>, and both parents have to sign up.</span></p>
+        <p className="fn-fact"><Icon id="app-cost" size={28} /><span>Shared co-parenting apps like OurFamilyWizard cost <b>$110–300 a year per parent</b>, and both parents have to sign up.</span></p>
       </>
     );
   } else if (id === 'judge') {
@@ -267,7 +267,7 @@ function InsightScreen({id, answers, onNext}: {id: string; answers: QuizAnswers;
         <div className="fn-ins-vis"><JudgeVisual /></div>
         <h1 className="fn-qh">{t ? <>Tense messages about <span className="gt">{TRIGGER_WORD[t] ?? 'the schedule'}</span> are common. Your reply is what counts.</> : <>A judge reads <span className="gt">your</span> messages too.</>}</h1>
         <p className="fn-qsub">In many states, judges weigh which parent supports the child's relationship with the other parent. A calm, brief reply to a hostile message tends to read well. A heated one can cost credibility.</p>
-        <p className="fn-fact"><Icon id="scale" size={28} /><span>Parley shows you how your own draft might read to a judge <b>before</b> you send it, phrase by phrase.</span></p>
+        <p className="fn-fact"><Icon id="judge-lens" size={28} /><span>Parley shows you how your own draft might read to a judge <b>before</b> you send it, phrase by phrase.</span></p>
       </>
     );
   } else if (id === 'lawyer') {
@@ -279,7 +279,7 @@ function InsightScreen({id, answers, onNext}: {id: string; answers: QuizAnswers;
         <p className="fn-qsub">{inCourt
           ? 'Lawyers often bill for the time spent reading messages. A clean, dated timeline with the facts pulled out turns a pile of screenshots into a few pages.'
           : 'Contested custody is slow and expensive. Short, factual messages and a tidy record make it easier to settle things between the two of you.'}</p>
-        <p className="fn-fact"><Icon id="receipt" size={28} /><span>Average divorce attorney fees run about <b>$11,300</b> <small>(Martindale-Nolo)</small>.</span></p>
+        <p className="fn-fact"><Icon id="legal-fees" size={28} /><span>Average divorce attorney fees run about <b>$11,300</b> <small>(Martindale-Nolo)</small>.</span></p>
       </>
     );
   } else {
@@ -292,7 +292,7 @@ function InsightScreen({id, answers, onNext}: {id: string; answers: QuizAnswers;
         <div className="fn-ins-vis"><BiffVisual /></div>
         <h1 className="fn-qh">Brief. Informative. Friendly. Firm. <span className="gt">BIFF</span>.</h1>
         <p className="fn-qsub">BIFF is a method from mediator and author Bill Eddy for answering hostile messages. {line}</p>
-        <p className="fn-fact"><Icon id="target" size={28} /><span>Your 28 days: <b>brief and factual</b>, <b>not taking the bait</b>, <b>firm boundaries</b>, <b>court-ready habits</b>.</span></p>
+        <p className="fn-fact"><Icon id="path" size={28} /><span>Your 28 days: <b>brief and factual</b>, <b>not taking the bait</b>, <b>firm boundaries</b>, <b>court-ready habits</b>.</span></p>
       </>
     );
   }
@@ -361,7 +361,7 @@ function SideCard({answers, building}: {answers: QuizAnswers; building: boolean}
   });
   return (
     <div className="card fn-side">
-      <div className="card-h"><Icon id="target" size={24} />{building ? 'Building your plan' : 'Your plan'}</div>
+      <div className="card-h"><Icon id="path" size={24} />{building ? 'Building your plan' : 'Your plan'}</div>
       {rows.map((r) => (
         <div key={r.k} className="fn-side-row"><span>{r.label}</span><b className={r.value ? '' : 'empty'}>{r.value || '·'}</b></div>
       ))}
@@ -415,10 +415,10 @@ function Build({answers, onDone}: {answers: QuizAnswers; onDone: () => Promise<v
   const pct = Math.round(100 * (1 - Math.pow(1 - t, 1.6)));
   const doneCount = Math.floor(t * steps.length + 0.0001);
   const CHECKS: [IconId, string, string][] = [
-    ['bolt', 'Brief', 'Under 25 words when it can be'],
-    ['scale', 'No "you always" or "you never"', 'Absolutes read as attacks in court'],
-    ['target', 'Only what was asked', 'Answers the request, skips the bait'],
-    ['shield', 'Nothing that reads as a threat', 'Flagged before you send'],
+    ['brief', 'Brief', 'Under 25 words when it can be'],
+    ['no-absolutes', 'No "you always" or "you never"', 'Absolutes read as attacks in court'],
+    ['on-point', 'Only what was asked', 'Answers the request, skips the bait'],
+    ['no-threat', 'Nothing that reads as a threat', 'Flagged before you send'],
   ];
   return (
     <div className="fn-build">

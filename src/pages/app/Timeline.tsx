@@ -27,8 +27,8 @@ const CATS: [Category, string][] = [
 ];
 const CAT_LABEL = Object.fromEntries(CATS) as Record<Category, string>;
 const KIND: Record<EntryKind, {label: string; icon: IconId}> = {
-  message_in: {label: 'Message received', icon: 'chat'}, message_out: {label: 'Message sent', icon: 'chat'},
-  incident: {label: 'Incident', icon: 'flag'}, note: {label: 'Note', icon: 'book'}, expense: {label: 'Expense', icon: 'receipt'},
+  message_in: {label: 'Message received', icon: 'inbox'}, message_out: {label: 'Message sent', icon: 'reply'},
+  incident: {label: 'Incident', icon: 'flag'}, note: {label: 'Note', icon: 'pencil'}, expense: {label: 'Expense', icon: 'dollar'},
 };
 const CHANNEL: Record<Channel, string> = {
   sms: 'Text', whatsapp: 'WhatsApp', email: 'Email', ofw: 'OurFamilyWizard', talkingparents: 'TalkingParents',
@@ -50,9 +50,9 @@ function patternIcon(label: string): IconId {
   if (l.includes('late')) return 'clock';
   if (l.includes('missed handoff') || l.includes('schedule')) return 'calendar';
   if (l.includes('tense')) return 'flame';
-  if (l.includes('children') || l.includes('kids')) return 'family';
-  if (l.includes('payment') || l.includes('money')) return 'receipt';
-  return 'target';
+  if (l.includes('children') || l.includes('kids')) return 'kids';
+  if (l.includes('payment') || l.includes('money')) return 'dollarx';
+  return 'chart';
 }
 
 /** "E-3, E-7, E-9–E-12" — the same collapsing the PDF uses. */
@@ -161,7 +161,7 @@ export default function Timeline() {
 
       {nothingYet ? (
         <div className="card tl-empty">
-          <Icon id="book" size={56} />
+          <Icon id="record" size={56} />
           <h2>Your timeline builds itself from your journal</h2>
           <p>Log a late pickup, import a WhatsApp chat, or copy a reply from the coach — each one lands here with a date and an exhibit number.</p>
           <div className="tl-empty-acts">
@@ -208,7 +208,7 @@ export default function Timeline() {
             <div className={'tl-grid' + (loading ? ' tl-busy' : '')}>
               <aside className="tl-side">
                 <div className="card tl-export">
-                  <div className="card-h"><Icon id="scale" size={24} />Court-ready PDF</div>
+                  <div className="card-h"><Icon id="pdf" size={24} />Court-ready PDF</div>
                   <p className="tl-period">{periodText}{cats.length ? ` · ${cats.map((c) => CAT_LABEL[c]).join(', ')}` : ''}</p>
                   <div className="tl-stats">
                     <div><b>{data.counts.total}</b><span>entries</span></div>
@@ -225,7 +225,7 @@ export default function Timeline() {
                   )}
                   <p className="tl-what">Cover page, patterns, a dated log with exhibit numbers E-1…E-{Math.max(1, data.counts.total)}, and every entry in full. US Letter.</p>
                   <div className="tl-fp" title="SHA-256 of exactly these entries. It is printed on every page of the PDF; any edit changes it.">
-                    <Icon id="shield" size={22} />
+                    <Icon id="fingerprint" size={22} />
                     <div><span>Integrity fingerprint (SHA-256)</span><code>{data.fingerprint.slice(0, 16)}…{data.fingerprint.slice(-8)}</code></div>
                   </div>
                 </div>
@@ -234,7 +234,7 @@ export default function Timeline() {
 
                 {data.patterns.length > 0 && (
                   <div className="card tl-patterns">
-                    <div className="card-h"><Icon id="target" size={24} />Patterns in this record</div>
+                    <div className="card-h"><Icon id="chart" size={24} />Patterns in this record</div>
                     <ul>
                       {data.patterns.map((p) => (
                         <li key={p.label}>
@@ -349,7 +349,7 @@ function ShareCard({share, query, onChange}: {share: Share | null; query: string
 
   return (
     <div className="card tl-share">
-      <div className="card-h"><Icon id="lock" size={24} />Share with my lawyer</div>
+      <div className="card-h"><Icon id="lawyer" size={24} />Share with my lawyer</div>
       {share ? (
         <>
           <p className="tl-share-p">Anyone with this link can open the PDF (read-only). It always shows your latest record, with the filters you had when you made it.</p>

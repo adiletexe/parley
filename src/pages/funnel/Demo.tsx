@@ -11,8 +11,8 @@ import './demo.css';
 const TRY: {icon: IconId; title: string; sub: string; to: string}[] = [
   {icon: 'reply', title: 'Reply', sub: 'Tap a sample message, then add a draft of your own to see how a judge would read it.', to: '/app/reply'},
   {icon: 'record', title: 'Record', sub: 'Six weeks on record: the patterns (late pickups, an unpaid fee), then the PDF for a lawyer.', to: '/app/record'},
-  {icon: 'target', title: 'Practice', sub: "Day 12 of 28: do today's drill, then use the Demo clock to jump +7 days.", to: '/app/plan'},
-  {icon: 'receipt', title: 'Pricing test checkout', sub: 'Test card 4242 4242 4242 4242, any future date, any CVC.', to: '/pricing'},
+  {icon: 'path', title: 'Practice', sub: "Day 12 of 28: do today's drill, then use the Demo clock to jump +7 days.", to: '/app/plan'},
+  {icon: 'secure-card', title: 'Pricing test checkout', sub: 'Test card 4242 4242 4242 4242, any future date, any CVC.', to: '/pricing'},
 ];
 
 export default function Demo() {
@@ -48,7 +48,7 @@ export default function Demo() {
           <p className="dm-lede">One click puts you inside a realistic co-parenting case, six weeks in. No sign-up. Everything you try runs through the real product.</p>
 
           <div className="card dm-case">
-            <div className="card-h"><Icon id="family" size={24} />The sample case</div>
+            <div className="card-h"><Icon id="two-homes" size={24} />The sample case</div>
             <ul>
               <li><b>Alex</b> (you) and <b>Jordan</b>, the other parent — two homes</li>
               <li><b>Emma, 8</b> and <b>Noah, 5</b></li>

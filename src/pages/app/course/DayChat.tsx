@@ -5,15 +5,28 @@
    The script is built here from static lesson content (server/course-content.ts). No numbers are ever shown. */
 import {useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode} from 'react';
 import {Icon, type IconId} from '../../../components/Icon';
+import {Mark} from '../../../components/Logo';
 import {api, track} from '../../../lib/api';
 import {useMe} from '../../../lib/me';
 import {orderFor} from '../plan/Session';
 import type {DoneRes, LessonPack, LessonText} from './types';
 
-/** The coach's avatar: the gradient circle with a plain speech bubble. */
+/** The coach's avatar: the Parley mark, white on the gradient circle. */
 const Coach = () => (
-  <span className="cs-av" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 6.5A2.5 2.5 0 0 1 7.5 4h9A2.5 2.5 0 0 1 19 6.5v6a2.5 2.5 0 0 1-2.5 2.5H11l-3.6 3v-3h0A2.4 2.4 0 0 1 5 12.5z" fill="#fff" /></svg></span>
+  <span className="cs-av" aria-hidden="true"><Mark size={20} /></span>
 );
+
+/* How long the coach "types" before a bubble lands: by its reading length, so a long explanation doesn't pop in
+   as fast as "Got it." ~28 ms a character, between 0.7 and 2.6 s. Text is read out of the node's string children. */
+function textOf(n: ReactNode): string {
+  if (n == null || typeof n === 'boolean') return '';
+  if (typeof n === 'string' || typeof n === 'number') return String(n);
+  if (Array.isArray(n)) return n.map(textOf).join(' ');
+  const p = (n as {props?: {children?: ReactNode; l?: LessonText}}).props;
+  if (p?.l) return [...(p.l.them ?? []), p.l.mine ?? ''].join(' ');
+  return p ? textOf(p.children) : '';
+}
+const typeMs = (n: ReactNode) => Math.min(2600, Math.max(700, 28 * textOf(n).length));
 
 type Msg = {id: number; who: 'coach' | 'me'; node: ReactNode};
 type Chip = {label: string; go: () => void};
@@ -74,7 +87,7 @@ export function DayChat({pack, onExit, onDone}: {pack: LessonPack; onExit: () =>
     setPrompt(null);
     for (const it of items) {
       setTyping(true);
-      await wait(480);
+      await wait(typeMs(it));
       if (!alive.current) return;
       setTyping(false);
       push('coach', it);

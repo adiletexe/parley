@@ -285,7 +285,7 @@ function Result({answers, onNext}: {answers: QuizAnswers; onNext: () => void}) {
           </div>
         ))}
       </div>
-      <div className="card fn-res-card"><Icon id="tr-money" size={40} /><span><small>Hardest for you</small><b>{hardestOf(answers)}</b></span></div>
+      <div className="card fn-res-card"><Icon id={(QS.triggers.options.find((o) => o.id === (Array.isArray(answers.triggers) ? answers.triggers[0] : answers.triggers))?.icon ?? 'tr-schedule') as IconId} size={40} /><span><small>Hardest for you</small><b>{hardestOf(answers)}</b></span></div>
       <div className="card fn-res-card"><Icon id="path" size={40} /><span><small>What this means</small><b>{meaningOf(skills)}</b></span></div>
       <div className="fn-qcta"><button className="btn btn-primary btn-lg btn-block" onClick={onNext}>Build my course</button></div>
     </div>

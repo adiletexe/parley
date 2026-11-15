@@ -5,16 +5,24 @@ import './styles/base.css';
 import {MeProvider} from './lib/me';
 import {AppShell} from './components/AppShell';
 
-const Landing = lazy(() => import('./pages/funnel/Landing'));
-const Quiz = lazy(() => import('./pages/funnel/Quiz'));
-const PlanReveal = lazy(() => import('./pages/funnel/PlanReveal'));
-const Pricing = lazy(() => import('./pages/funnel/Pricing'));
-const Welcome = lazy(() => import('./pages/funnel/Welcome'));
-const Demo = lazy(() => import('./pages/funnel/Demo'));
-const Reply = lazy(() => import('./pages/app/Reply'));
-const Record = lazy(() => import('./pages/app/Record'));
-const Plan = lazy(() => import('./pages/app/Plan'));
-const Settings = lazy(() => import('./pages/app/Settings'));
+/* A tab opened before a deploy asks for page chunks the new build no longer has; the import then fails and the page
+   would stay blank. Reload once to pick up the new build (the flag stops a reload loop). */
+function load<T>(f: () => Promise<T>): () => Promise<T> {
+  return () => f().then((m) => { sessionStorage.removeItem('chunk-reload'); return m; }).catch((e) => {
+    if (!sessionStorage.getItem('chunk-reload')) { sessionStorage.setItem('chunk-reload', '1'); location.reload(); return new Promise<T>(() => {}); }
+    throw e;
+  });
+}
+const Landing = lazy(load(() => import('./pages/funnel/Landing')));
+const Quiz = lazy(load(() => import('./pages/funnel/Quiz')));
+const PlanReveal = lazy(load(() => import('./pages/funnel/PlanReveal')));
+const Pricing = lazy(load(() => import('./pages/funnel/Pricing')));
+const Welcome = lazy(load(() => import('./pages/funnel/Welcome')));
+const Demo = lazy(load(() => import('./pages/funnel/Demo')));
+const Reply = lazy(load(() => import('./pages/app/Reply')));
+const Record = lazy(load(() => import('./pages/app/Record')));
+const Plan = lazy(load(() => import('./pages/app/Plan')));
+const Settings = lazy(load(() => import('./pages/app/Settings')));
 
 function Loading() { return <div style={{minHeight: '50vh', display: 'grid', placeItems: 'center', color: 'var(--faint)'}}><span className="spin" /></div>; }
 

@@ -226,8 +226,9 @@ function packOf(r: Ref, p: PersonRow): Pack {
 }
 
 function allowed(r: Ref, p: PersonRow): string | null {
-  if (r.kind === 'day' && r.day > planDay(p)) return `Day ${r.day} opens on its day.`;
-  if (r.kind === 'mod' && !modulesOf(p).modules.find((m) => m.id === r.m.id)?.open) return 'This module is not open yet.';
+  // The jury's sample case may preview any day; real people get one day at a time.
+  if (r.kind === 'day' && r.day > planDay(p) && !p.demo) return `Day ${r.day} opens on its day.`;
+  if (r.kind === 'mod' && !p.demo && !modulesOf(p).modules.find((m) => m.id === r.m.id)?.open) return 'This module is not open yet.';
   if (r.kind === 'daily' && planDay(p) <= COURSE_DAYS && !p.demo) return 'Daily practice starts after day 28.';
   return null;
 }

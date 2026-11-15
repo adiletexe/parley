@@ -82,7 +82,7 @@ export function PathHome({view, onAct, celebrate, hasBonus, weeksDone = []}: {
               <i className="pl-chev" aria-hidden="true">›</i>
             </button>
             {isOpen && (
-              <Track days={days} today={today} now={view.now} tip={tip} setTip={setTip} onAct={onAct}
+              <Track demo={view.demo} days={days} today={today} now={view.now} tip={tip} setTip={setTip} onAct={onAct}
                 celebrate={celebrate} hasBonus={hasBonus} weekDone={weeksDone.includes(w.week)} />
             )}
           </section>
@@ -92,8 +92,8 @@ export function PathHome({view, onAct, celebrate, hasBonus, weeksDone = []}: {
   );
 }
 
-function Track({days, today, now, tip, setTip, onAct, celebrate, hasBonus, weekDone}: {
-  days: PathDay[]; today: number; now: string; tip: number | null; setTip: (d: number | null) => void;
+function Track({days, today, now, tip, setTip, onAct, celebrate, hasBonus, weekDone, demo}: {
+  demo: boolean; days: PathDay[]; today: number; now: string; tip: number | null; setTip: (d: number | null) => void;
   onAct: (a: PathAct) => void; celebrate: number | null; hasBonus: boolean; weekDone: boolean;
 }) {
   const box = useRef<HTMLDivElement>(null);
@@ -134,7 +134,7 @@ function Track({days, today, now, tip, setTip, onAct, celebrate, hasBonus, weekD
       {layout.map(({d, size, big, x, y}) => (
         <Node key={d.day} d={d} size={size} big={big} x={x} y={y} w={w} today={today} now={now}
           tipOpen={tip === d.day} setTip={setTip} onAct={onAct} pop={celebrate === d.day && d.state === 'done'} hasBonus={hasBonus}
-          badge={weekDone && d.milestone} />
+          badge={weekDone && d.milestone} demo={demo} />
       ))}
     </div>
   );
@@ -150,8 +150,8 @@ function when(day: number, today: number, now: string) {
   return `Unlocks ${t.toLocaleDateString('en-US', {weekday: 'short', month: 'short', day: 'numeric'})}`;
 }
 
-function Node({d, size, big, x, y, w, today, now, tipOpen, setTip, onAct, pop, hasBonus, badge}: {
-  d: PathDay; size: number; big: boolean; x: number; y: number; w: number; today: number; now: string;
+function Node({d, size, big, x, y, w, today, now, tipOpen, setTip, onAct, pop, hasBonus, badge, demo}: {
+  demo: boolean; d: PathDay; size: number; big: boolean; x: number; y: number; w: number; today: number; now: string;
   tipOpen: boolean; setTip: (d: number | null) => void; onAct: (a: PathAct) => void; pop: boolean; hasBonus: boolean; badge: boolean;
 }) {
   const isToday = d.day === today;
@@ -215,6 +215,7 @@ function Node({d, size, big, x, y, w, today, now, tipOpen, setTip, onAct, pop, h
             </>
           )}
           {d.state === 'future' && <span className="pl-tip-when"><Lock />{when(d.day, today, now)}</span>}
+          {d.state === 'future' && demo && <button className="btn btn-ghost" onClick={() => { setTip(null); onAct({k: 'day', day: d.day}); }}>Preview this day · jury demo</button>}
           {d.state === 'paywall' && (
             <>
               <span>The course comes with a plan.</span>

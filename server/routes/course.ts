@@ -91,6 +91,16 @@ function practiceDays(): Map<number, PracticeDay> {
 }
 export const practiceDay = (day: number) => practiceDays().get(day) ?? null;
 
+/** The road after day 28: one row per module in the practice files, in day order, with its day range. */
+export function practiceRoad(): {module: string; from: number; to: number}[] {
+  const rows: {module: string; from: number; to: number}[] = [];
+  for (const [day, d] of [...practiceDays().entries()].sort((a, b) => a[0] - b[0])) {
+    const last = rows[rows.length - 1];
+    if (last && last.module === d.module) last.to = day; else rows.push({module: d.module, from: day, to: day});
+  }
+  return rows;
+}
+
 /* ---------- daily practice after day 28: the topics of their own record ---------- */
 const CAT_TOPIC: Partial<Record<Category, Trigger>> = {schedule: 'schedule', logistics: 'schedule', money: 'money', new_partner: 'partner', school: 'school', health: 'health'};
 const TOPIC_WORD: Record<Trigger, string> = {schedule: 'the schedule', money: 'money', partner: 'a new partner', school: 'school', health: 'health', messenger: 'the kids in the middle'};
@@ -249,6 +259,7 @@ export default function register(app: Hono) {
         today: day > COURSE_DAYS ? practiceDay(day) && {day, module: practiceDay(day)!.module, title: practiceDay(day)!.title} : null,
         next: day >= COURSE_DAYS && practiceDay(day + 1) ? {day: day + 1, module: practiceDay(day + 1)!.module, title: practiceDay(day + 1)!.title} : null} : null,
       weeksDone: COURSE_WEEKS.filter((w) => day > w.week * 7).map((w) => w.week),
+      road: practiceRoad(),
     });
   });
 

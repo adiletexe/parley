@@ -19,6 +19,7 @@ export interface CourseHome {
   daily: {ref: string; topics: string[]; from: 'record' | 'quiz' | 'bank'; done: boolean;
     today: {day: number; module: string; title: string} | null; next: {day: number; module: string; title: string} | null} | null;
   weeksDone: number[];
+  road?: {module: string; from: number; to: number}[];
 }
 export interface LessonPack {
   ref: string; kind: 'day' | 'mod' | 'daily'; label: string; title: string; lesson: LessonText | null; session: SessionView;

@@ -10,7 +10,7 @@ import {DemoClock, Reminder, RenewalNote} from './plan/parts';
 import {PathHome, type PathAct} from './plan/Path';
 import {DayChat} from './course/DayChat';
 import {WeekSheet} from './course/WeekSheet';
-import {DailyCard, ModuleView, ModulesCard, NextModule, StreakBar, SummaryCard} from './course/parts';
+import {DailyCard, ModuleView, ModulesCard, NextModule, RoadCard, StreakBar, SummaryCard} from './course/parts';
 import type {CourseHome, LessonPack} from './course/types';
 import './plan/plan.css';
 import './course/course.css';
@@ -96,6 +96,7 @@ export default function Plan() {
 
       <PathHome key={view.day} view={view} onAct={act} celebrate={celebrate} hasBonus={false} weeksDone={home.weeksDone} />
 
+      <RoadCard road={home.road ?? []} day={home.day} />
       {!finished && home.daily && <DailyCard d={home.daily} finished={false} onStart={() => void open(home.daily!.ref)} />}
       <ModulesCard modules={home.modules} onOpen={(id) => setMode({k: 'module', id})} />
 

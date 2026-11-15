@@ -250,3 +250,15 @@
   .pl-banner > svg { width: 34px; height: 34px; }
   .pl-banner-t b { font-size: 15px; }
 }
+
+/* after the course: the road of practice modules */
+.cr-road { padding: 20px; }
+.cr-road-h small { font: 800 12px var(--font); letter-spacing: .1em; text-transform: uppercase; color: var(--acc); }
+.cr-road-h b { display: block; font-size: 20px; font-weight: 800; letter-spacing: -.02em; margin-top: 4px; }
+.cr-road-h span { display: block; color: var(--mute); font-size: 14px; margin-top: 2px; }
+.cr-road ol { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 0; max-height: 360px; overflow-y: auto; }
+.cr-road li { display: grid; grid-template-columns: 112px 1fr; gap: 10px; align-items: baseline; padding: 9px 0; border-top: 1px solid var(--line); }
+.cr-road li i { font-style: normal; font-size: 12.5px; font-weight: 700; color: var(--faint); white-space: nowrap; }
+.cr-road li b { font-size: 14.5px; font-weight: 700; color: var(--ink); }
+.cr-road li.done b { color: var(--faint); text-decoration: line-through; }
+.cr-road li.now i { color: var(--acc); } .cr-road li.now b { color: var(--acc); }

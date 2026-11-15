@@ -14,7 +14,7 @@ const tidyTime = (t: string) => t.replace(/\s*([AaPp])\.?\s*[Mm]\.?$/, (_m, x: s
 export function splitBurst(text: string): Burst {
   const raw = (text || '').replace(/\r\n?/g, '\n').replace(/\u200e|\u200f/g, '').trim();
   if (!raw) return {bubbles: [], times: [], earlier: []};
-  const lines = raw.split('\n').map((l) => l.trim());
+  const lines = raw.split('\n').flatMap(unjoin).map((l) => l.trim());
   const nonEmpty = lines.filter(Boolean);
   const parsed = nonEmpty.map((l) => {
     if (TIME_ONLY.test(l)) return {time: tidyTime(TIME_ONLY.exec(l)![1]), name: '', body: '', timeOnly: true};
@@ -62,6 +62,25 @@ export function splitBurst(text: string): Burst {
 
   if (items.length > 12) items = [...items.slice(0, 11), {...items[items.length - 1], body: items.slice(11).map((i) => i.body).join('\n')}];
   return {bubbles: items.map((i) => i.body), times: items.map((i) => i.time), sender, earlier: earlier.slice(-8)};
+}
+
+/** A screenshot transcript sometimes comes back from the model as ONE line: "9:41 PM ur late 9:41 PM hello?? 9:41 PM
+    answer me". Put each text back on its own line, splitting only at a clock with AM/PM that is the same as, or up to
+    30 minutes after, the one before it, so "1:12 AM pickup moved to 5:30 PM" stays one text. */
+const CLOCK = /(^|\s)(\d{1,2}):(\d{2})\s?([AaPp])\.?[Mm]\.?(?=\s)/g;
+function unjoin(line: string): string[] {
+  const hits = [...line.matchAll(CLOCK)];
+  if (hits.length < 2 || hits[0].index !== 0 || /^\s/.test(line)) return [line];
+  const mins = (m: RegExpMatchArray) => (+m[2] % 12) * 60 + +m[3] + (/p/i.test(m[4]) ? 720 : 0);
+  const cuts = [0];
+  let prev = mins(hits[0]);
+  for (const h of hits.slice(1)) {
+    const d = mins(h) - prev;
+    if (d < 0 || d > 30) continue;
+    cuts.push(h.index! + h[1].length);
+    prev = mins(h);
+  }
+  return cuts.length < 2 ? [line] : cuts.map((c, i) => line.slice(c, cuts[i + 1]).trim());
 }
 
 /** An email or a note pasted with hard line breaks is one message, not ten texts: three or more lines, every one but

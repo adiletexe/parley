@@ -111,3 +111,20 @@ export function ModuleView({m, titles, onBack, onDay}: {m: ModuleRow; titles: st
     </section>
   );
 }
+
+/** After the 28 days: every practice module ahead, so a person can see the course doesn't stop at day 28. */
+export function RoadCard({road, day}: {road: {module: string; from: number; to: number}[]; day: number}) {
+  if (!road.length) return null;
+  const total = road[road.length - 1].to - 28;
+  return (
+    <section className="card cr-road" aria-label="After the course">
+      <div className="cr-road-h"><small>After the course</small><b>{total} more days of practice</b><span>New lessons and texts every day, one topic at a time.</span></div>
+      <ol>
+        {road.map((r) => {
+          const state = day > r.to ? 'done' : day >= r.from ? 'now' : '';
+          return <li key={r.module + r.from} className={state}><i>{r.from === r.to ? `Day ${r.from}` : `Days ${r.from} to ${r.to}`}</i><b>{r.module}</b></li>;
+        })}
+      </ol>
+    </section>
+  );
+}

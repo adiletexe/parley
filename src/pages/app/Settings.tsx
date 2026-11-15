@@ -163,7 +163,7 @@ function PlanCard({st, ask, setAsk, busy, actErr, cancel, resume}: {
         <dl className="bl-dl">
           <div><dt>Status</dt><dd>Included with the sample case</dd></div>
           <div><dt>Active until</dt><dd>{longDate(st.until)}</dd></div>
-          <div><dt>Renews</dt><dd>No — nothing to cancel</dd></div>
+          <div><dt>Renews</dt><dd>No, nothing to cancel</dd></div>
         </dl>
         <p className="bl-note">Want to see the checkout? <Link to="/pricing">Open the paywall</Link> and pay with the test card.</p>
       </>
@@ -184,7 +184,7 @@ function PlanCard({st, ask, setAsk, busy, actErr, cancel, resume}: {
         {st.canceled ? (
           <>
             <div><dt>Ends</dt><dd>{longDate(st.until)} · {st.daysLeft} day{st.daysLeft === 1 ? '' : 's'} left</dd></div>
-            <div><dt>Next charge</dt><dd>None — cancelled {st.canceledAt ? shortDate(st.canceledAt) : ''}</dd></div>
+            <div><dt>Next charge</dt><dd>None, cancelled {st.canceledAt ? shortDate(st.canceledAt) : ''}</dd></div>
           </>
         ) : (
           <>
@@ -214,7 +214,7 @@ function PlanCard({st, ask, setAsk, busy, actErr, cancel, resume}: {
       ) : (
         <div className="bl-actions">
           <button className="btn btn-ghost" onClick={() => setAsk('cancel')}>Cancel in one click</button>
-          <Link to="/app/plan" className="btn btn-quiet">Go to today's plan</Link>
+          <Link to="/app/plan" className="btn btn-quiet">Go to today's lesson</Link>
         </div>
       )}
     </>

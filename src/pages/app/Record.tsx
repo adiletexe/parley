@@ -1,12 +1,12 @@
 /* /app/record — the record as the chat it mostly is, and nothing else in the chat: the other parent's texts on the
    left (a burst is one entry with a bubble per line), what you sent on the right. A phone should read in one glance —
-   name, dates, chat, upload — so everything that is not a message (late pickups, expenses, notes) and every count
+   name, dates, chat, upload, so everything that is not a message (late pickups, expenses, notes) and every count
    (the patterns) lives in Reports and the PDF, with an amber dot on the calendar for the day it happened. It used to
    sit in the chat as pills and above it as a row of chips; the founder's verdict on that screen was "too many things".
    Risky words (a threat, an insult, pressure) are underlined inside their bubble (journal/risk.ts) instead of being
-   items of their own. Messages are final — there is no Edit; tapping one shows its exhibit number, time and source,
+   items of their own. Messages are final, there is no Edit; tapping one shows its exhibit number, time and source,
    with Delete tucked behind ⋯ for privacy. Exhibits are positions in the whole record, oldest = E-1, from
-   GET /api/timeline with no filters — the same list the PDF prints, so E-7 here is E-7 there.
+   GET /api/timeline with no filters, the same list the PDF prints, so E-7 here is E-7 there.
    The chat scrolls inside its own box (not the window), so the header and the calendar stay put while it moves; the
    box is sized to the screen in a layout effect. */
 import {useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode, type RefObject} from 'react';
@@ -170,7 +170,7 @@ export default function Record() {
     if (!days.some((d) => d.key === k)) {
       target = days.find((d) => d.key > k)?.key ?? days.at(-1)!.key;
       const what = logged.get(k);
-      if (what?.length) setFlash({tag: kFmt(k, {month: 'short', day: 'numeric'}), text: `${what.map((e) => e.title || entryKind(e).label).join(' · ')} — it’s in your Reports`});
+      if (what?.length) setFlash({tag: kFmt(k, {month: 'short', day: 'numeric'}), text: `${what.map((e) => e.title || entryKind(e).label).join(' · ')}, it’s in your Reports`});
     }
     const el = s.querySelector<HTMLElement>(`[data-day="${target}"]`);
     if (!el) return;
@@ -213,7 +213,7 @@ export default function Record() {
   };
   // Something written down by hand is not a message, so it never shows in the chat — say where it went.
   function saved(e: Entry, created: boolean) {
-    if (created) { setSheet(null); setFlash({tag: 'Saved', text: `${e.title || 'Your note'} — it’s in your Reports and the PDF`}); }
+    if (created) { setSheet(null); setFlash({tag: 'Saved', text: `${e.title || 'Your note'}, it’s in your Reports and the PDF`}); }
     void load();
   }
 
@@ -224,7 +224,7 @@ export default function Record() {
   // two nowrap halves, so a narrow phone breaks it at the dot instead of cutting the dates off
   const sub: ReactNode = msgs.length
     ? <><span>{msgs.length} {msgs.length === 1 ? 'message' : 'messages'}</span> · <span>{range}</span></>
-    : entries.length ? 'No messages yet — upload a screenshot' : 'Fills itself from your replies and screenshots';
+    : entries.length ? 'No messages yet, upload a screenshot' : 'Fills itself from your replies and screenshots';
   const openUpload = () => { setSheet({kind: 'upload'}); track('record_upload_open'); };
 
   // ---- render ----
@@ -374,7 +374,7 @@ export default function Record() {
                     <Icon id={r.icon} size={40} /><span><b>{r.title}</b><small>{r.sub}</small></span><i aria-hidden="true">›</i>
                   </button>
                 ))}
-                <p className="rd-foot">Written from your whole record — messages, late pickups, expenses, notes — citing exhibit numbers. Parley doesn’t give legal advice.</p>
+                <p className="rd-foot">Written from your whole record, messages, late pickups, expenses, notes, citing exhibit numbers. Parley doesn’t give legal advice.</p>
               </div>
             )}
         </Sheet>
@@ -593,7 +593,7 @@ function ReportBody({kind, tz, onExhibit}: {kind: ReportKind; tz: string; onExhi
     if (!r) return;
     const text = `${r.title}\n${kFmt(r.from, {month: 'short', day: 'numeric', year: 'numeric'})} – ${kFmt(r.to, {month: 'short', day: 'numeric', year: 'numeric'})} · ${r.entries} entries\n\n${r.bullets.map((b) => `• ${b}`).join('\n')}\n\n${r.caution}`;
     try { await navigator.clipboard.writeText(text); setCopied(true); setTimeout(() => setCopied(false), 1800); }
-    catch { setErr('Copy did not work here — select the text and copy it by hand.'); }
+    catch { setErr('Copy did not work here, select the text and copy it by hand.'); }
   };
 
   if (err && !r) return (
@@ -661,7 +661,7 @@ function ShareBody({share, query, onChange}: {share: Share | null; query: string
   };
   const copy = async () => {
     try { await navigator.clipboard.writeText(link); setCopied(true); setTimeout(() => setCopied(false), 1800); }
-    catch { setErr('Copy did not work here — select the link and copy it by hand.'); }
+    catch { setErr('Copy did not work here, select the link and copy it by hand.'); }
   };
   return (
     <div className="rd-shr">
@@ -679,7 +679,7 @@ function ShareBody({share, query, onChange}: {share: Share | null; query: string
         </>
       ) : (
         <>
-          <p>A private link to the PDF for your attorney or GAL — no account needed on their side. Lasts 30 days; turn it off any time.</p>
+          <p>A private link to the PDF for your attorney or GAL, no account needed on their side. Lasts 30 days; turn it off any time.</p>
           <button type="button" className="btn btn-primary btn-block" disabled={busy} onClick={() => void create()}>
             {busy ? <span className="spin" /> : <Icon id="lock" size={22} />}Create a read-only link
           </button>

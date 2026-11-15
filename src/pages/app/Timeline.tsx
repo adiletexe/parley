@@ -156,14 +156,14 @@ export default function Timeline() {
       <header className="tl-head">
         <p className="tl-crumb">Court timeline</p>
         <h1>A record that <span className="gt">holds up</span>.</h1>
-        <p className="tl-sub">Every message and incident from your journal, in date order, numbered as exhibits — the way a lawyer or a GAL wants to read it.</p>
+        <p className="tl-sub">Every message and incident from your journal, in date order, numbered as exhibits, the way a lawyer or a GAL wants to read it.</p>
       </header>
 
       {nothingYet ? (
         <div className="card tl-empty">
           <Icon id="record" size={56} />
           <h2>Your timeline builds itself from your journal</h2>
-          <p>Log a late pickup, import a WhatsApp chat, or copy a reply from the coach — each one lands here with a date and an exhibit number.</p>
+          <p>Log a late pickup, import a WhatsApp chat, or copy a reply from the coach, each one lands here with a date and an exhibit number.</p>
           <div className="tl-empty-acts">
             <Link to="/app/record" className="btn btn-primary">Open the journal</Link>
             <Link to="/app/reply" className="btn btn-ghost">Write a reply</Link>
@@ -310,7 +310,7 @@ export default function Timeline() {
                     </div>
                   ))
                 )}
-                <p className="tl-disclaimer">Times are shown in your time zone ({TZ}). Parley is not a law firm and doesn't give legal advice — ask your attorney how to use this record.</p>
+                <p className="tl-disclaimer">Times are shown in your time zone ({TZ}). Parley is not a law firm and doesn't give legal advice, ask your attorney how to use this record.</p>
               </section>
             </div>
           )}
@@ -344,7 +344,7 @@ function ShareCard({share, query, onChange}: {share: Share | null; query: string
   const copy = async () => {
     if (!share) return;
     try { await navigator.clipboard.writeText(link); setCopied(true); setTimeout(() => setCopied(false), 1800); }
-    catch { setErr('Copy did not work here — select the link and copy it by hand.'); }
+    catch { setErr('Copy did not work here, select the link and copy it by hand.'); }
   };
 
   return (
@@ -367,7 +367,7 @@ function ShareCard({share, query, onChange}: {share: Share | null; query: string
         </>
       ) : (
         <>
-          <p className="tl-share-p">A private link to this PDF for your attorney or GAL — no account needed on their side. Lasts 30 days; turn it off any time.</p>
+          <p className="tl-share-p">A private link to this PDF for your attorney or GAL, no account needed on their side. Lasts 30 days; turn it off any time.</p>
           <button type="button" className="btn btn-ghost btn-block" disabled={busy} onClick={() => void create()}>
             {busy ? <span className="spin" /> : null}Create a read-only link
           </button>

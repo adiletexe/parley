@@ -1,5 +1,5 @@
 /* The sample case happens in US Eastern time. A judge opening it from Almaty would otherwise see a 6 pm school pickup
-   as "3:05 AM". When the person has a display zone, every date formatter in the app defaults to it — one switch here
+   as "3:05 AM". When the person has a display zone, every date formatter in the app defaults to it, one switch here
    instead of a timeZone option at each of the ~20 places that format a date. Formatters that pass their own timeZone
    keep it. */
 let installed = '';

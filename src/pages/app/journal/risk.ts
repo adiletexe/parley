@@ -1,5 +1,5 @@
 /* Risky words inside the other parent's bubbles, found in the browser with no model call: a threat, an insult, or
-   pressure to answer now. The Record underlines them in place instead of listing them as separate items — the
+   pressure to answer now. The Record underlines them in place instead of listing them as separate items, the
    counting belongs to Reports and the PDF. Deliberately narrow: a phrase is marked only when it reads the same way
    out of context, because a false pink underline ("traffic was crazy") costs more trust than a missed one. */
 

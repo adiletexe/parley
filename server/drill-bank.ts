@@ -135,6 +135,14 @@ const pack = (day: number): DayPack => {
 
 export const BANK: DayPack[] = Array.from({length: 28}, (_, i) => pack(i + 1));
 
+/** Every written scenario once, with a stable key ("b2q4"), for practice built after the 28 days
+    (server/routes/course.ts picks from it by the topics in a person's own record). */
+export interface PoolQ { key: string; trigger: Trigger; them: string[]; options: ChoiceQ['options'] }
+export const BANK_POOL: PoolQ[] = WRITTEN.flatMap((w, d) => w.qs.map((q, j) => ({
+  key: `b${d + 1}q${j + 1}`, trigger: q.trigger, them: [...q.them],
+  options: q.opts.map(([text, tag], k) => ({text, good: k === q.good, tag})) as ChoiceQ['options'],
+})));
+
 export function dayPack(day: number): DayPack {
   const d = Math.min(28, Math.max(1, Math.round(Number.isFinite(day) ? day : 1)));
   return BANK[d - 1];

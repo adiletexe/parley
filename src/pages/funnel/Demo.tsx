@@ -9,9 +9,10 @@ import {useMe} from '../../lib/me';
 import './demo.css';
 
 const TRY: {icon: IconId; title: string; sub: string; to: string}[] = [
+  {icon: 'path', title: 'Course', sub: "Day 12 of 28: today's lesson is a short chat, then 5 texts to practise on. Tap the Week 1 badge, read the Sunday summary, open the Holidays module.", to: '/app/plan'},
+  {icon: 'clock', title: 'After day 28', sub: 'Demo clock, "+17 days": daily practice from the case\'s own record and the next module.', to: '/app/plan'},
   {icon: 'reply', title: 'Reply', sub: 'Tap a sample message, then add a draft of your own to see how a judge would read it.', to: '/app/reply'},
   {icon: 'record', title: 'Record', sub: 'Six weeks on record: the patterns (late pickups, an unpaid fee), then the PDF for a lawyer.', to: '/app/record'},
-  {icon: 'path', title: 'Practice', sub: "Day 12 of 28: do today's drill, then use the Demo clock to jump +7 days.", to: '/app/plan'},
   {icon: 'secure-card', title: 'Pricing test checkout', sub: 'Test card 4242 4242 4242 4242, any future date, any CVC.', to: '/pricing'},
 ];
 
@@ -27,7 +28,7 @@ export default function Demo() {
     try {
       await api('/api/demo/start', {body: {}});
       await refresh();
-      nav('/app/reply');
+      nav('/app/plan');
     } catch (e) {
       setErr((e as Error).message);
       setBusy(false);
@@ -50,10 +51,10 @@ export default function Demo() {
           <div className="card dm-case">
             <div className="card-h"><Icon id="two-homes" size={24} />The sample case</div>
             <ul>
-              <li><b>Alex</b> (you) and <b>Jordan</b>, the other parent — two homes</li>
+              <li><b>Alex</b> (you) and <b>Jordan</b>, the other parent, two homes</li>
               <li><b>Emma, 8</b> and <b>Noah, 5</b></li>
               <li>Active custody case, a GAL appointed</li>
-              <li>Six weeks on record: messages, late pickups, expenses; day 12 of the 28-day plan</li>
+              <li>Six weeks on record: messages, late pickups, expenses; day 12 of the 28-day course</li>
             </ul>
             <button className="btn btn-primary btn-lg btn-block" onClick={() => void start()} disabled={busy}>
               {busy ? <><span className="spin" />Building the case…</> : 'Open the sample case'}

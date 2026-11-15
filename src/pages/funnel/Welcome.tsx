@@ -65,7 +65,7 @@ export default function Welcome() {
             <section className="bl-welcome-hero fade-in">
               <Icon id="party" size={72} />
               <h1>You're in{name ? `, ${name}` : ''}. <span className="gt">Day 1</span> of 28 starts now.</h1>
-              <p>One short lesson and one real drill a day — about ten minutes. The same time each day makes it stick.</p>
+              <p>One short lesson and a few practice texts a day, about three minutes. The same time each day makes it stick.</p>
             </section>
 
             <section className="card">
@@ -81,7 +81,7 @@ export default function Welcome() {
                 {st.renews && <div><dt>After that</dt><dd>{usd(st.renewCents ?? 0)} every {st.renewLabel} until you cancel</dd></div>}
                 {st.refundableUntil && <div><dt>Money-back, no conditions</dt><dd>until {longDate(st.refundableUntil)}</dd></div>}
               </dl>
-              <p className="bl-note">Cancel any time in <Link to="/app/settings">Settings</Link> — one click, and nothing renews after the period you paid for. We remind you 3 days before each renewal.</p>
+              <p className="bl-note">Cancel any time in <Link to="/app/settings">Settings</Link>, one click, and nothing renews after the period you paid for. We remind you 3 days before each renewal.</p>
             </section>
 
             <section className="card">
@@ -94,7 +94,7 @@ export default function Welcome() {
               </form>
               {emailErr && <p className="bl-err" style={{marginTop: 8}}>{emailErr}</p>}
               {saved && !emailErr && <p className="bl-ok">Saved.</p>}
-              <p className="bl-note">This build doesn't send email yet — we'll remind you here in the app, in Settings, 3 days before each renewal.</p>
+              <p className="bl-note">This build doesn't send email yet, we'll remind you here in the app, in Settings, 3 days before each renewal.</p>
             </section>
 
             <section className="card">
@@ -102,7 +102,7 @@ export default function Welcome() {
               <div className="bl-rows">
                 <div className="bl-row"><Icon id="path" size={40} /><div><b>Do Day 1</b><span>A 2-minute lesson on brief, factual replies, then one drill read the way a judge would read it.</span></div></div>
                 <div className="bl-row"><Icon id="reply" size={40} /><div><b>Answer the message you're dreading</b><span>Paste it into the reply coach. Replies are unlimited now.</span></div></div>
-                <div className="bl-row"><Icon id="record" size={40} /><div><b>Start the record</b><span>Log the last incident or import a chat — the timeline builds itself from there.</span></div></div>
+                <div className="bl-row"><Icon id="record" size={40} /><div><b>Start the record</b><span>Log the last incident or import a chat, the timeline builds itself from there.</span></div></div>
               </div>
             </section>
 
@@ -114,7 +114,7 @@ export default function Welcome() {
             ) : (
               <Link to="/app/plan" className="btn btn-primary btn-lg btn-block">Start Day 1</Link>
             )}
-            <p className="bl-legal">Parley is not a law firm and doesn't give legal advice.{me?.demo ? ' Demo case — test payment only.' : ' Test payment — no real card was charged.'}</p>
+            <p className="bl-legal">Parley is not a law firm and doesn't give legal advice.{me?.demo ? ' Demo case, test payment only.' : ' Test payment, no real card was charged.'}</p>
           </>
         )}
       </main>

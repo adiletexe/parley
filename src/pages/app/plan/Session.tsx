@@ -47,7 +47,7 @@ const GAP_MS = 500, ASK_MS = 350, OPT_FIRST_MS = 300, OPT_MS = 1100;
 
 /** A stable shuffle per question: the order is drawn from the id (which carries the day), so a reload shows the
     same order and the position of the good reply never tells. Returns display slot → option index. */
-function orderFor(id: string, n: number): number[] {
+export function orderFor(id: string, n: number): number[] {
   let h = 2166136261;
   for (let k = 0; k < id.length; k++) h = Math.imul(h ^ id.charCodeAt(k), 16777619);
   const rnd = () => { h = (h + 0x6d2b79f5) | 0; let t = Math.imul(h ^ (h >>> 15), 1 | h); t ^= t + Math.imul(t ^ (t >>> 7), 61 | t); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };

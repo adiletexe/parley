@@ -1,6 +1,7 @@
 import type {Hono} from 'hono';
 import type {Category, QuizAnswers} from '../../shared/types.js';
 import {db, getPerson, track, type PersonRow} from '../db.js';
+import {hardestOf, meaningOf, skillsOf, type Skill} from '../../shared/starting-point.js';
 
 /* The 1-minute check. Answers are kept as given (people.quiz_json); everything the rest of the app personalises
    with — conflict level, top trigger, what matters most — is DERIVED here in code, never asked of the model,
@@ -23,12 +24,15 @@ export interface QuizProfile {
   kids?: string;
   role?: 'mom' | 'dad';           // screen 1. Stored for segmenting, never said back on a page
   ageBand?: '25_34' | '35_45';
+  skills: Skill[];                // "your starting point": five skills in words (shared/starting-point.ts)
+  hardest: string;
+  meaning: string;
 }
 
 // ages, channels, support and time were asked by the longer quiz; they are still accepted and read, never required.
 const KEYS: Record<string, 'one' | 'many' | 'text'> = {
   role: 'one', age: 'one',
-  kids: 'one', ages: 'many', channels: 'many', tension: 'one', triggers: 'many', reaction: 'many',
+  kids: 'one', ages: 'many', channels: 'many', tension: 'one', triggers: 'many', reaction: 'one', bait: 'one', asks: 'one', kidsnews: 'one',
   court: 'one', support: 'one', time: 'one', goal: 'one', name: 'text',
 };
 
@@ -60,7 +64,7 @@ const TENSION: Record<string, {score: number; perWeek: number}> = {
 const TIME: Record<string, number> = {lt1: 30, '1to3': 120, '3to6': 270, '6plus': 420};
 
 const one = (v: QuizAnswers[string]) => (typeof v === 'string' ? v : undefined);
-const many = (v: QuizAnswers[string]) => (Array.isArray(v) ? v : []);
+const many = (v: QuizAnswers[string]) => (Array.isArray(v) ? v : typeof v === 'string' ? [v] : []);
 
 export function deriveProfile(a: QuizAnswers): QuizProfile {
   const tension = TENSION[one(a.tension) ?? ''] ?? TENSION.weekly;
@@ -96,6 +100,9 @@ export function deriveProfile(a: QuizAnswers): QuizProfile {
     kids: one(a.kids),
     role: a.role === 'mom' || a.role === 'dad' ? a.role : undefined,
     ageBand: a.age === '25_34' || a.age === '35_45' ? a.age : undefined,
+    skills: skillsOf(a),
+    hardest: hardestOf(a),
+    meaning: meaningOf(skillsOf(a)),
   };
 }
 

@@ -1,112 +1,105 @@
-/* /app/plan (tab "Practice"). Home: a path of the 28 days in four week sections: done days green and marked
-   "Done", today big with "Start · 2 min", missed days to catch up, later days locked. The session: five messages,
-   tap the reply you'd send. The end: a verdict in words, never a number, and the streak; back home today's node has turned green.
-   Writing your own reply is a bonus after that, never the page. Demo people get a small "Demo clock" pill. */
+/* /app/plan, the Course tab. Home: the streak bar on top, then the Duolingo-style path of the 28 days (four weeks,
+   done days marked "Day N · Done", a finished week's badge to tap). Around it: the Sunday summary, "next up" (a
+   seasonal module), daily practice after day 28 and the modules. A day opens as a short chat with the coach
+   (course/DayChat.tsx). Demo people get the "Demo clock" pill to move the sample case through the days. */
 import {useCallback, useEffect, useState} from 'react';
-import {Icon} from '../../components/Icon';
 import {api, track} from '../../lib/api';
 import {useMe} from '../../lib/me';
-import type {SessionResult, SessionView} from '../../../server/plan-content';
 import type {PlanHome} from '../../../server/routes/plan';
-import {BonusDrill} from './plan/Drill';
 import {DemoClock, Reminder, RenewalNote} from './plan/parts';
 import {PathHome, type PathAct} from './plan/Path';
-import {End, Session, type Pick} from './plan/Session';
+import {DayChat} from './course/DayChat';
+import {WeekSheet} from './course/WeekSheet';
+import {DailyCard, ModuleView, ModulesCard, NextModule, StreakBar, SummaryCard} from './course/parts';
+import type {CourseHome, LessonPack} from './course/types';
 import './plan/plan.css';
+import './course/course.css';
 
-type Mode = {k: 'home'} | {k: 'session'; session: SessionView}
-  | {k: 'end'; session: SessionView; result: SessionResult; picks: Pick[]; streakBefore: number};
+type Mode = {k: 'home'} | {k: 'lesson'; pack: LessonPack} | {k: 'week'; n: number} | {k: 'module'; id: string};
 
 export default function Plan() {
-  const {refresh} = useMe();
+  const {me, refresh} = useMe();
   const [view, setView] = useState<PlanHome | null>(null);
+  const [home, setHome] = useState<CourseHome | null>(null);
   const [err, setErr] = useState('');
   const [mode, setMode] = useState<Mode>({k: 'home'});
-  const [bonus, setBonus] = useState(false);
+  const [opening, setOpening] = useState('');
   const [celebrate, setCelebrate] = useState<number | null>(null);
-  const [opening, setOpening] = useState<string>('');
 
   const load = useCallback(async () => {
     setErr('');
-    try { setView(await api<PlanHome>('/api/plan')); }
-    catch (e) { setErr((e as Error).message); }
+    try {
+      const [v, h] = await Promise.all([api<PlanHome>('/api/plan'), api<CourseHome>('/api/course')]);
+      setView(v); setHome(h);
+    } catch (e) { setErr((e as Error).message); }
   }, []);
   useEffect(() => { void load(); }, [load]);
-  useEffect(() => { track('plan_view'); }, []);
+  useEffect(() => { track('course_view'); }, []);
 
-  const done = useCallback((session: SessionView) => (result: SessionResult, picks: Pick[]) => {
-    setMode({k: 'end', session, result, picks, streakBefore: view?.streak ?? 0});
-    setBonus(false);
-    void load(); void refresh();
-  }, [view?.streak, load, refresh]);
+  const open = async (ref: string) => {
+    setOpening(ref); setErr('');
+    try {
+      const pack = await api<LessonPack>(`/api/course/lesson?ref=${encodeURIComponent(ref)}`);
+      setMode({k: 'lesson', pack}); window.scrollTo({top: 0});
+      track('course_lesson_open', {ref});
+    } catch (e) { setErr((e as Error).message); }
+    finally { setOpening(''); }
+  };
+  const back = (day?: number) => { setMode({k: 'home'}); setCelebrate(day ?? null); window.scrollTo({top: 0}); void load(); void refresh(); };
 
   if (err && !view) return (
-    <div className="pl card"><p>We couldn't load your practice. {err}</p><button className="btn btn-ghost" onClick={() => void load()}>Try again</button></div>
+    <div className="pl card"><p>We couldn't load your course. {err}</p><button className="btn btn-ghost" onClick={() => void load()}>Try again</button></div>
   );
-  if (!view) return <div className="pl-loading"><span className="spin" /></div>;
+  if (!view || !home) return <div className="pl-loading"><span className="spin" /></div>;
+
+  if (mode.k === 'lesson') {
+    const pack = mode.pack;
+    return <div className="pl"><DayChat key={pack.ref} pack={pack} onExit={() => back()} onDone={() => back(pack.kind === 'day' ? Number(pack.ref.slice(4)) : undefined)} /></div>;
+  }
+  if (mode.k === 'week') return <div className="pl"><WeekSheet n={mode.n} tz={me?.tz} onClose={() => back()} /></div>;
+  if (mode.k === 'module') {
+    const m = home.modules.find((x) => x.id === mode.id);
+    if (m) return <div className="pl"><ModuleView m={m} titles={m.days} onBack={() => back()} onDay={(n) => void open(`mod:${m.id}:${n}`)} /></div>;
+  }
 
   const today = Math.min(view.day, view.total);
   const finished = view.day > view.total;
-  const perDay = view.session?.questions.length ?? 5;
-  const moved = () => { setMode({k: 'home'}); setBonus(false); setCelebrate(null); void load(); void refresh(); };
-  const begin = (session: SessionView) => {
-    setBonus(false); setCelebrate(null); setMode({k: 'session', session});
-    track('plan_session_start', {day: session.day, catchUp: session.day !== view.day});
-    window.scrollTo({top: 0});
+  const week = view.weeks.find((w) => w.week === Math.ceil(today / 7));
+  const act = (a: PathAct) => {
+    if (a.k === 'week') { setMode({k: 'week', n: a.week}); return; }
+    if (a.k === 'start') { void open(`day:${today}`); return; }
+    if (a.k === 'day') void open(`day:${a.day}`);
   };
-  const act = async (a: PathAct) => {
-    if (a.k === 'bonus') { setBonus(true); track('plan_bonus_open', {day: view.day}); return; }
-    if (a.k === 'start') { if (view.session) begin(view.session); return; }
-    setOpening(String(a.day)); setErr('');
-    try { begin(await api<SessionView>(`/api/plan/session?day=${a.day}`)); }
-    catch (e) { setErr((e as Error).message); }
-    finally { setOpening(''); }
-  };
-  const home = (day?: number) => {
-    setMode({k: 'home'}); setBonus(false); setCelebrate(day ?? null); window.scrollTo({top: 0});
-  };
-  const bonusCard = bonus && view.drill ? <BonusDrill day={view.viewDay} drill={view.drill} /> : null;
+  const moved = () => { setCelebrate(null); void load(); void refresh(); };
+  // After the 28 days (and always in the sample case, so the jury can see it): what keeps going.
+  const after = finished || home.demo;
 
   return (
     <div className="pl fade-in">
-      <header className="pl-top">
-        <h1>Practice</h1>
-        <span className="chip chip-ok pl-streak" title={`${view.streak} calm day${view.streak === 1 ? '' : 's'} in a row`}>
-          <Icon id="flame" size={20} />{view.streak} day{view.streak === 1 ? '' : 's'}
-        </span>
+      <header className="pl-top cr-top">
+        <div className="cr-title">
+          <small>{finished ? 'Course complete · keep it going' : `Week ${week?.week} · ${week?.title}`}</small>
+          <h1>{finished ? 'Your course' : <>Day {today} of {view.total}</>}</h1>
+        </div>
         <Reminder />
         {view.demo && <DemoClock now={view.now} onMoved={moved} />}
       </header>
 
-      {mode.k === 'session' && (
-        <Session key={mode.session.day} session={mode.session} onExit={() => home()} onDone={done(mode.session)} />
-      )}
+      <StreakBar streak={home.streak} tz={me?.tz} />
+      {view.renewal?.remind && <RenewalNote renewal={view.renewal} />}
+      {err && <p className="pl-err" role="alert">{err}</p>}
+      {opening && <p className="pl-mute pl-small pl-opening"><span className="spin" />Opening</p>}
 
-      {mode.k === 'end' && (
-        <>
-          <End result={mode.result} picks={mode.picks} streakBefore={mode.streakBefore}
-            hasBonus={!!view.drill && mode.session.day === view.day}
-            bonusOpen={bonus} onBonus={() => { setBonus(true); track('plan_bonus_open', {day: view.day}); }}
-            doneLabel={mode.session.day === view.day ? 'Done, see you tomorrow' : 'Back to my path'}
-            onDone={() => home(mode.session.day)} />
-          {bonusCard}
-        </>
-      )}
+      {finished && home.daily && <DailyCard d={home.daily} finished onStart={() => void open(home.daily!.ref)} />}
+      {after && home.next && <NextModule m={home.next} onStart={() => void open(`mod:${home.next!.id}:${home.next!.nextDay}`)} />}
+      {home.summary && <SummaryCard s={home.summary} tz={me?.tz} demo={home.demo} />}
 
-      {mode.k === 'home' && (
-        <>
-          <p className="pl-line">
-            {finished ? <>All {view.total} days done · keep any day fresh</> : <><b>Day {today} of {view.total}</b> · {perDay} messages a day, about 2 min</>}
-          </p>
-          {view.renewal?.remind && <RenewalNote renewal={view.renewal} />}
-          {err && <p className="pl-err" role="alert">{err}</p>}
-          {opening && <p className="pl-mute pl-small pl-opening"><span className="spin" />Opening day {opening}</p>}
-          {bonusCard}
-          <PathHome key={view.day} view={view} onAct={(a) => void act(a)} celebrate={celebrate} hasBonus={!!view.drill} />
-        </>
-      )}
+      <PathHome key={view.day} view={view} onAct={act} celebrate={celebrate} hasBonus={false} weeksDone={home.weeksDone} />
 
-      <p className="pl-legal">Parley is not a law firm and doesn't give legal advice.</p>
+      {!finished && home.daily && <DailyCard d={home.daily} finished={false} onStart={() => void open(home.daily!.ref)} />}
+      <ModulesCard modules={home.modules} onOpen={(id) => setMode({k: 'module', id})} />
+
+      <p className="pl-legal">A course about communication. Not legal advice, not therapy, and not a court-ordered parenting class. Parley is not a law firm and doesn't give legal advice.</p>
     </div>
   );
 }

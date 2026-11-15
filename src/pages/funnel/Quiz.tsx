@@ -1,6 +1,7 @@
-/* The 1-minute check (/quiz and /quiz/:step). Screen 1 is where ads land, BetterMe-style: four illustrated cards
-   (who you are, roughly how old), one tap and you are in. Then one question per screen, big icon cards,
-   auto-advance on a single choice, two insight screens, then a real "building your plan" step.
+/* The 1-minute check (/quiz and /quiz/:step). Screen 1 is where ads land, sold the way Coursiv and Finelo sell
+   theirs (a "28-day challenge" headline over four illustrated cards: who you are, roughly how old), one tap and
+   you are in. Then behaviour questions, one per screen, big icon cards, auto-advance on a single choice; an insight
+   (a long reply next to a short one); "your starting point" as five skills in words; a real "building your course".
    Every answer is saved to the server as it is given (POST /api/quiz merges), so /your-plan and the paywall
    can personalise even if someone leaves halfway. Facts on insight screens come only from the spec's list. */
 import {useEffect, useMemo, useRef, useState, type ReactNode} from 'react';
@@ -12,6 +13,7 @@ import type {Channel} from '../../../shared/types';
 import {api, track} from '../../lib/api';
 import {useMe} from '../../lib/me';
 import type {QuizAnswers} from '../../../shared/types';
+import {LEVEL_TONE, LEVEL_WORD, hardestOf, meaningOf, skillsOf} from '../../../shared/starting-point';
 import momYoung from '../../assets/people/mom-25-34.svg';
 import momOlder from '../../assets/people/mom-35-45.svg';
 import dadYoung from '../../assets/people/dad-25-34.svg';
@@ -21,23 +23,9 @@ import './funnel.css';
 type Opt = {id: string; label: string; sub?: string; icon: IconId; channel?: Channel};
 type Q = {kind: 'q'; id: string; mode: 'one' | 'many'; title: ReactNode; sub?: string; options: Opt[]; side: string};
 type Insight = {kind: 'insight'; id: string};
-type Step = {kind: 'start'; id: 'who'} | Q | Insight | {kind: 'name'; id: 'name'} | {kind: 'build'; id: 'build'};
+type Step = {kind: 'start'; id: 'who'} | Q | Insight | {kind: 'name'; id: 'name'} | {kind: 'result'; id: 'result'} | {kind: 'build'; id: 'build'};
 
 const QS: Record<string, Q> = {
-  kids: {kind: 'q', id: 'kids', mode: 'one', side: 'Kids', title: <>How many kids move between <span className="gt">two homes</span>?</>,
-    sub: 'So the examples you practice with sound like your family.',
-    options: [
-      {id: '1', label: 'One', sub: 'One child', icon: 'kids-1'},
-      {id: '2', label: 'Two', sub: 'Two children', icon: 'kids-2'},
-      {id: '3plus', label: 'Three or more', sub: 'A full house', icon: 'kids-3'},
-    ]},
-  tension: {kind: 'q', id: 'tension', mode: 'one', side: 'Tense messages', title: <>How often do messages <span className="gt">turn tense</span>?</>,
-    options: [
-      {id: 'rarely', label: 'Rarely', sub: 'Mostly logistics', icon: 'freq-rare'},
-      {id: 'monthly', label: 'A few times a month', sub: 'Usually around something specific', icon: 'freq-month'},
-      {id: 'weekly', label: 'Every week', sub: 'There is usually something', icon: 'freq-week'},
-      {id: 'daily', label: 'Most days', sub: 'Hard to get a break', icon: 'freq-daily'},
-    ]},
   triggers: {kind: 'q', id: 'triggers', mode: 'many', side: 'Sets it off', title: <>What usually <span className="gt">sets it off</span>?</>,
     sub: 'Pick all that apply. Start with the biggest one.',
     options: [
@@ -48,17 +36,37 @@ const QS: Record<string, Q> = {
       {id: 'messenger', label: 'The kids carrying messages', sub: '"Tell your mom…" "Ask your dad…"', icon: 'tr-messenger'},
       {id: 'past', label: 'Old arguments', sub: 'Things from before coming back', icon: 'tr-past'},
     ]},
-  reaction: {kind: 'q', id: 'reaction', mode: 'many', side: 'First move', title: <>When a hard message lands, what do you <span className="gt">usually do</span>?</>,
-    sub: 'There is no wrong answer. Most people do a mix.',
+  reaction: {kind: 'q', id: 'reaction', mode: 'one', side: 'First move', title: <>When they text something <span className="gt">unfair</span>, what do you usually do?</>,
+    sub: 'Be honest. Nobody sees this but you.',
     options: [
-      {id: 'fast', label: 'Reply right away', sub: 'Get it over with', icon: 're-fast'},
-      {id: 'long', label: 'Write a long explanation', sub: 'So it is finally understood', icon: 're-long'},
-      {id: 'quiet', label: 'Go quiet for a while', sub: 'Until it feels safe to answer', icon: 're-quiet'},
-      {id: 'friend', label: 'Ask a friend first', sub: '"Does this sound okay?"', icon: 're-friend'},
-      {id: 'lawyer', label: 'Run it by my lawyer', sub: 'When it feels serious', icon: 're-lawyer'},
+      {id: 'fast', label: 'Answer right away', sub: 'And say exactly what I think', icon: 're-fast'},
+      {id: 'long', label: 'Write a long explanation', sub: 'So they finally get it', icon: 're-long'},
+      {id: 'quiet', label: 'Go quiet for hours', sub: 'Then answer when I have to', icon: 're-quiet'},
+      {id: 'friend', label: 'Screenshot it to a friend', sub: 'Before I decide what to say', icon: 're-friend'},
+    ]},
+  bait: {kind: 'q', id: 'bait', mode: 'one', side: 'The jab', title: <>A normal question comes with a <span className="gt">jab</span> at the end. You answer…</>,
+    sub: '"what time r u dropping them sat? try to be on time for once"',
+    options: [
+      {id: 'ask', label: 'The question', sub: 'And leave the jab alone', icon: 'on-point'},
+      {id: 'both', label: 'Both, to be fair', sub: 'Point by point', icon: 'scripts'},
+      {id: 'jab', label: 'The jab first', sub: "It can't go unanswered", icon: 'no-bait'},
+    ]},
+  asks: {kind: 'q', id: 'asks', mode: 'one', side: 'Asking', title: <>When you need something from them, how do you <span className="gt">ask</span>?</>,
+    options: [
+      {id: 'time', label: 'With a day and a time', sub: '"Can you confirm by Thu 6pm?"', icon: 'calendar'},
+      {id: 'talk', label: '"We need to talk"', sub: 'Then see where it goes', icon: 'chat'},
+      {id: 'hint', label: 'I hint and hope', sub: 'Asking feels like a fight', icon: 're-quiet'},
+      {id: 'none', label: "I don't ask", sub: 'I just do it myself', icon: 'solo'},
+    ]},
+  kidsnews: {kind: 'q', id: 'kidsnews', mode: 'one', side: 'Kids', title: <>When the kids bring news from <span className="gt">the other home</span>, you…</>,
+    options: [
+      {id: 'check', label: 'Check it with the other parent', sub: 'Adult to adult', icon: 'two-homes'},
+      {id: 'ask', label: 'Ask the kids for more', sub: 'To get the full story', icon: 'kids'},
+      {id: 'vent', label: 'Say what I really think', sub: 'They should know', icon: 'flame'},
+      {id: 'let', label: 'Let it go', sub: 'Not worth it', icon: 'smile'},
     ]},
   court: {kind: 'q', id: 'court', mode: 'one', side: 'Court', title: <>Where do things stand with <span className="gt">the court</span>?</>,
-    sub: 'This decides what your plan puts first.',
+    sub: 'This decides what your course puts first.',
     options: [
       {id: 'none', label: 'No court involvement', sub: 'We work it out between us', icon: 'court-none'},
       {id: 'mediation', label: 'Mediation', sub: 'Working with a mediator', icon: 'court-mediation'},
@@ -78,12 +86,11 @@ const QS: Record<string, Q> = {
 
 const STEPS: Step[] = [
   {kind: 'start', id: 'who'},
-  QS.tension, QS.triggers, QS.reaction,
-  {kind: 'insight', id: 'judge'},
-  QS.court, QS.kids,
-  {kind: 'insight', id: 'record'},
-  QS.goal,
+  QS.reaction,
+  {kind: 'insight', id: 'short'},
+  QS.bait, QS.triggers, QS.asks, QS.kidsnews, QS.court, QS.goal,
   {kind: 'name', id: 'name'},
+  {kind: 'result', id: 'result'},
   {kind: 'build', id: 'build'},
 ];
 const asked = (s: Step) => s.kind === 'q' || s.kind === 'name' || s.kind === 'start';
@@ -156,7 +163,7 @@ export default function Quiz() {
           <Logo />
         </div>
         <div className="fn-qprog" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100}>
-          <span className="fn-qcount">{step.kind === 'q' || step.kind === 'name' ? `${qNumber} of ${QUESTION_COUNT}` : step.kind === 'build' ? 'Almost there' : 'Good to know'}</span>
+          <span className="fn-qcount">{step.kind === 'q' || step.kind === 'name' ? `${qNumber} of ${QUESTION_COUNT}` : step.kind === 'build' ? 'Almost there' : step.kind === 'result' ? 'Your result' : "You're not alone in this"}</span>
           <i className="fn-qbar"><i style={{width: `${Math.max(4, pct)}%`}} /></i>
         </div>
       </header>
@@ -166,6 +173,7 @@ export default function Quiz() {
           {step.kind === 'q' && <Question q={step} value={answers[step.id]} onPick={async (v, advance) => { const p = save({[step.id]: v}); if (advance) { track('quiz_answer', {id: step.id, value: v}); setTimeout(next, 260); } return p; }} onContinue={() => { track('quiz_answer', {id: step.id, value: answers[step.id]}); next(); }} />}
           {step.kind === 'insight' && <InsightScreen id={step.id} answers={answers} onNext={next} />}
           {step.kind === 'name' && <NameStep initial={typeof answers.name === 'string' ? answers.name : ''} onDone={async (name) => { await save({name}); next(); }} />}
+          {step.kind === 'result' && <Result answers={answers} onNext={() => { track('quiz_result_view'); next(); }} />}
           {step.kind === 'build' && <Build answers={answers} onDone={async () => { await refresh(); nav('/your-plan'); }} />}
         </main>
         <aside className="fn-qside">
@@ -221,7 +229,7 @@ function NameStep({initial, onDone}: {initial: string; onDone: (name: string) =>
       <p className="fn-qsub">Optional. Only used to greet you in the app. A first name or a nickname is plenty.</p>
       <input className="field fn-name" autoFocus maxLength={40} placeholder="First name" value={name} onChange={(e) => setName(e.target.value)} autoComplete="given-name" />
       <div className="fn-qcta">
-        <button className="btn btn-primary btn-lg btn-block" disabled={busy}>{busy ? <span className="spin" /> : 'Build my plan'}</button>
+        <button className="btn btn-primary btn-lg btn-block" disabled={busy}>{busy ? <span className="spin" /> : 'See my starting point'}</button>
         <button type="button" className="btn btn-quiet btn-block" disabled={busy} onClick={() => void submit('')}>Skip</button>
       </div>
     </form>
@@ -230,64 +238,56 @@ function NameStep({initial, onDone}: {initial: string; onDone: (name: string) =>
 
 /* ---------- insight screens: one idea, one small picture, a sourced fact or a plainly-worded principle ---------- */
 
-function InsightScreen({id, answers, onNext}: {id: string; answers: QuizAnswers; onNext: () => void}) {
-  const triggers = asList(answers.triggers);
-  let body: ReactNode;
-  if (id === 'record') {
-    // Saved answers from the longer quiz may still carry channels; new ones get the usual three.
-    const ch = asList(answers.channels).filter((c) => c !== 'in_person');
-    body = (
-      <>
-        <div className="fn-ins-vis"><RecordVisual channels={ch.length ? ch : ['sms', 'whatsapp', 'email']} /></div>
-        <h1 className="fn-qh">Your messages are <span className="gt">already a record</span>.</h1>
-        <p className="fn-qsub">Any text, chat or email can be screenshotted and read in court, sometimes months later. Parley keeps every exchange in one private, dated place, and works solo: the other parent never has to join anything.</p>
-        <p className="fn-fact"><Icon id="app-cost" size={28} /><span>Shared co-parenting apps like OurFamilyWizard cost <b>$110–300 a year per parent</b>, and both parents have to sign up.</span></p>
-      </>
-    );
-  } else if (id === 'judge') {
-    const t = triggers[0];
-    body = (
-      <>
-        <div className="fn-ins-vis"><JudgeVisual /></div>
-        <h1 className="fn-qh">{t ? <>Tense messages about <span className="gt">{TRIGGER_WORD[t] ?? 'the schedule'}</span> are common. Your reply is what counts.</> : <>A judge reads <span className="gt">your</span> messages too.</>}</h1>
-        <p className="fn-qsub">In many states, judges weigh which parent supports the child's relationship with the other parent. A calm, brief reply to a hostile message tends to read well. A heated one can cost credibility.</p>
-        <p className="fn-fact"><Icon id="judge-lens" size={28} /><span>Parley shows you how your own draft might read to a judge <b>before</b> you send it, phrase by phrase.</span></p>
-      </>
-    );
-  }
+function InsightScreen({onNext}: {id: string; answers: QuizAnswers; onNext: () => void}) {
   return (
     <div className="fn-ins">
-      {body}
-      <div className="fn-qcta"><button className="btn btn-primary btn-lg btn-block" onClick={onNext} autoFocus>Got it</button></div>
+      <h1 className="fn-qh">Long replies feel fair. They usually make the <span className="gt">thread longer</span>.</h1>
+      <div className="card fn-ls">
+        <div className="fn-ls-col">
+          <small>A long reply</small>
+          <p className="fn-lb them">ur late AGAIN</p>
+          <p className="fn-lb you">ok first of all i was not late, the school let out at 3:15 and nobody told me about the change, so</p>
+          <p className="fn-lb them">here we go</p>
+          <p className="fn-lb them">always an excuse w u</p>
+          <p className="fn-lb them">and what about last month??</p>
+          <p className="fn-lb you dots"><i /><i /><i /></p>
+          <b className="warn">Keeps going</b>
+        </div>
+        <div className="fn-ls-col">
+          <small>A short one</small>
+          <p className="fn-lb them">ur late AGAIN</p>
+          <p className="fn-lb you">On my way, 10 min out.</p>
+          <p className="fn-lb them">k.</p>
+          <b className="ok">Done</b>
+        </div>
+        <p className="fn-ls-note">Every extra sentence is something new to argue with. Answering only what they asked is a skill, and it can be practised.</p>
+      </div>
+      <div className="card fn-ls-next"><Icon id="brief" size={40} /><span><small>In your course</small><b>Week 1 · One message, not five</b></span></div>
+      <div className="fn-qcta"><button className="btn btn-primary btn-lg btn-block" onClick={onNext} autoFocus>Continue</button></div>
     </div>
   );
 }
 
-const TRIGGER_WORD: Record<string, string> = {schedule: 'the schedule', money: 'money', partner: 'a new partner', school: 'school and health', messenger: 'the kids', past: 'the past'};
-const CHANNEL_SHORT: Record<string, string> = {sms: 'Text', whatsapp: 'WhatsApp', email: 'Email', ofw: 'OFW', talkingparents: 'TalkingParents'};
+/* ---------- "your starting point": five skills in words, read from the answers in code ---------- */
 
-function RecordVisual({channels}: {channels: string[]}) {
-  const rows = [['Mon', '7:42 PM'], ['Wed', '3:15 PM'], ['Fri', '6:05 PM']];
+function Result({answers, onNext}: {answers: QuizAnswers; onNext: () => void}) {
+  const skills = skillsOf(answers);
   return (
-    <div className="fn-vrec">
-      <div className="fn-vrec-in">{channels.slice(0, 4).map((c, i) => <span key={c} style={{animationDelay: `${i * 90}ms`}}>{CHANNEL_SHORT[c] ?? c}</span>)}</div>
-      <svg className="fn-vrec-arrow" viewBox="0 0 40 24" aria-hidden="true"><path d="M2 12h32m-8-8 8 8-8 8" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-      <div className="fn-vrec-log">
-        <b>Your record</b>
-        {rows.map(([d, t], i) => (
-          <div key={d} className="fn-vrec-row" style={{animationDelay: `${300 + i * 140}ms`}}><em>E-{i + 1}</em><span>{d} · {t}</span><i /></div>
+    <div className="fn-res">
+      <h1 className="fn-qh">Your <span className="gt">starting point</span></h1>
+      <p className="fn-qsub">Based on your answers. These are skills, and skills move.</p>
+      <div className="card fn-res-list">
+        {skills.map((k) => (
+          <div key={k.id} className="fn-res-row">
+            <Icon id={k.icon as IconId} size={36} />
+            <b>{k.label}</b>
+            <span className={`chip chip-${LEVEL_TONE[k.level]}`}>{LEVEL_WORD[k.level]}</span>
+          </div>
         ))}
       </div>
-    </div>
-  );
-}
-
-function JudgeVisual() {
-  return (
-    <div className="fn-vjudge">
-      <div className="fn-vb them">You never think about anyone but yourself. Typical.</div>
-      <div className="fn-vb you bad"><span><span className="fn-hl">You always do this</span>, so don't lecture me.</span><em className="chip chip-warn">Reads as hostile</em></div>
-      <div className="fn-vb you good">Got it. I'll have them ready at 5:30 on Friday.<em className="chip chip-ok">Calm, on topic</em></div>
+      <div className="card fn-res-card"><Icon id="tr-money" size={40} /><span><small>Hardest for you</small><b>{hardestOf(answers)}</b></span></div>
+      <div className="card fn-res-card"><Icon id="path" size={40} /><span><small>What this means</small><b>{meaningOf(skills)}</b></span></div>
+      <div className="fn-qcta"><button className="btn btn-primary btn-lg btn-block" onClick={onNext}>Build my course</button></div>
     </div>
   );
 }
@@ -295,13 +295,13 @@ function JudgeVisual() {
 /* ---------- the side card: their answers filling in, like larpmotion's "your workspace" ---------- */
 
 function SideCard({answers, building}: {answers: QuizAnswers; building: boolean}) {
-  const rows = ['tension', 'triggers', 'court', 'kids', 'goal'].map((k) => {
+  const rows = ['reaction', 'triggers', 'court', 'goal'].map((k) => {
     const v = asList(answers[k]);
     return {k, label: QS[k].side, value: v.length ? (k === 'triggers' ? labelOf(k, v[0]) : v.map((x) => labelOf(k, x)).join(', ')) : ''};
   });
   return (
     <div className="card fn-side">
-      <div className="card-h"><Icon id="path" size={24} />{building ? 'Building your plan' : 'Your plan'}</div>
+      <div className="card-h"><Icon id="path" size={24} />{building ? 'Building your course' : 'Your course'}</div>
       {rows.map((r) => (
         <div key={r.k} className="fn-side-row"><span>{r.label}</span><b className={r.value ? '' : 'empty'}>{r.value || '·'}</b></div>
       ))}
@@ -310,17 +310,16 @@ function SideCard({answers, building}: {answers: QuizAnswers; building: boolean}
   );
 }
 
-/* ---------- "building your plan": real steps, ~6 s, and the checks Parley actually runs (no reviews) ---------- */
+/* ---------- "building your course": real steps from their answers, ~6 s, then Day 1 ---------- */
 
 function Build({answers, onDone}: {answers: QuizAnswers; onDone: () => Promise<void>}) {
-  const trig = asList(answers.triggers)[0];
+  const react = typeof answers.reaction === 'string' ? labelOf('reaction', answers.reaction).toLowerCase() : '';
   const steps = useMemo(() => [
-    'Reading your answers',
-    `Choosing practice messages about ${trig ? TRIGGER_WORD[trig] : 'everyday logistics'}`,
-    'Ordering 28 lessons for where things stand',
-    'Setting up your private record',
-    'Tuning the judge’s-lens checks',
-  ], [trig]);
+    react ? `Starting from "${react}"` : 'Reading your answers',
+    `More days on ${hardestOf(answers).toLowerCase()}`,
+    "Writing practice texts in your co-parent's style",
+    'Setting your pace: 3 minutes a day',
+  ], [react, answers]);
   const [t, setT] = useState(0);
   const [err, setErr] = useState('');
   const saved = useRef<Promise<unknown> | null>(null);
@@ -354,24 +353,20 @@ function Build({answers, onDone}: {answers: QuizAnswers; onDone: () => Promise<v
   // Ease so the bar moves like work being done: quick start, a pause on each step, a short finish.
   const pct = Math.round(100 * (1 - Math.pow(1 - t, 1.6)));
   const doneCount = Math.floor(t * steps.length + 0.0001);
-  const CHECKS: [IconId, string, string][] = [
-    ['brief', 'Brief', 'Under 25 words when it can be'],
-    ['no-absolutes', 'No "you always" or "you never"', 'Absolutes read as attacks in court'],
-    ['on-point', 'Only what was asked', 'Answers the request, skips the bait'],
-    ['no-threat', 'Nothing that reads as a threat', 'Flagged before you send'],
-  ];
+  const name = typeof answers.name === 'string' && answers.name ? `, ${answers.name}` : '';
   return (
     <div className="fn-build">
-      <div className="fn-ring" style={{['--p' as string]: pct}}>
+      <div className="fn-ring">
         <svg viewBox="0 0 120 120" aria-hidden="true">
           <defs><linearGradient id="fn-rg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stopColor="#7c5cf0" /><stop offset="1" stopColor="#3f8df5" /></linearGradient></defs>
           <circle cx="60" cy="60" r="52" className="bg" />
           <circle cx="60" cy="60" r="52" className="fg" strokeDasharray={`${(pct / 100) * 326.7} 326.7`} />
         </svg>
-        <b>{pct}%</b>
+        <b><Icon id="path" size={64} /></b>
       </div>
-      <h1 className="fn-qh" style={{textAlign: 'center'}}>Building your <span className="gt">calm plan</span>{typeof answers.name === 'string' && answers.name ? `, ${answers.name}` : ''}</h1>
-      <ul className="fn-bsteps">
+      <h1 className="fn-qh" style={{textAlign: 'center'}}>Building your <span className="gt">course</span>{name}</h1>
+      <p className="fn-qsub" style={{marginTop: -12, textAlign: 'center'}}>Picking 28 lessons from what you told us.</p>
+      <ul className="card fn-bsteps">
         {steps.map((s, i) => (
           <li key={s} className={i < doneCount ? 'done' : i === doneCount ? 'now' : ''}>
             <i>{i < doneCount ? <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg> : i === doneCount ? <span className="spin" /> : null}</i>
@@ -379,12 +374,8 @@ function Build({answers, onDone}: {answers: QuizAnswers; onDone: () => Promise<v
           </li>
         ))}
       </ul>
-      <div className="fn-bchecks">
-        <div className="card-h">What Parley checks in every reply</div>
-        {CHECKS.map(([ic, h, s]) => (
-          <div key={h} className="fn-bcheck"><Icon id={ic} size={36} /><span><b>{h}</b><small>{s}</small></span></div>
-        ))}
-      </div>
+      <i className="fn-qbar fn-build-bar"><i style={{width: `${Math.max(4, pct)}%`}} /></i>
+      <div className="card fn-wait"><Icon id="shield" size={40} /><span><small>While you wait</small><b>The other parent never sees Parley. Nothing is sent to them.</b></span></div>
       {err && (
         <div className="fn-err">{err} <button className="btn btn-ghost" onClick={() => void finish()}>Try again</button></div>
       )}
@@ -404,9 +395,9 @@ function Start({onPick}: {onPick: (w: (typeof WHO)[number]) => void}) {
         <Link to="/demo" className="fn-s1-demo" onClick={() => track('quiz_demo_link')}><span className="fn-dot" />Jury demo</Link>
       </header>
       <main className="fn-s1-in fade-in">
-        <span className="fn-s1-kick">28-day calm co-parenting plan</span>
-        <h1 className="fn-s1-h">Answer your ex without <span className="gt">hurting your case</span></h1>
-        <p className="fn-s1-sub">Pick yours to start · 1-minute quiz</p>
+        <span className="fn-s1-kick">3 minutes a day · 28 days</span>
+        <h1 className="fn-s1-h fn-s1-caps">28-day <span className="gt">calm</span> <span style={{whiteSpace: 'nowrap'}}>co-parenting</span> challenge</h1>
+        <p className="fn-s1-sub">Stay calm with the other parent, one short lesson a day. Pick yours to start.</p>
         <div className="fn-s1-grid" role="radiogroup" aria-label="Who are you">
           {WHO.map((w) => {
             const id = `${w.role}_${w.age}`;

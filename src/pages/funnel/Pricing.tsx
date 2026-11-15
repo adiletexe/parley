@@ -9,15 +9,14 @@ import {Logo} from '../../components/Logo';
 import {Icon, type IconId} from '../../components/Icon';
 import {api, ApiError, track} from '../../lib/api';
 import {useMe} from '../../lib/me';
-import {addDays, firstPeriod, label, longDate, renewalLine, termsLine, shortDate, usd, planTitle, type BillingStatus, type PlanOffer, type PlansRes, type QuizProfile, type Tier} from './billing-api';
+import {addDays, firstPeriod, longDate, renewalLine, termsLine, shortDate, usd, planTitle, type BillingStatus, type PlanOffer, type PlansRes, type Tier} from './billing-api';
 import './billing.css';
 
 export default function Pricing() {
   const {me} = useMe();
   const [plans, setPlans] = useState<PlansRes | null>(null);
   const [loadErr, setLoadErr] = useState('');
-  const [profile, setProfile] = useState<QuizProfile | null>(null);
-  const [tier, setTier] = useState<Tier>('4w');
+    const [tier, setTier] = useState<Tier>('4w');
   const [checkout, setCheckout] = useState(false);
 
   const load = () => {
@@ -26,8 +25,6 @@ export default function Pricing() {
   };
   useEffect(() => {
     load();
-    // FUNNEL's quiz profile personalises the headline; the paywall works the same without it.
-    api<{profile?: QuizProfile}>('/api/quiz').then((r) => setProfile(r?.profile ?? null)).catch(() => setProfile(null));
     track('paywall_view');
   }, []);
 
@@ -48,9 +45,8 @@ export default function Pricing() {
 
       <main className="bl-wrap">
         <section className="bl-hero fade-in">
-          <span className="chip bl-eyebrow">28-day calm communication plan</span>
-          <h1>Your calm co-parenting plan is <span className="gt">ready</span>{name ? `, ${name}` : ''}.</h1>
-          <Summary profile={profile} />
+          <h1>{name ? `${name}, your` : 'Your'} course, <span className="gt">step by step</span></h1>
+          <p>No surprises. Here's exactly what happens.</p>
         </section>
 
         {active && me?.plan.until && (
@@ -60,23 +56,21 @@ export default function Pricing() {
           </div>
         )}
 
-        <BeforeAfter profile={profile} />
-
         {loadErr ? (
           <div className="card"><p className="bl-err">{loadErr}</p><button className="btn btn-ghost" style={{marginTop: 10}} onClick={load}>Try again</button></div>
         ) : !plans || !plan ? (
           <div className="card bl-center" style={{minHeight: 220}}><span className="spin" /></div>
         ) : (
-          <Picker plans={plans.plans} tier={tier} setTier={setTier} plan={plan} onGo={() => open('top')} />
+          <Steps plans={plans} tier={tier} setTier={setTier} plan={plan} now={me?.now ?? new Date().toISOString()} onGo={() => open('top')} />
         )}
 
         <section className="card">
           <h2 className="bl-h2">What you <span className="gt">get</span></h2>
           <div className="bl-rows">
-            <Row icon="reply" title="Unlimited calm replies" sub="Paste their message, get a brief, neutral or firm reply in seconds — BIFF, child-focused, no bait taken." />
-            <Row icon="judge-lens" title="The judge's lens on every draft" sub="Risky phrases underlined before you send, with why and a safer wording, and how a judge would read it." />
-            <Row icon="record" title="A dated record and a court-ready PDF" sub="Every exchange and incident on a private timeline, exported with exhibit numbers for your lawyer." />
-            <Row icon="path" title="All 28 days of the calm plan" sub="A 2-minute lesson and a real drill each day: write it, see how a judge would read it, try again." />
+            <Row icon="path" title="The 28-day course" sub="A 1-minute lesson a day as a short chat, then practice on texts like yours, and one small thing to try for real." />
+            <Row icon="reply" title="The reply tool, unlimited" sub="Paste their message, get a short, calm reply in seconds, child-focused, no bait taken." />
+            <Row icon="judge-lens" title="Your own draft, checked" sub="Risky phrases underlined before you send, with why and a safer wording." />
+            <Row icon="record" title="A dated record and a PDF for your lawyer" sub="Every exchange and incident in one private place, with exhibit numbers." />
           </div>
         </section>
 
@@ -111,7 +105,7 @@ export default function Pricing() {
             </details>
             <details>
               <summary>Will a court accept the PDF?</summary>
-              <p>Courts decide what evidence they admit, and rules differ by state. The PDF is a clean, dated, chronological summary with exhibit numbers and an integrity fingerprint — the kind of organised record lawyers ask clients to keep. Show it to your attorney.</p>
+              <p>Courts decide what evidence they admit, and rules differ by state. The PDF is a clean, dated, chronological summary with exhibit numbers and an integrity fingerprint, the kind of organised record lawyers ask clients to keep. Show it to your attorney.</p>
             </details>
             <details>
               <summary>Is there a free trial?</summary>
@@ -132,7 +126,7 @@ export default function Pricing() {
         )}
 
         <p className="bl-legal">
-          Parley is not a law firm and doesn't give legal advice. Prices in US dollars. This build uses a test checkout — no real card is charged.
+          Parley is not a law firm and doesn't give legal advice. Prices in US dollars. This build uses a test checkout. No real card is charged.
           {' '}Just looking? <Link to="/demo">Open the sample case</Link>
         </p>
       </main>
@@ -144,71 +138,41 @@ export default function Pricing() {
   );
 }
 
-function Summary({profile}: {profile: QuizProfile | null}) {
-  if (!profile || (!profile.conflictLevel && !profile.topTrigger && !profile.courtStage && !profile.goal)) {
-    return (
-      <>
-        <p>Calm, brief, court-safe replies, a private dated record, and 28 days of practice that makes the calm reply your first reply.</p>
-        <p className="bl-personal">Want it built around your situation? <Link to="/quiz">Take the 1-minute check</Link></p>
-      </>
-    );
-  }
-  const court = profile.courtStage && !/^(none|no|no_case)$/i.test(profile.courtStage);
-  const trigger = profile.topTriggerLabel || label(profile.topTrigger);
-  const stage = profile.courtStageLabel || label(profile.courtStage);
-  const goal = profile.goalLabel || label(profile.goal);
+/* The paywall as an honest timeline: what is charged today, when the refund window closes, when we remind them,
+   when it renews and at what price. Dates are real (from the person's own clock); days follow the plan picked. */
+function Steps({plans, tier, setTier, plan, now, onGo}: {plans: PlansRes; tier: Tier; setTier: (t: Tier) => void; plan: PlanOffer; now: string; onGo: () => void}) {
+  const at = (d: number) => shortDate(addDays(now, d));
+  const renew = plan.days;
+  const events = [
+    {day: 0, h: `Today · ${usd(plan.priceCents)}`, p: plan.days >= 28 ? 'Day 1 opens. All 4 weeks and the reply tool unlock.' : 'Day 1 opens, with the reply tool.'},
+    {day: plans.refundDays, h: `Day ${plans.refundDays} · Refund window ends`, p: `Not for you? Full refund until ${at(plans.refundDays)}, no questions.`},
+    {day: renew - plans.remindDays, h: `Day ${renew - plans.remindDays} · Reminder`, p: `We remind you ${plans.remindDays} days before you renew.`},
+    {day: renew, h: `Day ${renew} · ${usd(plan.renewCents)}`, p: `Renews ${at(renew)}, then every ${plan.renewLabel} until you cancel.`},
+  ].sort((x, y) => x.day - y.day);
+  const others = plans.plans.filter((p) => p.tier !== tier);
   return (
-    <>
-      <p>
-        {court
-          ? 'With a case open, any message may end up in front of a judge. Week 1 starts with the replies that hold up there: short, factual, about the kids.'
-          : 'Week 1 starts with short, factual replies — the habit that lowers the temperature fastest.'}
-        {trigger ? ` Your drills are written around ${trigger.toLowerCase()}.` : ''}
-      </p>
-      <div className="bl-chips">
-        {profile.conflictLevel && (
-          <span className="bl-chip"><Icon id="gauge" size={24} />Conflict <b>{profile.conflictLevel === 'high' ? 'High' : profile.conflictLevel === 'medium' ? 'Medium' : 'Low'}</b></span>
-        )}
-        {trigger && <span className="bl-chip"><Icon id="trigger" size={24} />Sets it off <b>{trigger}</b></span>}
-        {stage && <span className="bl-chip"><Icon id="court-active" size={24} />Court <b>{stage}</b></span>}
-        {goal && <span className="bl-chip"><Icon id="goal" size={24} />Goal <b>{goal}</b></span>}
+    <section className="bl-steps">
+      <div className="card bl-sel">
+        <span className="bl-badge">{plan.days === 28 ? '28-day course' : plan.days === 7 ? 'Start with a week' : '12-week course'}</span>
+        <div><b>{plan.days === 7 ? 'First week' : `First ${plan.name}`}</b><small>{plan.days >= 28 ? 'All 28 days + the reply tool' : 'Days 1 to 7 + the reply tool'}</small></div>
+        <div className="bl-sel-p"><b>{usd(plan.priceCents)}</b><small>then {usd(plan.renewCents)} / {plan.renewLabel.replace('weeks', 'wks')}</small></div>
       </div>
-    </>
-  );
-}
-
-function BeforeAfter({profile}: {profile: QuizProfile | null}) {
-  // Illustrative goal only — labelled as such. Starting height leans on the quiz's conflict level when we have it.
-  const start = profile?.conflictLevel === 'high' ? 100 : profile?.conflictLevel === 'low' ? 60 : 80;
-  const bars = [start, Math.round(start * .7), Math.round(start * .48), Math.round(start * .3)];
-  const minutes = typeof profile?.minutesPerWeek === 'number' && profile.minutesPerWeek > 0 ? profile.minutesPerWeek : null;
-  return (
-    <section className="card">
-      <div className="bl-ba">
-        <div className="bl-ba-col bl-ba-now">
-          <h3>Now</h3>
-          <ul>
-            <li>{minutes ? `About ${minutes >= 60 ? `${Math.round(minutes / 60)} h` : `${minutes} min`} a week on these messages` : 'Long evenings drafting one reply'}</li>
-            <li>Replies a judge could read the wrong way</li>
-            <li>Screenshots scattered across apps</li>
-          </ul>
-        </div>
-        <div className="bl-ba-col bl-ba-then">
-          <h3>After 28 days</h3>
-          <ul>
-            <li>A calm reply in under a minute</li>
-            <li>Every draft checked before you send</li>
-            <li>One dated record, ready for your lawyer</li>
-          </ul>
-        </div>
+      <ol className="card bl-tl">
+        {events.map((e, i) => <li key={e.h} className={i === 0 ? 'now' : ''}><i aria-hidden="true" /><b>{e.h}</b><span>{e.p}</span></li>)}
+      </ol>
+      <div className="bl-trust">
+        <span><Icon id="refund" size={20} />{plans.refundDays}-day refund</span>
+        <span><Icon id="one-click" size={20} />Cancel in one click</span>
       </div>
-      <div className="bl-chart" aria-label="Your goal: fewer tense exchanges each week, weeks 1 to 4">
-        <div className="bl-chart-bars">
-          {bars.map((h, i) => (
-            <div className="bl-bar" key={i}><i style={{height: `${h * .72}%`}} /><span>Week {i + 1}</span></div>
-          ))}
-        </div>
-        <div className="bl-chart-note"><span>Tense exchanges per week</span><span>Your goal — illustrative, not a promise</span></div>
+      <button className="btn btn-primary btn-lg btn-block" onClick={onGo}>Start Day 1 · {usd(plan.priceCents)}</button>
+      <p className="bl-intro bl-then">{usd(plan.priceCents)} today, {renewalLine(plan)}</p>
+      <div className="bl-other">
+        <span>Other plans</span>
+        {others.map((p) => (
+          <button key={p.tier} className="chip" onClick={() => { setTier(p.tier); track('plan_select', {tier: p.tier}); }}>
+            {p.days === 7 ? '1 week' : p.name} · {usd(p.priceCents)}
+          </button>
+        ))}
       </div>
     </section>
   );
@@ -276,12 +240,12 @@ function validate(number: string, exp: string, cvc: string, testCard: string, no
   const e: Partial<Record<Field, string>> = {};
   const n = number.replace(/\D/g, '');
   if (n.length < 13) e.number = 'Enter the full card number.';
-  else if (!luhn(n)) e.number = 'That card number has a typo — check the digits.';
-  else if (!TEST_NUMBERS.includes(n)) e.number = `This is a test checkout — please don't use a real card. Use ${testCard}.`;
+  else if (!luhn(n)) e.number = 'That card number has a typo. Check the digits.';
+  else if (!TEST_NUMBERS.includes(n)) e.number = `This is a test checkout, so please don't use a real card. Use ${testCard}.`;
   const m = /^(\d{2})\s*\/\s*(\d{2})$/.exec(exp.trim());
   if (!m) e.exp = 'Enter the expiry as MM / YY.';
   else if (+m[1] < 1 || +m[1] > 12) e.exp = 'The month should be 01 to 12.';
-  else if (Date.UTC(2000 + +m[2], +m[1], 1) <= now.getTime()) e.exp = 'That card has expired — use any future date.';
+  else if (Date.UTC(2000 + +m[2], +m[1], 1) <= now.getTime()) e.exp = 'That card has expired. Use any future date.';
   if (!/^\d{3,4}$/.test(cvc)) e.cvc = 'The CVC is the 3 digits on the back.';
   return e;
 }
@@ -359,7 +323,7 @@ function Checkout({plan, testCard, now, active, activeUntil, onClose}: {plan: Pl
             </div>
 
             <div className="bl-test" role="note">
-              <span><b>Test mode</b> — use card <b>{testCard}</b>, any future date, any CVC. No real money moves.</span>
+              <span><b>Test mode</b>: use card <b>{testCard}</b>, any future date, any CVC. No real money moves.</span>
               <button type="button" className="btn" onClick={fill} disabled={phase === 'paying'}>Fill test card</button>
             </div>
 

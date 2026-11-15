@@ -3,7 +3,7 @@
    scripts crown flame party ask split trash shield scale receipt flag,
    and Parley's own: reply (speech bubble) record (dated ledger) pencil (note) dollar (expense) dollarx (missed payment)
    noshow (person + x) kids (children + !) pdf (document download) camera (screenshot). Use the one that names the action.
-   The second block (icons-parley.svg.html, drawn by scripts/build-icons.mjs) is one picture per meaning — kids-1…3,
+   The second block (icons-parley.svg.html, drawn by scripts/build-icons.mjs) is one picture per meaning, kids-1…3,
    ages, channels, triggers, reactions, court stages, hourglasses, goals, plan weeks. Prefer it: a reused icon makes a
    person read the wrong thing (a heart for "one child", a split for TalkingParents). docs/ICONS.md says what is where. */
 export type IconId =

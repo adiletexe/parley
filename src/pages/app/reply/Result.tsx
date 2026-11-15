@@ -16,7 +16,7 @@ type Variant = 'brief' | 'neutral' | 'firm';
 
 const TABS: {k: Variant; label: string; hint: string}[] = [
   {k: 'brief', label: 'Brief', hint: 'Just the answer'},
-  {k: 'neutral', label: 'Neutral', hint: 'BIFF: brief, informative, friendly, firm'},
+  {k: 'neutral', label: 'Neutral', hint: 'Brief, factual, friendly, firm'},
   {k: 'firm', label: 'Firm', hint: 'A clear boundary and one next step'},
 ];
 

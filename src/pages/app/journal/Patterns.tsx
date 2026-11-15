@@ -14,7 +14,7 @@ export function Patterns({patterns, entryCount, active, onPick}: {patterns: Patt
         <p className="jr-sub">
           {entryCount < 5
             ? 'Patterns appear once there are a few entries: late pickups, the topics that turn tense, and whether things are calming down.'
-            : 'No repeating pattern yet. Keep logging handoffs and messages — counts show up here as soon as something repeats.'}
+            : 'No repeating pattern yet. Keep logging handoffs and messages, counts show up here as soon as something repeats.'}
         </p>
       ) : (
         <ul className="jr-plist">

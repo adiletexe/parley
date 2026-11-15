@@ -199,3 +199,24 @@
   .bl-privacy-row .btn { grid-column: 1 / -1; }
   .bl-actions .btn { flex: 1 1 auto; }
 }
+
+/* ---------- the paywall as a timeline (onboarding B) ---------- */
+.bl-steps { display: grid; gap: 12px; }
+.bl-sel { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 22px 18px 16px;
+  box-shadow: inset 0 0 0 2px var(--acc), var(--shadow); }
+.bl-sel > div { display: grid; gap: 2px; }
+.bl-sel b { font-size: 19px; letter-spacing: -.02em; }
+.bl-sel small { color: var(--mute); font-size: 12.5px; }
+.bl-sel-p { text-align: right; }
+.bl-sel-p b { font-size: 28px; }
+.bl-tl { list-style: none; margin: 0; padding: 18px 18px 6px; display: grid; }
+.bl-tl li { position: relative; display: grid; gap: 2px; padding: 0 0 16px 30px; }
+.bl-tl li::before { content: ""; position: absolute; left: 7px; top: 18px; bottom: -2px; width: 2px; background: var(--line); }
+.bl-tl li:last-child::before { display: none; }
+.bl-tl li > i { position: absolute; left: 0; top: 2px; width: 16px; height: 16px; border-radius: 50%; border: 2px solid #c7cad7; background: #fff; }
+.bl-tl li.now > i { border: 0; background: var(--grad); box-shadow: 0 0 0 4px color-mix(in srgb, var(--acc) 16%, transparent); }
+.bl-tl b { font-size: 15px; }
+.bl-tl span { color: var(--mute); font-size: 13.5px; line-height: 1.45; }
+.bl-steps .bl-then { font-size: 15px; font-weight: 700; }
+.bl-other { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; font-size: 13px; color: var(--mute); }
+.bl-other .chip { border: 0; cursor: pointer; font-size: 12.5px; padding: 6px 12px; }

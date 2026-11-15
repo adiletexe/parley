@@ -17,6 +17,7 @@ import plan from './routes/plan.js';
 import demo from './routes/demo.js';
 import report from './routes/report.js';
 import keyboard from './routes/keyboard.js';
+import course from './routes/course.js';
 
 const app = new Hono();
 // A lawyer opening a shared timeline link isn't a Parley user: no guest row, no cookie. The keyboard names itself by device.
@@ -34,7 +35,7 @@ app.get('/api/me', (c) => c.json(toMe(syncRenewals(getPerson(c.get('person').id)
    every route of the paid modules so no endpoint can be forgotten. Renewals are rolled first, so a plan that
    renewed overnight is not mistaken for a lapsed one. The lawyer's read-only share link stays open: it is the
    payer's own record, already paid for. */
-const PAID = /^\/api\/(reply|journal|timeline|plan|record)(\/|$)/;
+const PAID = /^\/api\/(reply|journal|timeline|plan|record|course)(\/|$)/;
 app.use('/api/*', async (c, next) => {
   if (!PAID.test(c.req.path) || c.req.path.startsWith('/api/timeline/share/')) return next();
   const p = syncRenewals(getPerson(c.get('person').id)!);
@@ -46,7 +47,7 @@ app.use('/api/*', async (c, next) => {
   return next();
 });
 
-for (const register of [quiz, billing, reply, journal, timeline, plan, demo, report, keyboard]) register(app);
+for (const register of [quiz, billing, reply, journal, timeline, plan, demo, report, keyboard, course]) register(app);
 
 app.notFound((c) => (c.req.path.startsWith('/api/') ? c.json({error: 'Not found'}, 404) : spa(c)));
 app.onError((err, c) => {

@@ -1,7 +1,7 @@
 /* The one job of the empty screen: get their message in. Most people already HAVE it — as a chat on their phone — so
    the way in is a screenshot: one big card that takes a drop, a tap (the photo picker on a phone) or a paste anywhere
    on the page. Typing is the quiet second door, a messenger bar that opens into a field. People send bursts, not
-   letters: paste several texts and the preview shows them as the separate bubbles we'll read — split by the same
+   letters: paste several texts and the preview shows them as the separate bubbles we'll read, split by the same
    code the server uses. Where it came from is guessed (a screenshot is a text by default) and only asked for small. */
 import {useEffect, useMemo, useRef, useState, type DragEvent} from 'react';
 import type {Channel} from '../../../../shared/types';
@@ -54,7 +54,7 @@ export function Compose({value, onChange, onSubmit, onSample, onShot, busy, open
     const ok = imgs.filter((f) => f.size <= MAX_IMG);
     if (ok.length < imgs.length) setImgErr('A screenshot over 8 MB was left out. Try a smaller one.');
     const room = MAX_SHOTS - v.images.length;
-    if (ok.length > room) setImgErr(`Up to ${MAX_SHOTS} screenshots per reply — the first ${MAX_SHOTS} are in.`);
+    if (ok.length > room) setImgErr(`Up to ${MAX_SHOTS} screenshots per reply, the first ${MAX_SHOTS} are in.`);
     if (room > 0 && ok.length) set({...v, images: [...v.images, ...ok.slice(0, room)]});
   }
   const remove = (i: number) => { setImgErr(''); onChange({...value, images: value.images.filter((_, k) => k !== i)}); };
@@ -179,7 +179,7 @@ export function Compose({value, onChange, onSubmit, onSample, onShot, busy, open
 }
 
 /* The examples, out of the way until asked for: a sheet from the bottom on a phone, a small dialog on a desk. Every
-   one runs through the real model — the screenshots through the real image path. */
+   one runs through the real model, the screenshots through the real image path. */
 function Examples({onClose, onSample, onShot}: {onClose: () => void; onSample: (s: Sample) => void; onShot: (s: SampleShot) => void}) {
   const box = useRef<HTMLDivElement>(null);
   useEffect(() => {

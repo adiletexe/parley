@@ -19,8 +19,8 @@ const SOURCES: {id: Source; icon: IconId; title: string; sub: string; accept: st
     how: ['Open the chat with the other parent.', 'iPhone: tap their name → Export Chat → Without Media. Android: ⋮ → More → Export chat → Without media.', 'Save the file, then choose it here. It’s read on our server and never shared.']},
   {id: 'pdf', icon: 'pdf', title: 'OurFamilyWizard or TalkingParents', sub: 'A PDF message report', accept: 'application/pdf,.pdf',
     how: ['OurFamilyWizard: Message Board → Reports → Message Report → PDF.', 'TalkingParents: Records → Messages → choose a date range → Download PDF.', 'Big history? Export a few months at a time.']},
-  {id: 'screenshot', icon: 'camera', title: 'Screenshots', sub: 'Texts, iMessage, Messenger — up to 8', accept: 'image/*', multiple: true,
-    how: ['Take screenshots of the conversation, oldest first.', 'Include the date headers if you can — we use them to date each message.', 'Messages on the right are treated as yours.']},
+  {id: 'screenshot', icon: 'camera', title: 'Screenshots', sub: 'Texts, iMessage, Messenger, up to 8', accept: 'image/*', multiple: true,
+    how: ['Take screenshots of the conversation, oldest first.', 'Include the date headers if you can, we use them to date each message.', 'Messages on the right are treated as yours.']},
 ];
 
 /** Minutes behind UTC (getTimezoneOffset's sign) in the zone the app shows dates in. The sample case lives in US

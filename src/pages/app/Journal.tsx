@@ -88,7 +88,7 @@ export default function Journal() {
         <Stat icon="messages" n={s.messages.toLocaleString('en-US')} label="Messages" sub={s.messages ? `${s.messagesIn} received` : 'none yet'} />
         <Stat icon="flag" n={String(s.incidents)} label="Incidents" sub={s.incidents ? 'logged by you' : 'none yet'} />
         <Stat icon="dollar" n={String(s.expenses)} label="Expenses" sub={s.expenses ? `${money(s.expenseCents)} total` : 'none yet'} />
-        <Stat icon="calendar" n={s.first && s.last ? `${Math.max(1, Math.round((Date.parse(s.last) - Date.parse(s.first)) / 86_400_000) + 1)} days` : '—'} label="Covering"
+        <Stat icon="calendar" n={s.first && s.last ? `${Math.max(1, Math.round((Date.parse(s.last) - Date.parse(s.first)) / 86_400_000) + 1)} days` : '·'} label="Covering"
           sub={s.first && s.last ? `${fmtDate(s.first, {month: 'short', day: 'numeric'})} – ${fmtDate(s.last, {month: 'short', day: 'numeric'})}` : 'no entries yet'} />
       </div>
 
@@ -152,7 +152,7 @@ function Header({hasEntries}: {hasEntries?: boolean}) {
       <div>
         <p className="jr-eyebrow">Journal</p>
         <h1>Every handoff, <span className="gt">on the record</span>.</h1>
-        <p className="jr-lede">A private, dated log of messages, incidents and expenses — kept in calm, factual language a judge can read.</p>
+        <p className="jr-lede">A private, dated log of messages, incidents and expenses, kept in calm, factual language a judge can read.</p>
       </div>
       {hasEntries && <Link to="/app/record" className="btn btn-ghost jr-tl"><Icon id="timeline" size={26} />Court timeline</Link>}
     </header>

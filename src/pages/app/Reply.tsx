@@ -166,8 +166,8 @@ export default function Reply() {
       <aside className="rc-side">
         {me && (
           <Link to="/app/plan" className="rc-today">
-            <span>Day {Math.min(me.day, 28)} of 28</span>
-            <b>Today's 2-min drill →</b>
+            <span>{me.day > 28 ? 'Course complete' : `Day ${me.day} of 28`}</span>
+            <b>{me.day > 28 ? 'Daily practice →' : "Today's lesson →"}</b>
           </Link>
         )}
         {recent.length > 0 && (

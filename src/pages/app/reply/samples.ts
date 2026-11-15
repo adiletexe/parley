@@ -23,7 +23,7 @@ export const SAMPLES: Sample[] = [
 ];
 
 /* Two phone screenshots of a chat (public/samples/, drawn from these same bursts with a little history above them).
-   Tapping one fetches the PNG and sends it through the real upload — the model reads the bubbles off the picture. */
+   Tapping one fetches the PNG and sends it through the real upload, the model reads the bubbles off the picture. */
 export interface SampleShot { label: string; src: string; alt: string }
 
 export const SHOTS: SampleShot[] = [

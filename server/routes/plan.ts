@@ -3,11 +3,13 @@ import {db, newId, personNow, getPerson, track, type PersonRow} from '../db.js';
 import {hasAccess, planDay, planState, PAYWALL} from '../me.js';
 import type {Analysis, LensFlag, QuizAnswers} from '../../shared/types.js';
 import {
-  LESSONS, TOTAL_DAYS, WEEKS, TRIGGER_LABEL, drillFor, lessonFor, triggerFromQuiz,
+  LESSONS, TOTAL_DAYS, TRIGGER_LABEL, drillFor, lessonFor, triggerFromQuiz,
   type DayStatus, type DrillAttempt, type PlanView, type SessionView, type Trigger,
 } from '../plan-content.js';
 import {gradeDraft} from '../prompts/reply.js';
 import {dayPack, type DayPack, type Trigger as BankTrigger} from '../drill-bank.js';
+import {COURSE, COURSE_WEEKS} from '../course-content.js';
+import {streakOf} from '../calm-days.js';
 
 /* The daily choice session: five messages from the other parent, three replies each, pick the one you'd send.
    The bank says which is good; this file only orders, checks, counts and stores. One row per finished session. */
@@ -74,7 +76,7 @@ export function seedSession(personId: string, day: number, at: string, correct: 
     .run(newId('s_'), personId, day, at, n, picks.length, JSON.stringify({picks, skill: pack.skill, demo: true}));
 }
 
-function sessionFor(p: PersonRow, day: number, pack: DayPack): SessionView {
+export function sessionFor(p: PersonRow, day: number, pack: DayPack): SessionView {
   const top = bankTriggerOf(quizOf(p));
   const qs = [...pack.questions].sort((a, b) => Number(b.trigger === top) - Number(a.trigger === top));
   return {day, skill: pack.skill, rule: pack.rule,
@@ -138,14 +140,14 @@ export type PlanHome = PlanView & {
 function pathOf(p: PersonRow, sessions: SessionRow[], day: number, full: boolean): Pick<PlanHome, 'path' | 'weekSkill'> {
   const by = new Map<number, SessionRow[]>();
   for (const r of sessions) by.set(r.day, [...(by.get(r.day) ?? []), r]);
-  const path: PathDay[] = LESSONS.map((l) => {
+  const path: PathDay[] = COURSE.map((l) => {
     const rows = by.get(l.day) ?? [];
     const best = rows.reduce<SessionRow | undefined>((a, r) => (!a || r.correct > a.correct ? r : a), undefined);
     const state: PathDay['state'] = !full ? 'paywall' : best ? 'done' : l.day === day ? 'today' : l.day < day ? 'missed' : 'future';
     return {day: l.day, week: l.week, title: l.title, milestone: l.day % 7 === 0, state,
       correct: best?.correct, total: best?.total, rounds: rows.length};
   });
-  const weekSkill = WEEKS.map((w) => {
+  const weekSkill = COURSE_WEEKS.map((w) => {
     const firsts = path.filter((d) => d.week === w.week).map((d) => by.get(d.day)?.[0]).filter((r): r is SessionRow => !!r);
     const pct = firsts.length ? Math.round(firsts.reduce((a, r) => a + r.correct / Math.max(1, r.total), 0) / firsts.length * 100) : null;
     return {week: w.week, pct, practised: firsts.length};
@@ -165,9 +167,10 @@ export function planView(p: PersonRow, wantDay?: number): PlanHome {
 
   const {active, risky} = activity(p, attempts);
   const calm = (d: number) => active.has(d) && !risky.has(d);
-  const activeToday = calm(day);
-  let streak = 0;
-  for (let d = activeToday ? day : day - 1; d >= 1 && calm(d); d--) streak++;
+  // The streak is the course's calm days: a lesson done, or a calm reply sent through Parley (server/calm-days.ts).
+  const st = streakOf(p);
+  const activeToday = st.today;
+  const streak = st.days;
   const calmList = [...active].filter((d) => d >= 1 && d <= day && calm(d)).sort((a, b) => a - b);
   const calmDays = calmList.length;
 
@@ -175,12 +178,12 @@ export function planView(p: PersonRow, wantDay?: number): PlanHome {
   const days = LESSONS.map((l) => {
     const tries = byDay.get(l.day) ?? [];
     const status: DayStatus = !full ? 'locked' : l.day > day ? 'upcoming' : tries.length ? 'done' : l.day === today ? 'today' : 'open';
-    return {day: l.day, week: l.week, title: l.title, status,
+    return {day: l.day, week: l.week, title: COURSE[l.day - 1]?.title ?? l.title, status,
       first: tries[0]?.score, best: tries.length ? Math.max(...tries.map((t) => t.score)) : undefined};
   });
 
   const s = startMs(p);
-  const weeks = WEEKS.map((w) => {
+  const weeks = COURSE_WEEKS.map((w) => {
     const from = s + (w.week - 1) * 7 * DAY, to = s + w.week * 7 * DAY;
     const wd = days.filter((d) => d.week === w.week && d.best !== undefined);
     return {

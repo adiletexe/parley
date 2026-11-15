@@ -8,6 +8,7 @@ import {addEntry} from './journal-store.js';
 import {analyzeMessage, type AnalyzeInput} from './prompts/reply.js';
 import {drillFor} from './plan-content.js';
 import {seedSession} from './routes/plan.js';
+import {COURSE, DID} from './course-content.js';
 import type {Analysis, Category, Channel, Entry, EntryKind, LensFlag} from '../shared/types.js';
 import {newId} from './db.js';
 
@@ -24,7 +25,7 @@ function etOffset(utcMs: number) {
 
 export const DEMO_QUIZ = {
   kids: '2', ages: ['5to9'], channels: ['sms'], tension: 'weekly', triggers: ['schedule', 'money', 'messenger'],
-  reaction: ['long', 'fast'], court: 'active', support: 'gal', time: '3to6', goal: 'record', name: 'Alex',
+  reaction: 'long', bait: 'both', asks: 'talk', kidsnews: 'ask', court: 'active', support: 'gal', time: '3to6', goal: 'record', name: 'Alex',
 };
 
 type Seed = {ago: number; at: string; kind: EntryKind; channel: Channel; category: Category; title: string; text: string; tags?: string[]; cents?: number; key?: string};
@@ -218,6 +219,16 @@ export async function seedDemo(p: PersonRow): Promise<{entries: number; analyses
   for (const [d, n] of Object.entries(SESSIONS)) {
     const day = Number(d);
     seedSession(p.id, day, new Date(start + (day - 1) * DAY + 12.5 * HOUR).toISOString(), n);
+  }
+
+  // Each practised day left a "try it today" task. Alex tried five of them for real; yesterday's is still open, so
+  // today's lesson opens by asking about it.
+  const TRIED = new Set([2, 3, 5, 9, 10]);
+  for (const d of Object.keys(SESSIONS).map(Number)) {
+    const at = new Date(start + (d - 1) * DAY + 12.6 * HOUR).toISOString();
+    const tried = d === 11 ? null : TRIED.has(d) ? 1 : 0;
+    db.prepare('INSERT INTO course_tasks (id, person_id, ref, created_at, task, did, topic, tried, answered_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)')
+      .run(newId('t_'), p.id, `day:${d}`, at, COURSE[d - 1].try, DID[d - 1], 'schedule', tried, tried === null ? null : new Date(start + d * DAY + 9 * HOUR).toISOString());
   }
 
   const entries = (db.prepare('SELECT COUNT(*) n FROM entries WHERE person_id = ?').get(p.id) as {n: number}).n;

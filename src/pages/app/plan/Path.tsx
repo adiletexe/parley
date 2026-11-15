@@ -1,4 +1,4 @@
-/* The Practice home: four weeks as a path of days, Duolingo-shaped but quieter. Each week opens with a tinted
+/* The Course home: four weeks as a path of days, Duolingo-shaped but quieter. Each week opens with a tinted
    banner (its skill in a word, or seven dots when folded; never a %); the days sit on a gentle sine with a dotted line between
    them. A node tells its state by shape and colour before anyone reads it: green check = done, big gradient with
    a bubble = today, grey outline = missed (tap to catch up), grey lock = later, lilac lock = needs a plan (unreachable now: the shell locks the whole page without one).
@@ -20,10 +20,10 @@ const weekWord = (pct: number) => (pct >= 80 ? 'Going well' : pct >= 60 ? 'Getti
 /** A done day's picks in words, not "4 of 5 right". */
 const dayWord = (c: number, t: number) => (c >= t ? 'All calm picks' : c >= t - 1 ? 'Mostly calm picks' : 'Worth another go');
 
-export type PathAct = {k: 'start'} | {k: 'day'; day: number} | {k: 'bonus'};
+export type PathAct = {k: 'start'} | {k: 'day'; day: number} | {k: 'bonus'} | {k: 'week'; week: number};
 
-export function PathHome({view, onAct, celebrate, hasBonus}: {
-  view: PlanHome; onAct: (a: PathAct) => void; celebrate: number | null; hasBonus: boolean;
+export function PathHome({view, onAct, celebrate, hasBonus, weeksDone = []}: {
+  view: PlanHome; onAct: (a: PathAct) => void; celebrate: number | null; hasBonus: boolean; weeksDone?: number[];
 }) {
   const today = view.day;
   const curWeek = today > view.total ? 4 : Math.ceil(today / 7);
@@ -83,7 +83,7 @@ export function PathHome({view, onAct, celebrate, hasBonus}: {
             </button>
             {isOpen && (
               <Track days={days} today={today} now={view.now} tip={tip} setTip={setTip} onAct={onAct}
-                celebrate={celebrate} hasBonus={hasBonus} />
+                celebrate={celebrate} hasBonus={hasBonus} weekDone={weeksDone.includes(w.week)} />
             )}
           </section>
         );
@@ -92,9 +92,9 @@ export function PathHome({view, onAct, celebrate, hasBonus}: {
   );
 }
 
-function Track({days, today, now, tip, setTip, onAct, celebrate, hasBonus}: {
+function Track({days, today, now, tip, setTip, onAct, celebrate, hasBonus, weekDone}: {
   days: PathDay[]; today: number; now: string; tip: number | null; setTip: (d: number | null) => void;
-  onAct: (a: PathAct) => void; celebrate: number | null; hasBonus: boolean;
+  onAct: (a: PathAct) => void; celebrate: number | null; hasBonus: boolean; weekDone: boolean;
 }) {
   const box = useRef<HTMLDivElement>(null);
   const [w, setW] = useState(340);
@@ -133,7 +133,8 @@ function Track({days, today, now, tip, setTip, onAct, celebrate, hasBonus}: {
       </svg>
       {layout.map(({d, size, big, x, y}) => (
         <Node key={d.day} d={d} size={size} big={big} x={x} y={y} w={w} today={today} now={now}
-          tipOpen={tip === d.day} setTip={setTip} onAct={onAct} pop={celebrate === d.day && d.state === 'done'} hasBonus={hasBonus} />
+          tipOpen={tip === d.day} setTip={setTip} onAct={onAct} pop={celebrate === d.day && d.state === 'done'} hasBonus={hasBonus}
+          badge={weekDone && d.milestone} />
       ))}
     </div>
   );
@@ -149,12 +150,13 @@ function when(day: number, today: number, now: string) {
   return `Unlocks ${t.toLocaleDateString('en-US', {weekday: 'short', month: 'short', day: 'numeric'})}`;
 }
 
-function Node({d, size, big, x, y, w, today, now, tipOpen, setTip, onAct, pop, hasBonus}: {
+function Node({d, size, big, x, y, w, today, now, tipOpen, setTip, onAct, pop, hasBonus, badge}: {
   d: PathDay; size: number; big: boolean; x: number; y: number; w: number; today: number; now: string;
-  tipOpen: boolean; setTip: (d: number | null) => void; onAct: (a: PathAct) => void; pop: boolean; hasBonus: boolean;
+  tipOpen: boolean; setTip: (d: number | null) => void; onAct: (a: PathAct) => void; pop: boolean; hasBonus: boolean; badge: boolean;
 }) {
   const isToday = d.day === today;
-  const label = d.state === 'done' ? `Day ${d.day} · Done`
+  // A finished week's last stop is its badge: tap it for the skills it added and the days you tried them for real.
+  const label = badge ? `Week ${d.week} done · tap` : d.state === 'done' ? `Day ${d.day} · Done`
     : d.state === 'today' ? `Day ${d.day} · today`
     : d.state === 'missed' ? `Day ${d.day} · catch up`
     : d.state === 'paywall' ? 'With a plan'
@@ -165,12 +167,13 @@ function Node({d, size, big, x, y, w, today, now, tipOpen, setTip, onAct, pop, h
     : d.state === 'paywall' ? `Day ${d.day}, with a plan`
     : `Day ${d.day}, ${when(d.day, today, now).toLowerCase()}`;
 
-  const glyph = d.milestone && d.state !== 'missed' ? <Trophy />
+  const glyph = badge ? <Icon id="party" size={Math.round(size * 0.7)} /> : d.milestone && d.state !== 'missed' ? <Trophy />
     : d.state === 'done' ? <Check />
     : d.state === 'future' || d.state === 'paywall' ? <Lock />
     : <span>{d.day}</span>;
 
   const click = () => {
+    if (badge) { setTip(null); onAct({k: 'week', week: d.week}); return; }
     if (d.state === 'today') { setTip(null); onAct({k: 'start'}); return; }
     setTip(tipOpen ? null : d.day);
   };
@@ -184,16 +187,16 @@ function Node({d, size, big, x, y, w, today, now, tipOpen, setTip, onAct, pop, h
       <div className={'pl-stop' + (pop ? ' pop' : '')} style={{left: x, top: y}} {...(isToday ? {'data-today': ''} : {})}>
         {big && (
           <span className={'pl-bubble' + (d.state === 'paywall' ? ' pay' : '')} aria-hidden="true">
-            {d.state === 'paywall' ? 'Unlock with a plan' : 'Start · 2 min'}
+            {d.state === 'paywall' ? 'Unlock with a plan' : 'Start · 3 min'}
           </span>
         )}
-        <button className={`pl-node ${d.state}` + (d.milestone ? ' ms' : '') + (big ? ' big' : '')}
+        <button className={`pl-node ${d.state}` + (d.milestone ? ' ms' : '') + (big ? ' big' : '') + (badge ? ' badge' : '')}
           style={{width: size, height: size}} aria-label={aria} aria-expanded={d.state === 'today' ? undefined : tipOpen} onClick={click}>
           {glyph}
           {d.milestone && d.state === 'done' && <em className="pl-ms-n">{d.day}</em>}
         </button>
         {pop && <span className="pl-burst-dots" aria-hidden="true">{Array.from({length: 10}, (_, k) => <i key={k} style={{'--a': `${k * 36}deg`} as CSSProperties} />)}</span>}
-        <span className={`pl-nl ${d.state}`}>{label}</span>
+        <span className={`pl-nl ${d.state}` + (badge ? ' badge' : '')}>{label}</span>
       </div>
       {tipOpen && (
         <div className="pl-tip fade-in" role="dialog" aria-label={`Day ${d.day}`} style={{left: tipX, top: y + size / 2 + 34, width: tipW, '--ax': `${x - tipX}px`} as CSSProperties}>
@@ -201,7 +204,7 @@ function Node({d, size, big, x, y, w, today, now, tipOpen, setTip, onAct, pop, h
           {d.state === 'done' && (
             <>
               <span className="pl-tip-score"><Check />{d.correct != null ? dayWord(d.correct, d.total ?? 5) : 'Done'}</span>
-              <button className="btn btn-primary" onClick={() => { setTip(null); onAct(isToday ? {k: 'start'} : {k: 'day', day: d.day}); }}>Practice again</button>
+              <button className="btn btn-primary" onClick={() => { setTip(null); onAct(isToday ? {k: 'start'} : {k: 'day', day: d.day}); }}>Do it again</button>
               {isToday && hasBonus && <button className="btn btn-ghost" onClick={() => { setTip(null); onAct({k: 'bonus'}); }}><Icon id="pencil" size={22} />Write your own reply</button>}
             </>
           )}
@@ -214,7 +217,7 @@ function Node({d, size, big, x, y, w, today, now, tipOpen, setTip, onAct, pop, h
           {d.state === 'future' && <span className="pl-tip-when"><Lock />{when(d.day, today, now)}</span>}
           {d.state === 'paywall' && (
             <>
-              <span>Practice comes with a plan.</span>
+              <span>The course comes with a plan.</span>
               <Link to="/pricing" className="btn btn-primary">See plans</Link>
             </>
           )}

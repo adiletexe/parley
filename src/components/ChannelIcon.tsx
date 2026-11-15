@@ -1,7 +1,7 @@
 /* Where a message came from. WhatsApp is shown with its official glyph (simple-icons, unmodified, brand colour) next to
-   the word "WhatsApp" — Meta's brand rules allow showing it to indicate compatibility, never as our own mark.
+   the word "WhatsApp", Meta's brand rules allow showing it to indicate compatibility, never as our own mark.
    Apple's Messages icon may not be imitated, so texts get a neutral bubble labelled "Text". OurFamilyWizard's and
-   TalkingParents' logos are trademarks and are not drawn; each gets a picture of what it IS — a calendar two parents
+   TalkingParents' logos are trademarks and are not drawn; each gets a picture of what it IS, a calendar two parents
    share, a recorded call-and-chat with a lock. From 22 px up every channel but WhatsApp is its pastel tile from the
    sprite; below that a tile is mush, so the same idea is drawn flat in one colour. */
 import type {Channel} from '../../shared/types';

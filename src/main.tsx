@@ -33,7 +33,8 @@ createRoot(document.getElementById('root')!).render(
             <Route path="/welcome" element={<Welcome />} />
             <Route path="/demo" element={<Demo />} />
             <Route path="/app" element={<AppShell />}>
-              <Route index element={<Navigate to="/app/reply" replace />} />
+              <Route index element={<Navigate to="/app/plan" replace />} />
+              <Route path="course" element={<Navigate to="/app/plan" replace />} />
               <Route path="reply" element={<Reply />} />
               <Route path="record" element={<Record />} />
               <Route path="journal" element={<Navigate to="/app/record" replace />} />

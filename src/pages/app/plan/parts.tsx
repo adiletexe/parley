@@ -30,7 +30,7 @@ export function Reminder() {
       {open && (
         <div className="pl-clock-menu pl-remind-menu fade-in" role="dialog" aria-label="Remind me daily">
           <b className="pl-remind-h">Remind me daily</b>
-          <span className="pl-clock-now">A 2-minute nudge in your own calendar. No email needed.</span>
+          <span className="pl-clock-now">A 3-minute nudge in your own calendar. No email needed.</span>
           <label className="pl-remind-time">
             <span>At</span>
             <input type="time" className="field" value={time} onChange={(e) => setTime(e.target.value || '19:00')} />
@@ -82,6 +82,7 @@ export function DemoClock({now, onMoved}: {now: string; onMoved: () => void}) {
           <span className="pl-clock-now">Sample case · today is {date}</span>
           <button role="menuitem" disabled={!!busy} onClick={() => move({days: 1}, '1')}>{busy === '1' ? <span className="spin" /> : null}+1 day</button>
           <button role="menuitem" disabled={!!busy} onClick={() => move({days: 7}, '7')}>{busy === '7' ? <span className="spin" /> : null}+7 days</button>
+          <button role="menuitem" disabled={!!busy} onClick={() => move({days: 17}, '17')}>{busy === '17' ? <span className="spin" /> : null}+17 days (past day 28)</button>
           <button role="menuitem" disabled={!!busy} onClick={() => move({reset: true}, 'r')}>{busy === 'r' ? <span className="spin" /> : null}Back to today</button>
           {err && <p className="pl-clock-err">{err}</p>}
         </div>
@@ -96,7 +97,7 @@ export function RenewalNote({renewal}: {renewal: NonNullable<PlanView['renewal']
     <div className="card pl-renew fade-in">
       <Icon id="clock" size={32} />
       <div>
-        <b>Your plan renews {renewal.daysLeft === 0 ? 'today' : `in ${renewal.daysLeft} day${renewal.daysLeft === 1 ? '' : 's'}`}, on {when}{renewal.price ? ` — ${renewal.price}` : ''}.</b>
+        <b>Your plan renews {renewal.daysLeft === 0 ? 'today' : `in ${renewal.daysLeft} day${renewal.daysLeft === 1 ? '' : 's'}`}, on {when}{renewal.price ? `, ${renewal.price}` : ''}.</b>
         <p>This is the reminder we promised. Keep going, or cancel in one click.</p>
       </div>
       <Link to="/app/settings" className="btn btn-ghost">Manage plan</Link>

@@ -1,5 +1,5 @@
 /* The signed-in shell: sidebar on desktop, bottom tab bar on phones. Pages render inside <Outlet/>.
-   No free tier: without a plan (and outside the demo case) Reply, Record and Practice show one friendly locked
+   No free tier: without a plan (and outside the demo case) Course, Reply and Record show one friendly locked
    card that sends the visitor to /pricing. The server refuses those calls with 402 either way. */
 import {NavLink, Outlet, Link, useLocation} from 'react-router-dom';
 import {Icon, type IconId} from './Icon';
@@ -8,15 +8,15 @@ import {useMe} from '../lib/me';
 import './app-shell.css';
 
 const NAV: {to: string; label: string; icon: IconId; short: string}[] = [
+  {to: '/app/plan', label: 'Course', short: 'Course', icon: 'path'},
   {to: '/app/reply', label: 'Reply', short: 'Reply', icon: 'reply'},
   {to: '/app/record', label: 'Record', short: 'Record', icon: 'record'},
-  {to: '/app/plan', label: 'Practice', short: 'Practice', icon: 'path'},
 ];
 
 const LOCKED: Record<string, {h: string; p: string}> = {
   '/app/reply': {h: 'Calm replies come with your plan', p: 'Paste their texts, get a short, calm reply in seconds, and see how a judge would read your own draft.'},
   '/app/record': {h: 'Your record comes with your plan', p: 'Every exchange on one dated record, with patterns spotted for you and a PDF ready for your lawyer.'},
-  '/app/plan': {h: 'Practice comes with your plan', p: 'Five minutes a day for 28 days: real texts from the other parent, and you pick the reply you\'d send.'},
+  '/app/plan': {h: 'The course comes with your plan', p: 'Three minutes a day for 28 days: a short lesson as a chat, then real texts from the other parent to practise on.'},
 };
 
 function Locked({path, ended}: {path: string; ended: boolean}) {
@@ -40,7 +40,7 @@ export function AppShell() {
   return (
     <div className="shell">
       <aside className="shell-side">
-        <div className="shell-logo"><Logo to="/app/reply" /></div>
+        <div className="shell-logo"><Logo to="/app/plan" /></div>
                 <nav className="shell-nav">
           {NAV.map((n) => (
             <NavLink key={n.to} to={n.to} className={({isActive}) => 'shell-link' + (isActive ? ' on' : '')}>
@@ -51,8 +51,8 @@ export function AppShell() {
         <div className="shell-foot">
           {me && (
             <Link to={active ? '/app/settings' : '/pricing'} className="shell-plan">
-              <b>{active ? `Day ${Math.min(me.day, 28)} of 28` : me.plan.state === 'expired' ? 'Your plan has ended' : 'No plan yet'}</b>
-              <span>{active ? 'Calm communication plan' : 'See plans'}</span>
+              <b>{active ? (me.day > 28 ? 'Course complete' : `Day ${me.day} of 28`) : me.plan.state === 'expired' ? 'Your plan has ended' : 'No plan yet'}</b>
+              <span>{active ? (me.day > 28 ? 'Daily practice and modules' : '28-day calm course') : 'See plans'}</span>
               {active && <i className="shell-bar"><i style={{width: `${Math.min(100, (Math.min(me.day, 28) / 28) * 100)}%`}} /></i>}
             </Link>
           )}

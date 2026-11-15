@@ -1,5 +1,5 @@
 /* One form for logging and for editing. The "Make it neutral" button rewrites the note in factual language
-   and keeps the original one tap away — the person decides what goes on the record, not the model. */
+   and keeps the original one tap away, the person decides what goes on the record, not the model. */
 import {useState, type FormEvent} from 'react';
 import type {Category, Channel, Entry, EntryKind} from '../../../../shared/types';
 import {api} from '../../../lib/api';

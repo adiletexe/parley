@@ -122,6 +122,25 @@
 .jr-opt b { font-size: 14.5px; }
 .jr-opt small { color: var(--mute); font-size: 13px; }
 .jr-opt i { font-style: normal; color: var(--faint); font-size: 22px; }
+/* Sample files: made-up chats a person (or the jury) can run through the real import without their own. */
+.jr-try-h { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; margin: 18px 0 8px; font: 700 13.5px var(--font); color: var(--mute); }
+.jr-try-h span { font-weight: 600; font-size: 12px; color: var(--faint); }
+.jr-try { display: flex; align-items: center; gap: 12px; width: 100%; padding: 12px; border-radius: 18px; border: 1.5px dashed var(--line); background: none; text-align: left; cursor: pointer; transition: border-color .15s; }
+.jr-try:hover:not(:disabled) { border-color: var(--acc); }
+.jr-try span { display: grid; flex: 1; min-width: 0; }
+.jr-try b { font-size: 14.5px; color: var(--acc); }
+.jr-try small { color: var(--faint); font-size: 12.5px; }
+.jr-try i { font-style: normal; color: var(--faint); font-size: 22px; }
+.jr-shots { display: flex; gap: 8px; overflow-x: auto; padding: 3px 3px 6px; margin: 0 -3px 10px; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.jr-shots::-webkit-scrollbar { display: none; }
+.jr-shot { flex: none; width: 84px; display: grid; gap: 5px; padding: 0; border: 0; background: none; cursor: pointer; text-align: left; scroll-snap-align: start;
+  font: 600 11.5px/1.25 var(--font); color: var(--mute); }
+.jr-shot img { width: 84px; height: 108px; object-fit: cover; object-position: top; border-radius: 12px; background: #fff; box-shadow: 0 0 0 1px var(--line); transition: box-shadow .15s, transform .12s; }
+.jr-shot:hover img { box-shadow: 0 0 0 2px color-mix(in srgb, var(--acc) 45%, var(--line)); }
+.jr-shot.on img { box-shadow: 0 0 0 3px var(--acc); }
+.jr-shot.on span { color: var(--acc); }
+.jr-shot:active img { transform: scale(.97); }
+.jr-sample-chip { display: flex; width: fit-content; margin: 2px 0 8px; }
 .jr-back { padding: 4px 0; margin-bottom: 6px; font-size: 13.5px; }
 .jr-h3 { font-size: 19px; margin-bottom: 6px; }
 .jr-how { margin: 8px 0 14px; padding-left: 20px; color: var(--mute); font-size: 14px; display: grid; gap: 4px; }

@@ -8,7 +8,7 @@ import {api, ApiError, track} from '../../lib/api';
 import {useMe} from '../../lib/me';
 import {Compose, type ComposeValue} from './reply/Compose';
 import {Result, type AnalysisView} from './reply/Result';
-import type {Sample, SampleShot} from './reply/samples';
+import {sampleFile, type Sample, type SampleShot} from './reply/samples';
 import './Reply.css';
 
 interface Recent { id: string; createdAt: string; facts: string; incoming: string; heat: number; advice: string; usedVariant: string | null }
@@ -95,9 +95,8 @@ export default function Reply() {
   async function sampleShot(s: SampleShot) {
     setError('');
     try {
-      const blob = await fetch(s.src).then((r) => { if (!r.ok) throw new Error(); return r.blob(); });
-      const f = new File([blob], s.src.split('/').pop() || 'sample.png', {type: blob.type || 'image/png'});
-      const v: ComposeValue = {incoming: '', draft: '', images: [f], channel: 'sms'};
+      const f = await sampleFile(s.src, undefined, 'image/png');
+      const v: ComposeValue = {incoming: '', draft: '', images: [f], channel: s.channel};
       setForm(v);
       track('reply_sample', {label: s.label, shot: true});
       void run(v);

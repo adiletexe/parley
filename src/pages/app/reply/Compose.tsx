@@ -130,10 +130,18 @@ export function Compose({value, onChange, onSubmit, onSample, onShot, busy, open
         )}
         {imgErr && <p className="rc-err-line" role="alert">{imgErr}</p>}
 
-        {!has && !busy && SHOTS[0] && (
-          <button type="button" className="rc-try" onClick={() => onShot(SHOTS[0])}>
-            <img src={SHOTS[0].src} alt="" />No screenshot handy? <b>Try a sample one</b>
-          </button>
+        {!has && !busy && SHOTS.length > 0 && (
+          <div className="rc-try">
+            <p className="rc-try-h">No screenshot handy? <b>Try one of these</b><span>Sample chats · not real people</span></p>
+            <div className="rc-try-row">
+              {SHOTS.map((s) => (
+                <button type="button" key={s.src} className="rc-try-shot" onClick={() => onShot(s)} title={s.label}>
+                  <img src={s.src} alt={s.alt} loading="lazy" />
+                  <span>{s.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
         )}
 
         <div className="rc-or" aria-hidden="true"><span>{has ? 'and' : 'or'}</span></div>
@@ -198,7 +206,7 @@ function Examples({onClose, onSample, onShot}: {onClose: () => void; onSample: (
           <h2 id="rc-sheet-h">Try an example</h2>
           <button type="button" className="rc-sheet-x" onClick={onClose} aria-label="Close"><XGlyph /></button>
         </div>
-        <p className="rc-sheet-h">Screenshots</p>
+        <p className="rc-sheet-h">Screenshots <span>Sample chats · not real people</span></p>
         <div className="rc-sheet-shots">
           {SHOTS.map((s) => (
             <button type="button" key={s.src} className="rc-sheet-shot" onClick={() => onShot(s)}>

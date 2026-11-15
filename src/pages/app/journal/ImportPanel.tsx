@@ -1,10 +1,13 @@
 /* Bring in the record that already exists. Step 1 reads the file and shows who is in it; step 2 asks which
    sender is the other parent (the only thing the file can't tell us), then writes the entries. */
 import {useRef, useState} from 'react';
-import {api} from '../../../lib/api';
+import {api, track} from '../../../lib/api';
 import {Icon, type IconId} from '../../../components/Icon';
 import {CHANNEL, fmtDate} from './util';
 import type {Channel} from '../../../../shared/types';
+import {SAMPLE_EXPORT, SHOTS, sampleFile} from '../reply/samples';
+
+const MAX_SAMPLE_SHOTS = 3;
 
 export type Source = 'whatsapp' | 'pdf' | 'screenshot';
 interface Preview {
@@ -45,28 +48,53 @@ export function ImportPanel({onImported, bare, start, only}: {onImported: () => 
   const [me, setMe] = useState('');
   const [result, setResult] = useState<Result | null>(null);
   const input = useRef<HTMLInputElement>(null);
+  // Sample files (made up, see reply/samples.ts) go through the very same upload as a person's own.
+  const [picked, setPicked] = useState<string[]>([]);
+  const [isSample, setIsSample] = useState(false);
   const cfg = SOURCES.find((s) => s.id === source);
 
   function reset(to: Source | null = null) {
     if (preview) void api(`/api/journal/import/${preview.importId}`, {method: 'DELETE'}).catch(() => {});
-    setSource(to); setPreview(null); setResult(null); setError(''); setOther(''); setMe('');
+    setSource(to); setPreview(null); setResult(null); setError(''); setOther(''); setMe(''); setPicked([]); setIsSample(false);
   }
 
-  async function upload(files: FileList | null) {
-    if (!files?.length || !cfg) return;
+  async function upload(list: FileList | File[] | null, to: Source | undefined = cfg?.id, sample = false) {
+    const files = [...(list ?? [])];
+    if (!files.length || !to) return;
+    setIsSample(sample);
     const form = new FormData();
-    if (cfg.id === 'screenshot') for (const f of [...files].slice(0, 8)) form.append('image', f);
+    if (to === 'screenshot') for (const f of files.slice(0, 8)) form.append('image', f);
     else form.append('file', files[0]);
     form.append('tz', String(zoneOffset()));
     setBusy(true); setError(''); setResult(null);
     try {
-      const p = await api<Preview>(`/api/journal/import/${cfg.id}`, {form});
+      const p = await api<Preview>(`/api/journal/import/${to}`, {form});
       setPreview(p);
       setOther(p.suggestedOther ?? (p.senders.length === 1 ? p.senders[0].name : ''));
     } catch (e) { setError((e as Error).message); }
     setBusy(false);
     if (input.current) input.current.value = '';
   }
+
+  async function trySample(to: Source) {
+    setError('');
+    try {
+      const files = to === 'whatsapp'
+        ? [await sampleFile(SAMPLE_EXPORT.src, SAMPLE_EXPORT.name, 'text/plain')]
+        : await Promise.all(SHOTS.filter((s) => picked.includes(s.src)).map((s) => sampleFile(s.src)));
+      setSource(to);
+      void track('journal_import_sample', {source: to, n: files.length});
+      await upload(files, to, true);
+    } catch (e) { setError((e as Error).message); }
+  }
+  const toggle = (src: string) => setPicked((p) => p.includes(src) ? p.filter((x) => x !== src) : p.length < MAX_SAMPLE_SHOTS ? [...p, src] : p);
+  const sampleExport = (
+    <button type="button" className="jr-try" disabled={busy} onClick={() => void trySample('whatsapp')}>
+      <Icon id="import-chat" size={28} />
+      <span><b>{busy ? 'Reading the sample…' : 'Try a sample export'}</b><small>Sample chat · not a real person</small></span>
+      <i aria-hidden="true">›</i>
+    </button>
+  );
 
   async function confirm() {
     if (!preview || !other) return;
@@ -94,6 +122,11 @@ export function ImportPanel({onImported, bare, start, only}: {onImported: () => 
               </button>
             ))}
           </div>
+          {sources.some((s) => s.id === 'whatsapp') && <>
+            <p className="jr-try-h">No export handy?</p>
+            {sampleExport}
+            {error && <p className="jr-error" role="alert">{error}</p>}
+          </>}
         </>
       )}
 
@@ -107,12 +140,35 @@ export function ImportPanel({onImported, bare, start, only}: {onImported: () => 
             {busy ? <><span className="spin" /> {cfg.id === 'whatsapp' ? 'Reading the chat…' : 'Reading every message… this can take 20–40 seconds'}</> : cfg.multiple ? 'Choose screenshots' : 'Choose file'}
           </button>
           {error && <p className="jr-error" role="alert">{error}</p>}
+          {cfg.id === 'whatsapp' && <><p className="jr-try-h">No export handy?</p>{sampleExport}</>}
+          {cfg.id === 'screenshot' && (
+            <div className="jr-samples">
+              <p className="jr-try-h">No screenshots handy? Try a sample <span>Sample chats · not real people</span></p>
+              <div className="jr-shots" role="group" aria-label={`Sample screenshots, pick up to ${MAX_SAMPLE_SHOTS}`}>
+                {SHOTS.map((s) => {
+                  const on = picked.includes(s.src);
+                  return (
+                    <button key={s.src} type="button" className={'jr-shot' + (on ? ' on' : '')} aria-pressed={on} disabled={busy} onClick={() => toggle(s.src)}>
+                      <img src={s.src} alt={s.alt} loading="lazy" />
+                      <span>{s.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+              {picked.length > 0 && (
+                <button type="button" className="btn btn-ghost btn-block fade-in" disabled={busy} onClick={() => void trySample('screenshot')}>
+                  {busy ? <><span className="spin" /> Reading the sample…</> : `Read ${picked.length === 1 ? 'this sample' : `these ${picked.length} samples`}`}
+                </button>
+              )}
+            </div>
+          )}
         </div>
       )}
 
       {preview && (
         <div className="fade-in">
           <button className="btn btn-quiet jr-back" onClick={() => reset(source)}>‹ Choose another file</button>
+          {isSample && <span className="chip jr-sample-chip">Sample chat · not a real person</span>}
           <h3 className="jr-h3">Found {preview.total.toLocaleString('en-US')} messages</h3>
           <p className="jr-sub">
             {preview.from && preview.to ? `${fmtDate(preview.from)} – ${fmtDate(preview.to)} · ` : ''}{CHANNEL[preview.channel]}

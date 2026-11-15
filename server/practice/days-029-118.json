@@ -1,0 +1,3514 @@
+{
+  "version": 1,
+  "from": 29,
+  "to": 118,
+  "note": "Daily practice after the 28-day course: 9 modules of 10 days. Education about communication, not legal advice or therapy.",
+  "modules": [
+    "Money and expenses",
+    "Schedule changes and late pickups",
+    "New partners",
+    "Holidays and birthdays",
+    "School and health decisions",
+    "Kids caught in the middle",
+    "Old fights dragged up",
+    "Threats and \"see you in court\"",
+    "Handoffs and in-person moments"
+  ],
+  "days": [
+    {
+      "day": 29,
+      "module": "Money and expenses",
+      "title": "The clean expense ask",
+      "chat": [
+        "Welcome to daily practice. The 28 days are done, and from here it's one real-life topic at a time.",
+        "First up is money. Money texts go wrong when the past rides along with the amount.",
+        "The clean version has four parts: what it was, what it cost, their share, and the receipt.",
+        "Nothing about who paid last time. That's a different conversation, and usually not one for text."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "hey did u ever send the dentist $ or",
+          "its been 3 wks",
+          "just asking 🙂"
+        ],
+        "options": [
+          {
+            "text": "not yet, sending my $85 half on venmo tonight. thx for the reminder",
+            "good": true,
+            "why": "It answers with the amount and a time, so there's nothing left to ask."
+          },
+          {
+            "text": "pretty sure i sent it? i'll check my venmo at some point this week when things calm down",
+            "good": false,
+            "why": "It sounds calm but gives no amount and no day, so the question stays open."
+          },
+          {
+            "text": "3 wks lol. u took 2 months to pay for the cleats so",
+            "good": false,
+            "why": "It drags up an old debt and starts a scorekeeping fight."
+          }
+        ]
+      },
+      "tryToday": "Send one expense text today with just the item, the amount, their share and a photo of the receipt."
+    },
+    {
+      "day": 30,
+      "module": "Money and expenses",
+      "title": "When they won't pay their half",
+      "chat": [
+        "Sometimes you send the clean ask and they just say no.",
+        "It's tempting to argue fairness. By text that almost never moves anyone.",
+        "Restate the amount once, say when you'd like it, and point to what you both agreed if there is something written.",
+        "Then stop. You don't have to win the argument to keep a clear record of the ask."
+      ],
+      "replies": [
+        "Makes sense",
+        "What if they still say no?"
+      ],
+      "drill": {
+        "them": [
+          "im not paying for karate",
+          "u signed her up not me",
+          "ur problem"
+        ],
+        "options": [
+          {
+            "text": "fine, forget it. i'll just cover all of it like always, it's honestly easier than asking u",
+            "good": false,
+            "why": "It gives up the ask and adds a sigh they can grab onto."
+          },
+          {
+            "text": "wow ok. remember this next time u want me to split something",
+            "good": false,
+            "why": "It's a threat to get even later, and it keeps the fight going."
+          },
+          {
+            "text": "we talked about karate on 3/2 and u said yes. ur half is $45, by the 15th?",
+            "good": true,
+            "why": "It points to the date you agreed, names the amount and asks for a day."
+          }
+        ]
+      },
+      "tryToday": "If someone owes you a share, send one message with the amount, the date you agreed and a pay-by day."
+    },
+    {
+      "day": 31,
+      "module": "Money and expenses",
+      "title": "When they ask for receipts",
+      "chat": [
+        "Being asked for receipts can feel like being called a liar.",
+        "Try to read it as a normal ask. Sending the receipt is the fastest way to end the thread.",
+        "No need to say you're offended. Just send the photo."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "before i send anything i need to see receipts",
+          "ALL of them",
+          "not just ur word for it this time"
+        ],
+        "options": [
+          {
+            "text": "omg seriously? u think i'm making up a $30 field trip??",
+            "good": false,
+            "why": "It turns a normal ask into a fight about trust."
+          },
+          {
+            "text": "sure, sending photos of all 3 receipts now. total's $112, ur half is $56",
+            "good": true,
+            "why": "It just sends the proof and the math, which ends it."
+          },
+          {
+            "text": "i'll dig them up when i have time, things have been crazy",
+            "good": false,
+            "why": "It's calm but vague, so the money keeps waiting and so does the thread."
+          }
+        ]
+      },
+      "tryToday": "Start a phone folder or album just for kid receipts and put today's in it."
+    },
+    {
+      "day": 32,
+      "module": "Money and expenses",
+      "title": "\"Must be nice\" texts",
+      "chat": [
+        "Some money texts aren't about a bill at all. They're about how your life looks from the outside.",
+        "\"Must be nice\" is bait. There's nothing in it to answer.",
+        "You can skip it, or answer only the part that's about the kids."
+      ],
+      "replies": [
+        "Makes sense",
+        "What if it keeps coming?"
+      ],
+      "drill": {
+        "them": [
+          "new truck huh",
+          "must be nice",
+          "meanwhile caleb needs new shoes and i guess thats on me"
+        ],
+        "options": [
+          {
+            "text": "i'll grab caleb's shoes this wknd. what size is he now?",
+            "good": true,
+            "why": "It skips the truck and answers the one thing about the kids."
+          },
+          {
+            "text": "i've been saving 2 years for that truck fyi, it's not like i'm rich",
+            "good": false,
+            "why": "It defends a purchase that wasn't really the question."
+          },
+          {
+            "text": "yeah it is nice actually. maybe get a better job",
+            "good": false,
+            "why": "It takes the bait and adds a new insult to fight about."
+          }
+        ]
+      },
+      "tryToday": "Next time a money jab comes in, find the one line about the kids and answer only that."
+    },
+    {
+      "day": 33,
+      "module": "Money and expenses",
+      "title": "The support payment that's late",
+      "chat": [
+        "When a payment is late, the first text sets the tone for the whole week.",
+        "If it's on your side, say when it's going out. If it's on theirs, ask once with a date.",
+        "Skip the guesses about why. They feel like accusations even when you mean them kindly."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "payment didnt come thru",
+          "again.",
+          "i have rent due friday."
+        ],
+        "options": [
+          {
+            "text": "ugh my bank does this, not my fault, they always hold transfers for like 3 days for no reason",
+            "good": false,
+            "why": "It explains and blames the bank, but never says when the money lands."
+          },
+          {
+            "text": "it's literally been 1 day. relax",
+            "good": false,
+            "why": "It brushes off the worry and invites a sharper reply."
+          },
+          {
+            "text": "i'll check w/ the bank today and text u by 5 when it's sent",
+            "good": true,
+            "why": "It gives a next step and a time, which is what they need before Friday."
+          }
+        ]
+      },
+      "tryToday": "If a payment of yours is ever late, practise the line: what happened, and when it'll land."
+    },
+    {
+      "day": 34,
+      "module": "Money and expenses",
+      "title": "Expenses you didn't agree to",
+      "chat": [
+        "Sometimes the bill comes after the decision. They signed the kid up, then sent you half.",
+        "You can be fair without saying yes to everything.",
+        "Say what you can pay, and ask to talk first next time. Calm, short, no lecture."
+      ],
+      "replies": [
+        "Makes sense",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "travel team is 1200 for the season",
+          "ur half is 600",
+          "due monday"
+        ],
+        "options": [
+          {
+            "text": "ok i'll make it work, i'll send the 600 by monday",
+            "good": false,
+            "why": "It agrees to a big cost you never discussed, which sets up the next one too."
+          },
+          {
+            "text": "i can do $300 by monday. next time can we decide on big stuff like this first?",
+            "good": true,
+            "why": "It offers a clear amount and asks for a heads-up next time."
+          },
+          {
+            "text": "lmao u signed him up without asking and want me to pay half? no",
+            "good": false,
+            "why": "It's heated and a flat no, with no option on the table."
+          }
+        ]
+      },
+      "tryToday": "Before the next big cost comes up, send a one-line ask: can we agree on anything over a set amount before signing up?"
+    },
+    {
+      "day": 35,
+      "module": "Money and expenses",
+      "title": "Saying no to a cost",
+      "chat": [
+        "A no doesn't need five reasons. One reason and one option is plenty.",
+        "The more reasons you give, the more they have to argue with.",
+        "Say no, say why in a few words, and offer something you can do."
+      ],
+      "replies": [
+        "Got it",
+        "What if they push?"
+      ],
+      "drill": {
+        "them": [
+          "ava wants the new iphone for her bday",
+          "we should split it",
+          "shes the only one in her class w/o one ngl"
+        ],
+        "options": [
+          {
+            "text": "i don't think she needs one. phones are bad for kids her age, i read this article that said",
+            "good": false,
+            "why": "It turns a no into a debate about phones that won't end."
+          },
+          {
+            "text": "ok sure, if everyone has one i guess we should",
+            "good": false,
+            "why": "It says yes to something you don't want, just to avoid the push."
+          },
+          {
+            "text": "not a phone this year for me. i'm happy to split a gift up to $100 tho",
+            "good": true,
+            "why": "It's a short no with one option, so there's a next step."
+          }
+        ]
+      },
+      "tryToday": "Say no to one thing this week in two sentences or fewer, with one thing you can offer."
+    },
+    {
+      "day": 36,
+      "module": "Money and expenses",
+      "title": "Lost and broken stuff",
+      "chat": [
+        "Coats, tablets, retainers. Things go missing between two homes, and someone has to replace them.",
+        "The fight is usually about whose fault it was. That one is hard to settle.",
+        "What usually works is solving the next step: who looks, who buys, and by when."
+      ],
+      "replies": [
+        "Makes sense",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "leos retainer is gone",
+          "it was in his bag when he left MY house",
+          "thats $250 btw"
+        ],
+        "options": [
+          {
+            "text": "i'll check the car and his room tonight. if it's not here, can we split the new one?",
+            "good": true,
+            "why": "It looks first, then offers a fair split, with no blame either way."
+          },
+          {
+            "text": "ok, i'll pay the whole $250, my bad",
+            "good": false,
+            "why": "It takes the blame and the full cost before anyone has even looked."
+          },
+          {
+            "text": "well it wasn't in his bag when he got here, i unpacked it myself, so it must be at ur place",
+            "good": false,
+            "why": "It's calm but just pushes the blame back, which stalls everything."
+          }
+        ]
+      },
+      "tryToday": "Make a quick list of the things that travel between homes, so a missing one is easy to check."
+    },
+    {
+      "day": 37,
+      "module": "Money and expenses",
+      "title": "Money talk near the kids",
+      "chat": [
+        "Kids notice money stress, and they hear it when it gets sent through them.",
+        "\"Tell your dad to pay for your shoes\" puts a kid in the middle of an adult bill.",
+        "If a money message comes through a kid, answer the adult directly and leave the kid out of it."
+      ],
+      "replies": [
+        "Got it",
+        "What do I say to my kid?"
+      ],
+      "drill": {
+        "them": [
+          "mia said u told her u cant afford her dance recital fee",
+          "why would u say that to her",
+          "shes upset now",
+          "nice job"
+        ],
+        "options": [
+          {
+            "text": "i didn't say that, she must've heard wrong. she exaggerates",
+            "good": false,
+            "why": "It calls the kid unreliable and argues about what was said."
+          },
+          {
+            "text": "i'll talk w/ mia tonight so she's not worried. the recital fee is covered, i'll send it fri",
+            "good": true,
+            "why": "It settles the kid's worry and the money, and nothing else."
+          },
+          {
+            "text": "ok well maybe if support was on time she wouldn't have to hear it",
+            "good": false,
+            "why": "It's a polite-sounding dig that turns the kid's worry into a money fight."
+          }
+        ]
+      },
+      "tryToday": "Notice one time this week you're about to mention money near the kids, and save it for later."
+    },
+    {
+      "day": 38,
+      "module": "Money and expenses",
+      "title": "Settling up once a month",
+      "chat": [
+        "One way to cut down on money fights is to have fewer money texts.",
+        "Some parents settle up once a month: one message, every item, one total.",
+        "It's not a rule, just a habit that gives the topic a regular, boring home.",
+        "That's the money module done. Tomorrow starts schedule changes."
+      ],
+      "replies": [
+        "I like that",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "can we just do all the kid money at once",
+          "im sick of 10 venmo requests a week tbh"
+        ],
+        "options": [
+          {
+            "text": "it's not 10 a week, it's like 3 at most. i only send stuff i actually spend money on",
+            "good": false,
+            "why": "It argues the count and misses that they're agreeing with you."
+          },
+          {
+            "text": "whatever's easiest for u, i'm flexible",
+            "good": false,
+            "why": "It sounds easy but sets no day, so nothing changes."
+          },
+          {
+            "text": "yeah good idea. i'll send one list w/ receipts on the 1st of each month?",
+            "good": true,
+            "why": "It says yes and names the day, so there's a plan."
+          }
+        ]
+      },
+      "tryToday": "Pick a day each month and write it down as your settle-up day."
+    },
+    {
+      "day": 39,
+      "module": "Schedule changes and late pickups",
+      "title": "The last-minute swap",
+      "chat": [
+        "This module is schedule changes. They're the most common co-parenting text there is.",
+        "A last-minute swap ask is just a question. Yes, no, or yes with a change.",
+        "Answer it with the day and time spelled out, so there's no \"I thought you meant\" later."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "can u take them thurs instead of fri",
+          "work thing",
+          "lmk asap"
+        ],
+        "options": [
+          {
+            "text": "yes, i'll grab them thursday from school at 3 and have them till sat at 10",
+            "good": true,
+            "why": "It says yes with the day, the time and when they come back."
+          },
+          {
+            "text": "sure np, i can probably do thursday, just text me when u know more about ur work thing",
+            "good": false,
+            "why": "It's friendly, but nobody knows the pickup time or when they go back."
+          },
+          {
+            "text": "again?? that's the 3rd time this month",
+            "good": false,
+            "why": "It counts their swaps instead of answering, and it's heated."
+          }
+        ]
+      },
+      "tryToday": "Confirm your next schedule change with the day, the time and who drives, all in one message."
+    },
+    {
+      "day": 40,
+      "module": "Schedule changes and late pickups",
+      "title": "When they're late again",
+      "chat": [
+        "You're in the lot. They're 25 minutes late. Your phone is right there.",
+        "The text you send in that moment tends to be the one you'd most like to take back.",
+        "Ask for the one thing you need: when they'll get there. Save the pattern for your record, not the thread."
+      ],
+      "replies": [
+        "Makes sense",
+        "What about the pattern?"
+      ],
+      "drill": {
+        "them": [
+          "omw",
+          "traffic",
+          "like 20 more min",
+          "dont start"
+        ],
+        "options": [
+          {
+            "text": "it's ALWAYS traffic w/ u. every single time",
+            "good": false,
+            "why": "It's an always about the past, and it starts round two."
+          },
+          {
+            "text": "ok no rush at all, take ur time, we'll just hang out here in the lot for however long it takes",
+            "good": false,
+            "why": "It sounds kind but tells them late is fine, which isn't true for you."
+          },
+          {
+            "text": "ok. i'll wait till 5:45, after that i'll take them home and u can grab them there",
+            "good": true,
+            "why": "It sets a clear limit and a backup plan, without a lecture."
+          }
+        ]
+      },
+      "tryToday": "Next time someone's late, write the time down for yourself and keep the text to the next step."
+    },
+    {
+      "day": 41,
+      "module": "Schedule changes and late pickups",
+      "title": "When you're the one running late",
+      "chat": [
+        "It happens to everyone. The text you send when you're late matters more than the lateness.",
+        "Send it early, give a real time, and skip the long story.",
+        "One short apology is fine when you're actually late. Five lines of reasons is not."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "where r u",
+          "we said 6",
+          "its 6:10"
+        ],
+        "options": [
+          {
+            "text": "sorry sorry, my boss kept me, then the gas light came on, then the bridge was",
+            "good": false,
+            "why": "The long story reads like excuses and still gives no arrival time."
+          },
+          {
+            "text": "sorry, running late. i'll be there at 6:25",
+            "good": true,
+            "why": "It owns it in one word and gives a real time."
+          },
+          {
+            "text": "10 min chill, u were late last week",
+            "good": false,
+            "why": "It's late and keeping score, which makes them madder."
+          }
+        ]
+      },
+      "tryToday": "If you're ever running late, text before the time, not after, with when you'll arrive."
+    },
+    {
+      "day": 42,
+      "module": "Schedule changes and late pickups",
+      "title": "Saying no to a swap",
+      "chat": [
+        "You're allowed to say no to a swap. A schedule only works if it's mostly kept.",
+        "A kind no is short: no, maybe one reason, and an option if you have one.",
+        "No guilt paragraph needed."
+      ],
+      "replies": [
+        "Makes sense",
+        "What if they get mad?"
+      ],
+      "drill": {
+        "them": [
+          "hey any chance u could keep jayden next wknd too",
+          "my sisters having a thing",
+          "it'd really help"
+        ],
+        "options": [
+          {
+            "text": "i can't next wknd, i have plans. i could do sat till 2 if that helps?",
+            "good": true,
+            "why": "It's a clear no with one small option."
+          },
+          {
+            "text": "ugh ok fine, i'll move my stuff around",
+            "good": false,
+            "why": "It says yes when you mean no, and you'll resent it."
+          },
+          {
+            "text": "i'm sorry, it's just that i already told my friend and work is crazy and i'd feel bad if",
+            "good": false,
+            "why": "It over-explains, which gives them lots to argue with."
+          }
+        ]
+      },
+      "tryToday": "Say no to one ask this week in two short sentences, with an option if you have one."
+    },
+    {
+      "day": 43,
+      "module": "Schedule changes and late pickups",
+      "title": "The no-show",
+      "chat": [
+        "They didn't come and they didn't text. Your kid is at the window.",
+        "One calm message asking about the plan is enough. Chasing with five texts doesn't bring them faster.",
+        "Then turn your attention to your kid. They need you more than the thread does."
+      ],
+      "replies": [
+        "Got it",
+        "What do I tell my kid?"
+      ],
+      "drill": {
+        "them": [
+          "sry something came up",
+          "cant make it tn",
+          "tell zoe i said hi"
+        ],
+        "options": [
+          {
+            "text": "tell her urself. she's been waiting by the door for an hour",
+            "good": false,
+            "why": "It's understandable, but it guilt trips and puts Zoe in the message."
+          },
+          {
+            "text": "ok, guess we'll figure out another time. i'll tell her something came up",
+            "good": false,
+            "why": "It leaves the next visit unclear and gives Zoe nothing to hold onto."
+          },
+          {
+            "text": "ok. do u want to call her at 7 tonight? next pickup is still sat at 10",
+            "good": true,
+            "why": "It gives the kid a call and keeps the next date clear."
+          }
+        ]
+      },
+      "tryToday": "If a visit falls through, offer one concrete thing for your kid, like a call at a set time."
+    },
+    {
+      "day": 44,
+      "module": "Schedule changes and late pickups",
+      "title": "\"Just keep them then\"",
+      "chat": [
+        "Sometimes a schedule fight ends with them giving up the time: \"just keep them then.\"",
+        "It can be a test, a guilt trip, or just a bad day. Usually it's hard to tell which.",
+        "It often helps to name the plan back calmly instead of grabbing the extra time or arguing."
+      ],
+      "replies": [
+        "Makes sense",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "fine. just keep them",
+          "clearly u dont need me",
+          "w/e"
+        ],
+        "options": [
+          {
+            "text": "great, i will then",
+            "good": false,
+            "why": "It takes them up on it in a heated moment, which usually blows up later."
+          },
+          {
+            "text": "i know it's been a rough week. they're excited for ur wknd, see u fri at 5?",
+            "good": true,
+            "why": "It's kind, names the plan and keeps the door open."
+          },
+          {
+            "text": "that's not what i said at all, i just asked if u could be on time for once on fridays",
+            "good": false,
+            "why": "It reargues the last message instead of moving forward."
+          }
+        ]
+      },
+      "tryToday": "When a text says \"fine\" or \"whatever\", answer with the next date and time and nothing else."
+    },
+    {
+      "day": 45,
+      "module": "Schedule changes and late pickups",
+      "title": "Long swaps for work",
+      "chat": [
+        "Bigger changes, like a two-week work trip, need more detail than a quick swap.",
+        "Dates, times, who drives, and when the usual schedule picks back up.",
+        "Writing it all in one message saves five follow-ups."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "so i got sent to denver for 2 wks in march",
+          "can u take the kids",
+          "ill make it up to u w/ summer or something"
+        ],
+        "options": [
+          {
+            "text": "yes. i'll take them march 3 to 17. can we swap 2 of ur summer weeks, which ones?",
+            "good": true,
+            "why": "It says yes with the exact dates and pins down the make-up time."
+          },
+          {
+            "text": "yeah of course, no problem at all, we'll just figure out the summer stuff later on",
+            "good": false,
+            "why": "It's generous, but \"later\" usually turns into a fight in June."
+          },
+          {
+            "text": "must be nice to just leave for 2 wks lol",
+            "good": false,
+            "why": "It's a jab, and heated, when they asked for help."
+          }
+        ]
+      },
+      "tryToday": "Next time you plan a long change, put the start date, end date and make-up time in one message."
+    },
+    {
+      "day": 46,
+      "module": "Schedule changes and late pickups",
+      "title": "Snow days and sick days",
+      "chat": [
+        "Some changes nobody plans: school closes, a kid gets sick, the roads are bad.",
+        "These are the moments to be quick and practical.",
+        "Say who has the kid, until when, and what happens to the regular time."
+      ],
+      "replies": [
+        "Makes sense",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "schools closed tmrw",
+          "snow",
+          "i cant miss work again. can u?"
+        ],
+        "options": [
+          {
+            "text": "i always have to cover these, it's ur turn",
+            "good": false,
+            "why": "It turns a quick fix into a who-does-more fight."
+          },
+          {
+            "text": "maybe? let me see how my morning goes",
+            "good": false,
+            "why": "It sounds open but leaves them stuck with no answer."
+          },
+          {
+            "text": "yep, i'll pick them up at 7:30 tmrw and drop them back by 6",
+            "good": true,
+            "why": "It solves it with times, fast."
+          }
+        ]
+      },
+      "tryToday": "Decide now who covers the next surprise school closure, and send one line to settle it."
+    },
+    {
+      "day": 47,
+      "module": "Schedule changes and late pickups",
+      "title": "Get it in writing",
+      "chat": [
+        "A change agreed on the phone or at the door is easy to remember two different ways.",
+        "A short follow-up text makes it real: \"just confirming, Sun at 4 instead of 6.\"",
+        "It's not about catching anyone. It's so you both have the same plan."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "like i said at pickup, im getting them at 4 sun not 6",
+          "dont act like u forgot"
+        ],
+        "options": [
+          {
+            "text": "i didn't forget, u never said 4. u said \"maybe earlier\"",
+            "good": false,
+            "why": "It argues about what was said instead of settling it."
+          },
+          {
+            "text": "ok, confirming sunday at 4 at my place",
+            "good": true,
+            "why": "It confirms the new time in writing, which ends the confusion."
+          },
+          {
+            "text": "hmm i don't remember that but ok i guess",
+            "good": false,
+            "why": "It agrees but adds doubt, so it's likely to come up again."
+          }
+        ]
+      },
+      "tryToday": "After your next spoken agreement, send one text that confirms the day and time."
+    },
+    {
+      "day": 48,
+      "module": "Schedule changes and late pickups",
+      "title": "Plan summer before spring",
+      "chat": [
+        "Summer fights usually start because nobody wrote the dates down in time.",
+        "An early message with specific weeks gives both of you room to plan.",
+        "That's the schedule module done. Next up: new partners."
+      ],
+      "replies": [
+        "Makes sense",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "have u thought about summer at all",
+          "or am i doing it all again"
+        ],
+        "options": [
+          {
+            "text": "yep. i'd like july 5-19 for my two weeks. what weeks work for u?",
+            "good": true,
+            "why": "It skips the jab and names real dates with a question back."
+          },
+          {
+            "text": "not yet, it's only february lol",
+            "good": false,
+            "why": "It brushes it off, so the planning lands on them after all."
+          },
+          {
+            "text": "u do it all? i planned the whole thing last year, the camp, the beach week, all of it",
+            "good": false,
+            "why": "It answers the jab and starts a fight about last year."
+          }
+        ]
+      },
+      "tryToday": "Write down the weeks you'd like this summer, even if you don't send them yet."
+    },
+    {
+      "day": 49,
+      "module": "New partners",
+      "title": "When you hear about a new partner",
+      "chat": [
+        "This module is new partners. Theirs or yours, it's one of the hardest topics to text about.",
+        "Often you hear about it from the kids first. That stings.",
+        "If you want to know something, ask about the part that affects the kids. Who they meet, when, and how.",
+        "Their love life isn't what you're answering. The kids' week is."
+      ],
+      "replies": [
+        "Got it",
+        "That's hard"
+      ],
+      "drill": {
+        "them": [
+          "so the kids told me about \"derek\"",
+          "cool that i had to hear it from a 7 yr old",
+          "how long has that been going on"
+        ],
+        "options": [
+          {
+            "text": "it's not that serious, i was going to tell u, it just never came up",
+            "good": false,
+            "why": "It explains your timing, which gives them a fresh thing to argue about."
+          },
+          {
+            "text": "not that it's any of ur business but 3 months",
+            "good": false,
+            "why": "It's a jab, and it turns the kids' news into a fight about you."
+          },
+          {
+            "text": "fair point. he's met the kids twice, always w/ me there. want to meet him?",
+            "good": true,
+            "why": "It owns the one fair point and answers what matters for the kids."
+          }
+        ]
+      },
+      "tryToday": "Think of one thing about a new partner that really affects the kids, and how you'd say it in one line."
+    },
+    {
+      "day": 50,
+      "module": "New partners",
+      "title": "\"I want to meet them\"",
+      "chat": [
+        "It's common for a parent to want to meet someone who spends time with their kids.",
+        "You don't have to agree to every ask, but a calm answer with a next step keeps it from becoming a standoff.",
+        "Keep it about the kids: when, where, and how you'll handle it."
+      ],
+      "replies": [
+        "Makes sense",
+        "What if I'm not ready?"
+      ],
+      "drill": {
+        "them": [
+          "before she spends another wknd w/ MY kids",
+          "i want to meet her",
+          "not negotiable"
+        ],
+        "options": [
+          {
+            "text": "that's fair. could u meet her for coffee next week, maybe tues at 6?",
+            "good": true,
+            "why": "It agrees and offers a time, so it's a plan, not a fight."
+          },
+          {
+            "text": "ok, she'll just stay away when the kids are here then, i don't want this to turn into a thing",
+            "good": false,
+            "why": "It gives up something big just to avoid the conversation."
+          },
+          {
+            "text": "u don't get to make demands about who i date",
+            "good": false,
+            "why": "It argues about rights instead of answering the ask."
+          }
+        ]
+      },
+      "tryToday": "If you're open to an intro, write one line offering a day and a place."
+    },
+    {
+      "day": 51,
+      "module": "New partners",
+      "title": "When their partner texts you",
+      "chat": [
+        "Sometimes the new partner reaches out directly. It can be friendly, or it can feel like a lot.",
+        "You can be polite and short, and keep the logistics with the parent.",
+        "Nobody has to be best friends. Calm is enough."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "Hi! This is Jess, Mike's gf 😊",
+          "I'll be picking up the girls friday since he's working late",
+          "Hope that's ok!"
+        ],
+        "options": [
+          {
+            "text": "ok but i'd rather not get texts from u, pls have mike text me",
+            "good": false,
+            "why": "It's cold to someone who was being polite, and it's about you, not pickup."
+          },
+          {
+            "text": "hi jess, thx for the heads up. they get out at 3:15 at the front door",
+            "good": true,
+            "why": "It's friendly, short and gives the one thing she needs."
+          },
+          {
+            "text": "hi! omg thank u so much, we should get coffee sometime and talk about the girls!",
+            "good": false,
+            "why": "It's warm, but it opens a whole new channel nobody planned."
+          }
+        ]
+      },
+      "tryToday": "Decide what you'd say if a new partner ever texted you, in one line."
+    },
+    {
+      "day": 52,
+      "module": "New partners",
+      "title": "The partner at handoffs",
+      "chat": [
+        "A new partner showing up at the handoff can feel like a lot, fast.",
+        "If it bothers you, ask about it as a plan, not a feeling about the person.",
+        "And if it's your partner, think about whether showing up helps the kids that day."
+      ],
+      "replies": [
+        "Makes sense",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "why is HE at every pickup now",
+          "the kids dont need that",
+          "just saying",
+          "hello?"
+        ],
+        "options": [
+          {
+            "text": "because he's part of my life now. get used to it",
+            "good": false,
+            "why": "It's defiant and invites a bigger fight."
+          },
+          {
+            "text": "ok fine, he'll stay home from now on, i didn't realize it bothered u that much",
+            "good": false,
+            "why": "It gives in quickly, then you'll probably resent it."
+          },
+          {
+            "text": "ok. how about he waits in the car at pickups for now? see u fri at 5",
+            "good": true,
+            "why": "It offers a small change and keeps the handoff on track."
+          }
+        ]
+      },
+      "tryToday": "Picture your next handoff and decide who really needs to be there."
+    },
+    {
+      "day": 53,
+      "module": "New partners",
+      "title": "What the kids call them",
+      "chat": [
+        "Hearing your kid call someone else \"mom\" or \"dad\" can really hurt.",
+        "If it comes up, talk to the other parent about it calmly and without blaming the kid.",
+        "Kids are usually just trying to fit into two homes."
+      ],
+      "replies": [
+        "Got it",
+        "That hurts"
+      ],
+      "drill": {
+        "them": [
+          "so now isaac calls her MOM??",
+          "are u serious",
+          "did u put him up to that"
+        ],
+        "options": [
+          {
+            "text": "i didn't, i was surprised too. i'll tell him he can call her by her name",
+            "good": true,
+            "why": "It's honest, calm, and offers a fix."
+          },
+          {
+            "text": "he can call her what he wants, he's a kid",
+            "good": false,
+            "why": "It brushes off what's obviously painful for them."
+          },
+          {
+            "text": "ok i'll tell him to stop, i'm sorry, i should've caught it",
+            "good": false,
+            "why": "It takes the blame for something that probably wasn't your doing."
+          }
+        ]
+      },
+      "tryToday": "If it ever comes up, practise one line that doesn't blame your kid."
+    },
+    {
+      "day": 54,
+      "module": "New partners",
+      "title": "When they jab about you dating",
+      "chat": [
+        "Comments about your dating life usually aren't questions. They're hooks.",
+        "There's no reply that makes them approve, so you don't need one.",
+        "If there's a logistics line in there, answer only that."
+      ],
+      "replies": [
+        "Makes sense",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "heard ur on tinder now lol",
+          "hope the kids arent ur second priority",
+          "oh and is sunday still 4?"
+        ],
+        "options": [
+          {
+            "text": "i'm not on tinder, and the kids are always first, u know that",
+            "good": false,
+            "why": "It defends you and gives them a new topic."
+          },
+          {
+            "text": "yep, sunday at 4 still works",
+            "good": true,
+            "why": "It answers the real question and skips the rest."
+          },
+          {
+            "text": "at least someone wants to date me lol",
+            "good": false,
+            "why": "It bites back and keeps the fight going."
+          }
+        ]
+      },
+      "tryToday": "Next time a dating jab lands, find the logistics line and answer just that."
+    },
+    {
+      "day": 55,
+      "module": "New partners",
+      "title": "When their partner disciplines the kids",
+      "chat": [
+        "A new partner telling your kid off can feel like a line was crossed.",
+        "Ask the parent, not the partner, with the specific thing that happened.",
+        "A clear ask beats a general complaint."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "ethan said ur bf took his switch away for a week",
+          "thats not his call",
+          "he's not his dad"
+        ],
+        "options": [
+          {
+            "text": "he's an adult in the house and he's allowed to have rules, the kids need structure",
+            "good": false,
+            "why": "It defends the partner and turns it into a fight about him."
+          },
+          {
+            "text": "ok i'll tell him to stay out of it",
+            "good": false,
+            "why": "It agrees fast without saying what happened or what changes."
+          },
+          {
+            "text": "fair. i'll handle consequences myself from now on. ethan gets it back sat",
+            "good": true,
+            "why": "It takes the point and gives a clear plan."
+          }
+        ]
+      },
+      "tryToday": "Write down one rule you'd like both homes to agree on, so it isn't a surprise."
+    },
+    {
+      "day": 56,
+      "module": "New partners",
+      "title": "When your partner wants to defend you",
+      "chat": [
+        "Your partner may want to jump into the thread to defend you. They mean well.",
+        "A third person in the conversation usually adds heat, not calm.",
+        "Keep the thread between the two parents, and thank your partner for caring."
+      ],
+      "replies": [
+        "Makes sense",
+        "What do I tell my partner?"
+      ],
+      "drill": {
+        "them": [
+          "and tell ur gf to stop texting me",
+          "i dont need her opinion on my parenting",
+          "seriously"
+        ],
+        "options": [
+          {
+            "text": "ok, i'll ask her not to. anything about the kids can come straight to me",
+            "good": true,
+            "why": "It agrees and keeps the thread to the two of you."
+          },
+          {
+            "text": "she was just trying to help, u don't have to be so rude to her, she's never done anything to u",
+            "good": false,
+            "why": "It defends her and grows the fight."
+          },
+          {
+            "text": "she's allowed to text whoever she wants",
+            "good": false,
+            "why": "It's calm in tone but refuses something reasonable."
+          }
+        ]
+      },
+      "tryToday": "If your partner wants to help, give them a role that isn't texting your co-parent."
+    },
+    {
+      "day": 57,
+      "module": "New partners",
+      "title": "Moving in together",
+      "chat": [
+        "Moving in with someone is big news for the kids. Telling the other parent first is usually kinder.",
+        "Facts help: when, where, and anything that changes for the kids.",
+        "You don't need their blessing, just a clear heads-up."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "so im hearing ur moving in w/ him",
+          "were u going to tell me",
+          "or just let the kids drop it on me"
+        ],
+        "options": [
+          {
+            "text": "yeah sorry i meant to say something, it just happened fast and things have been busy",
+            "good": false,
+            "why": "It explains and apologises but gives no facts."
+          },
+          {
+            "text": "yes, from march 1. same school, same schedule, kids get their own rooms",
+            "good": true,
+            "why": "It gives the facts that matter for the kids."
+          },
+          {
+            "text": "why do u care? u don't live w/ us",
+            "good": false,
+            "why": "It's defensive and starts a new fight."
+          }
+        ]
+      },
+      "tryToday": "If you have big news, write the facts for the kids in one message before they hear it elsewhere."
+    },
+    {
+      "day": 58,
+      "module": "New partners",
+      "title": "Keep it on the kids",
+      "chat": [
+        "The thread through this whole module: answer what affects the kids, and leave the rest.",
+        "Their feelings about your partner are real, but text can't fix them.",
+        "That's new partners done. Next up: holidays and birthdays."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "ngl it hurts seeing her at noras games",
+          "like ur rubbing it in",
+          "can she just sit somewhere else"
+        ],
+        "options": [
+          {
+            "text": "it's not about u, she just likes coming to watch nora play, she's really into soccer now",
+            "good": false,
+            "why": "It's calm, but it brushes off the feeling and changes nothing."
+          },
+          {
+            "text": "honestly u need to get over it, it's been 2 years",
+            "good": false,
+            "why": "It's cold and turns a hard moment into a fight."
+          },
+          {
+            "text": "that's fair. we'll sit on the other side so nora can see both of us",
+            "good": true,
+            "why": "It hears them and makes a small change for Nora."
+          }
+        ]
+      },
+      "tryToday": "Pick one small thing you could do so the kids feel less caught between two new lives."
+    },
+    {
+      "day": 59,
+      "module": "Holidays and birthdays",
+      "title": "Plan it before it's close",
+      "chat": [
+        "This module is holidays and birthdays. Big feelings, small windows of time.",
+        "The closer the day gets, the hotter the texts get.",
+        "One early message with dates and handoff times takes a lot of the heat out."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "thanksgiving is in 3 wks",
+          "are we doing the split thing again or what"
+        ],
+        "options": [
+          {
+            "text": "yep, same as last year? u have them till 2, i pick up at 2 at ur place",
+            "good": true,
+            "why": "It names the plan and the handoff time, weeks early."
+          },
+          {
+            "text": "idk yet, let's just figure it out closer to it when we know everyone's plans",
+            "good": false,
+            "why": "It pushes it off to the week when everyone's stressed."
+          },
+          {
+            "text": "\"the split thing\" was ur idea btw",
+            "good": false,
+            "why": "It argues about whose idea it was instead of planning."
+          }
+        ]
+      },
+      "tryToday": "Look at the next holiday on the calendar and draft one line with the day and handoff time."
+    },
+    {
+      "day": 60,
+      "module": "Holidays and birthdays",
+      "title": "Splitting the day",
+      "chat": [
+        "Splitting a holiday means a handoff in the middle of it, which is a lot of driving and a lot of feelings.",
+        "The calmest version is simple: a time, a place, and no comments on whose turn is better.",
+        "If the time isn't working, offer a new one instead of a complaint."
+      ],
+      "replies": [
+        "Makes sense",
+        "What if we can't agree?"
+      ],
+      "drill": {
+        "them": [
+          "2pm is too early",
+          "my moms flying in and the kids havent seen her since july",
+          "can we do 5"
+        ],
+        "options": [
+          {
+            "text": "no, 2 is the plan, we agreed on it in october",
+            "good": false,
+            "why": "It's firm but shuts the door on a fair ask with no option."
+          },
+          {
+            "text": "ugh fine. i guess my family just eats without them",
+            "good": false,
+            "why": "It says yes with a guilt trip attached."
+          },
+          {
+            "text": "5 works if i get them by 10am christmas eve. ok?",
+            "good": true,
+            "why": "It says yes and trades fairly for something else."
+          }
+        ]
+      },
+      "tryToday": "If a holiday time doesn't work, write a counter-offer with a specific time, not a complaint."
+    },
+    {
+      "day": 61,
+      "module": "Holidays and birthdays",
+      "title": "One party or two",
+      "chat": [
+        "Birthday parties are a classic co-parenting spot. One party, two, who invites who.",
+        "There's no right answer, but there is a calm way to ask.",
+        "Say what you're thinking, keep it about the kid, and ask what they'd like."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "so for lilys party",
+          "r u planning ur own again",
+          "bc last year she was exhausted",
+          "lmk"
+        ],
+        "options": [
+          {
+            "text": "i mean she has two homes, so she gets two parties",
+            "good": false,
+            "why": "It's a fair point said like a jab, and it shuts down the question."
+          },
+          {
+            "text": "could we do one party together this year? i'm happy to split costs and planning",
+            "good": true,
+            "why": "It offers a joint plan and invites them in."
+          },
+          {
+            "text": "ok i won't do one then",
+            "good": false,
+            "why": "It gives up the party without a conversation."
+          }
+        ]
+      },
+      "tryToday": "Write down what you'd like for your kid's next birthday, and one way you could share it."
+    },
+    {
+      "day": 62,
+      "module": "Holidays and birthdays",
+      "title": "When gifts become a contest",
+      "chat": [
+        "Gifts can turn into a quiet competition. Who got the bigger one, who got the thing first.",
+        "If it stings, keep the reply about the kid having a good day.",
+        "A short check-in on big gifts can help next time."
+      ],
+      "replies": [
+        "Makes sense",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "so u got owen the bike",
+          "the bike I told u i was getting him",
+          "cool thanks"
+        ],
+        "options": [
+          {
+            "text": "that's on me, i forgot. want to tell me what ur getting next time so we don't overlap?",
+            "good": true,
+            "why": "It owns the slip and sets up a simple fix."
+          },
+          {
+            "text": "u never said that",
+            "good": false,
+            "why": "It denies and starts a \"you said, I said\" fight."
+          },
+          {
+            "text": "omg it's a BIKE, he's happy, who cares 🙄",
+            "good": false,
+            "why": "It's heated and brushes off a real feeling."
+          }
+        ]
+      },
+      "tryToday": "Before the next big gift, send one line saying what you're planning."
+    },
+    {
+      "day": 63,
+      "module": "Holidays and birthdays",
+      "title": "Mother's Day and Father's Day",
+      "chat": [
+        "These days can be hard when you're apart.",
+        "If the plan gives the day to one parent, a quick heads-up about the time helps.",
+        "And helping the kids make a card for the other parent is a kind thing, not a defeat."
+      ],
+      "replies": [
+        "Got it",
+        "That's a nice idea"
+      ],
+      "drill": {
+        "them": [
+          "is sunday still mine for mothers day",
+          "or do u have something \"special\" planned again"
+        ],
+        "options": [
+          {
+            "text": "i don't have anything planned, why would u assume that? u always think i'm up to something",
+            "good": false,
+            "why": "It answers the jab and skips the question."
+          },
+          {
+            "text": "yeah i guess, if u want",
+            "good": false,
+            "why": "It sounds unsure, so the plan feels shaky."
+          },
+          {
+            "text": "yep, sunday's yours. i'll drop them off at 9 w/ a card they made",
+            "good": true,
+            "why": "It confirms the day, the time and adds something kind."
+          }
+        ]
+      },
+      "tryToday": "Help your kid make or send something for the other parent's day."
+    },
+    {
+      "day": 64,
+      "module": "Holidays and birthdays",
+      "title": "Holiday travel",
+      "chat": [
+        "Traveling with the kids over a holiday needs a few details: where, when, and how to reach them.",
+        "Some parenting plans say something about travel. If yours does, follow it, and if you're unsure what it means, that's a question for a lawyer, not the thread.",
+        "By text, keep it to the facts."
+      ],
+      "replies": [
+        "Makes sense",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "ur taking them to ohio??",
+          "for how long",
+          "and where r they staying"
+        ],
+        "options": [
+          {
+            "text": "it's my holiday week, i don't need ur permission",
+            "good": false,
+            "why": "It argues permission instead of giving the details they asked for."
+          },
+          {
+            "text": "dec 26 to 30 at my sister's, 214 oak st. they can call u every night at 7",
+            "good": true,
+            "why": "It gives the dates, the place and a call time."
+          },
+          {
+            "text": "just a few days, it's honestly no big deal, they'll be totally fine, i'll send pics",
+            "good": false,
+            "why": "It's vague, which makes them more worried."
+          }
+        ]
+      },
+      "tryToday": "If you're traveling with the kids, write the dates, the address and a call time in one text."
+    },
+    {
+      "day": 65,
+      "module": "Holidays and birthdays",
+      "title": "Halloween and the small holidays",
+      "chat": [
+        "Small holidays can cause big fights, partly because they're not always in the plan.",
+        "A quick, specific offer works well: a time window and a place.",
+        "Kids remember the night, not who had them."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "its my night but sofia wants to trick or treat w/ her friends on ur street",
+          "idk how u want to do this"
+        ],
+        "options": [
+          {
+            "text": "want to bring her over at 6? she can go w/ her friends, u grab her at 8",
+            "good": true,
+            "why": "It makes a clear plan around what Sofia wants."
+          },
+          {
+            "text": "she can just do it at ur house, it's fine",
+            "good": false,
+            "why": "It's easy-going but ignores what Sofia actually wants."
+          },
+          {
+            "text": "i mean if it's ur night it's ur problem",
+            "good": false,
+            "why": "It's calm in tone but unhelpful and a little cold."
+          }
+        ]
+      },
+      "tryToday": "Think of one small holiday coming up and what a simple plan for it would be."
+    },
+    {
+      "day": 66,
+      "module": "Holidays and birthdays",
+      "title": "Grandparents and family",
+      "chat": [
+        "Extended family wants time too. Sometimes that pulls on the schedule.",
+        "Ask for what you'd like, with a day and a time, and keep the family drama out of it.",
+        "Saying no to family time is allowed, and so is a counter-offer."
+      ],
+      "replies": [
+        "Makes sense",
+        "What if they say no?"
+      ],
+      "drill": {
+        "them": [
+          "my parents want the kids for the 4th",
+          "its ur day but they're old and wont be around forever",
+          "just saying"
+        ],
+        "options": [
+          {
+            "text": "that's a guilt trip and u know it",
+            "good": false,
+            "why": "It names the guilt trip, which starts a fight about it."
+          },
+          {
+            "text": "ok they can have them, i'll do something else that day, i don't want to fight about it",
+            "good": false,
+            "why": "It gives up the day just because of the guilt."
+          },
+          {
+            "text": "how about they come to my bbq that afternoon? or they can have them the 5th",
+            "good": true,
+            "why": "It offers two real options without arguing."
+          }
+        ]
+      },
+      "tryToday": "Write one sentence you could use to offer family time on a day that isn't the holiday itself."
+    },
+    {
+      "day": 67,
+      "module": "Holidays and birthdays",
+      "title": "The birthday on their day",
+      "chat": [
+        "Sometimes your kid's birthday falls on the other parent's day.",
+        "A short ask for a call or a quick visit is reasonable. Make it easy to say yes.",
+        "And if the answer is no, plan your own celebration on your day."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "hey just fyi maya's bday is on my wknd this year",
+          "we're doing a sleepover"
+        ],
+        "options": [
+          {
+            "text": "so i don't even get to see her on her birthday? nice",
+            "good": false,
+            "why": "It's sarcastic and skips the chance to ask for something."
+          },
+          {
+            "text": "sounds fun. can i call her at 7 on her bday? i'll do cake w/ her on mon",
+            "good": true,
+            "why": "It's warm and asks for one easy thing."
+          },
+          {
+            "text": "ok that's fine, i'll just skip it this year",
+            "good": false,
+            "why": "It gives up more than you needed to."
+          }
+        ]
+      },
+      "tryToday": "If your kid's birthday is on the other parent's day, plan one call and your own celebration."
+    },
+    {
+      "day": 68,
+      "module": "Holidays and birthdays",
+      "title": "The last-minute holiday change",
+      "chat": [
+        "Late changes over the holidays are stressful. Flights get moved, people get sick.",
+        "When it happens, answer the change with a new time, not a recap of the whole year.",
+        "That's the holidays module done. Next up: school and health decisions."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "flight got moved to 6am",
+          "i need them back by 4 tn not 7",
+          "sry i know"
+        ],
+        "options": [
+          {
+            "text": "ok, i'll have them at ur place by 4. safe travels",
+            "good": true,
+            "why": "It answers fast with the new time and a kind word."
+          },
+          {
+            "text": "ugh, that cuts our day short, can u see if there's a later flight?",
+            "good": false,
+            "why": "It pushes back on something they probably can't change."
+          },
+          {
+            "text": "of course, plans always change around u",
+            "good": false,
+            "why": "It turns a small change into a bigger fight."
+          }
+        ]
+      },
+      "tryToday": "When the next plan changes, reply with the new time first, before anything else."
+    },
+    {
+      "day": 69,
+      "module": "School and health decisions",
+      "title": "Big decisions by text",
+      "chat": [
+        "This module is school and health. These are real decisions, not just logistics.",
+        "Text works for sharing information. It's a hard place to make a big decision.",
+        "Share the facts, say what you think, and suggest a call or a meeting if it's big."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "i want to move eli to lincoln next year",
+          "the class sizes at his school are insane",
+          "thoughts?"
+        ],
+        "options": [
+          {
+            "text": "no way, he's finally settled there",
+            "good": false,
+            "why": "It shuts it down without any discussion."
+          },
+          {
+            "text": "sure, whatever u think is best",
+            "good": false,
+            "why": "It gives up your say in a big decision."
+          },
+          {
+            "text": "open to it. can we tour lincoln together next month and decide after?",
+            "good": true,
+            "why": "It's open, and puts the decision where it belongs."
+          }
+        ]
+      },
+      "tryToday": "Pick one bigger decision coming up and write one line suggesting a time to talk about it."
+    },
+    {
+      "day": 70,
+      "module": "School and health decisions",
+      "title": "Parent-teacher conferences",
+      "chat": [
+        "At school, the kid is the topic. Not the other parent.",
+        "If you both go, sit together or apart, whatever keeps it calm.",
+        "If only one can go, share the notes after. Short and factual."
+      ],
+      "replies": [
+        "Makes sense",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "conference is tues 4:15",
+          "r u coming or do i have to take notes for u again"
+        ],
+        "options": [
+          {
+            "text": "yes, i'll be there at 4:15. see u there",
+            "good": true,
+            "why": "It confirms and skips the jab."
+          },
+          {
+            "text": "i've never asked u to take notes for me",
+            "good": false,
+            "why": "It argues the jab and skips the answer."
+          },
+          {
+            "text": "i'll try to make it, depends on work",
+            "good": false,
+            "why": "It's vague, so they don't know if you'll come."
+          }
+        ]
+      },
+      "tryToday": "Ask the school if both parents can get emails and updates directly."
+    },
+    {
+      "day": 71,
+      "module": "School and health decisions",
+      "title": "When you disagree on medicine",
+      "chat": [
+        "Health disagreements are some of the most stressful texts.",
+        "By text, the most useful thing is usually to suggest asking the doctor together.",
+        "You don't need to win the medical argument. That's the doctor's area."
+      ],
+      "replies": [
+        "Got it",
+        "What if they won't?"
+      ],
+      "drill": {
+        "them": [
+          "the dr wants to start zoe on meds for her focus",
+          "im not ok with it",
+          "i dont want her drugged up"
+        ],
+        "options": [
+          {
+            "text": "she needs it, ur just in denial",
+            "good": false,
+            "why": "It's harsh and makes the decision harder."
+          },
+          {
+            "text": "i hear u. can we both go to her next appt and ask the dr our questions?",
+            "good": true,
+            "why": "It hears them and suggests asking the doctor together."
+          },
+          {
+            "text": "ok, we won't start anything then. i'll tell the doctor we decided to wait for now",
+            "good": false,
+            "why": "It drops a medical question without talking to the doctor."
+          }
+        ]
+      },
+      "tryToday": "If there's a health question, write down your questions for the next doctor visit."
+    },
+    {
+      "day": 72,
+      "module": "School and health decisions",
+      "title": "Counseling for the kids",
+      "chat": [
+        "Sometimes one parent wants the kid to talk to a counselor, and the other doesn't.",
+        "It helps to keep it about the kid's needs and what you've noticed.",
+        "Parley isn't therapy and can't say what's right for your kid, but it can help you ask calmly."
+      ],
+      "replies": [
+        "Makes sense",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "why does ben need a therapist",
+          "is this about me",
+          "bc i know ur family talks"
+        ],
+        "options": [
+          {
+            "text": "honestly maybe it is, he's been really upset after ur weekends",
+            "good": false,
+            "why": "It blames them and makes this about the adults."
+          },
+          {
+            "text": "no, it's not about u, i promise, i'm just worried",
+            "good": false,
+            "why": "It reassures, but gives no detail about what's going on with Ben."
+          },
+          {
+            "text": "it's not about u. his teacher said he's been anxious. want to meet the counselor w/ me?",
+            "good": true,
+            "why": "It shares what was noticed and invites them in."
+          }
+        ]
+      },
+      "tryToday": "Write down one thing you've noticed about your kid lately, as a fact, not a judgment."
+    },
+    {
+      "day": 73,
+      "module": "School and health decisions",
+      "title": "Haircuts, piercings, the small big things",
+      "chat": [
+        "Some decisions seem small but feel big to the other parent: a haircut, a piercing, a phone.",
+        "A quick heads-up before, not after, avoids a lot of hurt.",
+        "If it already happened, a short honest reply works better than a defense."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "u got her ears pierced??",
+          "without asking me",
+          "shes 8"
+        ],
+        "options": [
+          {
+            "text": "fair. next time i'll check w/ u before anything like that",
+            "good": true,
+            "why": "It owns it and sets up a better next time."
+          },
+          {
+            "text": "she really wanted it for her birthday and it's honestly just tiny earrings, not a big deal",
+            "good": false,
+            "why": "It explains but doesn't respect the ask to be included."
+          },
+          {
+            "text": "ok and? u cut her hair last summer without asking me",
+            "good": false,
+            "why": "It's a tit-for-tat that starts a whole new fight."
+          }
+        ]
+      },
+      "tryToday": "Think of one small decision coming up and give a heads-up before it happens."
+    },
+    {
+      "day": 74,
+      "module": "School and health decisions",
+      "title": "Injuries and urgent care",
+      "chat": [
+        "When a kid gets hurt, the other parent wants to know fast.",
+        "Send the facts first: what happened, how they are, and where they are now.",
+        "The story of how it happened can wait."
+      ],
+      "replies": [
+        "Makes sense",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "why am i finding out on fb that harper broke her wrist",
+          "wtf",
+          "is she ok",
+          "answer ur phone"
+        ],
+        "options": [
+          {
+            "text": "i was going to tell u, it's been a crazy day, it happened so fast at the trampoline park and",
+            "good": false,
+            "why": "It's a long story that skips the facts they need."
+          },
+          {
+            "text": "she's ok, cast on, home now. ortho appt fri at 10, want to come?",
+            "good": true,
+            "why": "It gives the facts and invites them in."
+          },
+          {
+            "text": "she's fine. relax",
+            "good": false,
+            "why": "It's dismissive when they're scared."
+          }
+        ]
+      },
+      "tryToday": "Save the pediatrician's number and your kid's insurance info somewhere both parents can find it."
+    },
+    {
+      "day": 75,
+      "module": "School and health decisions",
+      "title": "When grades drop",
+      "chat": [
+        "When grades slip, it's easy to blame the other house.",
+        "A plan helps more than a reason: what you'll each do, starting when.",
+        "Kids do better when both homes are on the same page, even loosely."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "mateo is failing math",
+          "and dont tell me its not ur house bc his hw never gets done there"
+        ],
+        "options": [
+          {
+            "text": "his hw gets done at my house, maybe check ur own first",
+            "good": false,
+            "why": "It blames back and starts a fight."
+          },
+          {
+            "text": "ok i'll try to do better w/ it",
+            "good": false,
+            "why": "It accepts the blame without a real plan."
+          },
+          {
+            "text": "i saw. can we both check his math hw each night? i'll email his teacher tmrw",
+            "good": true,
+            "why": "It's a shared plan with a next step."
+          }
+        ]
+      },
+      "tryToday": "Ask your kid's teacher one question by email this week."
+    },
+    {
+      "day": 76,
+      "module": "School and health decisions",
+      "title": "Screens and phones",
+      "chat": [
+        "Two homes often have two sets of screen rules.",
+        "You probably won't get identical rules, and that's ok.",
+        "Agree on one or two things that matter most, like bedtime phones."
+      ],
+      "replies": [
+        "Makes sense",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "chloe told me she's on her phone till midnight at ur place",
+          "she's 11",
+          "cmon"
+        ],
+        "options": [
+          {
+            "text": "fair. let's both say phones off at 9 on school nights?",
+            "good": true,
+            "why": "It agrees with the worry and offers a shared rule."
+          },
+          {
+            "text": "she's exaggerating, it's like 10 at the latest and only on weekends really",
+            "good": false,
+            "why": "It argues the detail and calls the kid a liar."
+          },
+          {
+            "text": "it's my house, my rules",
+            "good": false,
+            "why": "It shuts down a reasonable worry."
+          }
+        ]
+      },
+      "tryToday": "Pick one screen rule you'd like both homes to share and write it in one line."
+    },
+    {
+      "day": 77,
+      "module": "School and health decisions",
+      "title": "Doctor visits and checkups",
+      "chat": [
+        "Regular appointments are easy to share and easy to forget to share.",
+        "Send the date, the time, and what the doctor said after.",
+        "A quick summary keeps both parents in the loop without a debate."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "did u take noras to the dentist",
+          "or did u forget again",
+          "the office called me"
+        ],
+        "options": [
+          {
+            "text": "i didn't forget, they canceled on me",
+            "good": false,
+            "why": "It argues the jab without a plan for the appointment."
+          },
+          {
+            "text": "they had to move it, it's now 10/14 at 3:30. i'll take her and send u the notes",
+            "good": true,
+            "why": "It gives the new date, who's taking her and a follow-up."
+          },
+          {
+            "text": "can u just take her then, if they're calling u",
+            "good": false,
+            "why": "It hands it off without saying when the appointment is."
+          }
+        ]
+      },
+      "tryToday": "After your kid's next appointment, send the other parent a two-line summary."
+    },
+    {
+      "day": 78,
+      "module": "School and health decisions",
+      "title": "Sharing the paperwork",
+      "chat": [
+        "Report cards, school portals, medical records. Both parents usually want access.",
+        "Sharing it without being asked is a small thing that builds trust.",
+        "That's the school and health module done. Next up: kids caught in the middle."
+      ],
+      "replies": [
+        "Makes sense",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "can u send me the login for the school portal",
+          "i asked last week",
+          "and the week b4"
+        ],
+        "options": [
+          {
+            "text": "u can call the school and get ur own login",
+            "good": false,
+            "why": "It's true but unhelpful, and it reads as a brush-off."
+          },
+          {
+            "text": "ok i'll look for it when i'm home tonight, i think it's written down somewhere",
+            "good": false,
+            "why": "It says yes but gives no time, after two asks already."
+          },
+          {
+            "text": "sending it now. i'll ask the school to set up ur own login too",
+            "good": true,
+            "why": "It sends it right away and fixes the problem for next time."
+          }
+        ]
+      },
+      "tryToday": "Send one piece of school or health info to the other parent without being asked."
+    },
+    {
+      "day": 79,
+      "module": "Kids caught in the middle",
+      "title": "When the kid asks why",
+      "chat": [
+        "This module is about the kids caught between two homes.",
+        "When a kid asks \"why don't you love dad anymore\", what you say matters a lot.",
+        "Simple, honest, and never about blame. It's not their job to understand the adult stuff."
+      ],
+      "replies": [
+        "Got it",
+        "What would I say?"
+      ],
+      "drill": {
+        "them": [
+          "ruby asked me tonight why u dont love me anymore",
+          "what are u telling her"
+        ],
+        "options": [
+          {
+            "text": "nothing like that. i'll tell her we both love her and that grown-up stuff isn't her job",
+            "good": true,
+            "why": "It reassures and keeps Ruby out of the adult stuff."
+          },
+          {
+            "text": "i don't know where she got that, maybe from ur sister?",
+            "good": false,
+            "why": "It guesses at blame and starts a new fight."
+          },
+          {
+            "text": "well, it's kind of the truth, isn't it",
+            "good": false,
+            "why": "It's cold and puts the adult fight into the kid's head."
+          }
+        ]
+      },
+      "tryToday": "If your kid asks about the divorce, practise one line that says you both love them."
+    },
+    {
+      "day": 80,
+      "module": "Kids caught in the middle",
+      "title": "When the kid carries a demand",
+      "chat": [
+        "Kids get used as messengers. \"Mom says you have to pay for my camp.\"",
+        "Answer the other parent directly, and tell your kid it's not their job to carry messages.",
+        "Keep it light with the kid and clear with the adult."
+      ],
+      "replies": [
+        "Makes sense",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "ava told u about the camp thing right",
+          "so can u send ur half"
+        ],
+        "options": [
+          {
+            "text": "yeah she told me, and i didn't love her being the one to tell me",
+            "good": false,
+            "why": "It's fair but turns into a complaint, not an answer."
+          },
+          {
+            "text": "yep, saw the camp info. i'll send my $200 half fri. let's keep money stuff between us",
+            "good": true,
+            "why": "It answers the money and asks to keep it adult-to-adult."
+          },
+          {
+            "text": "why are u making her ask me for money? that's so messed up",
+            "good": false,
+            "why": "It's heated and turns it into a fight."
+          }
+        ]
+      },
+      "tryToday": "Next time a kid passes a message, check it directly with the other parent."
+    },
+    {
+      "day": 81,
+      "module": "Kids caught in the middle",
+      "title": "Texting through the kid's phone",
+      "chat": [
+        "Some parents text the kid when they want to reach the other parent.",
+        "It puts a lot on the kid's shoulders.",
+        "Answer directly yourself and gently suggest texting you for logistics."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "i texted jayden to tell u im picking him up at 4 instead",
+          "did he tell u"
+        ],
+        "options": [
+          {
+            "text": "he's 10, of course he forgot. why would u tell him and not me, that makes no sense",
+            "good": false,
+            "why": "It's a fair point said with a bite, which starts a fight."
+          },
+          {
+            "text": "ok",
+            "good": false,
+            "why": "It's a bare ok, which leaves the actual plan unclear."
+          },
+          {
+            "text": "he did, 4 works. next time just text me for pickups so he doesn't have to remember",
+            "good": true,
+            "why": "It confirms the plan and gently asks to keep it between adults."
+          }
+        ]
+      },
+      "tryToday": "Next time you need to change a plan, text the other parent, not the kid."
+    },
+    {
+      "day": 82,
+      "module": "Kids caught in the middle",
+      "title": "When the kid doesn't want to go",
+      "chat": [
+        "Sometimes a kid doesn't want to go to the other home. It's hard on everyone.",
+        "Share what's happening, calmly, without making it a verdict on the other parent.",
+        "If there's a pattern, keep notes, and if you have a lawyer, that's who to ask about it."
+      ],
+      "replies": [
+        "Makes sense",
+        "That's hard"
+      ],
+      "drill": {
+        "them": [
+          "liam says he doesnt want to come this wknd",
+          "did u tell him to say that",
+          "bc thats messed up"
+        ],
+        "options": [
+          {
+            "text": "no. he said he's nervous about missing his friend's party sat. could he go at 2?",
+            "good": true,
+            "why": "It answers honestly and offers a fix for the actual reason."
+          },
+          {
+            "text": "maybe he just doesn't want to be at ur place",
+            "good": false,
+            "why": "It's cruel to them and puts Liam in the middle."
+          },
+          {
+            "text": "ok i'll make him go, don't worry",
+            "good": false,
+            "why": "It forces it without hearing what's going on with Liam."
+          }
+        ]
+      },
+      "tryToday": "If your kid ever says they don't want to go, ask them one gentle question about why before deciding anything."
+    },
+    {
+      "day": 83,
+      "module": "Kids caught in the middle",
+      "title": "When the kid repeats something cruel",
+      "chat": [
+        "Your kid comes home and repeats something mean the other parent said about you.",
+        "It hurts. And your kid is watching how you react.",
+        "With your kid, stay calm and kind. With the other parent, you can ask them to keep it out of the kids' ears."
+      ],
+      "replies": [
+        "Got it",
+        "What do I tell my kid?"
+      ],
+      "drill": {
+        "them": [
+          "max says u called me a deadbeat in front of him",
+          "classy"
+        ],
+        "options": [
+          {
+            "text": "i never said that, he's making stuff up, he does that when he's tired after ur place",
+            "good": false,
+            "why": "It calls Max a liar and gives the other parent nothing."
+          },
+          {
+            "text": "i'll talk w/ max. let's both keep stuff about each other out of their ears",
+            "good": true,
+            "why": "It handles the kid and asks for a shared rule."
+          },
+          {
+            "text": "well if the shoe fits",
+            "good": false,
+            "why": "It's mean and proves the kid right."
+          }
+        ]
+      },
+      "tryToday": "If your kid repeats something mean, tell them it's not their job to carry grown-up stuff."
+    },
+    {
+      "day": 84,
+      "module": "Kids caught in the middle",
+      "title": "Secrets between homes",
+      "chat": [
+        "Asking kids to keep secrets from the other parent puts them in a tough spot.",
+        "If you find out your kid was asked to keep something from you, ask the other parent directly.",
+        "And skip asking your kid to keep secrets yourself."
+      ],
+      "replies": [
+        "Makes sense",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "emma said u told her not to tell me about the move",
+          "seriously??",
+          "why would u make her keep that from me"
+        ],
+        "options": [
+          {
+            "text": "i didn't tell her that, she must've misunderstood",
+            "good": false,
+            "why": "It denies and leaves the news unshared."
+          },
+          {
+            "text": "why do u always assume the worst about me",
+            "good": false,
+            "why": "It's defensive and skips the real question."
+          },
+          {
+            "text": "we're moving june 1, same school district. i'll tell u big stuff first from now on",
+            "good": true,
+            "why": "It owns it and gives the facts."
+          }
+        ]
+      },
+      "tryToday": "Notice one time this week you're tempted to say \"don't tell your mom\" or \"don't tell your dad.\""
+    },
+    {
+      "day": 85,
+      "module": "Kids caught in the middle",
+      "title": "\"Who do you want to live with?\"",
+      "chat": [
+        "Asking a kid to choose between parents puts a heavy weight on them.",
+        "If the other parent is asking, you can ask them to stop, calmly and briefly.",
+        "It's okay to tell your kid that grown-ups make that decision."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "owen said he wants to live w/ me full time",
+          "so i think we need to talk about that"
+        ],
+        "options": [
+          {
+            "text": "i'd like to hear what's going on w/ him. can we talk sun at 7, just us?",
+            "good": true,
+            "why": "It's open and sets a time to talk away from Owen."
+          },
+          {
+            "text": "he said the exact same thing to me last week, so i think he's just telling us both what we want to hear",
+            "good": false,
+            "why": "It turns it into a contest over who Owen picked."
+          },
+          {
+            "text": "ok if that's what he wants",
+            "good": false,
+            "why": "It gives up a big decision in one line."
+          }
+        ]
+      },
+      "tryToday": "If your kid brings it up, practise saying that grown-ups decide and both homes love them."
+    },
+    {
+      "day": 86,
+      "module": "Kids caught in the middle",
+      "title": "Stuff that doesn't travel",
+      "chat": [
+        "A favorite toy, a game console, a soccer jersey that never comes back.",
+        "It can feel like a power play. Often it's just forgotten.",
+        "Ask for the item, give a time, and keep it about the kid's needs."
+      ],
+      "replies": [
+        "Makes sense",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "isaac left his switch at ur place",
+          "AGAIN",
+          "can u bring it or is he just not getting it back"
+        ],
+        "options": [
+          {
+            "text": "he can just play it here, it's fine",
+            "good": false,
+            "why": "It ignores that Isaac wants it at both homes."
+          },
+          {
+            "text": "yep, i'll drop it off tmrw at 5",
+            "good": true,
+            "why": "It answers with a time."
+          },
+          {
+            "text": "omg it's not a hostage situation lol",
+            "good": false,
+            "why": "It's heated and mocking."
+          }
+        ]
+      },
+      "tryToday": "Next time something's forgotten, reply with when you'll drop it off and nothing else."
+    },
+    {
+      "day": 87,
+      "module": "Kids caught in the middle",
+      "title": "When they overheard",
+      "chat": [
+        "Kids overhear calls, see texts, notice tone. They hear more than we think.",
+        "If a kid overheard a fight, talk to them about it simply: grown-ups argue sometimes, and it's not their fault.",
+        "With the other parent, agree to keep heated talks away from the kids."
+      ],
+      "replies": [
+        "Got it",
+        "What do I tell my kid?"
+      ],
+      "drill": {
+        "them": [
+          "noah heard us on the phone last night",
+          "he asked me if we're going to court",
+          "great job"
+        ],
+        "options": [
+          {
+            "text": "u were the one yelling, not me",
+            "good": false,
+            "why": "It's blame, and it starts round two."
+          },
+          {
+            "text": "ok, he'll be fine, kids hear stuff all the time. i wouldn't worry about it too much",
+            "good": false,
+            "why": "It brushes off something that really matters to Noah."
+          },
+          {
+            "text": "i'll talk w/ him tonight. let's only have calls after he's asleep from now on?",
+            "good": true,
+            "why": "It handles Noah and suggests a simple rule."
+          }
+        ]
+      },
+      "tryToday": "Pick a time for hard calls when the kids are asleep or out of the house."
+    },
+    {
+      "day": 88,
+      "module": "Kids caught in the middle",
+      "title": "They're kids, not couriers",
+      "chat": [
+        "The thread through this module: kids aren't messengers, judges or spies.",
+        "When news comes through them, take it to the adult. When feelings come through them, take care of the kid.",
+        "That's kids in the middle done. Next up: old fights dragged up."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "mia says ur new place is tiny lol",
+          "and that she sleeps on a couch",
+          "is that true"
+        ],
+        "options": [
+          {
+            "text": "she has her own room, it's small but it's hers. want me to send u a pic?",
+            "good": true,
+            "why": "It answers the fact and offers to show it."
+          },
+          {
+            "text": "she's 7, she says lots of stuff",
+            "good": false,
+            "why": "It brushes off the question and dismisses Mia."
+          },
+          {
+            "text": "lol u live in an apartment too, stop",
+            "good": false,
+            "why": "It's a jab, and it's heated."
+          }
+        ]
+      },
+      "tryToday": "Next time a kid shares news about the other home, check it with the adult before reacting."
+    },
+    {
+      "day": 89,
+      "module": "Old fights dragged up",
+      "title": "The midnight essay",
+      "chat": [
+        "This module is old fights. The ones that show up in the middle of a pickup text.",
+        "Sometimes they arrive as one huge message late at night.",
+        "Read it once, find the one real ask buried in it, and answer only that. In the morning, if you can."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "honestly i cant sleep bc i keep thinking about how u checked out years before u left and i held everything together",
+          "and now ur dad of the year. anyway can u get them at 3 tmrw instead of 5"
+        ],
+        "options": [
+          {
+            "text": "i didn't check out, i was working 60 hour weeks for this family and u know it",
+            "good": false,
+            "why": "It answers the history and skips the one question."
+          },
+          {
+            "text": "i'm sorry u feel that way, i know it was hard for u too. we both made mistakes and i think",
+            "good": false,
+            "why": "It's kind, but it opens the old fight up again at midnight."
+          },
+          {
+            "text": "yes, i'll get them at 3 tmrw",
+            "good": true,
+            "why": "It answers the one real ask and lets the rest go."
+          }
+        ]
+      },
+      "tryToday": "If a long late-night message comes in, wait till morning and answer only the ask."
+    },
+    {
+      "day": 90,
+      "module": "Old fights dragged up",
+      "title": "When the affair comes up",
+      "chat": [
+        "The biggest hurts tend to come up in the smallest texts.",
+        "A logistics question can arrive wrapped in \"you cheated\" or \"you left\".",
+        "You don't need to defend or confess by text. Answer the plan, and keep the rest for a different room, if anywhere."
+      ],
+      "replies": [
+        "Makes sense",
+        "That's hard"
+      ],
+      "drill": {
+        "them": [
+          "u want the kids for easter after what u did?",
+          "seriously",
+          "ok whatever what time"
+        ],
+        "options": [
+          {
+            "text": "i'd like to get them at 10 on easter sunday and bring them back at 6",
+            "good": true,
+            "why": "It answers the time and lets the rest go."
+          },
+          {
+            "text": "we've been over this so many times, i've said i'm sorry, i don't know what else u want from me",
+            "good": false,
+            "why": "It reopens the hurt instead of answering the plan."
+          },
+          {
+            "text": "ok, u can have easter if that's easier",
+            "good": false,
+            "why": "It gives up the day out of guilt."
+          }
+        ]
+      },
+      "tryToday": "Next time the past is the opener, look for the question at the end and answer that."
+    },
+    {
+      "day": 91,
+      "module": "Old fights dragged up",
+      "title": "Old money grudges",
+      "chat": [
+        "Money fights from the marriage tend to show up years later.",
+        "\"You still owe me for the car.\" \"You emptied the account.\"",
+        "Old money stuff is rarely settled by text. Keep today's money about today."
+      ],
+      "replies": [
+        "Got it",
+        "What if it's true?"
+      ],
+      "drill": {
+        "them": [
+          "ur asking ME for daycare money",
+          "after u drained the savings account in 2021",
+          "unbelievable"
+        ],
+        "options": [
+          {
+            "text": "i didn't drain it, half of that money was mine and u know it",
+            "good": false,
+            "why": "It argues 2021 instead of this month's daycare."
+          },
+          {
+            "text": "this is just for march daycare, $640, ur half is $320. receipt attached",
+            "good": true,
+            "why": "It keeps it to the one bill this month."
+          },
+          {
+            "text": "ok forget the daycare money then",
+            "good": false,
+            "why": "It drops a fair ask to avoid an old fight."
+          }
+        ]
+      },
+      "tryToday": "Next time old money comes up, answer only the current amount."
+    },
+    {
+      "day": 92,
+      "module": "Old fights dragged up",
+      "title": "When they rewrite history",
+      "chat": [
+        "Hearing someone retell the past wrong is maddening.",
+        "\"You never helped when they were babies.\" You want to correct it with the receipts.",
+        "But a text won't change their memory. It just keeps the old fight alive."
+      ],
+      "replies": [
+        "Makes sense",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "funny how u want to be involved now",
+          "u never changed one diaper",
+          "so can u pick ruby up from dance thurs or not"
+        ],
+        "options": [
+          {
+            "text": "i changed plenty of diapers, ask ur mom, she saw me",
+            "good": false,
+            "why": "It argues the past and brings in a witness."
+          },
+          {
+            "text": "that's not fair, i was there a lot more than u remember",
+            "good": false,
+            "why": "It argues the past without answering the question."
+          },
+          {
+            "text": "yes, i'll pick ruby up from dance thursday at 6",
+            "good": true,
+            "why": "It answers the real question."
+          }
+        ]
+      },
+      "tryToday": "When the past is wrong in a text, let it be wrong, and answer the plan."
+    },
+    {
+      "day": 93,
+      "module": "Old fights dragged up",
+      "title": "Anniversaries and hard dates",
+      "chat": [
+        "Certain dates bring old fights back: the anniversary, the day someone moved out.",
+        "If you notice texts get hotter around a date, that's useful to know.",
+        "On those days, it can help to keep replies even shorter than usual."
+      ],
+      "replies": [
+        "Got it",
+        "That makes sense"
+      ],
+      "drill": {
+        "them": [
+          "today would've been 12 yrs",
+          "bet u forgot",
+          "anyway kids need lunch money tmrw"
+        ],
+        "options": [
+          {
+            "text": "ok, i'll send lunch money w/ them tmrw",
+            "good": true,
+            "why": "It's kind by being short and answering the ask."
+          },
+          {
+            "text": "i didn't forget, i just don't think it's worth bringing up",
+            "good": false,
+            "why": "It answers the hurt with a sting."
+          },
+          {
+            "text": "i know, it's a hard day for me too. do u want to talk about it?",
+            "good": false,
+            "why": "It's well meant, but it reopens the marriage on a hard day."
+          }
+        ]
+      },
+      "tryToday": "Note the dates that tend to bring hot texts, so you're ready for them."
+    },
+    {
+      "day": 94,
+      "module": "Old fights dragged up",
+      "title": "\"Remember when you...\"",
+      "chat": [
+        "One old mistake can follow you around: the time you forgot pickup, the time you were late to the hospital.",
+        "Each time it comes back, you don't have to defend it again.",
+        "Answer today's ask, and let the old story be."
+      ],
+      "replies": [
+        "Makes sense",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "just making sure u dont forget her at school again",
+          "like 2nd grade",
+          "pickup is 2:45 early release"
+        ],
+        "options": [
+          {
+            "text": "that was 4 yrs ago, can we let it go",
+            "good": false,
+            "why": "It's a fair point, but it keeps the old story going."
+          },
+          {
+            "text": "got it, 2:45 early release. i'll be there",
+            "good": true,
+            "why": "It confirms the time and skips the jab."
+          },
+          {
+            "text": "u've forgotten plenty of stuff too, want me to make a list?",
+            "good": false,
+            "why": "It's a counter-attack."
+          }
+        ]
+      },
+      "tryToday": "Next time an old mistake comes up, answer the plan only."
+    },
+    {
+      "day": 95,
+      "module": "Old fights dragged up",
+      "title": "When they want an apology",
+      "chat": [
+        "Sometimes they want you to say sorry for something from years ago.",
+        "It's your call whether to apologise. If you do, keep it short and honest, and not in the middle of a logistics fight.",
+        "If you don't, you can still answer the plan."
+      ],
+      "replies": [
+        "Got it",
+        "What if I am sorry?"
+      ],
+      "drill": {
+        "them": [
+          "ill sign the camp form when u admit what u did",
+          "not before"
+        ],
+        "options": [
+          {
+            "text": "fine, i'm sorry for everything, ok? i was wrong about all of it. can u just sign the form now",
+            "good": false,
+            "why": "It apologises under pressure, which rarely lands as real."
+          },
+          {
+            "text": "that's blackmail and u know it",
+            "good": false,
+            "why": "It names it, which starts a fight about it."
+          },
+          {
+            "text": "the camp form is due fri. i'll drop it off w/ the kids tmrw so u can sign it",
+            "good": true,
+            "why": "It keeps the form separate from the past."
+          }
+        ]
+      },
+      "tryToday": "Keep the logistics separate from the past in your next tense text."
+    },
+    {
+      "day": 96,
+      "module": "Old fights dragged up",
+      "title": "When their family joins in",
+      "chat": [
+        "Sometimes the other parent's family brings up the old fights.",
+        "You don't have to answer them, and a quick kind no is usually enough.",
+        "Keep the co-parenting talk with the co-parent."
+      ],
+      "replies": [
+        "Makes sense",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "This is Linda, Jake's mom.",
+          "I think you owe my son an explanation for how you treated him.",
+          "The kids deserve better."
+        ],
+        "options": [
+          {
+            "text": "hi linda. i'll keep things about the kids between jake and me. take care",
+            "good": true,
+            "why": "It's polite, short and closes the door gently."
+          },
+          {
+            "text": "with all due respect, u don't know what happened in our marriage",
+            "good": false,
+            "why": "It invites a debate with someone outside the co-parenting."
+          },
+          {
+            "text": "i'm sorry u feel that way, linda. i've always tried my best",
+            "good": false,
+            "why": "It's polite but invites more back and forth."
+          }
+        ]
+      },
+      "tryToday": "If extended family texts you, write one polite line that sends it back to the co-parent."
+    },
+    {
+      "day": 97,
+      "module": "Old fights dragged up",
+      "title": "When you want to bring it up",
+      "chat": [
+        "It's not always them. Sometimes you're the one who wants to drag up the past.",
+        "If you're writing a text with \"remember when\" in it, pause.",
+        "Ask yourself: will this get the kids what they need this week?"
+      ],
+      "replies": [
+        "Got it",
+        "That's fair"
+      ],
+      "drill": {
+        "them": [
+          "can u take them tues",
+          "my shift changed"
+        ],
+        "options": [
+          {
+            "text": "sure, like u did for me every time i asked during the divorce? oh wait",
+            "good": false,
+            "why": "It's a polite-looking dig from the past."
+          },
+          {
+            "text": "yep, i'll take them tues. pickup from school at 3?",
+            "good": true,
+            "why": "It answers the ask, nothing extra."
+          },
+          {
+            "text": "yes but this is the 3rd time and i'm keeping track",
+            "good": false,
+            "why": "It says yes with a warning that starts a fight."
+          }
+        ]
+      },
+      "tryToday": "Catch one draft this week where you were about to bring up the past, and cut it."
+    },
+    {
+      "day": 98,
+      "module": "Old fights dragged up",
+      "title": "Let the past stay past",
+      "chat": [
+        "The thread through this module: old fights can't be won by text.",
+        "You can answer the current question and let the rest be.",
+        "That's old fights done. Next up: threats and \"see you in court.\""
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "ur doing the same thing u did when we were married",
+          "making plans without asking me",
+          "r u taking them to the lake or not"
+        ],
+        "options": [
+          {
+            "text": "yes, sat 9 to 5 at lake tahoma w/ my sister. want the address?",
+            "good": true,
+            "why": "It answers the question and gives the details."
+          },
+          {
+            "text": "i'm not doing the same thing at all, that's so unfair, i told u about the lake last week",
+            "good": false,
+            "why": "It defends you and skips the answer."
+          },
+          {
+            "text": "i don't have to ask u about my weekend",
+            "good": false,
+            "why": "It's true-ish, but cold, and it skips the question."
+          }
+        ]
+      },
+      "tryToday": "Next time you see the past in a text, find the question and answer only that."
+    },
+    {
+      "day": 99,
+      "module": "Threats and \"see you in court\"",
+      "title": "\"See you in court\"",
+      "chat": [
+        "This module is threats. The texts that make your stomach drop.",
+        "Parley can't tell you what a threat means legally. If you have a lawyer, they're the one to ask.",
+        "What we can practise is the reply: don't threaten back, don't argue the law by text, answer the plan, and save the message."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "keep it up and ill see u in court",
+          "im done being nice",
+          "dont test me"
+        ],
+        "options": [
+          {
+            "text": "go ahead, my lawyer is better than urs",
+            "good": false,
+            "why": "It's a counter-threat and keeps the fight going."
+          },
+          {
+            "text": "ok. pickup is still fri at 5 at school",
+            "good": true,
+            "why": "It doesn't argue and keeps to the plan."
+          },
+          {
+            "text": "please don't do that, we can work this out, i'll do whatever u want",
+            "good": false,
+            "why": "It gives up everything out of fear."
+          }
+        ]
+      },
+      "tryToday": "Save the next threat you get to your record, without replying to it right away."
+    },
+    {
+      "day": 100,
+      "module": "Threats and \"see you in court\"",
+      "title": "\"My lawyer says\"",
+      "chat": [
+        "Sometimes the other parent quotes their lawyer in a text.",
+        "You don't have to argue what their lawyer said, and you don't have to agree either.",
+        "If it's about a legal question, that's one for your own lawyer if you have one."
+      ],
+      "replies": [
+        "Makes sense",
+        "What if I don't have a lawyer?"
+      ],
+      "drill": {
+        "them": [
+          "my lawyer says u cant take them out of the county",
+          "so that trip is cancelled"
+        ],
+        "options": [
+          {
+            "text": "ur lawyer is wrong, i checked and i can",
+            "good": false,
+            "why": "It argues the law by text, which rarely helps."
+          },
+          {
+            "text": "ok i'll cancel it i guess, if that's what ur lawyer says. i don't want any trouble",
+            "good": false,
+            "why": "It gives up the plan based on something nobody has checked."
+          },
+          {
+            "text": "ok. i'll check w/ my own lawyer and get back to u by fri",
+            "good": true,
+            "why": "It doesn't argue and gives a time for a real answer."
+          }
+        ]
+      },
+      "tryToday": "If a legal question comes up, write it down for a lawyer instead of debating it by text."
+    },
+    {
+      "day": 101,
+      "module": "Threats and \"see you in court\"",
+      "title": "Threats to keep the kids",
+      "chat": [
+        "\"You won't see them this weekend.\" It's one of the scariest texts.",
+        "Don't match it. Answer with the plan you have, the time and the place.",
+        "Save the message. If you have a lawyer, that's who to tell."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "ur not getting them this wknd",
+          "i dont care what the schedule says",
+          "try me"
+        ],
+        "options": [
+          {
+            "text": "i'll be at the usual spot sat at 10 like the schedule says",
+            "good": true,
+            "why": "It states the plan, calmly."
+          },
+          {
+            "text": "u can't do that, i'll call the cops",
+            "good": false,
+            "why": "It's a counter-threat in a hot moment."
+          },
+          {
+            "text": "ok, i'll wait till ur ready. just let me know when i can see them again i guess",
+            "good": false,
+            "why": "It gives up the time without a word."
+          }
+        ]
+      },
+      "tryToday": "Save one message that worried you to your record, with the date."
+    },
+    {
+      "day": 102,
+      "module": "Threats and \"see you in court\"",
+      "title": "Threats to report you",
+      "chat": [
+        "Some threats are about calling the police or child services.",
+        "It's scary, especially when there's nothing to report.",
+        "Stay calm, don't argue, keep the reply about the kids. And if anyone is ever in danger, call emergency services right away."
+      ],
+      "replies": [
+        "Makes sense",
+        "That's scary"
+      ],
+      "drill": {
+        "them": [
+          "im calling cps",
+          "the kids said u leave them alone all the time",
+          "ur done"
+        ],
+        "options": [
+          {
+            "text": "go ahead, they'll see ur the problem",
+            "good": false,
+            "why": "It's a counter-attack and doesn't help."
+          },
+          {
+            "text": "please don't, i'm begging u, i didn't do anything",
+            "good": false,
+            "why": "It pleads, which gives the threat more power."
+          },
+          {
+            "text": "the kids are never home alone. if ur worried, let's talk sun at 7",
+            "good": true,
+            "why": "It states the fact calmly and offers a talk."
+          }
+        ]
+      },
+      "tryToday": "Write down who you'd call first if a threat like this came in."
+    },
+    {
+      "day": 103,
+      "module": "Threats and \"see you in court\"",
+      "title": "Threats to move away",
+      "chat": [
+        "\"I'm moving to Texas with the kids.\" A big threat in a few words.",
+        "What a move means depends on your plan and where you live, so that's a lawyer's question, not the thread's.",
+        "By text, ask for the facts, calmly."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "we're moving to texas",
+          "in june",
+          "deal with it"
+        ],
+        "options": [
+          {
+            "text": "over my dead body",
+            "good": false,
+            "why": "It's a big reaction that won't help, and it's heated."
+          },
+          {
+            "text": "ok. can u send me the details, dates and where, so i can plan?",
+            "good": true,
+            "why": "It asks for the facts without agreeing or arguing."
+          },
+          {
+            "text": "ok if that's what's best",
+            "good": false,
+            "why": "It agrees to something huge in one line."
+          }
+        ]
+      },
+      "tryToday": "If big news like this comes in, write down your questions before replying."
+    },
+    {
+      "day": 104,
+      "module": "Threats and \"see you in court\"",
+      "title": "Threats to tell the kids",
+      "chat": [
+        "\"I'll tell them what you really did.\" Threats to turn the kids against you are some of the worst.",
+        "You can ask them, once and briefly, to keep the kids out of it.",
+        "Then keep doing what you do on your time. That's what the kids see."
+      ],
+      "replies": [
+        "Makes sense",
+        "That's hard"
+      ],
+      "drill": {
+        "them": [
+          "maybe its time the kids knew the truth about u",
+          "they're old enough"
+        ],
+        "options": [
+          {
+            "text": "let's keep the kids out of grown-up stuff. see u fri at 5",
+            "good": true,
+            "why": "It asks once, calmly, and keeps the plan."
+          },
+          {
+            "text": "go ahead, tell them, they'll see who u really are",
+            "good": false,
+            "why": "It's a dare, and it puts the kids in danger of hearing it."
+          },
+          {
+            "text": "please don't, i'll do anything, just tell me what u want me to do and i'll do it",
+            "good": false,
+            "why": "It begs, which gives them power."
+          }
+        ]
+      },
+      "tryToday": "Notice how you'd answer a threat like this, and practise keeping it to one line."
+    },
+    {
+      "day": 105,
+      "module": "Threats and \"see you in court\"",
+      "title": "Threats to post online",
+      "chat": [
+        "Some threats are about social media. \"I'll put this all on Facebook.\"",
+        "Don't threaten back and don't argue about it. Answer once, and save it.",
+        "If kids' privacy is involved, keep the reply about the kids."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "maybe ill just post the texts",
+          "let everyone see what kind of parent u are"
+        ],
+        "options": [
+          {
+            "text": "do it, i'll post urs too",
+            "good": false,
+            "why": "It's tit-for-tat, which escalates."
+          },
+          {
+            "text": "please don't, i'd be so embarrassed, my family and my work friends are all on there",
+            "good": false,
+            "why": "It shows fear and gives them a lever."
+          },
+          {
+            "text": "i'd rather we keep the kids' stuff private. see u sat at 10",
+            "good": true,
+            "why": "It asks once and stays on the plan."
+          }
+        ]
+      },
+      "tryToday": "Read one of your recent texts as if a stranger were reading it, and see how it sounds."
+    },
+    {
+      "day": 106,
+      "module": "Threats and \"see you in court\"",
+      "title": "\"I'm screenshotting everything\"",
+      "chat": [
+        "When someone says they're screenshotting, it can feel like a trap.",
+        "It can also be a good reminder: anything you text might be read by someone else one day.",
+        "So write every text as if a calm stranger were reading it."
+      ],
+      "replies": [
+        "Makes sense",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "just so u know im screenshotting all of this",
+          "so be careful what u say"
+        ],
+        "options": [
+          {
+            "text": "good, screenshot this then: ur the worst co-parent",
+            "good": false,
+            "why": "It's a hot reply that ends up in the screenshot."
+          },
+          {
+            "text": "ok. pickup's still sun at 4",
+            "good": true,
+            "why": "It's calm and on the plan."
+          },
+          {
+            "text": "wow ok, ur really doing this huh",
+            "good": false,
+            "why": "It sounds calm but reads as a dig."
+          }
+        ]
+      },
+      "tryToday": "Read your last three texts as if someone else were reading them, and notice how they'd sound."
+    },
+    {
+      "day": 107,
+      "module": "Threats and \"see you in court\"",
+      "title": "When you want to threaten back",
+      "chat": [
+        "It's normal to want to hit back when you're threatened.",
+        "But a counter-threat almost never makes things calmer.",
+        "Write the angry draft somewhere else if you need to, then send the calm one."
+      ],
+      "replies": [
+        "Got it",
+        "That's fair"
+      ],
+      "drill": {
+        "them": [
+          "i'll make sure u never see them again",
+          "watch me"
+        ],
+        "options": [
+          {
+            "text": "i'll see u fri at 5 for pickup like the schedule says",
+            "good": true,
+            "why": "It skips the threat and states the plan."
+          },
+          {
+            "text": "try it and see what happens",
+            "good": false,
+            "why": "It's a counter-threat, which escalates."
+          },
+          {
+            "text": "why would u say something like that to me",
+            "good": false,
+            "why": "It's understandable, but it invites more."
+          }
+        ]
+      },
+      "tryToday": "If you write an angry draft, write it in your notes app, not the chat."
+    },
+    {
+      "day": 108,
+      "module": "Threats and \"see you in court\"",
+      "title": "Save it, don't fight it",
+      "chat": [
+        "The thread through this module: threats are for saving and, if you have one, for your lawyer. Not for arguing.",
+        "Parley isn't a law firm and doesn't give legal advice. But a calm reply is always yours to send.",
+        "That's threats done. Last module: handoffs and in-person moments."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "this is ur last warning",
+          "next time ur late im keeping them and calling my lawyer"
+        ],
+        "options": [
+          {
+            "text": "and i'll call mine, see who wins",
+            "good": false,
+            "why": "It's a counter-threat."
+          },
+          {
+            "text": "ok i'll never be late again, i promise",
+            "good": false,
+            "why": "It promises something you can't guarantee, out of fear."
+          },
+          {
+            "text": "ok. i'll be there fri at 5",
+            "good": true,
+            "why": "It answers the plan only."
+          }
+        ]
+      },
+      "tryToday": "Save one threat to your record with a one-line note, then reply to the plan or not at all."
+    },
+    {
+      "day": 109,
+      "module": "Handoffs and in-person moments",
+      "title": "Picking the handoff spot",
+      "chat": [
+        "The last module is handoffs: the moments where you're face to face, kids watching.",
+        "A good handoff spot is neutral, easy for both, and calm for the kids.",
+        "If the current spot isn't working, suggest a new one with a reason that's about the kids."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "im not driving to ur place anymore",
+          "its 40 min each way",
+          "meet halfway or nothing"
+        ],
+        "options": [
+          {
+            "text": "it's not my fault u moved so far",
+            "good": false,
+            "why": "It argues about the move instead of solving the drive."
+          },
+          {
+            "text": "ok, halfway works. how about the target lot on route 9 at 5?",
+            "good": true,
+            "why": "It agrees and names the spot and time."
+          },
+          {
+            "text": "ugh fine, i'll do all the driving then, even tho it's 40 min for me too",
+            "good": false,
+            "why": "It says yes with a sigh and takes on all the work."
+          }
+        ]
+      },
+      "tryToday": "If your handoff spot isn't working, write one line suggesting a specific new one."
+    },
+    {
+      "day": 110,
+      "module": "Handoffs and in-person moments",
+      "title": "When they start something at the car",
+      "chat": [
+        "Sometimes the other parent starts a fight right at the handoff.",
+        "In person, the calm move is short: a nod, the kids' bags, a goodbye.",
+        "If they keep going, you can say \"let's talk later\" and leave. You don't have to win it in the parking lot."
+      ],
+      "replies": [
+        "Makes sense",
+        "What do I say out loud?"
+      ],
+      "drill": {
+        "them": [
+          "and dont think i didnt see that",
+          "the way u looked at me at the car",
+          "in front of the kids",
+          "unreal"
+        ],
+        "options": [
+          {
+            "text": "ok. next handoff is wed at 5, see u then",
+            "good": true,
+            "why": "It's short and on the plan."
+          },
+          {
+            "text": "i didn't look at u at all, ur imagining things",
+            "good": false,
+            "why": "It argues something nobody can prove."
+          },
+          {
+            "text": "maybe if u didn't start stuff at the car",
+            "good": false,
+            "why": "It's blame back."
+          }
+        ]
+      },
+      "tryToday": "Plan what you'll say out loud at the next handoff, in one short line."
+    },
+    {
+      "day": 111,
+      "module": "Handoffs and in-person moments",
+      "title": "When the kid melts down",
+      "chat": [
+        "Some kids cry or cling at handoffs. It's hard to watch.",
+        "It's not usually a sign that one home is bad. Transitions are just hard.",
+        "Calm and consistent helps most. Short goodbyes, a hug, and a plan."
+      ],
+      "replies": [
+        "Got it",
+        "That's hard"
+      ],
+      "drill": {
+        "them": [
+          "zoe screamed the whole way home after u dropped her",
+          "she clearly doesnt want to be here",
+          "what did u do"
+        ],
+        "options": [
+          {
+            "text": "nothing, maybe it's ur house she doesn't want",
+            "good": false,
+            "why": "It's a jab that hurts and doesn't help Zoe."
+          },
+          {
+            "text": "she's just tired, it's fine",
+            "good": false,
+            "why": "It brushes off something real for both of them."
+          },
+          {
+            "text": "goodbyes have been hard for her lately. want to try a shorter handoff at the door?",
+            "good": true,
+            "why": "It names it calmly and offers a fix."
+          }
+        ]
+      },
+      "tryToday": "Try a shorter, calmer goodbye at your next handoff."
+    },
+    {
+      "day": 112,
+      "module": "Handoffs and in-person moments",
+      "title": "Forgotten stuff at handoff",
+      "chat": [
+        "Backpacks, meds, homework. Things get left behind.",
+        "When it happens, it's a logistics question, not a character flaw.",
+        "Say when and how it'll get there. That's all."
+      ],
+      "replies": [
+        "Makes sense",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "u forgot his glasses",
+          "he cant see the board",
+          "this is the 2nd time"
+        ],
+        "options": [
+          {
+            "text": "and u forgot his jacket last week, so we're even",
+            "good": false,
+            "why": "It keeps score instead of solving it."
+          },
+          {
+            "text": "i'll drop his glasses at school b4 8 tmrw",
+            "good": true,
+            "why": "It fixes it with a time."
+          },
+          {
+            "text": "ugh i'm so sorry, i'm so scattered lately, i feel awful",
+            "good": false,
+            "why": "It apologises too much and gives no fix."
+          }
+        ]
+      },
+      "tryToday": "Make a short checklist for handoffs: meds, glasses, homework, chargers."
+    },
+    {
+      "day": 113,
+      "module": "Handoffs and in-person moments",
+      "title": "Running into each other at school",
+      "chat": [
+        "School concerts, open houses, field days. You'll run into each other.",
+        "A simple \"hi\" and a focus on the kid is plenty.",
+        "You don't need to chat. You don't need to avoid each other either."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "so are we sitting together at the concert or what",
+          "i dont want it to be weird for nora"
+        ],
+        "options": [
+          {
+            "text": "i'm fine sitting near u. let's just say hi to her together after?",
+            "good": true,
+            "why": "It keeps it simple and about Nora."
+          },
+          {
+            "text": "i'd rather not, honestly. i'll just sit in the back and find her after the show",
+            "good": false,
+            "why": "It's honest but a bit cold, and leaves Nora's worry hanging."
+          },
+          {
+            "text": "it's only weird if u make it weird",
+            "good": false,
+            "why": "It's a dig that makes it weirder."
+          }
+        ]
+      },
+      "tryToday": "Decide how you'll say hi at the next school event, in one line."
+    },
+    {
+      "day": 114,
+      "module": "Handoffs and in-person moments",
+      "title": "Sitting near each other at games",
+      "chat": [
+        "Games and recitals are where kids look up for both parents.",
+        "If you can, sit where they can see you both. If it's too tense, a different spot is fine.",
+        "Cheer for the kid, not the score in the stands."
+      ],
+      "replies": [
+        "Makes sense",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "can u not bring ur whole family to every game",
+          "it's a lot",
+          "just saying"
+        ],
+        "options": [
+          {
+            "text": "they're the kid's family too, they can come",
+            "good": false,
+            "why": "It's a fair point that turns into a fight."
+          },
+          {
+            "text": "ok they'll stop coming",
+            "good": false,
+            "why": "It gives up family support for the kid."
+          },
+          {
+            "text": "ok, we'll sit on the other side so there's space. ben loves having them there",
+            "good": true,
+            "why": "It makes space without giving anything up."
+          }
+        ]
+      },
+      "tryToday": "At the next game, cheer for your kid and nothing else."
+    },
+    {
+      "day": 115,
+      "module": "Handoffs and in-person moments",
+      "title": "When they want to come in",
+      "chat": [
+        "Sometimes the other parent wants to come inside at a handoff, or asks to come to your place.",
+        "You're allowed to keep handoffs at the door.",
+        "Say it kindly and plainly."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "can i come in for a min when i drop them off",
+          "i want to see their rooms"
+        ],
+        "options": [
+          {
+            "text": "no, ur not coming into my house",
+            "good": false,
+            "why": "It's a sharp no with nothing kind in it."
+          },
+          {
+            "text": "i'd rather keep handoffs at the door for now. happy to send u pics of their rooms",
+            "good": true,
+            "why": "It's a kind no with an option."
+          },
+          {
+            "text": "ok sure",
+            "good": false,
+            "why": "It says yes when you'd rather not."
+          }
+        ]
+      },
+      "tryToday": "Decide what your handoff boundary is, and write it in one line."
+    },
+    {
+      "day": 116,
+      "module": "Handoffs and in-person moments",
+      "title": "What you say out loud",
+      "chat": [
+        "At handoffs, the kids hear every word.",
+        "\"Have fun at dad's\" or \"see you Sunday\" tells them it's ok to go.",
+        "Save the logistics for text, and keep the spoken part warm and short."
+      ],
+      "replies": [
+        "Makes sense",
+        "I'll try that"
+      ],
+      "drill": {
+        "them": [
+          "ella said u told her \"good luck at ur moms\" at pickup",
+          "what does that even mean"
+        ],
+        "options": [
+          {
+            "text": "i meant her spelling test. i'll say have fun next time",
+            "good": true,
+            "why": "It explains in one line and offers a better phrase."
+          },
+          {
+            "text": "she's twisting my words, i said good luck w/ ur test and she knows that",
+            "good": false,
+            "why": "It blames Ella."
+          },
+          {
+            "text": "it means what it means",
+            "good": false,
+            "why": "It's cold and makes it worse."
+          }
+        ]
+      },
+      "tryToday": "Pick a warm, short goodbye phrase to use at every handoff."
+    },
+    {
+      "day": 117,
+      "module": "Handoffs and in-person moments",
+      "title": "The text after a bad handoff",
+      "chat": [
+        "After a tense handoff, the urge is to text about it right away.",
+        "Wait a bit. If you still need to say something, keep it about the next one.",
+        "One line, one fix, no recap."
+      ],
+      "replies": [
+        "Got it",
+        "Show me an example"
+      ],
+      "drill": {
+        "them": [
+          "that was a mess today",
+          "the kids saw everything",
+          "we cant keep doing this"
+        ],
+        "options": [
+          {
+            "text": "it wouldn't be a mess if u didn't start it",
+            "good": false,
+            "why": "It blames and starts round two."
+          },
+          {
+            "text": "i know, i'm sorry, i'll try harder",
+            "good": false,
+            "why": "It takes all the blame without a plan."
+          },
+          {
+            "text": "agreed. how about we keep it to a quick hi and bags at the door next time?",
+            "good": true,
+            "why": "It agrees and offers a simple plan."
+          }
+        ]
+      },
+      "tryToday": "After the next tense handoff, wait an hour before you text about it."
+    },
+    {
+      "day": 118,
+      "module": "Handoffs and in-person moments",
+      "title": "Ninety days of practice",
+      "chat": [
+        "That's the last of the nine modules. Ninety days of practice on top of the course.",
+        "The skills are the same ones you started with: pause, find the ask, keep it short, keep the kids out of it.",
+        "They hold best when you keep using them on real texts.",
+        "Thanks for showing up for this. It matters for your kids."
+      ],
+      "replies": [
+        "Thanks",
+        "What's next?"
+      ],
+      "drill": {
+        "them": [
+          "hey",
+          "just wanted to say the kids seemed happy this wknd",
+          "thx"
+        ],
+        "options": [
+          {
+            "text": "thx, but let's see if it lasts",
+            "good": false,
+            "why": "It turns a kind moment into a doubt."
+          },
+          {
+            "text": "thx, that's good to hear. they had a great time w/ u too",
+            "good": true,
+            "why": "It's warm and returns the kindness."
+          },
+          {
+            "text": "thx. honestly it'd be nice if it was like this more often",
+            "good": false,
+            "why": "It's a polite dig that spoils a kind moment."
+          }
+        ]
+      },
+      "tryToday": "Notice one calm moment with the other parent this week, and say thanks for it."
+    }
+  ]
+}

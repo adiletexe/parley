@@ -1,0 +1,4223 @@
+{
+  "from": 119,
+  "to": 210,
+  "note": "Daily practice after the 28-day course: 5 seasonal modules of 6 days and 6 skill reviews of 10 to 11. Education about communication, not legal advice or therapy.",
+  "modules": [
+    {
+      "name": "Gray rock in long fights",
+      "kind": "skill",
+      "days": 11
+    },
+    {
+      "name": "Thanksgiving and Christmas",
+      "kind": "seasonal",
+      "days": 6
+    },
+    {
+      "name": "Saying no without a war",
+      "kind": "skill",
+      "days": 10
+    },
+    {
+      "name": "Summer schedule and travel",
+      "kind": "seasonal",
+      "days": 6
+    },
+    {
+      "name": "Asking for what you need with a date",
+      "kind": "skill",
+      "days": 10
+    },
+    {
+      "name": "Back to school",
+      "kind": "seasonal",
+      "days": 6
+    },
+    {
+      "name": "Talking to your kids about two homes",
+      "kind": "skill",
+      "days": 11
+    },
+    {
+      "name": "Moving or a new home",
+      "kind": "seasonal",
+      "days": 6
+    },
+    {
+      "name": "Keeping a calm record for your lawyer",
+      "kind": "skill",
+      "days": 10
+    },
+    {
+      "name": "Mediation prep",
+      "kind": "seasonal",
+      "days": 6
+    },
+    {
+      "name": "Staying calm when you're exhausted",
+      "kind": "skill",
+      "days": 10
+    }
+  ],
+  "days": [
+    {
+      "day": 119,
+      "module": "Gray rock in long fights",
+      "kind": "skill",
+      "title": "When the fight runs for weeks",
+      "chat": [
+        {
+          "text": "Some fights don't end in a day. They run for weeks, one text at a time."
+        },
+        {
+          "text": "In a long fight, every reply is a new chance for them to start again.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "Gray rock is the flat, polite, boring reply. It stays the same on day one and day thirty."
+        },
+        {
+          "text": "Let's try one from week three of a fight.",
+          "replies": [
+            "Show me"
+          ]
+        }
+      ],
+      "drill": {
+        "them": [
+          "still waiting on that apology btw",
+          "its been 3 weeks",
+          "and r u dropping off maya at 4 or 5 tmrw"
+        ],
+        "options": [
+          {
+            "text": "ok i'm sorry about the whole thing, can we just move on. 4 or 5 is fine",
+            "good": false,
+            "why": "An apology to end a fight teaches them the fight works, and the time is still not set."
+          },
+          {
+            "text": "wow 3 weeks and ur still on this?? 5. maybe",
+            "good": false,
+            "why": "Mocking the demand restarts the fight, and \"maybe\" leaves the plan open."
+          },
+          {
+            "text": "4 tmrw at ur place. she'll have her soccer bag",
+            "good": true,
+            "why": "It answers the only real question and gives the apology demand nothing to push on."
+          }
+        ]
+      },
+      "tryToday": "Answer one message in a long fight with only the logistics."
+    },
+    {
+      "day": 120,
+      "module": "Gray rock in long fights",
+      "kind": "skill",
+      "title": "Same reply, every time",
+      "chat": [
+        {
+          "text": "Gray rock works because it's predictable."
+        },
+        {
+          "text": "If one day you're flat and the next day you snap, they learn that pushing harder pays off.",
+          "replies": [
+            "Makes sense"
+          ]
+        },
+        {
+          "text": "So the goal isn't a perfect reply. It's the same kind of reply, every time.",
+          "replies": [
+            "Show me an example"
+          ]
+        }
+      ],
+      "drill": {
+        "them": [
+          "so ur just gonna ignore everything i say now",
+          "cool",
+          "real mature",
+          "leo needs his inhaler refilled"
+        ],
+        "options": [
+          {
+            "text": "ok, i'll pick up leo's refill at walgreens tmrw after work",
+            "good": true,
+            "why": "Same flat tone as always, and it answers the one thing Leo needs."
+          },
+          {
+            "text": "fine, u want a reply? here. ur exhausting. i'll get the inhaler",
+            "good": false,
+            "why": "The first half is the snap they were pushing for, and it gets quoted later."
+          },
+          {
+            "text": "i'm not ignoring u, i just don't think texting about us helps anything. i'll get it",
+            "good": false,
+            "why": "Explaining your approach gives them a new thing to argue about."
+          }
+        ]
+      },
+      "tryToday": "Pick one phrase you'll use to open logistics replies this week, and use it every time."
+    },
+    {
+      "day": 121,
+      "module": "Gray rock in long fights",
+      "kind": "skill",
+      "title": "The bait that changes shape",
+      "chat": [
+        {
+          "text": "When gray rock starts working, the bait often changes shape."
+        },
+        {
+          "text": "Insults turn into questions. \"Just curious, why do you...?\"",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "A question can still be bait. Ask yourself: does the answer change anything for the kids?"
+        },
+        {
+          "text": "If not, you can skip it."
+        }
+      ],
+      "drill": {
+        "them": [
+          "just curious",
+          "why does ava come back w/ dirty clothes every single time",
+          "like is there a reason",
+          "also sat pickup still 10?"
+        ],
+        "options": [
+          {
+            "text": "they're not dirty, they're from the park. i do laundry every sunday fyi",
+            "good": false,
+            "why": "Defending your laundry turns one bait question into a whole thread."
+          },
+          {
+            "text": "yep, sat pickup still 10 at the library lot",
+            "good": true,
+            "why": "It answers the real logistics and skips the \"just curious\" bait."
+          },
+          {
+            "text": "is there a reason u count her shirts?? 10 is fine",
+            "good": false,
+            "why": "Throwing the question back is a fight in a question mark."
+          }
+        ]
+      },
+      "tryToday": "Ask \"does this answer change anything for the kids?\" before replying to the next question."
+    },
+    {
+      "day": 122,
+      "module": "Gray rock in long fights",
+      "kind": "skill",
+      "title": "Quiet, then a flood",
+      "chat": [
+        {
+          "text": "Some long fights go quiet for days, then come back all at once."
+        },
+        {
+          "text": "Ten texts in a row can feel like an emergency. Usually it isn't.",
+          "replies": [
+            "That's me"
+          ]
+        },
+        {
+          "text": "Read the whole flood first. Then find the one thing that needs an answer, if any."
+        }
+      ],
+      "drill": {
+        "them": [
+          "ok so",
+          "i have been thinking",
+          "and honestly ur the reason this whole thing fell apart",
+          "thats it. also need the dentist card"
+        ],
+        "options": [
+          {
+            "text": "i'm not going to argue about who's the reason. i'll send the card",
+            "good": false,
+            "why": "It's calm, but it still answers the blame line, which invites a reply."
+          },
+          {
+            "text": "LOL ok. glad u had time to think. card is in ur email from march",
+            "good": false,
+            "why": "Laughing at them and pointing to an old email keeps the fight alive."
+          },
+          {
+            "text": "ok. i'll send a photo of the dentist card tonight",
+            "good": true,
+            "why": "It finds the one real need in the flood and leaves the rest alone."
+          }
+        ]
+      },
+      "tryToday": "When a flood comes in, read every bubble once before you type anything."
+    },
+    {
+      "day": 123,
+      "module": "Gray rock in long fights",
+      "kind": "skill",
+      "title": "Gray rock isn't cold",
+      "chat": [
+        {
+          "text": "Gray rock is flat with the other parent. It's never flat with the kids."
+        },
+        {
+          "text": "You can be boring to them and still say something kind about your child.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "A warm line about the kid isn't bait. It's just true."
+        }
+      ],
+      "drill": {
+        "them": [
+          "sofia made honor roll",
+          "not that ur involved"
+        ],
+        "options": [
+          {
+            "text": "that's great news, thx for telling me. i'll tell her how proud i am tn",
+            "good": true,
+            "why": "Flat with them, warm about Sofia, and nothing to argue with."
+          },
+          {
+            "text": "ok",
+            "good": false,
+            "why": "Ignoring the jab is good, but a bare ok about your kid's news reads cold, even to a judge."
+          },
+          {
+            "text": "i'm involved, i check her grades every week on the portal. great news tho",
+            "good": false,
+            "why": "Defending your involvement brings the jab back to life."
+          }
+        ]
+      },
+      "tryToday": "Say one warm thing about your kid in your next reply to the other parent."
+    },
+    {
+      "day": 124,
+      "module": "Gray rock in long fights",
+      "kind": "skill",
+      "title": "When the family joins in",
+      "chat": [
+        {
+          "text": "Long fights pull in other people. A grandparent, an aunt, a new partner."
+        },
+        {
+          "text": "Same rule: you don't have to defend yourself to anyone by text.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "Answer the logistics, or don't answer at all if there aren't any.",
+          "replies": [
+            "What if it's a group text?"
+          ]
+        }
+      ],
+      "drill": {
+        "them": [
+          "this is jaydens grandma",
+          "my daughter says u have been very difficult",
+          "are we still getting him for thanksgiving weekend or not"
+        ],
+        "options": [
+          {
+            "text": "with respect, i don't think u've heard the whole story. yes he's coming",
+            "good": false,
+            "why": "Arguing your side with family opens a second front."
+          },
+          {
+            "text": "hi, yes. i'll drop jayden at ur house wed at 6 like planned",
+            "good": true,
+            "why": "Polite to grandma, answers the real question, and skips \"difficult\"."
+          },
+          {
+            "text": "i'd rather not get into it w/ u, that's between us. yes he's coming",
+            "good": false,
+            "why": "It's polite, but it still responds to the accusation instead of letting it go."
+          }
+        ]
+      },
+      "tryToday": "If someone else in the family texts about the conflict, reply only to the plan."
+    },
+    {
+      "day": 125,
+      "module": "Gray rock in long fights",
+      "kind": "skill",
+      "title": "When they post about you",
+      "chat": [
+        {
+          "text": "Sometimes the fight moves to social media. A post, a story, a comment."
+        },
+        {
+          "text": "You can't control what they post. You can control whether you answer it.",
+          "replies": [
+            "Makes sense"
+          ]
+        },
+        {
+          "text": "Screenshot it for your own record if it worries you. Then go back to logistics."
+        }
+      ],
+      "drill": {
+        "them": [
+          "saw u liked my post 🙃",
+          "guess the truth hurts",
+          "anyway can u take chloe to swim thurs"
+        ],
+        "options": [
+          {
+            "text": "i didn't like it, my thumb slipped. and sure i can take her",
+            "good": false,
+            "why": "Explaining the like keeps the post as the topic."
+          },
+          {
+            "text": "the truth?? ur post was full of lies and u know it",
+            "good": false,
+            "why": "Arguing about a post by text is a fight with an audience."
+          },
+          {
+            "text": "yep, i'll take chloe to swim thurs at 5:30",
+            "good": true,
+            "why": "Nothing about the post, and the one real ask gets a time."
+          }
+        ]
+      },
+      "tryToday": "Leave one post about you unanswered, and save it for your record if you need to."
+    },
+    {
+      "day": 126,
+      "module": "Gray rock in long fights",
+      "kind": "skill",
+      "title": "The weekend essay",
+      "chat": [
+        {
+          "text": "A long fight often ends in one long message on a Sunday night."
+        },
+        {
+          "text": "It drags up everything. It can feel like it needs a long answer back.",
+          "replies": [
+            "That's me"
+          ]
+        },
+        {
+          "text": "It doesn't. Find the one sentence that's about the week ahead.",
+          "replies": [
+            "Show me an example"
+          ]
+        }
+      ],
+      "drill": {
+        "them": [
+          "i just want u to know i have tried SO hard for years and u never once said thank u or helped with anything and im done pretending its fine",
+          "also owen needs picking up early wed bc of the half day"
+        ],
+        "options": [
+          {
+            "text": "got it, i'll pick owen up from school at 12:30 wed for the half day",
+            "good": true,
+            "why": "It answers the one plan in the essay and nothing else."
+          },
+          {
+            "text": "i hear u, and honestly i have helped a lot, u just don't see it. but ok i'll get owen wed",
+            "good": false,
+            "why": "Arguing the history invites part two of the essay."
+          },
+          {
+            "text": "ok. sorry u feel that way. i'll get him",
+            "good": false,
+            "why": "A polite dig with no time that reads calm but stings."
+          }
+        ]
+      },
+      "tryToday": "When a long message comes in, copy the one sentence about the plan and reply only to that."
+    },
+    {
+      "day": 127,
+      "module": "Gray rock in long fights",
+      "kind": "skill",
+      "title": "When they test it with a real ask",
+      "chat": [
+        {
+          "text": "Gray rock is for bait. It's not for real needs."
+        },
+        {
+          "text": "If a long fight has a real ask inside it, like a doctor visit, answer it fully.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "Boring doesn't mean unhelpful. Clear and kind on the real things, flat on the rest."
+        }
+      ],
+      "drill": {
+        "them": [
+          "probably u wont even answer this",
+          "but zoe has an ear infection",
+          "can u give her the drops at 8am and 8pm on ur days"
+        ],
+        "options": [
+          {
+            "text": "ok",
+            "good": false,
+            "why": "A one-word reply to a medical ask leaves them guessing if you'll do it."
+          },
+          {
+            "text": "yep, drops at 8am and 8pm on my days. can u send the bottle in her bag?",
+            "good": true,
+            "why": "Answers the real need completely and asks the one thing it needs back."
+          },
+          {
+            "text": "why wouldn't i answer? i always answer about the kids, every time. yes i'll do it obviously",
+            "good": false,
+            "why": "Defending yourself against the jab first makes the reply about you."
+          }
+        ]
+      },
+      "tryToday": "Next time there's a real need inside a tense text, answer it with every detail."
+    },
+    {
+      "day": 128,
+      "module": "Gray rock in long fights",
+      "kind": "skill",
+      "title": "Gray rock face to face",
+      "chat": [
+        {
+          "text": "Handoffs are where long fights leak out in person."
+        },
+        {
+          "text": "The same idea works out loud: short, polite, about the kids.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "\"Hi, bag's in the back, she ate at noon.\" Then you leave."
+        },
+        {
+          "text": "Often the text before the handoff sets the tone. Let's practice that one."
+        }
+      ],
+      "drill": {
+        "them": [
+          "dont even think about bringing up the money thing at pickup",
+          "im not doing it in front of eli",
+          "just hand him over"
+        ],
+        "options": [
+          {
+            "text": "i wasn't going to. but we do need to talk about it at some point",
+            "good": false,
+            "why": "Calm, but it opens the money topic right before the handoff."
+          },
+          {
+            "text": "ur the one who always makes a scene, not me",
+            "good": false,
+            "why": "An accusation before a handoff is how the handoff goes badly."
+          },
+          {
+            "text": "sounds good. i'll have eli and his bag ready at 5",
+            "good": true,
+            "why": "It agrees, keeps it about Eli, and gives the handoff a time."
+          }
+        ]
+      },
+      "tryToday": "At your next handoff, say one logistics sentence and one goodbye to your kid, and go."
+    },
+    {
+      "day": 129,
+      "module": "Gray rock in long fights",
+      "kind": "skill",
+      "title": "Looking back at a long fight",
+      "chat": [
+        {
+          "text": "You've spent eleven days on long fights. Take a minute to look back."
+        },
+        {
+          "text": "Think of the longest fight you've had by text. Where did it start to grow?",
+          "replies": [
+            "Ok, thinking"
+          ]
+        },
+        {
+          "text": "Usually it's a reply that defended, explained or hit back."
+        },
+        {
+          "text": "One more, then a small task for today."
+        }
+      ],
+      "drill": {
+        "them": [
+          "so are we done fighting or what",
+          "bc i still want the blue coat back",
+          "its mine"
+        ],
+        "options": [
+          {
+            "text": "sure, i'll put the blue coat in harper's bag friday",
+            "good": true,
+            "why": "It answers the coat and leaves \"are we done fighting\" alone."
+          },
+          {
+            "text": "i'm done if u are. but the coat was a gift to harper fyi",
+            "good": false,
+            "why": "A truce offer plus a dispute on the coat starts a fresh round."
+          },
+          {
+            "text": "i never started fighting. but fine i'll send the coat",
+            "good": false,
+            "why": "Calm on the surface, but \"i never started\" is a jab."
+          }
+        ]
+      },
+      "tryToday": "Write down the one reply habit you want to keep from these eleven days."
+    },
+    {
+      "day": 130,
+      "module": "Thanksgiving and Christmas",
+      "kind": "seasonal",
+      "title": "Who hosts, who drives",
+      "chat": [
+        {
+          "text": "Thanksgiving fights are usually about logistics nobody said out loud."
+        },
+        {
+          "text": "Who picks up, what time, and who drives the long part.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "Put all three in one message and you skip most of the fight."
+        }
+      ],
+      "drill": {
+        "them": [
+          "so is it ur turn or mine for thanksgiving",
+          "my mom already bought a turkey for 12 lol",
+          "need to know by tmrw"
+        ],
+        "options": [
+          {
+            "text": "i think it's mine but if ur mom already bought a turkey for 12 then ok, just take her this year",
+            "good": false,
+            "why": "Giving up the day over a turkey sets up next year's fight."
+          },
+          {
+            "text": "it's ur turn this year. can u pick up nora wed at 4? i'll get her fri at 10",
+            "good": true,
+            "why": "Says whose turn, both handoff times, and meets their deadline."
+          },
+          {
+            "text": "it's always about ur mom huh. i'll check and get back to u",
+            "good": false,
+            "why": "A dig about family and no answer by the deadline."
+          }
+        ]
+      },
+      "tryToday": "Send one message that names the holiday pickup time, drop-off time and who drives."
+    },
+    {
+      "day": 131,
+      "module": "Thanksgiving and Christmas",
+      "kind": "seasonal",
+      "title": "Christmas Eve and Christmas morning",
+      "chat": [
+        {
+          "text": "Christmas morning is the most fought-over few hours of the year."
+        },
+        {
+          "text": "If you split it, name the exact time the kids move.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "\"Eve with you, I'll pick them up at 11 on the 25th.\" That's it."
+        }
+      ],
+      "drill": {
+        "them": [
+          "the kids want to wake up here christmas morning",
+          "they told me",
+          "so ur gonna have to deal"
+        ],
+        "options": [
+          {
+            "text": "they told me the opposite actually, they want to wake up here. let's ask them together this wknd",
+            "good": false,
+            "why": "Putting the kids in the middle of the decision is the thing to avoid."
+          },
+          {
+            "text": "ok if that's what they want, keep them christmas morning",
+            "good": false,
+            "why": "Calm, but it gives up your time based on a message passed through the kids."
+          },
+          {
+            "text": "the plan we have says i have christmas morning this year. i'll pick them up the 24th at 6",
+            "good": true,
+            "why": "It points to what you agreed and gives a time, without arguing about what the kids said."
+          }
+        ]
+      },
+      "tryToday": "Check your schedule for the holidays and text the exact handoff times in one message."
+    },
+    {
+      "day": 132,
+      "module": "Thanksgiving and Christmas",
+      "kind": "seasonal",
+      "title": "The gift arms race",
+      "chat": [
+        {
+          "text": "Gifts can turn into a contest. Who spent more, who got the bigger one."
+        },
+        {
+          "text": "You don't have to win it. Kids don't compare gifts the way adults do.",
+          "replies": [
+            "Makes sense"
+          ]
+        },
+        {
+          "text": "If you need to coordinate, keep it to: who's getting what, so nobody doubles up."
+        }
+      ],
+      "drill": {
+        "them": [
+          "FYI im getting mateo the switch",
+          "so dont even bother trying to top it 🙂"
+        ],
+        "options": [
+          {
+            "text": "ok thx for the heads up. i was thinking lego and books, so no overlap",
+            "good": true,
+            "why": "It thanks them for the info and makes sure there's no double gift."
+          },
+          {
+            "text": "wow ok, must be nice to have switch money when u're always behind on support",
+            "good": false,
+            "why": "Bringing support into a gift text turns it into a money fight."
+          },
+          {
+            "text": "oh i already got him one. guess he'll have two 😅",
+            "good": false,
+            "why": "A gift race in reverse, and it could have been avoided with one text."
+          }
+        ]
+      },
+      "tryToday": "Text the other parent what you're getting the kids so nobody doubles up."
+    },
+    {
+      "day": 133,
+      "module": "Thanksgiving and Christmas",
+      "kind": "seasonal",
+      "title": "Long drives and grandparents",
+      "chat": [
+        {
+          "text": "Holiday travel adds hours, airports and grandparents to the plan."
+        },
+        {
+          "text": "Share the where and when before you leave. Not because you have to prove anything, because it lowers the temperature.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "An address, a return time and a way to reach the kids is usually enough."
+        }
+      ],
+      "drill": {
+        "them": [
+          "so ur taking them to ohio??",
+          "and i find out from ruby",
+          "what else am i not being told"
+        ],
+        "options": [
+          {
+            "text": "i was going to tell u, i've been swamped w/ work. it's just my parents, nothing to worry about",
+            "good": false,
+            "why": "An excuse that answers the hurt but leaves out the dates."
+          },
+          {
+            "text": "yep, my parents' place in columbus the 26th to the 29th. back by 6pm. i'll send the address",
+            "good": true,
+            "why": "The where, the when and the address, with no defending."
+          },
+          {
+            "text": "i don't have to run every trip by u",
+            "good": false,
+            "why": "True or not, it sounds like hiding, and the real info is still missing."
+          }
+        ]
+      },
+      "tryToday": "Before your next trip with the kids, send the address, dates and return time in one text."
+    },
+    {
+      "day": 134,
+      "module": "Thanksgiving and Christmas",
+      "kind": "seasonal",
+      "title": "When the plan breaks on the day",
+      "chat": [
+        {
+          "text": "Snow, a flight delay, a sick kid. Holidays break plans."
+        },
+        {
+          "text": "When yours breaks, text early with the new time. When theirs breaks, ask for the new time.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "One message. Not three texts about how annoyed you are."
+        }
+      ],
+      "drill": {
+        "them": [
+          "flight got cancelled",
+          "we cant get back til the 27th now",
+          "sorry. i know"
+        ],
+        "options": [
+          {
+            "text": "seriously?? u knew there was a storm coming all week. this is on u, not the airline",
+            "good": false,
+            "why": "Blaming them for the weather starts a fight about something no one can change."
+          },
+          {
+            "text": "ok no worries, whenever u get back is fine",
+            "good": false,
+            "why": "Kind, but \"whenever\" leaves the handoff with no time."
+          },
+          {
+            "text": "ok, thx for letting me know. can we do the 27th at 7pm at the airport?",
+            "good": true,
+            "why": "It accepts what nobody can control and sets a new time and place."
+          }
+        ]
+      },
+      "tryToday": "If a holiday plan breaks, send one text with the new day, time and place."
+    },
+    {
+      "day": 135,
+      "module": "Thanksgiving and Christmas",
+      "kind": "seasonal",
+      "title": "The swap back after New Year's",
+      "chat": [
+        {
+          "text": "After the holidays, the regular schedule comes back. That handoff can be messy too."
+        },
+        {
+          "text": "Name the day the normal schedule starts again.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "Then the next fight is about nothing, because it's written down."
+        }
+      ],
+      "drill": {
+        "them": [
+          "so when do i get them back",
+          "or is break just urs now 🙄",
+          "school starts the 5th"
+        ],
+        "options": [
+          {
+            "text": "i'll drop them at ur place jan 4 at 5, so they're settled before school on the 5th",
+            "good": true,
+            "why": "A clear day and time, and a reason that's about the kids."
+          },
+          {
+            "text": "break isn't mine, it's split like always. i'll figure out a time",
+            "good": false,
+            "why": "It argues the jab and leaves the time open."
+          },
+          {
+            "text": "can i keep them til the 5th and take them straight to school? easier for me",
+            "good": false,
+            "why": "A new ask tucked into their question, with no reply to what they asked."
+          }
+        ]
+      },
+      "tryToday": "Text the exact day and time the regular schedule starts again after the holidays."
+    },
+    {
+      "day": 136,
+      "module": "Saying no without a war",
+      "kind": "skill",
+      "title": "No is a whole answer",
+      "chat": [
+        {
+          "text": "You're allowed to say no."
+        },
+        {
+          "text": "The war usually doesn't come from the no. It comes from everything around it.",
+          "replies": [
+            "Makes sense"
+          ]
+        },
+        {
+          "text": "A short no, said kindly, gives them the least to fight with."
+        }
+      ],
+      "drill": {
+        "them": [
+          "can u take the kids this fri",
+          "last minute i know",
+          "i got invited to a thing"
+        ],
+        "options": [
+          {
+            "text": "ugh i guess. i'll move my shift",
+            "good": false,
+            "why": "A yes you don't mean teaches them last-minute always works."
+          },
+          {
+            "text": "can't this fri, i'm working til 9. hope u find someone",
+            "good": true,
+            "why": "A clear no, one reason, and a kind close."
+          },
+          {
+            "text": "no, and honestly u always do this. every time u get invited somewhere",
+            "good": false,
+            "why": "The no is fine, but the \"always\" is where the war starts."
+          }
+        ]
+      },
+      "tryToday": "Say no to one request in two sentences or fewer."
+    },
+    {
+      "day": 137,
+      "module": "Saying no without a war",
+      "kind": "skill",
+      "title": "One reason, not five",
+      "chat": [
+        {
+          "text": "When we say no, we tend to list every reason we have."
+        },
+        {
+          "text": "Each reason is something they can argue with.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "Pick the one true reason. Then stop typing."
+        }
+      ],
+      "drill": {
+        "them": [
+          "can i have them wed night instead of thurs",
+          "lmk"
+        ],
+        "options": [
+          {
+            "text": "i have a work trip and the car's in the shop and wed is when we do homework and",
+            "good": false,
+            "why": "Every extra reason is a door for them to argue through."
+          },
+          {
+            "text": "no. why do u always need to change things",
+            "good": false,
+            "why": "Openly irritated, and the question invites a fight."
+          },
+          {
+            "text": "wed doesn't work, i have a work dinner. thurs is still good",
+            "good": true,
+            "why": "One reason, the plan stays, and nothing more."
+          }
+        ]
+      },
+      "tryToday": "Next time you say no, cut every reason but one."
+    },
+    {
+      "day": 138,
+      "module": "Saying no without a war",
+      "kind": "skill",
+      "title": "No, and here's what I can do",
+      "chat": [
+        {
+          "text": "A no lands softer when it comes with one thing you can do."
+        },
+        {
+          "text": "Not a pile of options. One.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "It shows you're still working on the kid's side of it."
+        }
+      ],
+      "drill": {
+        "them": [
+          "can u pay half of lilys braces this month",
+          "its 1800 up front",
+          "need it by friday"
+        ],
+        "options": [
+          {
+            "text": "i can't do 900 by fri. i can do 300 now and 300 the 1st and 15th",
+            "good": true,
+            "why": "A no on the deadline, and one concrete plan instead."
+          },
+          {
+            "text": "ok i'll put it on my card i guess",
+            "good": false,
+            "why": "Saying yes to a debt you can't carry usually ends in a bigger fight later."
+          },
+          {
+            "text": "who decided on braces without asking me? i'm not paying for something i never got a say in",
+            "good": false,
+            "why": "A real question buried in an angry no."
+          }
+        ]
+      },
+      "tryToday": "When you say no next, add the one thing you can do."
+    },
+    {
+      "day": 139,
+      "module": "Saying no without a war",
+      "kind": "skill",
+      "title": "When they ask again",
+      "chat": [
+        {
+          "text": "Sometimes a no gets the same ask back, a little louder."
+        },
+        {
+          "text": "You don't need a new reason. You can repeat the first answer.",
+          "replies": [
+            "What if they keep going?"
+          ]
+        },
+        {
+          "text": "Same words, same tone. Repeating calmly is a boundary, not a fight."
+        }
+      ],
+      "drill": {
+        "them": [
+          "i said PLEASE",
+          "its one sleepover",
+          "why r u being like this about it"
+        ],
+        "options": [
+          {
+            "text": "ok fine, he can go",
+            "good": false,
+            "why": "Giving in on the second ask teaches them to always ask twice."
+          },
+          {
+            "text": "i know. it's still a no for this sat, he has his game at 8am",
+            "good": true,
+            "why": "The same no, calm, with the same one reason."
+          },
+          {
+            "text": "i'm not being like anything. i already explained this 2x, he has a game, idk what else to say",
+            "good": false,
+            "why": "Defending your tone makes the reply about you."
+          }
+        ]
+      },
+      "tryToday": "If someone asks again after a no, send your first answer again in fewer words."
+    },
+    {
+      "day": 140,
+      "module": "Saying no without a war",
+      "kind": "skill",
+      "title": "No to the last-minute swap",
+      "chat": [
+        {
+          "text": "Last-minute swaps are hard to say no to. The other parent is stressed, and so are you."
+        },
+        {
+          "text": "You can be kind about the stress and still say no to the swap.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "Let's try one."
+        }
+      ],
+      "drill": {
+        "them": [
+          "im stuck at work",
+          "can u grab them at 3 instead of me at 6",
+          "pls im begging"
+        ],
+        "options": [
+          {
+            "text": "i can't, but next time pls give me more notice than this",
+            "good": false,
+            "why": "A lecture on a day they're already stressed."
+          },
+          {
+            "text": "ugh ok i'll leave early. this better not keep happening",
+            "good": false,
+            "why": "A yes that comes with a warning helps nobody."
+          },
+          {
+            "text": "i can't leave til 5 today. can ur sister grab them?",
+            "good": true,
+            "why": "A clear no, a reason, and a helpful idea that isn't you."
+          }
+        ]
+      },
+      "tryToday": "Write the one sentence you'll use when a last-minute swap doesn't work for you."
+    },
+    {
+      "day": 141,
+      "module": "Saying no without a war",
+      "kind": "skill",
+      "title": "No to money you didn't agree to",
+      "chat": [
+        {
+          "text": "A bill you didn't know about can show up with \"you owe half\"."
+        },
+        {
+          "text": "You can say you're not paying for something you never agreed to, without calling them a name.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "Ask what it was, and say what you'd need before you'd agree next time."
+        }
+      ],
+      "drill": {
+        "them": [
+          "sent u a request for 250",
+          "half of the new phone for ethan",
+          "pls pay by tn"
+        ],
+        "options": [
+          {
+            "text": "i didn't agree to a phone, so i won't pay half this time. let's talk before the next big buy",
+            "good": true,
+            "why": "A calm no, the reason, and a plan for next time."
+          },
+          {
+            "text": "ok sending it now. i guess he needed one for school anyway, a lot of kids his age have one by now",
+            "good": false,
+            "why": "Paying for things you never agreed to sets the rule for every bill after."
+          },
+          {
+            "text": "a PHONE?? u didn't even ask me. he's 9",
+            "good": false,
+            "why": "Shouting it turns a real point into a fight."
+          }
+        ]
+      },
+      "tryToday": "Decide what amount you want to agree on before any big purchase, and text it."
+    },
+    {
+      "day": 142,
+      "module": "Saying no without a war",
+      "kind": "skill",
+      "title": "No to a rule for your house",
+      "chat": [
+        {
+          "text": "Sometimes the ask is a rule for your house. Bedtime, screens, food."
+        },
+        {
+          "text": "You can listen, and still decide what happens at yours.",
+          "replies": [
+            "Makes sense"
+          ]
+        },
+        {
+          "text": "If the kid's health or safety is part of it, that part is worth a real answer."
+        }
+      ],
+      "drill": {
+        "them": [
+          "no screens at ur place after 7",
+          "thats the rule now",
+          "i decided"
+        ],
+        "options": [
+          {
+            "text": "u decided?? u dont get to decide what happens at my house, that's not how this works at all",
+            "good": false,
+            "why": "A fair point said as a fight."
+          },
+          {
+            "text": "we do screens off at 8 here. if there's a reason for 7 i'm open to hearing it",
+            "good": true,
+            "why": "It holds your rule, stays open, and doesn't fight."
+          },
+          {
+            "text": "ok, 7 then",
+            "good": false,
+            "why": "A rule set by decree, accepted without a word, will be followed by others."
+          }
+        ]
+      },
+      "tryToday": "Name one house rule you'll keep, and how you'd say it in one sentence."
+    },
+    {
+      "day": 143,
+      "module": "Saying no without a war",
+      "kind": "skill",
+      "title": "When the kids are the pressure",
+      "chat": [
+        {
+          "text": "\"The kids will be so sad\" can be used to turn your no into a yes."
+        },
+        {
+          "text": "Their feelings matter. That's why you talk to them about it, not the other parent.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "Say your no, and say how you'll help the kids with it."
+        }
+      ],
+      "drill": {
+        "them": [
+          "so u want me to tell isla ur not coming to the birthday",
+          "she is going to be crushed",
+          "ur choice"
+        ],
+        "options": [
+          {
+            "text": "ok i'll move things, i don't want her crushed",
+            "good": false,
+            "why": "The pressure worked, which means it'll be used again."
+          },
+          {
+            "text": "don't tell her anything, i'll tell her. stop using her against me",
+            "good": false,
+            "why": "True, maybe, but said as an accusation."
+          },
+          {
+            "text": "i can't make sat. i'll call isla tonight myself and take her for a birthday lunch sun",
+            "good": true,
+            "why": "It keeps the no, handles Isla directly, and doesn't argue."
+          }
+        ]
+      },
+      "tryToday": "If the kids are used to push you, plan how you'll talk to them yourself."
+    },
+    {
+      "day": 144,
+      "module": "Saying no without a war",
+      "kind": "skill",
+      "title": "Saying yes without giving in",
+      "chat": [
+        {
+          "text": "Sometimes the right answer is yes. That's fine too."
+        },
+        {
+          "text": "A yes can still be clear: yes this time, here's the time, and the usual plan stays.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "That way one favor doesn't become the new schedule."
+        }
+      ],
+      "drill": {
+        "them": [
+          "can i keep them sun til 7 instead of 5",
+          "family dinner thing"
+        ],
+        "options": [
+          {
+            "text": "sure, 7 sun works this time. back to 5 next week",
+            "good": true,
+            "why": "A friendly yes that keeps the regular plan clear."
+          },
+          {
+            "text": "yeah keep them as late as u want sundays",
+            "good": false,
+            "why": "A kind yes that quietly changes the schedule for good."
+          },
+          {
+            "text": "sure. i'll remember this next time i need something",
+            "good": false,
+            "why": "A yes with a hook in it."
+          }
+        ]
+      },
+      "tryToday": "If you say yes to a favor this week, say \"this time\" and the normal time in the same text."
+    },
+    {
+      "day": 145,
+      "module": "Saying no without a war",
+      "kind": "skill",
+      "title": "Looking back at your no's",
+      "chat": [
+        {
+          "text": "Ten days on saying no. Think about the last no you said by text."
+        },
+        {
+          "text": "Was it one reason or five? Did it come with an option?",
+          "replies": [
+            "Ok"
+          ]
+        },
+        {
+          "text": "No grade here. Just notice what you do now that you didn't before."
+        },
+        {
+          "text": "One more to finish."
+        }
+      ],
+      "drill": {
+        "them": [
+          "can u cover the field trip",
+          "its 45",
+          "i paid the last 2"
+        ],
+        "options": [
+          {
+            "text": "no, u said u'd cover school stuff this year",
+            "good": false,
+            "why": "A no with a reason, but it ignores that they paid the last two."
+          },
+          {
+            "text": "sure, i'll send the 45 tn",
+            "good": true,
+            "why": "A simple yes when it's fair is part of saying no well."
+          },
+          {
+            "text": "the last 2 were like 10 bucks each lol",
+            "good": false,
+            "why": "A dig at their payments, and still no answer."
+          }
+        ]
+      },
+      "tryToday": "Write down one no you said well this month, and why it worked."
+    },
+    {
+      "day": 146,
+      "module": "Summer schedule and travel",
+      "kind": "seasonal",
+      "title": "Settle summer in spring",
+      "chat": [
+        {
+          "text": "Summer plans fall apart when they're made in June."
+        },
+        {
+          "text": "Camps fill up, flights get booked, and suddenly two plans collide.",
+          "replies": [
+            "That's me"
+          ]
+        },
+        {
+          "text": "Pick your weeks early and send them in one message."
+        }
+      ],
+      "drill": {
+        "them": [
+          "so r we doing summer or just winging it again",
+          "i need to book the lake house"
+        ],
+        "options": [
+          {
+            "text": "just book whatever weeks u want, i'll work around it",
+            "good": false,
+            "why": "Easy now, but your summer gets decided by their booking."
+          },
+          {
+            "text": "winging it?? i asked u about summer in january and u ignored me",
+            "good": false,
+            "why": "Scoring a point about January instead of setting the weeks."
+          },
+          {
+            "text": "can we each pick 2 weeks by april 15? i'd like july 7 to 21",
+            "good": true,
+            "why": "A clear ask with a date, and your own weeks named up front."
+          }
+        ]
+      },
+      "tryToday": "Text your preferred summer weeks with a date you'd like theirs by."
+    },
+    {
+      "day": 147,
+      "module": "Summer schedule and travel",
+      "kind": "seasonal",
+      "title": "Camp costs",
+      "chat": [
+        {
+          "text": "Summer camp can cost as much as a month's rent."
+        },
+        {
+          "text": "Before anyone signs up, agree on which camp and how you'll split it.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "Amount, dates, the link, and the split. Nothing about last summer."
+        }
+      ],
+      "drill": {
+        "them": [
+          "signed caleb up for soccer camp",
+          "640 for 2 weeks",
+          "ur half is 320 due monday"
+        ],
+        "options": [
+          {
+            "text": "can u send the link and dates? i'll let u know by sun if i can do 320 by monday",
+            "good": true,
+            "why": "It asks for what you need to decide and gives a real time to answer."
+          },
+          {
+            "text": "ok, sending 320 now. next time maybe let me know before u sign him up for stuff",
+            "good": false,
+            "why": "Paying first and asking later makes signing up without you the new normal."
+          },
+          {
+            "text": "u signed him up w/o asking AGAIN. not paying",
+            "good": false,
+            "why": "A heated no that skips the actual decision."
+          }
+        ]
+      },
+      "tryToday": "Before the next camp sign-up, text the camp, dates and split you'd agree to."
+    },
+    {
+      "day": 148,
+      "module": "Summer schedule and travel",
+      "kind": "seasonal",
+      "title": "Flying with the kids",
+      "chat": [
+        {
+          "text": "When kids fly, the other parent usually wants the details. That's normal."
+        },
+        {
+          "text": "Flight numbers, where they're staying, when they're back.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "Sending it before they ask takes a whole fight off the table."
+        }
+      ],
+      "drill": {
+        "them": [
+          "what flight r they on",
+          "and where r u even staying",
+          "i shouldnt have to ask"
+        ],
+        "options": [
+          {
+            "text": "i was going to send it, relax. it's a 2 hour flight and i've flown w/ them a million times",
+            "good": false,
+            "why": "Telling someone to relax is a reliable way to make them less relaxed."
+          },
+          {
+            "text": "delta 1422, lands in denver at 3:10 sat. staying at my brother's, i'll send the address",
+            "good": true,
+            "why": "Every detail they need, sent without a word about their tone."
+          },
+          {
+            "text": "we're staying with family. i'll text when we land",
+            "good": false,
+            "why": "Calm, but it skips the flight and address they asked for."
+          }
+        ]
+      },
+      "tryToday": "Before the kids travel, send flight, address and return time in one text."
+    },
+    {
+      "day": 149,
+      "module": "Summer schedule and travel",
+      "kind": "seasonal",
+      "title": "Calls while they're away",
+      "chat": [
+        {
+          "text": "When the kids are away for weeks, calls can become their own fight."
+        },
+        {
+          "text": "Too many, too few, at the wrong time.",
+          "replies": [
+            "Makes sense"
+          ]
+        },
+        {
+          "text": "A set time that works for the kids beats \"call whenever\"."
+        }
+      ],
+      "drill": {
+        "them": [
+          "u didnt let her call me last night",
+          "she always calls at 8",
+          "what r u hiding"
+        ],
+        "options": [
+          {
+            "text": "i'm not hiding anything, she was just busy having fun",
+            "good": false,
+            "why": "Defending yourself and a bit of a dig about the fun."
+          },
+          {
+            "text": "she can call whenever she wants, i'm not stopping her. she's just busy having fun w/ her cousins",
+            "good": false,
+            "why": "Sounds open, but \"whenever\" is how calls get missed."
+          },
+          {
+            "text": "we were at the fair til 9. can we do calls at 7:30? i'll have her ready",
+            "good": true,
+            "why": "The fact, a new time, and a plan to make it happen."
+          }
+        ]
+      },
+      "tryToday": "Agree on one call time while the kids are away, and put it in a text."
+    },
+    {
+      "day": 150,
+      "module": "Summer schedule and travel",
+      "kind": "seasonal",
+      "title": "Asking for a signature",
+      "chat": [
+        {
+          "text": "Some trips need something from the other parent. A signed note, a form, a passport step."
+        },
+        {
+          "text": "What you need depends on where you're going, so check with the airline, the agency or your lawyer.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "Then ask for it early, with a date, and make it easy to say yes."
+        }
+      ],
+      "drill": {
+        "them": [
+          "what form",
+          "i didnt agree to any trip",
+          "u just assume i say yes to everything"
+        ],
+        "options": [
+          {
+            "text": "it's for the cancun trip july 9 to 16. can i send it today so u can look by fri?",
+            "good": true,
+            "why": "Gives the trip dates, asks for a look, not a yes, and names a time."
+          },
+          {
+            "text": "ok forget it, we'll just go somewhere closer where we don't need a form. not worth the hassle",
+            "good": false,
+            "why": "Giving up the trip before they've even read the form."
+          },
+          {
+            "text": "i told u about this trip in march!! ur doing this on purpose",
+            "good": false,
+            "why": "Heated, and still no dates or form."
+          }
+        ]
+      },
+      "tryToday": "Check what your next trip needs from the other parent, and ask for it a month ahead."
+    },
+    {
+      "day": 151,
+      "module": "Summer schedule and travel",
+      "kind": "seasonal",
+      "title": "Back from summer",
+      "chat": [
+        {
+          "text": "The end of summer is a handoff, and a big one."
+        },
+        {
+          "text": "Kids are tired, the bag is huge, and school is close.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "Name the day, the time, and anything the other parent should know about the trip."
+        }
+      ],
+      "drill": {
+        "them": [
+          "so when r they back exactly",
+          "school starts in 10 days",
+          "need to get supplies"
+        ],
+        "options": [
+          {
+            "text": "sometime that weekend. i'll text when we're close",
+            "good": false,
+            "why": "Calm, but no day or time."
+          },
+          {
+            "text": "aug 17 at 5 at ur place. they both got new shoes, so skip those",
+            "good": true,
+            "why": "A time, a place, and one useful update."
+          },
+          {
+            "text": "i bought supplies already, u don't need to",
+            "good": false,
+            "why": "Helpful maybe, but no return time at all."
+          }
+        ]
+      },
+      "tryToday": "Send the end-of-summer handoff time and one useful update in one text."
+    },
+    {
+      "day": 152,
+      "module": "Asking for what you need with a date",
+      "kind": "skill",
+      "title": "Vague asks get vague answers",
+      "chat": [
+        {
+          "text": "\"Can we talk about the schedule?\" almost never gets an answer."
+        },
+        {
+          "text": "Or it gets a fight, because the other parent fills in what you meant.",
+          "replies": [
+            "That's me"
+          ]
+        },
+        {
+          "text": "A clear ask says what you want and when you need to know."
+        }
+      ],
+      "drill": {
+        "them": [
+          "what do u want now",
+          "u said we need to talk",
+          "just say it"
+        ],
+        "options": [
+          {
+            "text": "just some stuff about the schedule that's been bugging me, it can wait til next time we talk",
+            "good": false,
+            "why": "Vague on purpose, so the question will come back."
+          },
+          {
+            "text": "wow ok. forget it then. not worth it",
+            "good": false,
+            "why": "Withdrawing in a huff and nothing gets solved."
+          },
+          {
+            "text": "can we switch to sunday 6pm pickups starting the 10th? lmk by thurs",
+            "good": true,
+            "why": "A specific ask with a start date and a deadline."
+          }
+        ]
+      },
+      "tryToday": "Rewrite one \"we need to talk\" into an ask with a day and a time."
+    },
+    {
+      "day": 153,
+      "module": "Asking for what you need with a date",
+      "kind": "skill",
+      "title": "One ask per message",
+      "chat": [
+        {
+          "text": "Three asks in one text usually get one answer, or none."
+        },
+        {
+          "text": "If you need three things, pick the one that's due first.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "Send the others later, one at a time."
+        }
+      ],
+      "drill": {
+        "them": [
+          "ok what do u need",
+          "quick pls im at work"
+        ],
+        "options": [
+          {
+            "text": "can u sign theo's field trip slip by fri? it's in his folder",
+            "good": true,
+            "why": "One ask, one deadline, and where to find it."
+          },
+          {
+            "text": "field trip slip, also the dentist, and we need to talk about wknds",
+            "good": false,
+            "why": "Three asks at once, and they'll answer the easiest one."
+          },
+          {
+            "text": "nvm it's fine, i'll figure it out",
+            "good": false,
+            "why": "Taking back the ask leaves you without what you needed."
+          }
+        ]
+      },
+      "tryToday": "Pick the one ask that's due first and send only that one today."
+    },
+    {
+      "day": 154,
+      "module": "Asking for what you need with a date",
+      "kind": "skill",
+      "title": "A real deadline",
+      "chat": [
+        {
+          "text": "\"Soon\" and \"when you get a chance\" don't mean anything to a busy person."
+        },
+        {
+          "text": "Give a day and a time you actually need.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "Leave a little room before your real deadline so nobody's rushed."
+        }
+      ],
+      "drill": {
+        "them": [
+          "ya i saw ur msg about the insurance card",
+          "will look for it"
+        ],
+        "options": [
+          {
+            "text": "ok whenever u find it, no stress. i can always ask the dentist to look it up i guess",
+            "good": false,
+            "why": "Kind, but \"whenever\" might be after the dentist."
+          },
+          {
+            "text": "thx. can u send a photo by wed noon? dentist is thurs morning",
+            "good": true,
+            "why": "A time that works and the real reason it matters."
+          },
+          {
+            "text": "u said that last week too",
+            "good": false,
+            "why": "True, maybe, and still no date."
+          }
+        ]
+      },
+      "tryToday": "Add a day and a time to your next request."
+    },
+    {
+      "day": 155,
+      "module": "Asking for what you need with a date",
+      "kind": "skill",
+      "title": "Ask for a yes or no",
+      "chat": [
+        {
+          "text": "Some asks get \"we'll see\". That leaves you stuck."
+        },
+        {
+          "text": "Ask a question that can be answered yes or no.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "Then give them a time to answer, and say what you'll do if you don't hear back."
+        }
+      ],
+      "drill": {
+        "them": [
+          "maybe",
+          "ill see how the week goes"
+        ],
+        "options": [
+          {
+            "text": "ok no rush, take ur time and lmk whenever u figure out how the week looks",
+            "good": false,
+            "why": "Polite, but you're still stuck not knowing."
+          },
+          {
+            "text": "maybe isnt an answer lol",
+            "good": false,
+            "why": "Correct, and said in a way that gets a worse answer."
+          },
+          {
+            "text": "ok. can u let me know yes or no by fri 6? if not i'll book the sitter",
+            "good": true,
+            "why": "A yes or no question, a time, and your plan if there's no answer."
+          }
+        ]
+      },
+      "tryToday": "Turn one open question into a yes or no question with a time."
+    },
+    {
+      "day": 156,
+      "module": "Asking for what you need with a date",
+      "kind": "skill",
+      "title": "Asking for a document",
+      "chat": [
+        {
+          "text": "Report cards, medical records, the insurance card. You often need paper from the other home."
+        },
+        {
+          "text": "Name the document, how you want it, and when.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "A photo is usually fine. Say so, so they don't have to find a scanner."
+        }
+      ],
+      "drill": {
+        "them": [
+          "why do u need the report card",
+          "u can log in urself"
+        ],
+        "options": [
+          {
+            "text": "i can't get the login to work. could u send a photo of it by sun?",
+            "good": true,
+            "why": "The reason, the format, and a day."
+          },
+          {
+            "text": "it's my right to see it",
+            "good": false,
+            "why": "Maybe, but quoting rights by text turns a simple ask into a fight."
+          },
+          {
+            "text": "ok i'll try the login again",
+            "good": false,
+            "why": "Calm, but you still don't have the report card."
+          }
+        ]
+      },
+      "tryToday": "Ask for one document you need, with the format and a day."
+    },
+    {
+      "day": 157,
+      "module": "Asking for what you need with a date",
+      "kind": "skill",
+      "title": "Asking for a swap",
+      "chat": [
+        {
+          "text": "Asking to swap days is easier when you make the trade clear."
+        },
+        {
+          "text": "What you want, what you're offering, and by when.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "People say yes faster when they don't have to work out the deal."
+        }
+      ],
+      "drill": {
+        "them": [
+          "ok what",
+          "what do u need"
+        ],
+        "options": [
+          {
+            "text": "i need the 14th, sorry. i know it's a pain and i hate asking, but it's kind of important",
+            "good": false,
+            "why": "An ask with an apology and no trade."
+          },
+          {
+            "text": "can i have the kids sat the 14th? u could take sat the 21st instead. lmk by wed",
+            "good": true,
+            "why": "The swap, the trade, and a deadline in one message."
+          },
+          {
+            "text": "i need the 14th. u owe me after last month",
+            "good": false,
+            "why": "A swap ask turned into a debt claim."
+          }
+        ]
+      },
+      "tryToday": "If you need a swap, offer the trade day in the same message."
+    },
+    {
+      "day": 158,
+      "module": "Asking for what you need with a date",
+      "kind": "skill",
+      "title": "Money back, with a date",
+      "chat": [
+        {
+          "text": "Asking to be paid back can feel awkward. So it gets vague."
+        },
+        {
+          "text": "Amount, what it was for, a receipt, and a date.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "That's all. No history of who paid what before."
+        }
+      ],
+      "drill": {
+        "them": [
+          "what do i owe u for again",
+          "i forgot"
+        ],
+        "options": [
+          {
+            "text": "the glasses. and the field trip. and the shoes last month",
+            "good": false,
+            "why": "A list with no amounts turns into an argument about which ones count."
+          },
+          {
+            "text": "dw about it, it's fine",
+            "good": false,
+            "why": "Letting it go now usually means resenting it later."
+          },
+          {
+            "text": "$84, half of mia's glasses. receipt attached. can u venmo by the 30th?",
+            "good": true,
+            "why": "Amount, what, proof, and a date."
+          }
+        ]
+      },
+      "tryToday": "Send one money-back request with amount, receipt and a date."
+    },
+    {
+      "day": 159,
+      "module": "Asking for what you need with a date",
+      "kind": "skill",
+      "title": "When the date passes",
+      "chat": [
+        {
+          "text": "Sometimes the date you gave goes by with no answer."
+        },
+        {
+          "text": "Send one calm follow-up with a new time. Then decide what you'll do.",
+          "replies": [
+            "What if they still don't answer?"
+          ]
+        },
+        {
+          "text": "Then you act on your plan, and save the thread. No chasing."
+        }
+      ],
+      "drill": {
+        "them": [
+          "sry been busy",
+          "what was it"
+        ],
+        "options": [
+          {
+            "text": "the camp form for jonah. can u sign by mon 9am? i'll submit mine either way",
+            "good": true,
+            "why": "It restates the ask, gives a new time, and says what happens next."
+          },
+          {
+            "text": "the camp form. it was due yesterday, like i said 3 times already, so now we might lose the spot",
+            "good": false,
+            "why": "Correct, but the \"3 times\" makes it a fight."
+          },
+          {
+            "text": "the camp form, but it's ok, whenever",
+            "good": false,
+            "why": "Gives up the date you needed."
+          }
+        ]
+      },
+      "tryToday": "If a date passes, send one follow-up with a new time and your plan."
+    },
+    {
+      "day": 160,
+      "module": "Asking for what you need with a date",
+      "kind": "skill",
+      "title": "Asking for something harder",
+      "chat": [
+        {
+          "text": "Some asks aren't about logistics. \"Please don't talk about me in front of the kids.\""
+        },
+        {
+          "text": "Those are harder. Keep them short, about the kids, and ask for one specific thing.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "You won't get a promise every time. You'll have asked clearly, in writing."
+        }
+      ],
+      "drill": {
+        "them": [
+          "what did i even do",
+          "diego is lying if he said that"
+        ],
+        "options": [
+          {
+            "text": "he didn't make it up. u know u say stuff like that",
+            "good": false,
+            "why": "An accusation that puts Diego in the middle."
+          },
+          {
+            "text": "i'm not saying anyone's lying. can we both keep adult stuff out of earshot of diego?",
+            "good": true,
+            "why": "One specific ask, about Diego, with no blame."
+          },
+          {
+            "text": "ok forget i said anything",
+            "good": false,
+            "why": "Backing off means the ask is gone too."
+          }
+        ]
+      },
+      "tryToday": "Write one hard ask as a single sentence about the kids, with one specific thing."
+    },
+    {
+      "day": 161,
+      "module": "Asking for what you need with a date",
+      "kind": "skill",
+      "title": "Looking back at your asks",
+      "chat": [
+        {
+          "text": "Ten days of asking with a date. Look back at the last thing you asked for by text."
+        },
+        {
+          "text": "Did it have a what, a when and one ask?",
+          "replies": [
+            "Ok"
+          ]
+        },
+        {
+          "text": "No grade. Just notice what's easier now."
+        },
+        {
+          "text": "One more to finish."
+        }
+      ],
+      "drill": {
+        "them": [
+          "so what do u need for the wknd",
+          "ill try to have it ready"
+        ],
+        "options": [
+          {
+            "text": "just the usual stuff, u know",
+            "good": false,
+            "why": "Vague, so the cleats stay at the other house."
+          },
+          {
+            "text": "the stuff i asked for last time and u forgot, the cleats and the jersey and her shin guards",
+            "good": false,
+            "why": "A dig instead of the list."
+          },
+          {
+            "text": "can u pack grace's cleats and the green jersey? game is sat at 9",
+            "good": true,
+            "why": "Specific items and when they're needed."
+          }
+        ]
+      },
+      "tryToday": "Write the next ask you need to send with a what and a when."
+    },
+    {
+      "day": 162,
+      "module": "Back to school",
+      "kind": "seasonal",
+      "title": "The supply list",
+      "chat": [
+        {
+          "text": "Back to school starts with a supply list and a receipt."
+        },
+        {
+          "text": "Agree who buys what before anyone goes to Target.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "Splitting the list works better than splitting the receipt after."
+        }
+      ],
+      "drill": {
+        "them": [
+          "did u see the supply list",
+          "its huge",
+          "r u getting any of it or am i doing it all again"
+        ],
+        "options": [
+          {
+            "text": "i'll get everything on the first page. can u grab page 2? i'll send a photo when it's done",
+            "good": true,
+            "why": "A clear split before the shopping starts."
+          },
+          {
+            "text": "i'll just get it all, it's easier. u can pay me back for half whenever u get a chance",
+            "good": false,
+            "why": "Kind, but it can turn into resentment by October."
+          },
+          {
+            "text": "\"again\"?? i bought all of it last year",
+            "good": false,
+            "why": "Arguing about last year instead of this list."
+          }
+        ]
+      },
+      "tryToday": "Text the other parent which half of the school list you'll buy."
+    },
+    {
+      "day": 163,
+      "module": "Back to school",
+      "kind": "seasonal",
+      "title": "One school calendar, two homes",
+      "chat": [
+        {
+          "text": "School sends dates to whoever's on the list. Sometimes that's just one parent."
+        },
+        {
+          "text": "Share the calendar so nobody finds out about the half day the morning of.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "A shared calendar or a forwarded email beats \"you never told me\"."
+        }
+      ],
+      "drill": {
+        "them": [
+          "why didnt i know about picture day",
+          "eli wore his dirty hoodie",
+          "cool"
+        ],
+        "options": [
+          {
+            "text": "it was in his folder, the school sent it home last week. u could check his folder too",
+            "good": false,
+            "why": "Fair, maybe, but it hands the blame back."
+          },
+          {
+            "text": "the school only emails me, sorry about that. i'll add u to the calendar tn",
+            "good": true,
+            "why": "A fix so it doesn't happen again, with no defense."
+          },
+          {
+            "text": "lol he looked fine. nobody cares about picture day",
+            "good": false,
+            "why": "Laughing it off when they cared about it."
+          }
+        ]
+      },
+      "tryToday": "Share the school calendar with the other parent, or forward the next school email."
+    },
+    {
+      "day": 164,
+      "module": "Back to school",
+      "kind": "seasonal",
+      "title": "Parent-teacher conferences",
+      "chat": [
+        {
+          "text": "Conferences can be together or separate. Either is fine."
+        },
+        {
+          "text": "What matters is that both of you hear what the teacher says.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "If it's together, agree to keep it about your kid. If it's separate, ask the school."
+        }
+      ],
+      "drill": {
+        "them": [
+          "im not sitting next to u at the conference",
+          "just so u know"
+        ],
+        "options": [
+          {
+            "text": "fine, then i won't go",
+            "good": false,
+            "why": "Skipping it means you miss what the teacher says."
+          },
+          {
+            "text": "we're adults. u can sit next to me for 15 min, it's about our kid, not about us",
+            "good": false,
+            "why": "A small lecture that starts a fight before the conference."
+          },
+          {
+            "text": "that's ok, i'll ask the teacher for a separate time. i'll share any notes",
+            "good": true,
+            "why": "Respects the no and makes sure both of you hear it."
+          }
+        ]
+      },
+      "tryToday": "Ask the school for a separate conference slot if sitting together won't work."
+    },
+    {
+      "day": 165,
+      "module": "Back to school",
+      "kind": "seasonal",
+      "title": "Homework across two houses",
+      "chat": [
+        {
+          "text": "Homework gets lost between two homes."
+        },
+        {
+          "text": "A folder that travels and one short text when something is due helps more than rules.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "Keep it about the assignment, not about whose house is better at homework."
+        }
+      ],
+      "drill": {
+        "them": [
+          "science project due fri",
+          "its at ur house apparently",
+          "she says u didnt help at all"
+        ],
+        "options": [
+          {
+            "text": "it's here. i'll help her finish it thurs and send it w/ her fri morning",
+            "good": true,
+            "why": "Where it is, when it gets done, and how it gets to school."
+          },
+          {
+            "text": "i did help, we worked on it sun. she must have forgotten",
+            "good": false,
+            "why": "Defending yourself through what the kid said."
+          },
+          {
+            "text": "ok",
+            "good": false,
+            "why": "Too short for a real deadline."
+          }
+        ]
+      },
+      "tryToday": "Agree on one folder or bag that travels with the homework."
+    },
+    {
+      "day": 166,
+      "module": "Back to school",
+      "kind": "seasonal",
+      "title": "After-school activities",
+      "chat": [
+        {
+          "text": "New activities mean new costs and new driving."
+        },
+        {
+          "text": "Before signing up, agree on the days, the driving and the split.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "Try this one."
+        }
+      ],
+      "drill": {
+        "them": [
+          "signing hazel up for dance",
+          "tues and thurs 4:30",
+          "u can drive thurs right"
+        ],
+        "options": [
+          {
+            "text": "sure, whatever she wants",
+            "good": false,
+            "why": "A yes to driving you might not be able to do."
+          },
+          {
+            "text": "i can do thurs if i get off by 4. can i let u know by fri after i check?",
+            "good": true,
+            "why": "An honest maybe with a real day to answer."
+          },
+          {
+            "text": "u could have asked me first. why do i always find out after u've already paid for it",
+            "good": false,
+            "why": "A fair point said as a fight, and no answer on Thursday."
+          }
+        ]
+      },
+      "tryToday": "Before the next sign-up, agree on the days, driving and cost in one text."
+    },
+    {
+      "day": 167,
+      "module": "Back to school",
+      "kind": "seasonal",
+      "title": "Sick days",
+      "chat": [
+        {
+          "text": "A sick kid on a school day needs a fast, clear plan."
+        },
+        {
+          "text": "Who stays home, who picks up from the nurse, and how it's going.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "A short update at the end of the day helps the other parent feel in the loop."
+        }
+      ],
+      "drill": {
+        "them": [
+          "nurse called",
+          "ben has a fever",
+          "i cant leave work til 4 can u get him"
+        ],
+        "options": [
+          {
+            "text": "ugh i have a meeting at 2. why is it always me",
+            "good": false,
+            "why": "Mixes a real problem with a complaint."
+          },
+          {
+            "text": "can't u ask ur mom?",
+            "good": false,
+            "why": "Dodging without saying whether you can."
+          },
+          {
+            "text": "yep, leaving now. i'll get him and text u how he's doing by 6",
+            "good": true,
+            "why": "Answers fast and promises an update with a time."
+          }
+        ]
+      },
+      "tryToday": "Agree with the other parent who goes first when the school nurse calls."
+    },
+    {
+      "day": 168,
+      "module": "Talking to your kids about two homes",
+      "kind": "skill",
+      "title": "When they ask why",
+      "chat": [
+        {
+          "text": "\"Why don't you and Dad live together?\" Kids ask it more than once."
+        },
+        {
+          "text": "The answer can be short, true, and not about blame.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "\"We decided we're better parents in two homes. That's a grown-up decision, and it's not because of you.\""
+        }
+      ],
+      "drill": {
+        "from": "Ava, 9",
+        "them": [
+          "why cant u and mom just be married again",
+          "everyone else has one house"
+        ],
+        "options": [
+          {
+            "text": "we're better parents in 2 homes. it's a grown-up choice, not about u. we both love u so much",
+            "good": true,
+            "why": "Short, true, no blame, and the love part said out loud."
+          },
+          {
+            "text": "ask ur mom, she's the one who wanted this. i didn't want any of it to be honest",
+            "good": false,
+            "why": "Blame passed to a kid."
+          },
+          {
+            "text": "we'll talk about it when ur older ok?",
+            "good": false,
+            "why": "Kind, but kids fill a silence with their own stories."
+          }
+        ]
+      },
+      "tryToday": "If your kid asks why, use one short sentence with no blame in it."
+    },
+    {
+      "day": 169,
+      "module": "Talking to your kids about two homes",
+      "kind": "skill",
+      "title": "\"I want to live with you\"",
+      "chat": [
+        {
+          "text": "Hearing \"I want to live with you\" can feel good. It can also be a trap for the kid."
+        },
+        {
+          "text": "Thank them for telling you, and keep the decision with the adults.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "Don't promise anything, and don't take it as proof against the other parent."
+        }
+      ],
+      "drill": {
+        "from": "Lucas, 10",
+        "them": [
+          "i want to live with u all the time",
+          "dads house is boring",
+          "pls"
+        ],
+        "options": [
+          {
+            "text": "i'd love that too, more than anything. let me see what i can do and talk to ur dad",
+            "good": false,
+            "why": "A promise you might not be able to keep, made to a kid."
+          },
+          {
+            "text": "i love having u here. the grown-ups decide the schedule, and i'll always listen to how u feel",
+            "good": true,
+            "why": "Warm, honest, and doesn't put the kid in charge of it."
+          },
+          {
+            "text": "i know right, his place is so boring",
+            "good": false,
+            "why": "Joining in on the other home makes the kid feel caught."
+          }
+        ]
+      },
+      "tryToday": "If your kid picks sides, answer with how much you love them and leave the schedule out."
+    },
+    {
+      "day": 170,
+      "module": "Talking to your kids about two homes",
+      "kind": "skill",
+      "title": "When they miss the other parent",
+      "chat": [
+        {
+          "text": "Kids miss the other parent while they're with you. That's healthy."
+        },
+        {
+          "text": "Saying it's ok to miss them helps more than distracting them.",
+          "replies": [
+            "Makes sense"
+          ]
+        },
+        {
+          "text": "A call or a drawing to bring back can help."
+        }
+      ],
+      "drill": {
+        "from": "Leo, 7",
+        "them": [
+          "i miss mom",
+          "can i call her",
+          "is that ok"
+        ],
+        "options": [
+          {
+            "text": "but we're having so much fun here, don't u like it?",
+            "good": false,
+            "why": "Makes missing mom feel like a betrayal."
+          },
+          {
+            "text": "maybe tmrw, it's late",
+            "good": false,
+            "why": "Pushing off a small, kind ask."
+          },
+          {
+            "text": "of course it's ok. let's call her right after dinner",
+            "good": true,
+            "why": "Says the feeling is normal and gives a time."
+          }
+        ]
+      },
+      "tryToday": "Tell your kid it's ok to miss the other parent, out loud, this week."
+    },
+    {
+      "day": 171,
+      "module": "Talking to your kids about two homes",
+      "kind": "skill",
+      "title": "When they repeat what was said",
+      "chat": [
+        {
+          "text": "\"Mom says you never pay for anything.\" Kids repeat what they hear."
+        },
+        {
+          "text": "Don't argue the fact with the kid. Keep the adult stuff with the adults.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "\"That's grown-up stuff. You don't need to worry about it.\""
+        }
+      ],
+      "drill": {
+        "from": "Mia, 11",
+        "them": [
+          "dad says ur the reason we cant go to disney",
+          "is that true"
+        ],
+        "options": [
+          {
+            "text": "that's grown-up stuff, and it's not something u need to worry about. want to plan a fun day sat?",
+            "good": true,
+            "why": "It keeps the kid out of it and doesn't attack the other parent."
+          },
+          {
+            "text": "that's not true at all. ask him about his credit card and where all his money goes",
+            "good": false,
+            "why": "Arguing money with a kid, through the kid."
+          },
+          {
+            "text": "it's true, we can't afford it right now",
+            "good": false,
+            "why": "Accepts a blame that isn't the kid's to carry."
+          }
+        ]
+      },
+      "tryToday": "If your kid repeats something about you, answer with \"that's grown-up stuff\" and move on."
+    },
+    {
+      "day": 172,
+      "module": "Talking to your kids about two homes",
+      "kind": "skill",
+      "title": "When they don't want to go",
+      "chat": [
+        {
+          "text": "Sometimes a kid says they don't want to go to the other home."
+        },
+        {
+          "text": "Ask what's going on, calmly. Most of the time it's small: a friend, a game, a pet.",
+          "replies": [
+            "What if it's not small?"
+          ]
+        },
+        {
+          "text": "If you're worried about their safety, talk to your lawyer or a professional, not a group chat."
+        }
+      ],
+      "drill": {
+        "from": "Owen, 12",
+        "them": [
+          "i dont want to go to moms this wknd",
+          "its so far from my friends"
+        ],
+        "options": [
+          {
+            "text": "then don't go, i'll tell her",
+            "good": false,
+            "why": "Lets the kid decide the schedule and puts you in the fight."
+          },
+          {
+            "text": "i get it, it's far from ur friends. let's ask if mom can drive u to jake's sat",
+            "good": true,
+            "why": "Listens, finds the small problem, and keeps the visit on."
+          },
+          {
+            "text": "u have to go, that's the rule. ur mom and i agreed on it and it's not up to u",
+            "good": false,
+            "why": "True, but it skips what the kid said."
+          }
+        ]
+      },
+      "tryToday": "Next time your kid doesn't want to go, ask one question about why before anything else."
+    },
+    {
+      "day": 173,
+      "module": "Talking to your kids about two homes",
+      "kind": "skill",
+      "title": "Two sets of rules",
+      "chat": [
+        {
+          "text": "\"At Dad's I can stay up till 10.\" Different rules are normal."
+        },
+        {
+          "text": "You don't have to match them, and you don't have to criticize them.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "\"Different houses have different rules. Here it's 9.\""
+        }
+      ],
+      "drill": {
+        "from": "Zoe, 13",
+        "them": [
+          "at moms i can have my phone at night",
+          "why not here",
+          "not fair"
+        ],
+        "options": [
+          {
+            "text": "ok fine, keep it tonight",
+            "good": false,
+            "why": "The rule bends to the comparison."
+          },
+          {
+            "text": "mom lets u do a lot of stuff she shouldn't",
+            "good": false,
+            "why": "Criticizing the other home to the kid."
+          },
+          {
+            "text": "different houses, different rules. here phones charge in the kitchen at 9",
+            "good": true,
+            "why": "Calm, clear, and nothing about mom."
+          }
+        ]
+      },
+      "tryToday": "Write down one rule at your house, and the one sentence you'll use when it's compared."
+    },
+    {
+      "day": 174,
+      "module": "Talking to your kids about two homes",
+      "kind": "skill",
+      "title": "Holidays in two places",
+      "chat": [
+        {
+          "text": "Holidays in two homes can feel like losing half of something."
+        },
+        {
+          "text": "Talk about what they get, not what they miss.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "\"You get two Thanksgivings this year. What do you want to make at ours?\""
+        }
+      ],
+      "drill": {
+        "from": "Chloe, 8",
+        "them": [
+          "i dont want to do christmas twice",
+          "its weird"
+        ],
+        "options": [
+          {
+            "text": "it can feel weird. what's one thing u want to do at ours this year?",
+            "good": true,
+            "why": "Agrees it's strange and gives them a say in something real."
+          },
+          {
+            "text": "it's not weird, lots of kids do it",
+            "good": false,
+            "why": "Arguing with the feeling."
+          },
+          {
+            "text": "i know, it's ur mom's fault we have to split it",
+            "good": false,
+            "why": "Blame on the other parent, told to the kid."
+          }
+        ]
+      },
+      "tryToday": "Ask your kid one thing they'd like to do on your holiday."
+    },
+    {
+      "day": 175,
+      "module": "Talking to your kids about two homes",
+      "kind": "skill",
+      "title": "When there's a new partner",
+      "chat": [
+        {
+          "text": "Kids notice a new partner fast, and they have feelings about it."
+        },
+        {
+          "text": "Keep it slow and simple. They don't have to love them. They just have to be safe and respected.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "Let's practice."
+        }
+      ],
+      "drill": {
+        "from": "Ella, 10",
+        "them": [
+          "is sam gonna live with us",
+          "i dont really like him"
+        ],
+        "options": [
+          {
+            "text": "u'll like him once u get to know him, promise. he's really fun and he likes the same games as u",
+            "good": false,
+            "why": "A promise about feelings you can't make."
+          },
+          {
+            "text": "not right now. u don't have to like him, but we'll all be kind. u can tell me anything",
+            "good": true,
+            "why": "Honest, no pressure, and an open door."
+          },
+          {
+            "text": "ur dad has a new girlfriend too so",
+            "good": false,
+            "why": "Brings the other home into it."
+          }
+        ]
+      },
+      "tryToday": "Ask your kid how they feel about one change at your house, and just listen."
+    },
+    {
+      "day": 176,
+      "module": "Talking to your kids about two homes",
+      "kind": "skill",
+      "title": "When they carry a message",
+      "chat": [
+        {
+          "text": "\"Mom said to tell you she's keeping me Sunday.\" Kids carrying messages is common."
+        },
+        {
+          "text": "Thank the kid, and check it with the other parent yourself.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "The kid should never be the one who gets the reaction."
+        }
+      ],
+      "drill": {
+        "from": "Wyatt, 9",
+        "them": [
+          "dad said to tell u hes picking me up late",
+          "like 8",
+          "dont be mad at me"
+        ],
+        "options": [
+          {
+            "text": "8?? he can't just do that",
+            "good": false,
+            "why": "The kid sees the reaction meant for the other parent."
+          },
+          {
+            "text": "ok just tell him that's fine",
+            "good": false,
+            "why": "Sends the kid back as the messenger."
+          },
+          {
+            "text": "i'm not mad at u at all. thx for telling me, i'll text dad about it",
+            "good": true,
+            "why": "Reassures the kid and takes the message back to the adult."
+          }
+        ]
+      },
+      "tryToday": "Next time your kid carries a message, check it directly with the other parent."
+    },
+    {
+      "day": 177,
+      "module": "Talking to your kids about two homes",
+      "kind": "skill",
+      "title": "Little kids and teens",
+      "chat": [
+        {
+          "text": "A 5-year-old and a 15-year-old need different talks about two homes."
+        },
+        {
+          "text": "Little kids need it short and repeated. Teens need to be heard and not lied to.",
+          "replies": [
+            "Makes sense"
+          ]
+        },
+        {
+          "text": "Either way, no blame, and no adult details."
+        }
+      ],
+      "drill": {
+        "from": "Marcus, 15",
+        "them": [
+          "why do u and dad even talk like that",
+          "its so obvious u hate each other",
+          "just be honest"
+        ],
+        "options": [
+          {
+            "text": "we don't always get along, that's true. that's on us to fix, not u",
+            "good": true,
+            "why": "Honest with a teen, without details or blame."
+          },
+          {
+            "text": "we don't hate each other, everything's fine",
+            "good": false,
+            "why": "A teen can tell when that's not true."
+          },
+          {
+            "text": "honestly? ur dad makes it really hard",
+            "good": false,
+            "why": "Honest, but it hands the teen an adult's side."
+          }
+        ]
+      },
+      "tryToday": "Think about your kid's age and write the one sentence you'd say if they asked about the fighting."
+    },
+    {
+      "day": 178,
+      "module": "Talking to your kids about two homes",
+      "kind": "skill",
+      "title": "Looking back at the kid talks",
+      "chat": [
+        {
+          "text": "Eleven days of talking to your kids about two homes."
+        },
+        {
+          "text": "Which of these conversations have you actually had?",
+          "replies": [
+            "Ok, thinking"
+          ]
+        },
+        {
+          "text": "Pick one you haven't yet. It doesn't have to be big."
+        },
+        {
+          "text": "One more practice first."
+        }
+      ],
+      "drill": {
+        "from": "Priya, 8",
+        "them": [
+          "do u still love dad",
+          "even a little"
+        ],
+        "options": [
+          {
+            "text": "that's a grown-up question, go play",
+            "good": false,
+            "why": "Brushes off something the kid really wants to know."
+          },
+          {
+            "text": "i'll always care about him, he's ur dad. and we both love u so much",
+            "good": true,
+            "why": "True, kind, and keeps the focus on the kid."
+          },
+          {
+            "text": "it's complicated. he did some stuff",
+            "good": false,
+            "why": "Opens a door to adult details."
+          }
+        ]
+      },
+      "tryToday": "Have one short, honest talk with your kid about two homes this week."
+    },
+    {
+      "day": 179,
+      "module": "Moving or a new home",
+      "kind": "seasonal",
+      "title": "Telling them you're moving",
+      "chat": [
+        {
+          "text": "A move changes the other parent's life too: the drive, the school, the routine."
+        },
+        {
+          "text": "Tell them early, in writing, with the facts they'll need.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "Your plan may have its own rules about moves. If you have a lawyer, check with them first."
+        }
+      ],
+      "drill": {
+        "them": [
+          "heard from my sister ur moving??",
+          "when were u planning on telling me"
+        ],
+        "options": [
+          {
+            "text": "it's not a big deal, it's like 15 min away. i didn't think u'd care that much tbh",
+            "good": false,
+            "why": "Shrinking it makes them feel less heard, and the date's missing."
+          },
+          {
+            "text": "ur sister needs to mind her own business",
+            "good": false,
+            "why": "Picks a new fight with a relative."
+          },
+          {
+            "text": "yes, i was going to text u this week. riverside, 15 min from school, from march 1",
+            "good": true,
+            "why": "The facts they need, and no defending."
+          }
+        ]
+      },
+      "tryToday": "If you're planning a move, write the where, when and drive time in one message."
+    },
+    {
+      "day": 180,
+      "module": "Moving or a new home",
+      "kind": "seasonal",
+      "title": "The new drive time",
+      "chat": [
+        {
+          "text": "A new home can mean a longer drive for handoffs."
+        },
+        {
+          "text": "Offer a fair way to split the drive before anyone complains.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "A halfway spot, or each of you driving one way, is usually enough."
+        }
+      ],
+      "drill": {
+        "them": [
+          "so now i have to drive 40 min each way??",
+          "every friday??"
+        ],
+        "options": [
+          {
+            "text": "what if we meet at the shell on route 9? it's about 20 min for both of us",
+            "good": true,
+            "why": "A fair, specific fix before the fight starts."
+          },
+          {
+            "text": "it's not that far, u'll get used to it",
+            "good": false,
+            "why": "Brushes off a real cost to them."
+          },
+          {
+            "text": "i drove that far for 2 years and never said a word",
+            "good": false,
+            "why": "A score from the past, and no fix."
+          }
+        ]
+      },
+      "tryToday": "Suggest a halfway handoff spot if a move made the drive longer."
+    },
+    {
+      "day": 181,
+      "module": "Moving or a new home",
+      "kind": "seasonal",
+      "title": "Their room at your new place",
+      "chat": [
+        {
+          "text": "Kids settle faster when part of the new home is theirs."
+        },
+        {
+          "text": "If the other parent asks about it, a short real answer helps them feel calmer too.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "Here's one to practice."
+        }
+      ],
+      "drill": {
+        "them": [
+          "does nora even have her own room there",
+          "or is she sleeping on a couch"
+        ],
+        "options": [
+          {
+            "text": "of course she does, what kind of parent do u think i am",
+            "good": false,
+            "why": "Takes the question as an attack."
+          },
+          {
+            "text": "she has her own room. i'll send u a pic once her bed's set up sat",
+            "good": true,
+            "why": "A real answer, and a photo so they don't have to wonder."
+          },
+          {
+            "text": "she likes the couch actually, it's fun",
+            "good": false,
+            "why": "A cheerful answer that won't reassure anyone."
+          }
+        ]
+      },
+      "tryToday": "Ask your kid one thing they want in their room at your place."
+    },
+    {
+      "day": 182,
+      "module": "Moving or a new home",
+      "kind": "seasonal",
+      "title": "Moving in with someone",
+      "chat": [
+        {
+          "text": "Moving in with a new partner is big news for the other home."
+        },
+        {
+          "text": "Tell the other parent before the kids do. Keep it short and factual.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "They don't need the relationship story. They need to know who lives where."
+        }
+      ],
+      "drill": {
+        "them": [
+          "so jake says some guy lives at ur place now",
+          "nice of u to tell me"
+        ],
+        "options": [
+          {
+            "text": "he doesn't really live here, he just stays over a lot. it's not a whole thing, i promise",
+            "good": false,
+            "why": "A half-truth that will come out later."
+          },
+          {
+            "text": "who lives at my place isn't ur business",
+            "good": false,
+            "why": "True or not, it lands as a wall."
+          },
+          {
+            "text": "yes, chris moved in last week. sorry u heard it from jake first. happy to answer questions",
+            "good": true,
+            "why": "The fact, owning that it came late, and an open door."
+          }
+        ]
+      },
+      "tryToday": "If someone moves into your home, tell the other parent before the kids do."
+    },
+    {
+      "day": 183,
+      "module": "Moving or a new home",
+      "kind": "seasonal",
+      "title": "New address, new paperwork",
+      "chat": [
+        {
+          "text": "A move means updating the school, the doctor, the dentist, the insurance."
+        },
+        {
+          "text": "Tell the other parent which ones you've done, so nothing goes to the old address.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "Let's practice."
+        }
+      ],
+      "drill": {
+        "them": [
+          "school sent the report card to ur OLD place",
+          "it came back",
+          "did u even update anything"
+        ],
+        "options": [
+          {
+            "text": "i updated the doctor, not the school yet. i'll call the office tmrw morning",
+            "good": true,
+            "why": "What's done, what isn't, and when it'll be fixed."
+          },
+          {
+            "text": "i did update it, i'm pretty sure. the school must have messed up their system again",
+            "good": false,
+            "why": "Blames the school without checking."
+          },
+          {
+            "text": "can't u just give them my new address since ur there anyway",
+            "good": false,
+            "why": "Hands your task to them."
+          }
+        ]
+      },
+      "tryToday": "Make a short list of places that need your new address, and check one off today."
+    },
+    {
+      "day": 184,
+      "module": "Moving or a new home",
+      "kind": "seasonal",
+      "title": "First week in the new place",
+      "chat": [
+        {
+          "text": "The first week in a new home is rough for kids."
+        },
+        {
+          "text": "A short, honest update to the other parent can calm both homes.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "\"First night was a bit tough, she slept fine by 9.\" That's plenty."
+        }
+      ],
+      "drill": {
+        "them": [
+          "how is she doing there",
+          "she seemed off on the phone"
+        ],
+        "options": [
+          {
+            "text": "she's fine, she loves it here. she's been so happy, honestly better than i expected",
+            "good": false,
+            "why": "Glosses over what they heard on the phone."
+          },
+          {
+            "text": "first night was hard, she missed her old room. she's been ok since, slept by 9 last night",
+            "good": true,
+            "why": "Honest, specific, and calming."
+          },
+          {
+            "text": "she's off bc u keep asking her about it",
+            "good": false,
+            "why": "Turns a worried question into blame."
+          }
+        ]
+      },
+      "tryToday": "Send the other parent one honest update about how your kid is settling in."
+    },
+    {
+      "day": 185,
+      "module": "Keeping a calm record for your lawyer",
+      "kind": "skill",
+      "title": "Write it the same day",
+      "chat": [
+        {
+          "text": "A record is just dated notes about what happened."
+        },
+        {
+          "text": "Notes written the same day are clearer than ones you remember a month later.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "Parley doesn't give legal advice. If you have a lawyer, ask them what they want you to keep."
+        },
+        {
+          "text": "Today's practice: a text that makes the record clear too."
+        }
+      ],
+      "drill": {
+        "them": [
+          "i didnt get them til 6:40",
+          "so dont say i was late",
+          "u were"
+        ],
+        "options": [
+          {
+            "text": "i was there at 6:05 and u know it. i have the gas receipt",
+            "good": false,
+            "why": "Argues the record by text, which nobody wins."
+          },
+          {
+            "text": "ok, my fault, i'll be on time",
+            "good": false,
+            "why": "Taking blame you don't think is true ends up in writing too."
+          },
+          {
+            "text": "the handoff was 6:40. let's both aim for 6 sharp next week",
+            "good": true,
+            "why": "The time, with no argument, and a plan."
+          }
+        ]
+      },
+      "tryToday": "Write one note today about something that happened, with the date and time."
+    },
+    {
+      "day": 186,
+      "module": "Keeping a calm record for your lawyer",
+      "kind": "skill",
+      "title": "Facts, not adjectives",
+      "chat": [
+        {
+          "text": "\"He was rude and screaming\" is a feeling. \"He raised his voice at pickup, 5:15\" is a fact."
+        },
+        {
+          "text": "Facts are easier for anyone to read, and harder to argue with.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "Same goes for your texts."
+        }
+      ],
+      "drill": {
+        "them": [
+          "u were SO rude to my mom today",
+          "unbelievable"
+        ],
+        "options": [
+          {
+            "text": "i said hi and handed over the bag at 5. if something upset her i'm happy to hear it",
+            "good": true,
+            "why": "Plain facts and an open door, no adjectives."
+          },
+          {
+            "text": "rude?? she was the one glaring at me the whole time",
+            "good": false,
+            "why": "A counter-accusation with adjectives of your own."
+          },
+          {
+            "text": "sorry, i didn't mean to be rude to her. i was just tired, it won't happen again",
+            "good": false,
+            "why": "An apology for something you may not have done, in writing."
+          }
+        ]
+      },
+      "tryToday": "Rewrite one note in your record with no adjectives at all."
+    },
+    {
+      "day": 187,
+      "module": "Keeping a calm record for your lawyer",
+      "kind": "skill",
+      "title": "Keep the whole thread",
+      "chat": [
+        {
+          "text": "When you save a message, save the whole conversation around it."
+        },
+        {
+          "text": "A single angry text without your calm reply tells half the story.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "Screenshots with the date showing, or your app's export, work well."
+        }
+      ],
+      "drill": {
+        "them": [
+          "delete those texts",
+          "i was upset",
+          "its not fair to hold that against me"
+        ],
+        "options": [
+          {
+            "text": "ok, i'll delete them",
+            "good": false,
+            "why": "Promising to delete your own record."
+          },
+          {
+            "text": "i understand u were upset. let's just stick to the kids from here",
+            "good": true,
+            "why": "Kind, no promise to delete, and back to the kids."
+          },
+          {
+            "text": "oh i'm keeping every single one",
+            "good": false,
+            "why": "Turns your record into a threat."
+          }
+        ]
+      },
+      "tryToday": "Save one recent conversation with the dates showing."
+    },
+    {
+      "day": 188,
+      "module": "Keeping a calm record for your lawyer",
+      "kind": "skill",
+      "title": "Missed pickups, logged",
+      "chat": [
+        {
+          "text": "If pickups are missed or late, a plain log helps more than a long story."
+        },
+        {
+          "text": "Date, the agreed time, the actual time, and any text sent.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "Your texts can make the log easy, if they just say what happened."
+        }
+      ],
+      "drill": {
+        "them": [
+          "running late",
+          "like an hour",
+          "sry"
+        ],
+        "options": [
+          {
+            "text": "this is the 4th time this month",
+            "good": false,
+            "why": "A count that turns your text into an argument."
+          },
+          {
+            "text": "np at all, take ur time. we'll just hang out here til u get here, whenever that is",
+            "good": false,
+            "why": "Too easy, and no time is set."
+          },
+          {
+            "text": "ok, thx for telling me. i'll have them ready at 6:30",
+            "good": true,
+            "why": "The new time is in writing, and the reply stays calm."
+          }
+        ]
+      },
+      "tryToday": "Start a simple log: date, agreed time, actual time."
+    },
+    {
+      "day": 189,
+      "module": "Keeping a calm record for your lawyer",
+      "kind": "skill",
+      "title": "Money, logged",
+      "chat": [
+        {
+          "text": "For money, the record is: amount, what for, date, and proof."
+        },
+        {
+          "text": "A text that says all four is a record by itself.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "Here's one to practice."
+        }
+      ],
+      "drill": {
+        "them": [
+          "did u ever pay for the field trip",
+          "or am i covering that too"
+        ],
+        "options": [
+          {
+            "text": "yes, sent $30 on venmo oct 3, note says field trip",
+            "good": true,
+            "why": "Amount, date, method and what for."
+          },
+          {
+            "text": "i always pay, stop acting like u do everything",
+            "good": false,
+            "why": "An argument where a date would do."
+          },
+          {
+            "text": "i think so? i'll check",
+            "good": false,
+            "why": "Unsure, and no proof."
+          }
+        ]
+      },
+      "tryToday": "Check one payment you made and save the receipt with the date."
+    },
+    {
+      "day": 190,
+      "module": "Keeping a calm record for your lawyer",
+      "kind": "skill",
+      "title": "When the kids say something",
+      "chat": [
+        {
+          "text": "Sometimes a kid says something worrying about the other home."
+        },
+        {
+          "text": "Write down what they said, in their words, with the date. Don't question them over and over.",
+          "replies": [
+            "What if it's serious?"
+          ]
+        },
+        {
+          "text": "If you think a kid is in danger, contact the right people right away. A note is not enough."
+        }
+      ],
+      "drill": {
+        "them": [
+          "why are u asking harper all these questions",
+          "about my house",
+          "stop"
+        ],
+        "options": [
+          {
+            "text": "because she told me some stuff that worries me and i want to know what's going on over there",
+            "good": false,
+            "why": "Opens a fight by text with nothing specific."
+          },
+          {
+            "text": "ok. if i have a question about ur house i'll ask u directly",
+            "good": true,
+            "why": "Agrees to keep the kid out and go to the adult."
+          },
+          {
+            "text": "i'll ask my kid wtv i want",
+            "good": false,
+            "why": "A heated wall that keeps the kid in the middle."
+          }
+        ]
+      },
+      "tryToday": "If your kid says something that worries you, write it down in their words, with the date."
+    },
+    {
+      "day": 191,
+      "module": "Keeping a calm record for your lawyer",
+      "kind": "skill",
+      "title": "Don't text for the record",
+      "chat": [
+        {
+          "text": "It's tempting to write texts that sound good for the record."
+        },
+        {
+          "text": "\"Just so we're clear, you are AGAIN refusing...\" Everyone can tell what that is.",
+          "replies": [
+            "That's me"
+          ]
+        },
+        {
+          "text": "The best text for the record is a normal, calm one."
+        }
+      ],
+      "drill": {
+        "them": [
+          "ok whatever",
+          "take them sat i guess"
+        ],
+        "options": [
+          {
+            "text": "just so we're clear, ur giving up ur saturday again",
+            "good": false,
+            "why": "A text written for an audience, and it sounds like it."
+          },
+          {
+            "text": "for the record, i never asked for this",
+            "good": false,
+            "why": "Same thing, plus a jab."
+          },
+          {
+            "text": "ok, i'll pick them up sat at 10",
+            "good": true,
+            "why": "Plain and calm, which is what reads best later."
+          }
+        ]
+      },
+      "tryToday": "Read your last three texts and ask: would I have sent this if no one else would read it?"
+    },
+    {
+      "day": 192,
+      "module": "Keeping a calm record for your lawyer",
+      "kind": "skill",
+      "title": "What to leave out",
+      "chat": [
+        {
+          "text": "A long record isn't a better one."
+        },
+        {
+          "text": "Leave out guesses, opinions about their character, and stuff that isn't about the kids.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "\"I think she's drinking again\" is a guess. \"Pickup at 7, she slurred her words\" is what you saw."
+        }
+      ],
+      "drill": {
+        "them": [
+          "why does it matter who i date",
+          "u keep bringing it up"
+        ],
+        "options": [
+          {
+            "text": "it doesn't, unless it's about the kids. i'll leave it there",
+            "good": true,
+            "why": "Steps back from something that's not about the kids."
+          },
+          {
+            "text": "because he's a creep and the kids don't like him",
+            "good": false,
+            "why": "Opinions, said as fact."
+          },
+          {
+            "text": "i'm not bringing it up, u are",
+            "good": false,
+            "why": "A pointless round of who started it."
+          }
+        ]
+      },
+      "tryToday": "Cross out one guess or opinion in your notes."
+    },
+    {
+      "day": 193,
+      "module": "Keeping a calm record for your lawyer",
+      "kind": "skill",
+      "title": "Before you send it to your lawyer",
+      "chat": [
+        {
+          "text": "If you have a lawyer, ask them how they want your notes. Some want a list, some want screenshots."
+        },
+        {
+          "text": "Keep it short, in date order, and only what matters.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "Parley doesn't give legal advice, and doesn't know your case. Your lawyer does."
+        }
+      ],
+      "drill": {
+        "them": [
+          "ur lawyer emailed mine",
+          "r u seriously keeping a file on me"
+        ],
+        "options": [
+          {
+            "text": "yes and it's getting long",
+            "good": false,
+            "why": "A threat."
+          },
+          {
+            "text": "i keep notes about the kids' schedule. let's keep texting about them",
+            "good": true,
+            "why": "Plain, true, and back to the kids."
+          },
+          {
+            "text": "no, it's nothing, don't worry about it. it's just normal stuff lawyers do i think",
+            "good": false,
+            "why": "Untrue, and it will come out."
+          }
+        ]
+      },
+      "tryToday": "If you have a lawyer, ask them what format they want your notes in."
+    },
+    {
+      "day": 194,
+      "module": "Keeping a calm record for your lawyer",
+      "kind": "skill",
+      "title": "Looking back at your record",
+      "chat": [
+        {
+          "text": "Ten days on keeping a calm record."
+        },
+        {
+          "text": "Read your last few notes. Would a stranger understand them without you there?",
+          "replies": [
+            "Ok, reading"
+          ]
+        },
+        {
+          "text": "If yes, that's a good record. If not, cut what needs you to explain it."
+        },
+        {
+          "text": "One more practice."
+        }
+      ],
+      "drill": {
+        "them": [
+          "so what did u tell the mediator about me",
+          "bet it was all lies"
+        ],
+        "options": [
+          {
+            "text": "i told them the truth. that's what scares u",
+            "good": false,
+            "why": "A jab dressed as honesty."
+          },
+          {
+            "text": "i didn't say anything bad, i promise",
+            "good": false,
+            "why": "A promise instead of a fact."
+          },
+          {
+            "text": "i talked about the kids' schedule. happy to share my notes if they ask",
+            "good": true,
+            "why": "Short, true, and calm."
+          }
+        ]
+      },
+      "tryToday": "Pick one note and rewrite it so a stranger could follow it."
+    },
+    {
+      "day": 195,
+      "module": "Mediation prep",
+      "kind": "seasonal",
+      "title": "Pick your two topics",
+      "chat": [
+        {
+          "text": "Mediation goes better when you know what you most want to agree on."
+        },
+        {
+          "text": "Pick two. Not ten.",
+          "replies": [
+            "Why two?"
+          ]
+        },
+        {
+          "text": "With two, you can listen. With ten, you defend all day."
+        },
+        {
+          "text": "Parley is education, not legal advice. If you have a lawyer, prepare with them."
+        }
+      ],
+      "drill": {
+        "them": [
+          "so what r u even asking for",
+          "u better not try to take my weekends"
+        ],
+        "options": [
+          {
+            "text": "i'd like to talk about the school year schedule and holiday handoffs. what's on ur list?",
+            "good": true,
+            "why": "Names your two topics and asks for theirs."
+          },
+          {
+            "text": "u'll find out at mediation",
+            "good": false,
+            "why": "A teaser that guarantees a worse night before."
+          },
+          {
+            "text": "i just want what's fair for everyone, that's all. we can figure out the details there",
+            "good": false,
+            "why": "Vague, and \"fair\" means something different to each of you."
+          }
+        ]
+      },
+      "tryToday": "Write down your two topics for mediation in one line each."
+    },
+    {
+      "day": 196,
+      "module": "Mediation prep",
+      "kind": "seasonal",
+      "title": "Texting before the session",
+      "chat": [
+        {
+          "text": "The week before mediation, texts often get hotter."
+        },
+        {
+          "text": "Keep them short and about this week. Save the big topics for the room.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "Let's try one."
+        }
+      ],
+      "drill": {
+        "them": [
+          "we can settle this now by text",
+          "just give me the summers",
+          "then we dont need to waste the money"
+        ],
+        "options": [
+          {
+            "text": "fine, take the summers",
+            "good": false,
+            "why": "Gives up a big topic by text, under pressure."
+          },
+          {
+            "text": "let's save summers for mediation on the 12th. for now, pickup is fri at 5",
+            "good": true,
+            "why": "Keeps the big topic in the room and the week on track."
+          },
+          {
+            "text": "the summers?? no way",
+            "good": false,
+            "why": "A fight about the exact thing mediation is for."
+          }
+        ]
+      },
+      "tryToday": "If a big topic comes up by text before mediation, reply \"let's save it for the session\"."
+    },
+    {
+      "day": 197,
+      "module": "Mediation prep",
+      "kind": "seasonal",
+      "title": "Options, not demands",
+      "chat": [
+        {
+          "text": "\"I want every holiday\" is a demand. \"Could we alternate, or split each one?\" gives options."
+        },
+        {
+          "text": "Options give the room something to work with.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "Here's one to practice."
+        }
+      ],
+      "drill": {
+        "them": [
+          "i want every christmas",
+          "non negotiable"
+        ],
+        "options": [
+          {
+            "text": "then i want every thanksgiving",
+            "good": false,
+            "why": "A demand for a demand."
+          },
+          {
+            "text": "ok if it matters that much to u, take christmas. i'll do thanksgiving or something",
+            "good": false,
+            "why": "Gives up a whole holiday by text."
+          },
+          {
+            "text": "could we look at alternating years, or splitting the day? we can talk it through on the 12th",
+            "good": true,
+            "why": "Two options, and a time to talk."
+          }
+        ]
+      },
+      "tryToday": "For each of your two topics, write two options you could live with."
+    },
+    {
+      "day": 198,
+      "module": "Mediation prep",
+      "kind": "seasonal",
+      "title": "The night before",
+      "chat": [
+        {
+          "text": "The night before mediation is when the long texts come."
+        },
+        {
+          "text": "You don't have to answer tonight. A short \"see you tomorrow\" is enough, or nothing.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "Try this one."
+        }
+      ],
+      "drill": {
+        "them": [
+          "just so u know tmrw im bringing up everything",
+          "every late pickup",
+          "every missed call",
+          "hope ur ready"
+        ],
+        "options": [
+          {
+            "text": "ok. see u at 10 tmrw",
+            "good": true,
+            "why": "Calm, short, and nothing to fight about tonight."
+          },
+          {
+            "text": "bring it. i have a list too",
+            "good": false,
+            "why": "A fight scheduled for the morning."
+          },
+          {
+            "text": "can we please not do this tonight? i'm stressed enough",
+            "good": false,
+            "why": "Honest, but it shows them the pressure is working."
+          }
+        ]
+      },
+      "tryToday": "Decide now how you'll answer (or not) a text the night before."
+    },
+    {
+      "day": 199,
+      "module": "Mediation prep",
+      "kind": "seasonal",
+      "title": "Confirm it in writing",
+      "chat": [
+        {
+          "text": "After mediation, what you agreed can get fuzzy fast."
+        },
+        {
+          "text": "If you agreed on something specific, a short text confirming it helps both of you.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "\"Confirming: alternating Christmases, starting with mine this year.\" Then stop."
+        }
+      ],
+      "drill": {
+        "them": [
+          "so what did we even agree on",
+          "i dont remember half of it"
+        ],
+        "options": [
+          {
+            "text": "typical. u never listen",
+            "good": false,
+            "why": "A jab when they just asked for help."
+          },
+          {
+            "text": "my notes say: alternate christmases, mine first, and fri pickups at 5. does that match urs?",
+            "good": true,
+            "why": "Plain summary and a check that you're on the same page."
+          },
+          {
+            "text": "whatever u think is fine, i trust ur notes more than mine. just send me what u remember",
+            "good": false,
+            "why": "Hands the agreement over to their memory."
+          }
+        ]
+      },
+      "tryToday": "After any agreement, send a one-line summary and ask if it matches theirs."
+    },
+    {
+      "day": 200,
+      "module": "Mediation prep",
+      "kind": "seasonal",
+      "title": "When it didn't go well",
+      "chat": [
+        {
+          "text": "Sometimes mediation doesn't go the way you hoped."
+        },
+        {
+          "text": "You don't have to fix that by text tonight. Keep the next message about the kids.",
+          "replies": [
+            "That's me"
+          ]
+        },
+        {
+          "text": "If you have a lawyer, ask them about next steps. That's their job, not a group chat's."
+        }
+      ],
+      "drill": {
+        "them": [
+          "well that was a waste",
+          "see u in court i guess"
+        ],
+        "options": [
+          {
+            "text": "fine by me. my lawyer is ready",
+            "good": false,
+            "why": "A threat back."
+          },
+          {
+            "text": "can't we just talk this out? i hate this",
+            "good": false,
+            "why": "Kind, but it opens a hard talk by text right after a hard day."
+          },
+          {
+            "text": "ok. i'll have jonah ready at 5 fri like usual",
+            "good": true,
+            "why": "Steps past the threat and back to the plan."
+          }
+        ]
+      },
+      "tryToday": "After a hard meeting, send only the next logistics message, nothing more, for a day."
+    },
+    {
+      "day": 201,
+      "module": "Staying calm when you're exhausted",
+      "kind": "skill",
+      "title": "Tired replies run hot",
+      "chat": [
+        {
+          "text": "When you're exhausted, your fuse is shorter. Everyone's is."
+        },
+        {
+          "text": "The text that usually rolls off you suddenly feels like a punch.",
+          "replies": [
+            "That's me"
+          ]
+        },
+        {
+          "text": "Knowing you're tired is half of it. The other half is waiting."
+        }
+      ],
+      "drill": {
+        "them": [
+          "u forgot his lunch money",
+          "AGAIN"
+        ],
+        "options": [
+          {
+            "text": "i'll send $5 w/ him tmrw",
+            "good": true,
+            "why": "Short and done, even when you're tired."
+          },
+          {
+            "text": "i've worked 3 doubles this week, i'm doing my best ok?",
+            "good": false,
+            "why": "Honest, but it hands them your tiredness to argue with."
+          },
+          {
+            "text": "then u send it. i'm done",
+            "good": false,
+            "why": "Exhaustion talking."
+          }
+        ]
+      },
+      "tryToday": "Notice the next time you're tired and a text comes in. Wait before you reply."
+    },
+    {
+      "day": 202,
+      "module": "Staying calm when you're exhausted",
+      "kind": "skill",
+      "title": "Not at 11pm",
+      "chat": [
+        {
+          "text": "Texts sent late at night are some of the hottest."
+        },
+        {
+          "text": "Most things can wait till morning. If they can't, say when you'll answer.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "Try this one."
+        }
+      ],
+      "drill": {
+        "them": [
+          "r u up",
+          "we need to talk about thanksgiving",
+          "its important"
+        ],
+        "options": [
+          {
+            "text": "it's 11pm. why are u texting me now",
+            "good": false,
+            "why": "True, and a fight at 11pm."
+          },
+          {
+            "text": "it's late here, i'll answer about thanksgiving tmrw by noon",
+            "good": true,
+            "why": "Gives a time, and the talk happens rested."
+          },
+          {
+            "text": "ok what is it, i'm up anyway. might as well get it over with now",
+            "good": false,
+            "why": "Opens a hard talk when you're at your most tired."
+          }
+        ]
+      },
+      "tryToday": "Turn off notifications from the other parent after 9pm for one night."
+    },
+    {
+      "day": 203,
+      "module": "Staying calm when you're exhausted",
+      "kind": "skill",
+      "title": "The holding reply",
+      "chat": [
+        {
+          "text": "When you can't answer well right now, send a holding reply."
+        },
+        {
+          "text": "It says you saw it and when you'll answer. Nothing else.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "\"Got it. I'll answer by tomorrow at 6.\" Then you rest."
+        }
+      ],
+      "drill": {
+        "them": [
+          "well?",
+          "r u gonna answer about the camp or not"
+        ],
+        "options": [
+          {
+            "text": "give me a minute, i literally just got home",
+            "good": false,
+            "why": "Fair, but no time to answer."
+          },
+          {
+            "text": "not now",
+            "good": false,
+            "why": "Too short, it reads like a wall."
+          },
+          {
+            "text": "got it, i'll answer about camp by tmrw at 6",
+            "good": true,
+            "why": "Buys you time and gives them a real time."
+          }
+        ]
+      },
+      "tryToday": "Write your own holding reply and save it in your notes."
+    },
+    {
+      "day": 204,
+      "module": "Staying calm when you're exhausted",
+      "kind": "skill",
+      "title": "Sick kid, no sleep",
+      "chat": [
+        {
+          "text": "A sick kid at night means you're tired and worried at the same time."
+        },
+        {
+          "text": "Short updates to the other parent help. They're worried too.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "Let's try one."
+        }
+      ],
+      "drill": {
+        "them": [
+          "how is she",
+          "did the fever go down",
+          "why didnt u text me"
+        ],
+        "options": [
+          {
+            "text": "100.2 at 3am, 99 now. she's sleeping. i'll text again at noon",
+            "good": true,
+            "why": "The numbers, how she is, and the next update time."
+          },
+          {
+            "text": "i was up all night with her, i didn't have time to text",
+            "good": false,
+            "why": "True, but it sounds like a complaint."
+          },
+          {
+            "text": "she's fine, she's sleeping now. sorry i didn't text, i was just so tired all night",
+            "good": false,
+            "why": "Too thin when they're worried."
+          }
+        ]
+      },
+      "tryToday": "Agree on how often you'll update each other when a kid is sick."
+    },
+    {
+      "day": 205,
+      "module": "Staying calm when you're exhausted",
+      "kind": "skill",
+      "title": "After a long shift",
+      "chat": [
+        {
+          "text": "After a long shift, a handoff text can feel like too much."
+        },
+        {
+          "text": "Have your basic reply ready: where, when, what to bring.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "Here's one to practice."
+        }
+      ],
+      "drill": {
+        "them": [
+          "still on for 6??",
+          "or did u forget"
+        ],
+        "options": [
+          {
+            "text": "i just worked 12 hours, give me a break",
+            "good": false,
+            "why": "True, and a fight."
+          },
+          {
+            "text": "yep, 6 at ur place",
+            "good": true,
+            "why": "Short, and all they asked for."
+          },
+          {
+            "text": "i'll try, i'm wiped",
+            "good": false,
+            "why": "Leaves them not knowing if you're coming."
+          }
+        ]
+      },
+      "tryToday": "Save your basic handoff reply in your phone so it's ready when you're tired."
+    },
+    {
+      "day": 206,
+      "module": "Staying calm when you're exhausted",
+      "kind": "skill",
+      "title": "When it all piles up",
+      "chat": [
+        {
+          "text": "Some weeks everything piles up: work, money, the kids, the other parent."
+        },
+        {
+          "text": "Pick the one text that has to be answered today. Let the rest wait a day.",
+          "replies": [
+            "Makes sense"
+          ]
+        },
+        {
+          "text": "Try this one."
+        }
+      ],
+      "drill": {
+        "them": [
+          "dentist",
+          "insurance",
+          "summer camp",
+          "and the field trip. all due this week"
+        ],
+        "options": [
+          {
+            "text": "why are u dumping all this on me at once",
+            "good": false,
+            "why": "An attack when it's just a list."
+          },
+          {
+            "text": "ok i'll do all of it, it's fine. i'll figure it out somehow this week",
+            "good": false,
+            "why": "Takes it all on when you're already tired."
+          },
+          {
+            "text": "ok. i'll take the field trip and camp by fri. can u do dentist and insurance?",
+            "good": true,
+            "why": "Splits the load, with a date."
+          }
+        ]
+      },
+      "tryToday": "When a list comes in, offer to split it and name your half."
+    },
+    {
+      "day": 207,
+      "module": "Staying calm when you're exhausted",
+      "kind": "skill",
+      "title": "Help that isn't them",
+      "chat": [
+        {
+          "text": "When you're exhausted, the other parent is often the worst person to lean on."
+        },
+        {
+          "text": "A friend, a sibling, a neighbor can take one thing off your plate.",
+          "replies": [
+            "Got it"
+          ]
+        },
+        {
+          "text": "That leaves your texts with the other parent short and about the kids."
+        }
+      ],
+      "drill": {
+        "them": [
+          "can u drive noah to practice thurs",
+          "i cant"
+        ],
+        "options": [
+          {
+            "text": "i can't thurs either. my sister can take him, is that ok w/ u?",
+            "good": true,
+            "why": "A real fix from someone else, and a check with them."
+          },
+          {
+            "text": "i'm drowning here, i can't do everything",
+            "good": false,
+            "why": "Honest, but now it's about you."
+          },
+          {
+            "text": "i guess i'll figure something out, maybe i can leave work early or ask around",
+            "good": false,
+            "why": "Vague and tired."
+          }
+        ]
+      },
+      "tryToday": "Ask one person who isn't the other parent for one small favor this week."
+    },
+    {
+      "day": 208,
+      "module": "Staying calm when you're exhausted",
+      "kind": "skill",
+      "title": "Lowering the bar on purpose",
+      "chat": [
+        {
+          "text": "When you're running on empty, a good-enough reply is fine."
+        },
+        {
+          "text": "Short, calm, about the kids. Perfect wording isn't the goal.",
+          "replies": [
+            "That helps"
+          ]
+        },
+        {
+          "text": "Let's try one."
+        }
+      ],
+      "drill": {
+        "them": [
+          "did u sign the permission slip",
+          "deadline was today"
+        ],
+        "options": [
+          {
+            "text": "i'll sign it, sorry, i've been so behind on everything lately, work is insane",
+            "good": false,
+            "why": "Too much explanation and an apology."
+          },
+          {
+            "text": "not yet, i'll sign it tn and send it w/ her tmrw",
+            "good": true,
+            "why": "Good enough: true, short, and a plan."
+          },
+          {
+            "text": "why didn't u just sign it",
+            "good": false,
+            "why": "A question that starts a fight."
+          }
+        ]
+      },
+      "tryToday": "Send one reply this week that's good enough, without rewriting it three times."
+    },
+    {
+      "day": 209,
+      "module": "Staying calm when you're exhausted",
+      "kind": "skill",
+      "title": "When you slip",
+      "chat": [
+        {
+          "text": "Sometimes you're tired and you send the hot one. Everyone does."
+        },
+        {
+          "text": "You don't need a long apology. A short reset helps more.",
+          "replies": [
+            "Show me an example"
+          ]
+        },
+        {
+          "text": "\"I was short earlier. Pickup is still 5.\" Then back to normal."
+        }
+      ],
+      "drill": {
+        "them": [
+          "wow ok",
+          "didnt know u could be that rude",
+          "so r we still doing 5 or what"
+        ],
+        "options": [
+          {
+            "text": "i'm so sorry, i've been under so much stress lately and i didn't mean it",
+            "good": false,
+            "why": "An apology that turns the thread into your stress."
+          },
+          {
+            "text": "u were rude first",
+            "good": false,
+            "why": "Back into the fight."
+          },
+          {
+            "text": "i was short earlier. yes, still 5 at the school",
+            "good": true,
+            "why": "Owns it in a few words, then answers."
+          }
+        ]
+      },
+      "tryToday": "If you slip, send a one-line reset and get back to the plan."
+    },
+    {
+      "day": 210,
+      "module": "Staying calm when you're exhausted",
+      "kind": "skill",
+      "title": "What keeps you steady",
+      "chat": [
+        {
+          "text": "Ten days on staying calm when you're exhausted."
+        },
+        {
+          "text": "What helped most? Waiting, the holding reply, a friend, sleep?",
+          "replies": [
+            "Ok, thinking"
+          ]
+        },
+        {
+          "text": "Whatever it was, that's yours. Keep it."
+        },
+        {
+          "text": "One last practice."
+        }
+      ],
+      "drill": {
+        "them": [
+          "long week huh",
+          "same here",
+          "anyway can u take them sun morning"
+        ],
+        "options": [
+          {
+            "text": "yeah, long one. sure, i'll get them sun at 9",
+            "good": true,
+            "why": "A small friendly moment, and the answer."
+          },
+          {
+            "text": "u have no idea how long my week was",
+            "good": false,
+            "why": "Turns a kind opening into a contest."
+          },
+          {
+            "text": "maybe, i'll see how i feel. it's been such a long week, i might just sleep in",
+            "good": false,
+            "why": "Tired and vague."
+          }
+        ]
+      },
+      "tryToday": "Write down the one thing that keeps you steady, and put it where you'll see it."
+    }
+  ]
+}

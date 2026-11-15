@@ -1,6 +1,6 @@
 /* The landing (/). Hard paywall, Finelo-style: no product before paying, so every button goes to the 1-minute quiz
    (/quiz) → plan → paywall. Written for a stressed parent reading it on a phone at night: plain words, short,
-   one button. The jury skips all of this through the sample case (/demo) in the top bar. */
+   one button. The jury goes through it like anyone else. */
 import {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {Icon, type IconId} from '../../components/Icon';
@@ -50,7 +50,7 @@ export default function Landing() {
         <nav className="fn-nav">
           <Logo light />
           <div className="fn-nav-r">
-            <Link to="/demo" className="fn-nav-demo" onClick={() => track('landing_demo_link')}><span className="fn-dot" /><span>Jury demo<span className="fn-hide-s">: sample case</span></span></Link>
+            <Link to="/quiz" className="fn-nav-demo" onClick={() => track('landing_nav_quiz')}>Take the quiz</Link>
           </div>
         </nav>
 
@@ -145,7 +145,6 @@ export default function Landing() {
         <footer className="fn-foot">
           <Logo light />
           <nav>
-            <Link to="/demo">Jury demo: sample case</Link>
             <Link to="/pricing">Pricing</Link>
             <Link to="/app/settings">Privacy</Link>
           </nav>

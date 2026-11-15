@@ -392,7 +392,6 @@ function Start({onPick}: {onPick: (w: (typeof WHO)[number]) => void}) {
     <div className="fn-quiz fn-s1">
       <header className="fn-s1-top">
         <Logo />
-        <Link to="/demo" className="fn-s1-demo" onClick={() => track('quiz_demo_link')}><span className="fn-dot" />Jury demo</Link>
       </header>
       <main className="fn-s1-in fade-in">
         <span className="fn-s1-kick">3 minutes a day · 28 days</span>

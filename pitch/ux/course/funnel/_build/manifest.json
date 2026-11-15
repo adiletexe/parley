@@ -1,0 +1,146 @@
+[
+ {
+  "key": "quiz",
+  "name": "Quiz",
+  "variants": [
+   {
+    "v": "A",
+    "d": "Classic: age cards, behaviour questions, insight, skill verdicts",
+    "screens": [
+     {
+      "id": "qa1",
+      "title": "Pick yours"
+     },
+     {
+      "id": "qa2",
+      "title": "Skill question"
+     },
+     {
+      "id": "qa3",
+      "title": "Insight"
+     },
+     {
+      "id": "qa4",
+      "title": "Your starting point"
+     }
+    ]
+   },
+   {
+    "v": "B",
+    "d": "Skill check: answer 4 real texts, see feedback, starting point from your picks",
+    "screens": [
+     {
+      "id": "qb1",
+      "title": "Skill check intro"
+     },
+     {
+      "id": "qb2",
+      "title": "Scenario question"
+     },
+     {
+      "id": "qb3",
+      "title": "Feedback"
+     },
+     {
+      "id": "qb4",
+      "title": "Your starting point"
+     }
+    ]
+   },
+   {
+    "v": "C",
+    "d": "Pain map: hardest topics, agree scale, how a day works, a calm ladder",
+    "screens": [
+     {
+      "id": "qc1",
+      "title": "Hardest topics"
+     },
+     {
+      "id": "qc2",
+      "title": "Agree scale"
+     },
+     {
+      "id": "qc3",
+      "title": "Insight"
+     },
+     {
+      "id": "qc4",
+      "title": "Your starting point"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "key": "onboarding",
+  "name": "Onboarding after the quiz",
+  "variants": [
+   {
+    "v": "A",
+    "d": "Checklist loader, week cards, skills before/after, single-plan paywall",
+    "screens": [
+     {
+      "id": "oa1",
+      "title": "Building your course"
+     },
+     {
+      "id": "oa2",
+      "title": "Your 28-day course"
+     },
+     {
+      "id": "oa3",
+      "title": "Before and after"
+     },
+     {
+      "id": "oa4",
+      "title": "Paywall"
+     }
+    ]
+   },
+   {
+    "v": "B",
+    "d": "28-day calendar fills, Day 1 tonight, reply before/after, honest billing timeline",
+    "screens": [
+     {
+      "id": "ob1",
+      "title": "Building your course"
+     },
+     {
+      "id": "ob2",
+      "title": "Your 28-day course"
+     },
+     {
+      "id": "ob3",
+      "title": "By day 28"
+     },
+     {
+      "id": "ob4",
+      "title": "Paywall"
+     }
+    ]
+   },
+   {
+    "v": "C",
+    "d": "What each lesson trains, syllabus accordion, now vs day 28 scenes, guarantee slab",
+    "screens": [
+     {
+      "id": "oc1",
+      "title": "Building your course"
+     },
+     {
+      "id": "oc2",
+      "title": "Your 28-day course"
+     },
+     {
+      "id": "oc3",
+      "title": "You now vs day 28"
+     },
+     {
+      "id": "oc4",
+      "title": "Paywall"
+     }
+    ]
+   }
+  ]
+ }
+]

@@ -53,7 +53,7 @@ export default function register(app: Hono) {
                 ON CONFLICT(device, day) DO UPDATE SET count = count + 1`).run(device, day);
     const used = (db.prepare('SELECT count FROM kb_usage WHERE device = ? AND day = ?').get(device, day) as {count: number}).count;
     if (used > KB_DAILY_LIMIT) {
-      return c.json({error: `That's ${KB_DAILY_LIMIT} replies today — the keyboard demo's daily limit. It resets tomorrow.`, rateLimited: true}, 429);
+      return c.json({error: `That's ${KB_DAILY_LIMIT} replies today, the keyboard demo's daily limit. It resets tomorrow.`, rateLimited: true}, 429);
     }
 
     const person = personFor(device);

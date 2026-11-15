@@ -100,7 +100,7 @@ export default function register(app: Hono) {
     if (kind === 'month' && !from) from = localDay(new Date(now.getTime() - 29 * 86_400_000).toISOString(), tz);
     const inRange = all.filter((e) => { const d = localDay(e.occurredAt, tz); return (!from || d >= from) && (!to || d <= to); });
     if (inRange.length < 3) {
-      return c.json({error: kind === 'month' ? 'There are fewer than 3 entries in the last 30 days — not enough for a recap yet.' : 'Add a few more entries first — a report needs at least 3.'}, 422);
+      return c.json({error: kind === 'month' ? 'There are fewer than 3 entries in the last 30 days, not enough for a recap yet.' : 'Add a few more entries first. A report needs at least 3.'}, 422);
     }
 
     const fp = fingerprint(inRange);

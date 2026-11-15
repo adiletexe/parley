@@ -131,16 +131,16 @@ type CardErr = {field: 'number' | 'exp' | 'cvc'; error: string};
 function checkCard(b: {number?: unknown; exp?: unknown; cvc?: unknown}, now: Date): CardErr | {number: string} {
   const number = String(b.number ?? '').replace(/[\s-]/g, '');
   if (!/^\d{13,19}$/.test(number)) return {field: 'number', error: 'Enter the full card number.'};
-  if (!luhn(number)) return {field: 'number', error: 'That card number has a typo — check the digits.'};
+  if (!luhn(number)) return {field: 'number', error: 'That card number has a typo. Check the digits.'};
   if (number !== TEST_CARD.replace(/ /g, '') && number !== DECLINE_CARD)
-    return {field: 'number', error: `This is a test checkout — please don't use a real card. Use ${TEST_CARD}.`};
+    return {field: 'number', error: `This is a test checkout, so please don't use a real card. Use ${TEST_CARD}.`};
   const m = /^(\d{1,2})\s*\/\s*(\d{2}|\d{4})$/.exec(String(b.exp ?? '').trim());
   if (!m) return {field: 'exp', error: 'Enter the expiry as MM / YY.'};
   const month = +m[1];
   const year = m[2].length === 2 ? 2000 + +m[2] : +m[2];
   if (month < 1 || month > 12) return {field: 'exp', error: 'The month should be 01 to 12.'};
   // A card is good through the last day of its expiry month.
-  if (new Date(Date.UTC(year, month, 1)).getTime() <= now.getTime()) return {field: 'exp', error: 'That card has expired — use any future date.'};
+  if (new Date(Date.UTC(year, month, 1)).getTime() <= now.getTime()) return {field: 'exp', error: 'That card has expired. Use any future date.'};
   if (year > now.getUTCFullYear() + 20) return {field: 'exp', error: 'That expiry year looks wrong.'};
   if (!/^\d{3,4}$/.test(String(b.cvc ?? '').trim())) return {field: 'cvc', error: 'The CVC is the 3 digits on the back.'};
   return {number};
@@ -193,7 +193,7 @@ export default function register(app: Hono) {
       db.prepare('INSERT INTO checkouts (id, person_id, tier, provider, status, created_at, json) VALUES (?, ?, ?, ?, ?, ?, ?)')
         .run(newId('co_'), p.id, plan.tier, 'test', 'declined', now.toISOString(), JSON.stringify({amountCents: plan.priceCents, last4, reason: 'card_declined', test: true}));
       track(p.id, 'checkout_declined', {tier: plan.tier});
-      return err(c, `Your card was declined (test card ending ${last4}). Nothing was charged — try ${TEST_CARD}.`, 400, {field: 'number'});
+      return err(c, `Your card was declined (test card ending ${last4}). Nothing was charged. Try ${TEST_CARD}.`, 400, {field: 'number'});
     }
 
     // Buying while a plan runs adds the new period after it, so nobody loses days they already paid for.
@@ -238,7 +238,7 @@ export default function register(app: Hono) {
   app.post('/api/billing/resume', (c) => {
     const p = syncRenewals(getPerson(c.get('person').id)!);
     const sub = getSub(p.id);
-    if (!sub || planState(p) !== 'active') return err(c, 'This plan has already ended — pick a new one on the pricing page.', 409);
+    if (!sub || planState(p) !== 'active') return err(c, 'This plan has already ended. Pick a new one on the pricing page.', 409);
     if (sub.status === 'canceled') {
       db.prepare("UPDATE subscriptions SET status = 'active', canceled_at = NULL, updated_at = ? WHERE person_id = ?").run(nowIso(), p.id);
       track(p.id, 'plan_resumed', {tier: sub.tier});

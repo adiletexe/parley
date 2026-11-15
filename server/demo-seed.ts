@@ -15,7 +15,7 @@ import {newId} from './db.js';
 const DAY = 86_400_000;
 const HOUR = 3_600_000;
 // Times are written in US Eastern wall-clock (the case is in the US); stored as UTC. The offset is looked up per date:
-// a fixed 5 h put every October entry an hour late (EDT), so "Late pickup — 22 minutes" showed at 6:22 for a 5:00 handoff.
+// a fixed 5 h put every October entry an hour late (EDT), so "Late pickup, 22 minutes" showed at 6:22 for a 5:00 handoff.
 function etOffset(utcMs: number) {
   const p = Object.fromEntries(new Intl.DateTimeFormat('en-US', {timeZone: 'America/New_York', hourCycle: 'h23',
     year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}).formatToParts(new Date(utcMs)).map((x) => [x.type, x.value]));
@@ -48,19 +48,19 @@ const ENTRIES: Seed[] = [
     text: 'cant get off work til 6\npickup is 6 today\ndeal w/ it', tags: ['tense']},
   {ago: 41, at: '17:12', kind: 'message_out', channel: 'sms', category: 'schedule', title: 'Alex: ok, 6:00 at the school',
     text: "Ok, I'll be at the school at 6."},
-  {ago: 39, at: '18:31', kind: 'incident', channel: 'in_person', category: 'schedule', title: 'Late pickup — 31 minutes',
+  {ago: 39, at: '18:31', kind: 'incident', channel: 'in_person', category: 'schedule', title: 'Late pickup, 31 minutes',
     text: 'Pickup was set for 6:00 pm at Lincoln Elementary (Jordan moved it from 5:00 that afternoon). Jordan got there at 6:31. Emma and Noah waited in the school office with me.', tags: ['late_pickup']},
   {ago: 38, at: '21:14', kind: 'message_in', channel: 'sms', category: 'accusation', title: 'Jordan: says I turned the school against her',
     text: 'the office lady gave me a look tn\nik u told them stuff about me\nu ALWAYS make me look like the bad parent', tags: ['tense']},
   {ago: 38, at: '21:20', kind: 'message_out', channel: 'sms', category: 'accusation', title: 'Alex (before Parley): heated reply',
     text: "lmao maybe if u werent ALWAYS late nobody would look at u\nidk what ur talking about, i didnt tell anyone anything. u did that urself\nthe kids sat there for half an hour. AGAIN."},
-  {ago: 36, at: '09:02', kind: 'expense', channel: 'other', category: 'money', title: 'Emma — fall soccer sign-up', cents: 24000,
+  {ago: 36, at: '09:02', kind: 'expense', channel: 'other', category: 'money', title: 'Emma: fall soccer sign-up', cents: 24000,
     text: "Paid $240 for Emma's fall soccer (Riverside Youth Soccer). Receipt saved. Our parenting plan splits activities 50/50."},
   {ago: 35, at: '19:40', kind: 'message_out', channel: 'sms', category: 'money', title: 'Alex: soccer was $240, half is $120',
     text: "Emma's fall soccer was $240, receipt attached. Your half is $120. Could you send it by the 30th?"},
   {ago: 35, at: '22:03', kind: 'message_in', channel: 'sms', category: 'money', title: "Jordan: won't pay half of soccer", key: 'soccer',
     text: "im not paying half of soccer\nu signed her up without even asking me. typical\nu never think about anyone but urself\nwant her in every activity under the sun? then u pay for it lol", tags: ['tense']},
-  {ago: 33, at: '17:46', kind: 'incident', channel: 'in_person', category: 'schedule', title: 'Late pickup — 46 minutes',
+  {ago: 33, at: '17:46', kind: 'incident', channel: 'in_person', category: 'schedule', title: 'Late pickup, 46 minutes',
     text: 'Dinner handoff, set for 5:00 pm at my apartment. Jordan got there at 5:46 and did not text beforehand. Noah asked twice if Mom was coming.', tags: ['late_pickup']},
   {ago: 31, at: '12:15', kind: 'note', channel: 'phone', category: 'school', title: "Call with Emma's teacher (Ms. Rivera)",
     text: "Ms. Rivera said Emma is doing well in reading but is a bit tired on Mondays. She suggested the same bedtime in both homes. I said I'd pass it on to Jordan."},
@@ -68,9 +68,9 @@ const ENTRIES: Seed[] = [
     text: "Ms. Rivera called. Emma's doing well in reading, just a bit tired on Mondays. She suggested the same bedtime at both houses. I do 8:30 for Noah and 9 for Emma. Happy to match yours."},
   {ago: 31, at: '20:55', kind: 'message_in', channel: 'sms', category: 'school', title: 'Jordan: "don\'t tell me how to run my house"',
     text: 'dont tell me how to run my house\nshes tired bc u let her stay up on ur wknds 🙄', tags: ['tense']},
-  {ago: 28, at: '17:22', kind: 'incident', channel: 'in_person', category: 'schedule', title: 'Late pickup — 22 minutes',
+  {ago: 28, at: '17:22', kind: 'incident', channel: 'in_person', category: 'schedule', title: 'Late pickup, 22 minutes',
     text: 'Handoff, 5:00 pm at Lincoln Elementary. Jordan got there at 5:22.', tags: ['late_pickup']},
-  {ago: 27, at: '10:10', kind: 'expense', channel: 'other', category: 'health', title: 'Noah — dentist co-pay', cents: 18000,
+  {ago: 27, at: '10:10', kind: 'expense', channel: 'other', category: 'health', title: 'Noah: dentist co-pay', cents: 18000,
     text: 'Paid the $180 co-pay at Bright Smiles Pediatric Dentistry (cleaning and one filling). Receipt saved.'},
   {ago: 27, at: '10:20', kind: 'message_out', channel: 'sms', category: 'health', title: 'Alex: dentist was $180, half is $90',
     text: "Noah's dentist visit on the 3rd was $180, receipt attached. Your half is $90. Could you send it by the 17th?"},
@@ -78,7 +78,7 @@ const ENTRIES: Seed[] = [
     text: 'every week its another bill from u\nim not a bank\nmaybe stop taking him to the most expensive dentist in town smh', tags: ['tense']},
   {ago: 24, at: '18:00', kind: 'incident', channel: 'in_person', category: 'other', title: 'Comment in front of the kids at handoff',
     text: 'At the 6:00 pm handoff, in front of Emma and Noah, Jordan said: "Ask your dad why we can\'t afford soccer." Emma looked at the ground and got in the car. I didn\'t respond.', tags: ['in_front_of_kids']},
-  {ago: 21, at: '17:38', kind: 'incident', channel: 'in_person', category: 'schedule', title: 'Late pickup — 38 minutes',
+  {ago: 21, at: '17:38', kind: 'incident', channel: 'in_person', category: 'schedule', title: 'Late pickup, 38 minutes',
     text: 'Handoff, 5:00 pm. Jordan got there at 5:38. She texted "omw" at 5:30.', tags: ['late_pickup']},
   {ago: 19, at: '20:12', kind: 'message_in', channel: 'sms', category: 'new_partner', title: 'Jordan: upset Sam came to soccer',
     text: "emma says ur 'friend' sam came to her game??\ni dont want a stranger at my daughters games\nwho else have u introduced them to. like wyd", tags: ['tense']},
@@ -86,13 +86,13 @@ const ENTRIES: Seed[] = [
     text: "Sam came to one game and sat with me. I'll keep doing all the pickups and drop-offs myself."},
   {ago: 17, at: '09:30', kind: 'note', channel: 'other', category: 'money', title: 'Soccer and dentist halves still unpaid',
     text: 'Still no payment for the $120 soccer half or the $90 dentist half. I asked for both by text and sent the receipts.'},
-  {ago: 14, at: '17:27', kind: 'incident', channel: 'in_person', category: 'schedule', title: 'Late pickup — 27 minutes',
+  {ago: 14, at: '17:27', kind: 'incident', channel: 'in_person', category: 'schedule', title: 'Late pickup, 27 minutes',
     text: 'Handoff, 5:00 pm at Lincoln Elementary. Jordan got there at 5:27.', tags: ['late_pickup']},
   {ago: 12, at: '08:05', kind: 'message_in', channel: 'sms', category: 'health', title: 'Jordan: says Noah came back with a fever', key: 'fever',
     text: "u sent noah back w/ a fever and didnt even tell me??\nwhat kinda parent does that\ni had to leave work\nthis is going in my notes for the GAL", tags: ['tense']},
   {ago: 12, at: '08:40', kind: 'message_out', channel: 'sms', category: 'health', title: 'Alex: his temperature and the time',
     text: "He was 98.8 when I checked at 7:10 and he ate breakfast. Thanks for picking him up. I can take him to the pediatrician tomorrow if he's still warm."},
-  {ago: 9, at: '17:52', kind: 'incident', channel: 'in_person', category: 'schedule', title: 'Late pickup — 52 minutes',
+  {ago: 9, at: '17:52', kind: 'incident', channel: 'in_person', category: 'schedule', title: 'Late pickup, 52 minutes',
     text: 'Handoff, 5:00 pm. Jordan got there at 5:52 and did not text. The kids had dinner with me while we waited.', tags: ['late_pickup']},
   {ago: 7, at: '19:15', kind: 'message_in', channel: 'sms', category: 'schedule', title: 'Jordan: wants Thanksgiving weekend', key: 'swap',
     text: "taking the kids to my sisters for thanksgiving wknd\nik its technically ur yr\ndont make this a thing or ill tell them ur the reason they cant see their cousins", tags: ['tense']},
@@ -104,9 +104,9 @@ const ENTRIES: Seed[] = [
     text: "u think ur so perfect w/ ur little texts lol\nkeep it up and ill tell emma and noah exactly why their dad left\nlets see how bad they want to come to ur place then", tags: ['tense', 'threat']},
   {ago: 4, at: '22:35', kind: 'incident', channel: 'sms', category: 'accusation', title: 'Threat to pull the kids in',
     text: 'At 10:30 pm Jordan texted that she would tell Emma and Noah "exactly why their dad left." I didn\'t reply that night.', tags: ['threat']},
-  {ago: 2, at: '18:19', kind: 'incident', channel: 'in_person', category: 'schedule', title: 'Late pickup — 19 minutes',
+  {ago: 2, at: '18:19', kind: 'incident', channel: 'in_person', category: 'schedule', title: 'Late pickup, 19 minutes',
     text: 'Handoff, 6:00 pm at my apartment. Jordan got there at 6:19.', tags: ['late_pickup']},
-  {ago: 2, at: '19:20', kind: 'expense', channel: 'other', category: 'school', title: 'Emma — field trip and art supplies', cents: 4600,
+  {ago: 2, at: '19:20', kind: 'expense', channel: 'other', category: 'school', title: 'Emma: field trip and art supplies', cents: 4600,
     text: 'Paid $46: the science museum field trip ($20) and the art supply list ($26). Receipts saved.'},
   {ago: 1, at: '20:48', kind: 'message_in', channel: 'sms', category: 'school', title: 'Jordan: parent-teacher conference Thursday',
     text: "conference is thurs 4:15\nim going ofc\nu can come if u want but dont start anything in front of ms rivera"},
@@ -159,7 +159,7 @@ const DRILLS: Record<number, SeedTry[]> = {
   8: [{draft: "Pickup is at 5:00 Friday. I'll text when I'm 10 minutes away.", score: 85, lens: [], better: "Pickup is at 5:00 Friday. I'll text when I'm 10 minutes away."}],
   9: [{draft: "Okay. Back Sunday at 6.", score: 89, lens: [], better: "Okay. Back Sunday at 6."}],
   10: [
-    {draft: "I wasn't late and I'll bring the car seat. Halloween — I'd like them 4 to 8.", score: 68,
+    {draft: "I wasn't late and I'll bring the car seat. Halloween, I'd like them 4 to 8.", score: 68,
       lens: [{phrase: "I wasn't late", severity: 'medium', issue: 'Defending', why: 'Answers a point you could leave alone.', fix: 'Skip it.'}],
       better: "For Halloween, I'd like to have them from 4 to 8. Does that work?"},
     {draft: "For Halloween, I'd like to have them from 4:00 to 8:00 and drop them back at your place. Does that work?", score: 87, lens: [], better: ''},
@@ -172,6 +172,10 @@ export async function seedDemo(p: PersonRow): Promise<{entries: number; analyses
   const start = now - 11 * DAY - 3 * HOUR;
   db.prepare("UPDATE people SET name = 'Alex', quiz_json = ?, plan_tier = '4w', plan_started = ?, plan_until = ?, time_offset_days = 0 WHERE id = ?")
     .run(JSON.stringify(DEMO_QUIZ), new Date(start).toISOString(), new Date(start + 28 * DAY).toISOString(), p.id);
+  // A subscription like a paying parent's, so the demo clock past day 28 renews the plan (syncRenewals) instead of
+  // Settings saying "Your plan has ended" while every tab still works.
+  db.prepare(`INSERT OR REPLACE INTO subscriptions (person_id, tier, status, renew_cents, renew_days, first_paid_at, canceled_at, updated_at)
+              VALUES (?, '4w', 'active', 2999, 28, ?, NULL, ?)`).run(p.id, new Date(start).toISOString(), new Date(now).toISOString());
 
   const ids = new Map<string, Entry>();
   for (const e of ENTRIES) {

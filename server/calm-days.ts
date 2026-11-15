@@ -24,9 +24,10 @@ export const DAY = 86_400_000;
 export const startMs = (p: PersonRow) => new Date(p.plan_started ?? p.created_at).getTime();
 export const dayOfMs = (p: PersonRow, t: number) => Math.floor((t - startMs(p)) / DAY) + 1;
 export const dayOfIso = (p: PersonRow, iso: string) => dayOfMs(p, new Date(iso).getTime());
-/** The moment plan day `d` began, for labels ("Mon"). */
-export const dayStartIso = (p: PersonRow, d: number) => new Date(startMs(p) + (d - 1) * DAY).toISOString();
 export const todayOf = (p: PersonRow) => dayOfMs(p, personNow(p).getTime());
+/** A moment inside plan day `d`, for its weekday label ("Mon"): now, moved by whole days. Not the day's start: a plan
+    bought at 9pm has its days begin at 9pm, so the start of today is yesterday's date and every label read a day early. */
+export const dayStartIso = (p: PersonRow, d: number) => new Date(personNow(p).getTime() + (d - todayOf(p)) * DAY).toISOString();
 
 /* A sent reply that reads hot. Narrow on purpose: Parley's own suggestions never trip it, a heated text does. */
 const HOT = [

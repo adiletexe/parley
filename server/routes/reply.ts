@@ -41,7 +41,7 @@ function aiError(c: Context, e: unknown) {
   const msg = (e as Error)?.message ?? '';
   console.error('[reply] analyze failed:', msg.slice(0, 300));
   if (/^(Paste|We couldn't)/.test(msg)) return c.json({error: msg}, 422);
-  if (/aborted|timeout/i.test(msg)) return c.json({error: 'That took too long. Please try again — it usually takes under 15 seconds.'}, 504);
+  if (/aborted|timeout/i.test(msg)) return c.json({error: 'That took too long. Please try again, it usually takes under 15 seconds.'}, 504);
   return c.json({error: "The reply coach couldn't answer just now. Please try again in a minute."}, 503);
 }
 

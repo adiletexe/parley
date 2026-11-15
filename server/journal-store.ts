@@ -171,7 +171,7 @@ export function findPatterns(entries: Entry[]): Pattern[] {
       const dir = counts.at(-1)! > counts[0] ? 'rising' : counts.at(-1)! < counts[0] ? 'falling' : 'steady';
       out.push({
         label: 'Tense messages per week',
-        detail: `${counts.join(' → ')} over the weeks of ${last.map(([w]) => fmtDay(w)).join(', ')} — ${dir}.`,
+        detail: `${counts.join(' → ')} over the weeks of ${last.map(([w]) => fmtDay(w)).join(', ')}: ${dir}.`,
         count: tense.length, entryIds: last.flatMap(([, es]) => es.map((e) => e.id)),
       });
     }

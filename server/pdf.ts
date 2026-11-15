@@ -227,7 +227,7 @@ export async function buildTimelinePdf(d: TimelineDoc): Promise<Uint8Array> {
   const zone = t.zone(d.generatedAt);
   const title = 'Co-Parenting Communication Record';
 
-  pdf.setTitle(`${title}${d.preparedFor ? ' — ' + w.clean(d.preparedFor) : ''}`);
+  pdf.setTitle(`${title}${d.preparedFor ? ' · ' + w.clean(d.preparedFor) : ''}`);
   pdf.setAuthor(d.preparedFor ? w.clean(d.preparedFor) : 'Parley user');
   pdf.setSubject(`Chronological timeline, ${w.clean(period)}. SHA-256 ${d.fingerprint}`);
   pdf.setCreator('Parley');
@@ -244,7 +244,7 @@ export async function buildTimelinePdf(d: TimelineDoc): Promise<Uint8Array> {
   w.text('PARLEY', M, H - 52, f.bold, 10, ACC);
   w.text('Private record kept by one parent', W - M - w.width('Private record kept by one parent', f.reg, 9), H - 52, f.reg, 9, MUTE);
   if (d.demo) {
-    const tag = 'SAMPLE CASE — DEMO DATA, NOT A REAL PERSON';
+    const tag = 'SAMPLE CASE · DEMO DATA, NOT A REAL PERSON';
     const tw = w.width(tag, f.bold, 9);
     pg.drawRectangle({x: M, y: H - 92, width: tw + 16, height: 18, color: rgb(1, 0.91, 0.95)});
     w.text(tag, M + 8, H - 86, f.bold, 9, WARN);
@@ -301,7 +301,7 @@ export async function buildTimelinePdf(d: TimelineDoc): Promise<Uint8Array> {
   // Disclaimer at the foot of the cover, above the footer (or right under the text, if a long name pushed it down).
   const dy = Math.min(BOTTOM + 8, w.y - 12 - 40);
   pg.drawRectangle({x: M, y: dy, width: CW, height: 40, color: ZEBRA});
-  w.text('Prepared with Parley — not legal advice.', M + 12, dy + 24, f.bold, 9.5);
+  w.text('Prepared with Parley. Not legal advice.', M + 12, dy + 24, f.bold, 9.5);
   w.text('Parley is not a law firm and doesn\'t give legal advice. Ask your attorney how to use this record in your case.', M + 12, dy + 10, f.reg, 8.5, MUTE);
 
   /* ----- section 1: summary ----- */
@@ -461,7 +461,7 @@ export async function buildTimelinePdf(d: TimelineDoc): Promise<Uint8Array> {
       w.rule(H - 44);
     }
     w.rule(48);
-    w.text('Prepared with Parley — not legal advice', M, 36, f.reg, 7.5, MUTE);
+    w.text('Prepared with Parley. Not legal advice', M, 36, f.reg, 7.5, MUTE);
     const pn = `Page ${i + 1} of ${total}`;
     w.text(pn, W - M - f.bold.widthOfTextAtSize(pn, 7.5), 36, f.bold, 7.5, INK);
     p.drawText('SHA-256', {x: M, y: 24, font: f.bold, size: 6.5, color: FAINT});

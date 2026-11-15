@@ -187,7 +187,7 @@ export default function register(app: Hono) {
     const b = await c.req.json().catch(() => ({})) as {text?: string; kind?: string};
     const text = (b.text ?? '').trim();
     if (text.length < 3) return bad(c, 'Write what happened first, then make it neutral.', 422);
-    if (text.length > 4000) return bad(c, 'That note is long — keep it under 4,000 characters.', 413);
+    if (text.length > 4000) return bad(c, 'That note is long. Keep it under 4,000 characters.', 413);
     try {
       const r = await neutralize(text, b.kind);
       track(c.get('person').id, 'journal_neutral');
@@ -198,7 +198,7 @@ export default function register(app: Hono) {
       });
     } catch (e) {
       console.error('[journal] neutral', e);
-      return bad(c, 'We couldn’t rewrite that right now. Your note is unchanged — try again in a moment.', 502);
+      return bad(c, 'We couldn’t rewrite that right now. Your note is unchanged. Try again in a moment.', 502);
     }
   });
 

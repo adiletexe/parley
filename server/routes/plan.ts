@@ -303,7 +303,7 @@ export default function register(app: Hono) {
     const day = Math.floor(Number(b.day));
     const draft = typeof b.draft === 'string' ? b.draft.trim() : '';
     if (!(day >= 1 && day <= TOTAL_DAYS)) return c.json({error: 'That day is not part of the plan.'}, 400);
-    if (draft.length < 3) return c.json({error: 'Write a reply first — even one line.'}, 400);
+    if (draft.length < 3) return c.json({error: 'Write a reply first, even one line.'}, 400);
     if (draft.length > 1500) return c.json({error: 'That reply is very long. Try saying it in a few sentences.'}, 400);
     if (!hasFullAccess(p)) return c.json(PAYWALL, 402);
     if (day > planDay(p)) return c.json({error: `Day ${day} unlocks on its day.`}, 403);
@@ -324,7 +324,7 @@ export default function register(app: Hono) {
     let g: ReturnType<typeof clean>;
     try { g = clean(draft, await gradeDraft({scenario, draft})); } catch (e) {
       console.error('[plan] grade failed', e);
-      return c.json({error: 'The grader could not read your reply just now. Your draft is still here — try again in a minute.'}, 503);
+      return c.json({error: 'The grader could not read your reply just now. Your draft is still here. Try again in a minute.'}, 503);
     }
     const at = personNow(p).toISOString();
     const row: DrillAttempt = {id: newId('d_'), day, attempt: prior.length + 1, at, draft, score: g.score, lens: g.lens, better: g.better, trigger, message};

@@ -76,12 +76,17 @@ function DayOne({answers, name, onNext}: {answers: QuizAnswers; name?: string; o
     <>
       <h1 className="fn-qh">{name ? `${name}, day 1` : 'Day 1'} starts <span className="gt">tonight</span></h1>
       <div className="card fn-cal" aria-label="Your 28 days">
-        <div className="fn-cal-grid">
-          {Array.from({length: 28}, (_, i) => (
-            <span key={i} className={`fn-cal-d w${Math.floor(i / 7) + 1}` + (i === 0 ? ' one' : '')} style={{animationDelay: `${i * 45}ms`}}>{i + 1}</span>
-          ))}
-        </div>
-        <div className="fn-cal-legend">{WEEKS.map((w, i) => <span key={w}><i className={`w${i + 1}`} />{w}</span>)}</div>
+        {WEEKS.map((w, wi) => (
+          <div key={w} className={`fn-wk w${wi + 1}`} style={{animationDelay: `${wi * 90}ms`}}>
+            <div className="fn-wk-l"><small>Week {wi + 1}</small><b>{w}</b></div>
+            <div className="fn-wk-days">
+              {Array.from({length: 7}, (_, i) => {
+                const d = wi * 7 + i + 1;
+                return <span key={d} className={'fn-day' + (d === 1 ? ' one' : '')}>{d}{d === 1 && <em>tonight</em>}</span>;
+              })}
+            </div>
+          </div>
+        ))}
       </div>
       <div className="card fn-d1">
         <small>Day 1 · tonight</small>

@@ -294,6 +294,54 @@ h2 span, h1 span { color: var(--mute); }
 .s7d .proofs b small { font-size: 22px; color: var(--dim); }
 .s7d .proofs span { display: block; font-size: 16px; color: var(--mute); line-height: 1.35; margin-top: 4px; }
 .mark .pmark { width: 30px; height: 30px; display: block; }
+
+/* 3 · ICP */
+.s3i .facts { left: 120px; top: 420px; width: 1000px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px 50px; }
+.s3i .f b { display: block; font-size: 34px; font-weight: 800; letter-spacing: -.02em; }
+.s3i .f.big b { font-size: 64px; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; letter-spacing: -.04em; }
+.s3i .f span { display: block; font-size: 20px; color: var(--mute); margin-top: 6px; line-height: 1.35; }
+.s3i .buy { left: 120px; top: 790px; width: 1000px; border-left: 4px solid var(--warn); padding-left: 22px; }
+.s3i .buy small { font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: var(--warn); font-weight: 700; }
+.s3i .buy p { font-size: 24px; color: var(--mute); margin-top: 6px; line-height: 1.4; } .s3i .buy b { color: var(--fg); }
+.s3i .ph { right: 150px; top: 90px; }
+/* 4 · how we sell */
+.s4s .steps { left: 120px; top: 420px; width: 820px; display: flex; flex-direction: column; gap: 22px; }
+.s4s .steps div { display: flex; gap: 20px; align-items: center; }
+.s4s .steps b { width: 54px; height: 54px; border-radius: 16px; background: var(--grad); display: grid; place-items: center; font-size: 26px; font-weight: 800; flex: none; }
+.s4s .steps span { font-size: 23px; color: var(--mute); line-height: 1.35; } .s4s .steps strong { color: var(--fg); margin-right: 8px; }
+.s4s .why { left: 120px; top: 780px; width: 820px; font-size: 20px; color: var(--mute); line-height: 1.45; }
+.s4s .phones3 { right: 110px; top: 150px; display: flex; gap: 26px; align-items: flex-start; }
+.s4s .phones3 .up { margin-top: -40px; }
+/* 5 · course */
+.s5c .weeks { left: 120px; top: 380px; width: 780px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.s5c .weeks div { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 18px 22px; }
+.s5c .weeks small { font-size: 14px; letter-spacing: .12em; text-transform: uppercase; color: var(--acc); font-weight: 700; }
+.s5c .weeks b { display: block; font-size: 24px; font-weight: 800; margin-top: 4px; }
+.s5c .day { left: 120px; top: 640px; width: 780px; }
+.s5c .day small { font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: var(--ok); font-weight: 700; }
+.s5c .day p { font-size: 22px; color: var(--mute); padding: 12px 0; border-top: 1px solid var(--line); margin-top: 10px; } .s5c .day b { color: var(--fg); margin-right: 10px; }
+.s5c .phones, .s6r .phones { right: 110px; top: 110px; display: flex; gap: 40px; align-items: flex-start; }
+.s5c .phones .low { margin-top: 80px; }
+/* 6 · retention */
+.s6r .mech { left: 120px; top: 400px; width: 820px; display: flex; flex-direction: column; gap: 0; }
+.s6r .mech div { padding: 16px 0; border-top: 1px solid var(--line); }
+.s6r .mech b { display: block; font-size: 25px; font-weight: 800; } .s6r .mech span { display: block; font-size: 19px; color: var(--mute); margin-top: 4px; }
+.s6r .ret { left: 120px; top: 830px; display: flex; gap: 60px; }
+.s6r .ret b { display: block; font-size: 48px; font-weight: 800; letter-spacing: -.03em; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.s6r .ret span { font-size: 18px; color: var(--mute); }
+.s6r .pdf { background: #fff; width: 380px; border-radius: 14px; box-shadow: 0 50px 100px -30px rgba(0,0,0,.9); transform: rotate(3deg); }
+/* 10 · money plan */
+.s8 .plan { margin-top: 20px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; align-items: end; }
+.s8 .plan div { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 12px 14px; }
+.s8 .plan div:nth-child(1) { min-height: 96px; } .s8 .plan div:nth-child(2) { min-height: 110px; } .s8 .plan div:nth-child(3) { min-height: 124px; } .s8 .plan div:nth-child(4) { min-height: 140px; }
+.s8 .plan .top { background: linear-gradient(160deg, rgba(124,92,240,.35), rgba(63,141,245,.18)); border-color: rgba(124,92,240,.6); }
+.s8 .plan small { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--acc); font-weight: 700; }
+.s8 .plan b { display: block; font-size: 22px; font-weight: 800; margin-top: 4px; } .s8 .plan span { display: block; font-size: 14px; color: var(--mute); margin-top: 4px; line-height: 1.3; }
+.s8 .tryit { left: 120px; bottom: 88px; font-size: 20px; color: var(--mute); } .s8 .tryit b { color: var(--fg); }
+.s8 .big { top: 330px !important; }
+.s8 .big .num { font-size: 150px !important; }
+.s8 .pair { margin-top: 8px !important; }
+.s8 .pair .num { font-size: 52px !important; }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Courier+Prime:wght@400;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="ux/ads/creatives.css">
@@ -358,7 +406,107 @@ h2 span, h1 span { color: var(--mute); }
   <div class="pg">2</div>
 </section>
 
-<!-- 4 · REPLY -->
+<!-- 3 · ICP -->
+<section class="slide s3i">
+  <div class="mark"><svg class="pmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="5.6">
+  <!-- Parley mark (from the founder's Canva deck): two rounded squares, one turned 45 degrees, woven over and under. Generated by pitch/logo.py -->
+  <defs><mask id="ma" maskUnits="userSpaceOnUse"><rect width="100" height="100" fill="#fff"/><circle cx="17.0" cy="36.33" r="6.4399999999999995" fill="#000"/><circle cx="63.67" cy="17.0" r="6.4399999999999995" fill="#000"/><circle cx="83.0" cy="63.67" r="6.4399999999999995" fill="#000"/><circle cx="36.33" cy="83.0" r="6.4399999999999995" fill="#000"/></mask><mask id="mb" maskUnits="userSpaceOnUse"><rect width="100" height="100" fill="#fff"/><circle cx="36.33" cy="17.0" r="6.4399999999999995" fill="#000"/><circle cx="83.0" cy="36.33" r="6.4399999999999995" fill="#000"/><circle cx="63.67" cy="83.0" r="6.4399999999999995" fill="#000"/><circle cx="17.0" cy="63.67" r="6.4399999999999995" fill="#000"/></mask></defs>
+  <rect x="17.0" y="17.0" width="66" height="66" rx="10" mask="url(#ma)"/>
+  <g mask="url(#mb)"><rect x="17.0" y="17.0" width="66" height="66" rx="10" transform="rotate(45 50 50)"/></g>
+</svg>Parley</div>
+  <div class="kick">Who we sell to</div>
+  <h2 style="width:1000px;font-size:60px">Our ideal customer: a mom or dad in a custody fight <span>with an ex who knows their buttons.</span></h2>
+  <div class="facts">
+    <div class="f big"><b>25 to 45</b><span>core 30 to 45, kids at home</span></div>
+    <div class="f big"><b>1 to 2M</b><span>US families with a high-conflict ex (10 to 15% of separations)</span></div>
+    <div class="f"><b>Every week</b><span>texts that are mostly bait, rewritten three times before sending</span></div>
+    <div class="f"><b>Already pays</b><span>$349 an hour for a lawyer, $110 to $300 a year for co-parenting apps</span></div>
+  </div>
+  <div class="buy"><small>When they buy</small><p>The lawyer says <b>"document everything."</b> A hearing date is set. The ex refuses the co-parenting app.</p></div>
+  <div class="ph"><div class="iphone iphone--black" style="--s:.86; --tab:0" data-shot="ux/entry/built/m-01-screen1.png"></div></div>
+  <p class="src">Census P60-269 and Custodial Parents 2015 (over 40% are 40+) · high-conflict share: Johnston (via Justice Canada) · Clio Legal Trends 2025 · OFW pricing page.</p>
+  <div class="pg">3</div>
+</section>
+
+<!-- 4 · HOW WE SELL -->
+<section class="slide s4s">
+  <div class="mark"><svg class="pmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="5.6">
+  <!-- Parley mark (from the founder's Canva deck): two rounded squares, one turned 45 degrees, woven over and under. Generated by pitch/logo.py -->
+  <defs><mask id="ma" maskUnits="userSpaceOnUse"><rect width="100" height="100" fill="#fff"/><circle cx="17.0" cy="36.33" r="6.4399999999999995" fill="#000"/><circle cx="63.67" cy="17.0" r="6.4399999999999995" fill="#000"/><circle cx="83.0" cy="63.67" r="6.4399999999999995" fill="#000"/><circle cx="36.33" cy="83.0" r="6.4399999999999995" fill="#000"/></mask><mask id="mb" maskUnits="userSpaceOnUse"><rect width="100" height="100" fill="#fff"/><circle cx="36.33" cy="17.0" r="6.4399999999999995" fill="#000"/><circle cx="83.0" cy="36.33" r="6.4399999999999995" fill="#000"/><circle cx="63.67" cy="83.0" r="6.4399999999999995" fill="#000"/><circle cx="17.0" cy="63.67" r="6.4399999999999995" fill="#000"/></mask></defs>
+  <rect x="17.0" y="17.0" width="66" height="66" rx="10" mask="url(#ma)"/>
+  <g mask="url(#mb)"><rect x="17.0" y="17.0" width="66" height="66" rx="10" transform="rotate(45 50 50)"/></g>
+</svg>Parley</div>
+  <div class="kick">How we sell · Zimran's playbook</div>
+  <h2 style="width:780px;font-size:54px">A 28-day challenge, sold through a quiz that <span>qualifies them first.</span></h2>
+  <div class="steps">
+    <div><b>1</b><span><strong>Ad</strong> plain static, straight to the quiz</span></div>
+    <div><b>2</b><span><strong>Skill check</strong> they answer real texts and see their starting point</span></div>
+    <div><b>3</b><span><strong>Their 28-day course</strong> built from their answers</span></div>
+    <div><b>4</b><span><strong>Honest price</strong> $19.99 today, refund until day 14, reminder on day 25</span></div>
+  </div>
+  <p class="why">By the price screen they've seen their own gap. That's why quiz funnels convert: 8% to 12% of paywall views pay for the best ones (Adapty).</p>
+  <div class="phones3">
+    <div class="iphone iphone--black" style="--s:.62; --tab:0" data-shot="ux/course/funnel/quiz-B2-scenario-question.png"></div>
+    <div class="iphone iphone--black up" style="--s:.62; --tab:0" data-shot="ux/course/funnel/onboarding-B2-your-28-day-course.png"></div>
+    <div class="iphone iphone--black" style="--s:.62; --tab:0" data-shot="ux/course/funnel/onboarding-B4-paywall.png"></div>
+  </div>
+  <div class="pg">4</div>
+</section>
+
+<!-- 5 · THE COURSE -->
+<section class="slide s5c">
+  <div class="mark"><svg class="pmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="5.6">
+  <!-- Parley mark (from the founder's Canva deck): two rounded squares, one turned 45 degrees, woven over and under. Generated by pitch/logo.py -->
+  <defs><mask id="ma" maskUnits="userSpaceOnUse"><rect width="100" height="100" fill="#fff"/><circle cx="17.0" cy="36.33" r="6.4399999999999995" fill="#000"/><circle cx="63.67" cy="17.0" r="6.4399999999999995" fill="#000"/><circle cx="83.0" cy="63.67" r="6.4399999999999995" fill="#000"/><circle cx="36.33" cy="83.0" r="6.4399999999999995" fill="#000"/></mask><mask id="mb" maskUnits="userSpaceOnUse"><rect width="100" height="100" fill="#fff"/><circle cx="36.33" cy="17.0" r="6.4399999999999995" fill="#000"/><circle cx="83.0" cy="36.33" r="6.4399999999999995" fill="#000"/><circle cx="63.67" cy="83.0" r="6.4399999999999995" fill="#000"/><circle cx="17.0" cy="63.67" r="6.4399999999999995" fill="#000"/></mask></defs>
+  <rect x="17.0" y="17.0" width="66" height="66" rx="10" mask="url(#ma)"/>
+  <g mask="url(#mb)"><rect x="17.0" y="17.0" width="66" height="66" rx="10" transform="rotate(45 50 50)"/></g>
+</svg>Parley</div>
+  <div class="kick">The product · Skills track</div>
+  <h2 style="width:820px;font-size:58px">28 days to answer calmly. <span>A few minutes a day.</span></h2>
+  <div class="weeks">
+    <div><small>Week 1</small><b>Stop the spiral</b></div>
+    <div><small>Week 2</small><b>Don't take the bait</b></div>
+    <div><small>Week 3</small><b>Boundaries without a fight</b></div>
+    <div><small>Week 4</small><b>Kids first, record kept</b></div>
+  </div>
+  <div class="day"><small>Every day</small>
+    <p><b>1-minute lesson</b> one idea, one real example</p>
+    <p><b>Practice</b> 5 real-sounding texts, pick the calm reply, see why</p>
+    <p><b>Try it today</b> one small thing with the real other parent</p>
+  </div>
+  <div class="phones">
+    <div class="iphone iphone--black" style="--s:.82; --tab:0" data-shot="ux/course/app/day-A-1.png"></div>
+    <div class="low"><div class="iphone iphone--black" style="--s:.82; --tab:0" data-shot="ux/course/app/day-A-2.png"></div></div>
+  </div>
+  <div class="pg">5</div>
+</section>
+
+<!-- 6 · WHY THEY STAY -->
+<section class="slide s6r">
+  <div class="mark"><svg class="pmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="5.6">
+  <!-- Parley mark (from the founder's Canva deck): two rounded squares, one turned 45 degrees, woven over and under. Generated by pitch/logo.py -->
+  <defs><mask id="ma" maskUnits="userSpaceOnUse"><rect width="100" height="100" fill="#fff"/><circle cx="17.0" cy="36.33" r="6.4399999999999995" fill="#000"/><circle cx="63.67" cy="17.0" r="6.4399999999999995" fill="#000"/><circle cx="83.0" cy="63.67" r="6.4399999999999995" fill="#000"/><circle cx="36.33" cy="83.0" r="6.4399999999999995" fill="#000"/></mask><mask id="mb" maskUnits="userSpaceOnUse"><rect width="100" height="100" fill="#fff"/><circle cx="36.33" cy="17.0" r="6.4399999999999995" fill="#000"/><circle cx="83.0" cy="36.33" r="6.4399999999999995" fill="#000"/><circle cx="63.67" cy="83.0" r="6.4399999999999995" fill="#000"/><circle cx="17.0" cy="63.67" r="6.4399999999999995" fill="#000"/></mask></defs>
+  <rect x="17.0" y="17.0" width="66" height="66" rx="10" mask="url(#ma)"/>
+  <g mask="url(#mb)"><rect x="17.0" y="17.0" width="66" height="66" rx="10" transform="rotate(45 50 50)"/></g>
+</svg>Parley</div>
+  <div class="kick">Retention · why they keep paying</div>
+  <h2 style="width:900px;font-size:58px">Day 29 isn't the end. <span>A custody case lasts months.</span></h2>
+  <div class="mech">
+    <div><b>Practice built from their own ex</b><span>daily drills from the patterns in their own record</span></div>
+    <div><b>Seasonal modules</b><span>holidays, summer, back to school, a new partner, mediation</span></div>
+    <div><b>Sunday summary + PDF for the lawyer</b><span>the week in numbers, one dated file instead of 200 screenshots</span></div>
+    <div><b>Calm-days streak</b><span>counts real replies too, not only lessons</span></div>
+  </div>
+  <div class="ret"><div><b>50%</b><span>renew once</span></div><div><b>89%</b><span>stay each period after</span></div><div><b>~5</b><span>paid months</span></div></div>
+  <div class="phones" style="align-items:center">
+    <div class="iphone iphone--black" style="--s:.82; --tab:0" data-shot="ux/course/app/home-A-1.png"></div>
+    <img src="shots/pdf1.png" class="pdf">
+  </div>
+  <p class="src">Renewals: RevenueCat 2025 (61.7% renew once, we use 50% for a web intro price), model in pitch/model.mjs.</p>
+  <div class="pg">6</div>
+</section>
+
+<!-- 7 · BONUS TOOL -->
 <section class="slide prod">
   <div class="mark"><svg class="pmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="5.6">
   <!-- Parley mark (from the founder's Canva deck): two rounded squares, one turned 45 degrees, woven over and under. Generated by pitch/logo.py -->
@@ -366,8 +514,8 @@ h2 span, h1 span { color: var(--mute); }
   <rect x="17.0" y="17.0" width="66" height="66" rx="10" mask="url(#ma)"/>
   <g mask="url(#mb)"><rect x="17.0" y="17.0" width="66" height="66" rx="10" transform="rotate(45 50 50)"/></g>
 </svg>Parley</div>
-  <div class="kick">The product · 1 of 3</div>
-  <h2 style="width:800px">A calm reply in 10 seconds.</h2>
+  <div class="kick">Plus · when a real message comes in</div>
+  <h2 style="width:800px">Got a message right now? A calm reply in 10 seconds.</h2>
   <ul class="copy">
     <li><b>Drop a screenshot</b> or paste their texts, even four in a row.</li>
     <li><b>Parley strikes out the bait</b> and says the one thing that needs an answer.</li>
@@ -378,53 +526,7 @@ h2 span, h1 span { color: var(--mute); }
     <div class="iphone iphone--black" style="--s:0.92; --shift:72" data-shot="shots/reply-result.png"></div>
     <div class="low"><div class="iphone iphone--black" style="--s:0.92" data-shot="shots/lens.png"></div></div>
   </div>
-  <div class="pg">3</div>
-</section>
-
-<!-- 6 · PRACTICE -->
-<section class="slide prod">
-  <div class="mark"><svg class="pmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="5.6">
-  <!-- Parley mark (from the founder's Canva deck): two rounded squares, one turned 45 degrees, woven over and under. Generated by pitch/logo.py -->
-  <defs><mask id="ma" maskUnits="userSpaceOnUse"><rect width="100" height="100" fill="#fff"/><circle cx="17.0" cy="36.33" r="6.4399999999999995" fill="#000"/><circle cx="63.67" cy="17.0" r="6.4399999999999995" fill="#000"/><circle cx="83.0" cy="63.67" r="6.4399999999999995" fill="#000"/><circle cx="36.33" cy="83.0" r="6.4399999999999995" fill="#000"/></mask><mask id="mb" maskUnits="userSpaceOnUse"><rect width="100" height="100" fill="#fff"/><circle cx="36.33" cy="17.0" r="6.4399999999999995" fill="#000"/><circle cx="83.0" cy="36.33" r="6.4399999999999995" fill="#000"/><circle cx="63.67" cy="83.0" r="6.4399999999999995" fill="#000"/><circle cx="17.0" cy="63.67" r="6.4399999999999995" fill="#000"/></mask></defs>
-  <rect x="17.0" y="17.0" width="66" height="66" rx="10" mask="url(#ma)"/>
-  <g mask="url(#mb)"><rect x="17.0" y="17.0" width="66" height="66" rx="10" transform="rotate(45 50 50)"/></g>
-</svg>Parley</div>
-  <div class="kick">The product · 2 of 3 · Skills track</div>
-  <h2 style="width:760px;font-size:60px">Most parents fire back. We teach them not to.</h2>
-  <ul class="copy">
-    <li><b>5 real texts a day</b> from the other parent. Pick the reply you'd send.</li>
-    <li><b>All three choices sound human,</b> so the right one is earned, not guessed.</li>
-    <li><b>Wrong pick? See why,</b> then write your own and see how a judge would read it.</li>
-    <li><b>28-day path, streak, reminders.</b> They come back daily; they renew for the record.</li>
-  </ul>
-  <div class="phones">
-    <div class="iphone iphone--black" style="--s:0.92; --shift:72" data-shot="shots/drill-2.png"></div>
-    <div class="low"><div class="iphone iphone--black" style="--s:0.92; --shift:0" data-shot="shots/plan.png"></div></div>
-  </div>
-  <div class="pg">4</div>
-</section>
-
-<!-- 5 · RECORD -->
-<section class="slide prod">
-  <div class="mark"><svg class="pmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="5.6">
-  <!-- Parley mark (from the founder's Canva deck): two rounded squares, one turned 45 degrees, woven over and under. Generated by pitch/logo.py -->
-  <defs><mask id="ma" maskUnits="userSpaceOnUse"><rect width="100" height="100" fill="#fff"/><circle cx="17.0" cy="36.33" r="6.4399999999999995" fill="#000"/><circle cx="63.67" cy="17.0" r="6.4399999999999995" fill="#000"/><circle cx="83.0" cy="63.67" r="6.4399999999999995" fill="#000"/><circle cx="36.33" cy="83.0" r="6.4399999999999995" fill="#000"/></mask><mask id="mb" maskUnits="userSpaceOnUse"><rect width="100" height="100" fill="#fff"/><circle cx="36.33" cy="17.0" r="6.4399999999999995" fill="#000"/><circle cx="83.0" cy="36.33" r="6.4399999999999995" fill="#000"/><circle cx="63.67" cy="83.0" r="6.4399999999999995" fill="#000"/><circle cx="17.0" cy="63.67" r="6.4399999999999995" fill="#000"/></mask></defs>
-  <rect x="17.0" y="17.0" width="66" height="66" rx="10" mask="url(#ma)"/>
-  <g mask="url(#mb)"><rect x="17.0" y="17.0" width="66" height="66" rx="10" transform="rotate(45 50 50)"/></g>
-</svg>Parley</div>
-  <div class="kick">The product · 3 of 3</div>
-  <h2 style="width:640px;font-size:56px">Your lawyer gets one clean file, not 200 screenshots.</h2>
-  <ul class="copy">
-    <li><b>Upload screenshots</b> or a WhatsApp export. The other parent never knows.</li>
-    <li><b>Threats and insults are flagged</b> right in the chat.</li>
-    <li><b>One click</b> gives the lawyer a dated, numbered PDF instead of 200 screenshots.</li>
-    <li><b>The longer they use it, the more it is worth.</b> That record is why they renew.</li>
-  </ul>
-  <div class="phones" style="align-items:center">
-    <div class="iphone iphone--black" style="--s:0.92; --shift:72" data-shot="shots/record.png"></div>
-    <img src="shots/pdf1.png" style="background:#fff;width:520px;border-radius:14px;box-shadow:0 50px 100px -30px rgba(0,0,0,.9);transform:rotate(2deg)">
-  </div>
-  <div class="pg">5</div>
+  <div class="pg">7</div>
 </section>
 
 <!-- 3 · COMPETITORS -->
@@ -446,7 +548,7 @@ h2 span, h1 span { color: var(--mute); }
     <tr class="us"><td>Parley</td><td>$19.99 first 4 weeks</td><td class="y">No, works alone</td><td class="y">Yes, in their own texting voice</td><td class="y">Yes, PDF for the lawyer</td><td class="y">28-day practice</td></tr>
   </table>
   <p class="src">Prices from each product's pricing page, November 2026.</p>
-  <div class="pg">6</div>
+  <div class="pg">8</div>
 </section>
 
 <!-- 7 · MARKETING: AI STATIC ADS (layout D) -->
@@ -479,39 +581,10 @@ h2 span, h1 span { color: var(--mute); }
     <div><b>AI</b><span>writes and draws new variants every day, so creatives never run out</span></div>
   </div>
   <p class="src" style="bottom:28px">Meta Ad Library (US, 14 Nov 2026) · Motion Creative Benchmarks 2026 (550K ads) · hashtagradar. Ads speak as "me" or "the other parent", never call the viewer divorced (Meta policy). Ads are our examples.</p>
-  <div class="pg">7</div>
+  <div class="pg">9</div>
 </section>
 
-<!-- 8 · FUNNEL -->
-<section class="slide s8w">
-  <div class="mark"><svg class="pmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="5.6">
-  <!-- Parley mark (from the founder's Canva deck): two rounded squares, one turned 45 degrees, woven over and under. Generated by pitch/logo.py -->
-  <defs><mask id="ma" maskUnits="userSpaceOnUse"><rect width="100" height="100" fill="#fff"/><circle cx="17.0" cy="36.33" r="6.4399999999999995" fill="#000"/><circle cx="63.67" cy="17.0" r="6.4399999999999995" fill="#000"/><circle cx="83.0" cy="63.67" r="6.4399999999999995" fill="#000"/><circle cx="36.33" cy="83.0" r="6.4399999999999995" fill="#000"/></mask><mask id="mb" maskUnits="userSpaceOnUse"><rect width="100" height="100" fill="#fff"/><circle cx="36.33" cy="17.0" r="6.4399999999999995" fill="#000"/><circle cx="83.0" cy="36.33" r="6.4399999999999995" fill="#000"/><circle cx="63.67" cy="83.0" r="6.4399999999999995" fill="#000"/><circle cx="17.0" cy="63.67" r="6.4399999999999995" fill="#000"/></mask></defs>
-  <rect x="17.0" y="17.0" width="66" height="66" rx="10" mask="url(#ma)"/>
-  <g mask="url(#mb)"><rect x="17.0" y="17.0" width="66" height="66" rx="10" transform="rotate(45 50 50)"/></g>
-</svg>Parley</div>
-  <div class="kick">The onboarding · built and live</div>
-  <h2 style="width:900px;font-size:58px">By the price screen, <span>they've told us their story.</span></h2>
-  <div class="steps">
-    <div class="s"><b>8</b><span>questions about them, their ex and their case</span></div>
-    <div class="s"><b>2</b><span>"good to know" screens that answer a fear</span></div>
-    <div class="s"><b>1</b><span>personal plan built from their answers</span></div>
-    <div class="s"><b>~1 min</b><span>about 12 screens, then the price</span></div>
-  </div>
-  <div class="quotes">
-    <div class="q">"Your messages are <em>already a record.</em>"</div>
-    <div class="q">"Alex, here's your <em>calm plan.</em>"</div>
-    <div class="q">"$19.99 for your first 4 weeks"</div>
-  </div>
-  <div class="phones2">
-    <div class="iphone iphone--black" style="--s:.82; --tab:0" data-shot="shots/onb-insight.png"></div>
-    <div class="low"><div class="iphone iphone--black" style="--s:.82; --tab:0" data-shot="shots/onb-plan.png"></div></div>
-  </div>
-  <p class="src" style="bottom:40px">Quiz funnels: paywall to purchase 8% to 12% for the best funnels (Adapty 2025). Try it: parley.adiletfndr.com</p>
-  <div class="pg">8</div>
-</section>
-
-<!-- 8 · UNIT ECONOMICS -->
+<!-- 10 · MONEY AND PLAN -->
 <section class="slide s8">
   <div class="mark"><svg class="pmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="5.6">
   <!-- Parley mark (from the founder's Canva deck): two rounded squares, one turned 45 degrees, woven over and under. Generated by pitch/logo.py -->
@@ -520,7 +593,7 @@ h2 span, h1 span { color: var(--mute); }
   <g mask="url(#mb)"><rect x="17.0" y="17.0" width="66" height="66" rx="10" transform="rotate(45 50 50)"/></g>
 </svg>Parley</div>
   <div class="kick">Unit economics · paid ads only</div>
-  <h2 style="width:1500px">Each customer costs $40 and brings $132.</h2>
+  <h2 style="width:1600px;font-size:60px">Each customer costs $40 and brings $132. <span>$100M a year by year 3.</span></h2>
   <div class="funnel">
     <div class="row"><span>1,000 ad views<small>CPM $15.06</small></span><span style="font-size:17px;color:var(--dim)">cost of 1,000 views</span><b>$15</b></div>
     <div class="row"><span>Click the ad<small>CTR 1.77%</small></span><div class="bar"><i style="width:100%"></i></div><b>17.7</b></div>
@@ -537,34 +610,15 @@ h2 span, h1 span { color: var(--mute); }
       <div><div class="num">$40</div><div class="cap">CAC</div></div>
       <div><div class="num">$132</div><div class="cap">LTV, after Stripe fees,<br>refunds and AI cost</div></div>
     </div>
-    <table class="scen">
-      <tr class="main"><td>Market averages</td><td>$40</td><td>$132</td><td>3.3×</td></tr>
-      <tr><td>Below average at every step</td><td>$71</td><td>$103</td><td>1.45×</td></tr>
-      <tr><td>Bad case → we stop at $3K test spend</td><td>$620</td><td>$50</td><td>0.1×</td></tr>
-    </table>
+    <div class="plan">
+      <div><small>Month 1</small><b>$3K test</b><span>stop if CAC over $100</span></div>
+      <div><small>Months 2 to 6</small><b>$30K / mo</b><span>$1.5M ARR</span></div>
+      <div><small>Year 2</small><b>$300K / mo</b><span>$15M ARR</span></div>
+      <div class="top"><small>Year 3</small><b>$2M / mo</b><span>$100M ARR · 257K parents, 1% of 25M</span></div>
+    </div>
   </div>
-  <p class="src" style="bottom:40px">CPM: Triple Whale Aug 2025 to Jul 2026 · CTR: LocaliQ/WordStream 2026 (Legal) · quiz steps: Adapty 2025 · renewals: RevenueCat 2025 (61.7% renew once; we use 50% for a web intro price), 89% kept each period after · LTV = $21 first payment + $29.99 renewals over ~5 paid months minus 2.9%+30¢ Stripe, 5% refunds and AI ($0.06/reply). Model: pitch/model.mjs in the repo.</p>
-  <div class="pg">9</div>
-</section>
-
-<!-- 10 · PLAN TO $100M AND CLOSE -->
-<section class="slide s10p">
-  <div class="mark"><svg class="pmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="5.6">
-  <!-- Parley mark (from the founder's Canva deck): two rounded squares, one turned 45 degrees, woven over and under. Generated by pitch/logo.py -->
-  <defs><mask id="ma" maskUnits="userSpaceOnUse"><rect width="100" height="100" fill="#fff"/><circle cx="17.0" cy="36.33" r="6.4399999999999995" fill="#000"/><circle cx="63.67" cy="17.0" r="6.4399999999999995" fill="#000"/><circle cx="83.0" cy="63.67" r="6.4399999999999995" fill="#000"/><circle cx="36.33" cy="83.0" r="6.4399999999999995" fill="#000"/></mask><mask id="mb" maskUnits="userSpaceOnUse"><rect width="100" height="100" fill="#fff"/><circle cx="36.33" cy="17.0" r="6.4399999999999995" fill="#000"/><circle cx="83.0" cy="36.33" r="6.4399999999999995" fill="#000"/><circle cx="63.67" cy="83.0" r="6.4399999999999995" fill="#000"/><circle cx="17.0" cy="63.67" r="6.4399999999999995" fill="#000"/></mask></defs>
-  <rect x="17.0" y="17.0" width="66" height="66" rx="10" mask="url(#ma)"/>
-  <g mask="url(#mb)"><rect x="17.0" y="17.0" width="66" height="66" rx="10" transform="rotate(45 50 50)"/></g>
-</svg>Parley</div>
-  <div class="kick">Plan to $100M a year</div>
-  <h2 style="width:1700px;font-size:58px">Start with $3K. Scale only what pays back.</h2>
-  <div class="stairs">
-    <div class="st" style="height:200px"><div class="when">Month 1</div><div class="what">Test</div><div class="n">$3K ads</div><div class="r">~75 buyers. Real CAC known. Stop if over $100.</div></div>
-    <div class="st" style="height:250px"><div class="when">Months 2 to 6</div><div class="what">Find winners</div><div class="n">$30K / mo</div><div class="r">~750 new a month → <b>$1.5M ARR</b></div></div>
-    <div class="st" style="height:320px"><div class="when">Year 2</div><div class="what">Scale Meta + TikTok</div><div class="n">$300K / mo</div><div class="r">~7.5K new a month → <b>$15M ARR</b></div></div>
-    <div class="st top" style="height:420px"><div class="when">Year 3</div><div class="what">$100M</div><div class="n">$2M / mo</div><div class="r">~49K new a month → <b>257K paying parents</b>, 1% of 25M</div></div>
-  </div>
-  <div class="closeline"><b>One calm text. <span>Parley writes it.</span></b><i>parley.adiletfndr.com<u>/demo</u></i><small>No sign-up · test card 4242 4242 4242 4242 · github.com/adiletexe/parley</small></div>
-  <p class="src" style="bottom:40px">From pitch/model.mjs: $40 CAC, ~5.2 paid months, $29.99 / 4 weeks, so every $1 of monthly ad spend holds ~$51 of ARR; ads pay back in ~2 months, so growth funds itself. 25M = 12.9M custodial parents (Census) and the other parent. Parley is not a law firm and doesn't give legal advice.</p>
+  <p class="src" style="bottom:40px">CPM: Triple Whale Aug 2025 to Jul 2026 · CTR: LocaliQ/WordStream 2026 (Legal) · quiz steps: Adapty 2025 · renewals: RevenueCat 2025 (61.7% renew once; we use 50% for a web intro price), 89% kept each period after · LTV = $21 first payment + $29.99 renewals over ~5 paid months minus 2.9%+30¢ Stripe, 5% refunds and AI ($0.06/reply). Below average at every step still gives 1.45×. Model: pitch/model.mjs.</p>
+  <p class="tryit">Try it: <b>parley.adiletfndr.com</b> · no sign-up · test card 4242 4242 4242 4242 · github.com/adiletexe/parley</p>
   <div class="pg">10</div>
 </section>
 <script src="design-options/iphone.js"></script>

@@ -300,12 +300,28 @@ h2 span, h1 span { color: var(--mute); }
 .s3i .f b { display: block; font-size: 34px; font-weight: 800; letter-spacing: -.02em; }
 .s3i .f.big b { font-size: 64px; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; letter-spacing: -.04em; }
 .s3i .f span { display: block; font-size: 20px; color: var(--mute); margin-top: 6px; line-height: 1.35; }
+
+.s3i .quote { left: 120px; top: 700px; width: 980px; }
+.s3i .quote small { font-size: 16px; letter-spacing: .12em; text-transform: uppercase; color: var(--warn); font-weight: 700; }
+.s3i .quote p { font-size: 26px; color: var(--mute); margin-top: 10px; }
+.s3i .quote blockquote { font-size: 76px; font-weight: 800; letter-spacing: -.035em; margin-top: 6px; }
+.circ { position: relative; display: inline-block; padding: 0 10px; }
+.circ::after { content: ""; position: absolute; left: -14px; right: -14px; top: -10px; bottom: -14px; border: 4px solid #ff4d6d; border-radius: 50%; transform: rotate(-3deg); }
+.s4s .sub { left: 120px; top: 360px; width: 800px; font-size: 24px; color: var(--mute); line-height: 1.4; font-weight: 600; }
+.s4s .sub { color: #ffb4c8; }
+.s7x .pf { left: 120px; top: 380px; width: 860px; }
+.s7x .pf div { display: grid; grid-template-columns: 330px 1fr; gap: 24px; align-items: center; padding: 18px 0; border-top: 1px solid var(--line); }
+.s7x .pf i { font-style: normal; font-size: 21px; color: #ffb4c8; font-weight: 600; }
+.s7x .pf b { font-size: 23px; font-weight: 800; }
+.s7x .phones { right: 110px; top: 110px; display: flex; gap: 36px; align-items: flex-start; }
+.s7x .phones .low { margin-top: 80px; }
+
 .s3i .buy { left: 120px; top: 790px; width: 1000px; border-left: 4px solid var(--warn); padding-left: 22px; }
 .s3i .buy small { font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: var(--warn); font-weight: 700; }
 .s3i .buy p { font-size: 24px; color: var(--mute); margin-top: 6px; line-height: 1.4; } .s3i .buy b { color: var(--fg); }
 .s3i .ph { right: 150px; top: 90px; }
 /* 4 · how we sell */
-.s4s .steps { left: 120px; top: 420px; width: 820px; display: flex; flex-direction: column; gap: 22px; }
+.s4s .steps { left: 120px; top: 470px; width: 820px; display: flex; flex-direction: column; gap: 22px; }
 .s4s .steps div { display: flex; gap: 20px; align-items: center; }
 .s4s .steps b { width: 54px; height: 54px; border-radius: 16px; background: var(--grad); display: grid; place-items: center; font-size: 26px; font-weight: 800; flex: none; }
 .s4s .steps span { font-size: 23px; color: var(--mute); line-height: 1.35; } .s4s .steps strong { color: var(--fg); margin-right: 8px; }
@@ -415,16 +431,16 @@ h2 span, h1 span { color: var(--mute); }
   <g mask="url(#mb)"><rect x="17.0" y="17.0" width="66" height="66" rx="10" transform="rotate(45 50 50)"/></g>
 </svg>Parley</div>
   <div class="kick">Who we sell to</div>
-  <h2 style="width:1000px;font-size:60px">Our ideal customer: a mom or dad in a custody fight <span>with an ex who knows their buttons.</span></h2>
+  <h2 style="width:1000px;font-size:62px">Our ideal customer: a parent in a custody fight.</h2>
   <div class="facts">
-    <div class="f big"><b>25 to 45</b><span>core 30 to 45, kids at home</span></div>
-    <div class="f big"><b>1 to 2M</b><span>US families with a high-conflict ex (10 to 15% of separations)</span></div>
-    <div class="f"><b>Every week</b><span>texts that are mostly bait, rewritten three times before sending</span></div>
-    <div class="f"><b>Already pays</b><span>$349 an hour for a lawyer, $110 to $300 a year for co-parenting apps</span></div>
+    <div class="f big"><b>30 to 45</b><span>years old</span></div>
+    <div class="f big"><b>1 to 2M</b><span>US families with a high-conflict ex</span></div>
+    <div class="f"><b>Every week</b><span>texts that are mostly bait</span></div>
+    <div class="f"><b>Already pays</b><span>$349 an hour for a lawyer</span></div>
   </div>
-  <div class="buy"><small>When they buy</small><p>The lawyer says <b>"document everything."</b> A hearing date is set. The ex refuses the co-parenting app.</p></div>
+  <div class="quote"><small>The moment they buy</small><p>Their lawyer says:</p><blockquote>"<span class="circ">document everything</span>."</blockquote></div>
   <div class="ph"><div class="iphone iphone--black" style="--s:.86; --tab:0" data-shot="ux/entry/built/m-01-screen1.png"></div></div>
-  <p class="src">Census P60-269 and Custodial Parents 2015 (over 40% are 40+) · high-conflict share: Johnston (via Justice Canada) · Clio Legal Trends 2025 · OFW pricing page.</p>
+  <p class="src">Census (custodial parents; over 40% are 40+) · high-conflict share 10 to 15% (Johnston, via Justice Canada) · Clio Legal Trends 2025.</p>
   <div class="pg">3</div>
 </section>
 
@@ -437,16 +453,16 @@ h2 span, h1 span { color: var(--mute); }
   <g mask="url(#mb)"><rect x="17.0" y="17.0" width="66" height="66" rx="10" transform="rotate(45 50 50)"/></g>
 </svg>Parley</div>
   <div class="kick">How we sell · Zimran's playbook</div>
-  <h2 style="width:780px;font-size:54px">A 28-day challenge, sold through a quiz that <span>qualifies them first.</span></h2>
+  <h2 style="width:800px;font-size:56px">We sell a 28-day course after a 1-minute quiz.</h2>
+  <p class="sub">Parents learn to answer their ex calmly, so one angry text doesn't cost them time with their kids.</p>
   <div class="steps">
-    <div><b>1</b><span><strong>Ad</strong> plain static, straight to the quiz</span></div>
-    <div><b>2</b><span><strong>Skill check</strong> they answer real texts and see their starting point</span></div>
-    <div><b>3</b><span><strong>Their 28-day course</strong> built from their answers</span></div>
-    <div><b>4</b><span><strong>Honest price</strong> $19.99 today, refund until day 14, reminder on day 25</span></div>
+    <div><b>1</b><span><strong>8 qualifying questions</strong> who they are, how tense it gets, what sets it off, where the case stands</span></div>
+    <div><b>2</b><span><strong>A skill check</strong> they answer real texts and see their starting point</span></div>
+    <div><b>3</b><span><strong>Their own 28-day plan</strong> built from their answers</span></div>
+    <div><b>4</b><span><strong>Hard paywall</strong> no free version: $19.99 for 4 weeks, then $29.99. 14-day refund.</span></div>
   </div>
-  <p class="why">By the price screen they've seen their own gap. That's why quiz funnels convert: 8% to 12% of paywall views pay for the best ones (Adapty).</p>
   <div class="phones3">
-    <div class="iphone iphone--black" style="--s:.62; --tab:0" data-shot="ux/course/funnel/quiz-B2-scenario-question.png"></div>
+    <div class="iphone iphone--black" style="--s:.62; --tab:0" data-shot="ux/course/funnel/quiz-A2-skill-question.png"></div>
     <div class="iphone iphone--black up" style="--s:.62; --tab:0" data-shot="ux/course/funnel/onboarding-B2-your-28-day-course.png"></div>
     <div class="iphone iphone--black" style="--s:.62; --tab:0" data-shot="ux/course/funnel/onboarding-B4-paywall.png"></div>
   </div>
@@ -462,21 +478,21 @@ h2 span, h1 span { color: var(--mute); }
   <g mask="url(#mb)"><rect x="17.0" y="17.0" width="66" height="66" rx="10" transform="rotate(45 50 50)"/></g>
 </svg>Parley</div>
   <div class="kick">The product · Skills track</div>
-  <h2 style="width:820px;font-size:58px">28 days to answer calmly. <span>A few minutes a day.</span></h2>
+  <h2 style="width:820px;font-size:56px">In 28 days, parents learn to answer their ex calmly.</h2>
   <div class="weeks">
     <div><small>Week 1</small><b>Stop the spiral</b></div>
     <div><small>Week 2</small><b>Don't take the bait</b></div>
     <div><small>Week 3</small><b>Boundaries without a fight</b></div>
     <div><small>Week 4</small><b>Kids first, record kept</b></div>
   </div>
-  <div class="day"><small>Every day</small>
-    <p><b>1-minute lesson</b> one idea, one real example</p>
-    <p><b>Practice</b> 5 real-sounding texts, pick the calm reply, see why</p>
+  <div class="day"><small>Every day, about 3 minutes</small>
+    <p><b>A lesson as a chat</b> a coach explains one idea, they answer "Got it"</p>
+    <p><b>Practice</b> real-sounding texts, pick the calm reply, see why</p>
     <p><b>Try it today</b> one small thing with the real other parent</p>
   </div>
   <div class="phones">
-    <div class="iphone iphone--black" style="--s:.82; --tab:0" data-shot="ux/course/app/day-A-1.png"></div>
-    <div class="low"><div class="iphone iphone--black" style="--s:.82; --tab:0" data-shot="ux/course/app/day-A-2.png"></div></div>
+    <div class="iphone iphone--black" style="--s:.82; --tab:0" data-shot="ux/course/app/day-C-1.png"></div>
+    <div class="low"><div class="iphone iphone--black" style="--s:.82; --tab:0" data-shot="ux/course/app/day-C-2.png"></div></div>
   </div>
   <div class="pg">5</div>
 </section>
@@ -489,42 +505,43 @@ h2 span, h1 span { color: var(--mute); }
   <rect x="17.0" y="17.0" width="66" height="66" rx="10" mask="url(#ma)"/>
   <g mask="url(#mb)"><rect x="17.0" y="17.0" width="66" height="66" rx="10" transform="rotate(45 50 50)"/></g>
 </svg>Parley</div>
-  <div class="kick">Retention · why they keep paying</div>
-  <h2 style="width:900px;font-size:58px">Day 29 isn't the end. <span>A custody case lasts months.</span></h2>
+  <div class="kick">Retention</div>
+  <h2 style="width:880px;font-size:56px">Parents keep paying because the case keeps going.</h2>
   <div class="mech">
-    <div><b>Practice built from their own ex</b><span>daily drills from the patterns in their own record</span></div>
-    <div><b>Seasonal modules</b><span>holidays, summer, back to school, a new partner, mediation</span></div>
-    <div><b>Sunday summary + PDF for the lawyer</b><span>the week in numbers, one dated file instead of 200 screenshots</span></div>
-    <div><b>Calm-days streak</b><span>counts real replies too, not only lessons</span></div>
+    <div><b>28-day course, then 180+ days of practice</b><span>new lessons by topic: money, schedule, new partner, kids, court</span></div>
+    <div><b>Seasonal modules</b><span>holidays, summer, back to school, moving, mediation</span></div>
+    <div><b>Sunday summary</b><span>the week in numbers and a PDF ready for their lawyer</span></div>
+    <div><b>Calm-days streak</b><span>every calm day counts, lessons and real replies</span></div>
   </div>
-  <div class="ret"><div><b>50%</b><span>renew once</span></div><div><b>89%</b><span>stay each period after</span></div><div><b>~5</b><span>paid months</span></div></div>
+  <div class="ret"><div><b>50%</b><span>renew once</span></div><div><b>89%</b><span>stay each month after</span></div><div><b>~5</b><span>paid months</span></div></div>
   <div class="phones" style="align-items:center">
-    <div class="iphone iphone--black" style="--s:.82; --tab:0" data-shot="ux/course/app/home-A-1.png"></div>
+    <div class="iphone iphone--black" style="--s:.82; --tab:0" data-shot="ux/course/app/prog-C-1.png"></div>
     <img src="shots/pdf1.png" class="pdf">
   </div>
-  <p class="src">Renewals: RevenueCat 2025 (61.7% renew once, we use 50% for a web intro price), model in pitch/model.mjs.</p>
+  <p class="src">Renewals: RevenueCat 2025 (61.7% renew once; we use 50% for a web intro price). Model: pitch/model.mjs.</p>
   <div class="pg">6</div>
 </section>
 
-<!-- 7 · BONUS TOOL -->
-<section class="slide prod">
+<!-- 7 · ADDITIONAL MECHANICS -->
+<section class="slide s7x">
   <div class="mark"><svg class="pmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="5.6">
   <!-- Parley mark (from the founder's Canva deck): two rounded squares, one turned 45 degrees, woven over and under. Generated by pitch/logo.py -->
   <defs><mask id="ma" maskUnits="userSpaceOnUse"><rect width="100" height="100" fill="#fff"/><circle cx="17.0" cy="36.33" r="6.4399999999999995" fill="#000"/><circle cx="63.67" cy="17.0" r="6.4399999999999995" fill="#000"/><circle cx="83.0" cy="63.67" r="6.4399999999999995" fill="#000"/><circle cx="36.33" cy="83.0" r="6.4399999999999995" fill="#000"/></mask><mask id="mb" maskUnits="userSpaceOnUse"><rect width="100" height="100" fill="#fff"/><circle cx="36.33" cy="17.0" r="6.4399999999999995" fill="#000"/><circle cx="83.0" cy="36.33" r="6.4399999999999995" fill="#000"/><circle cx="63.67" cy="83.0" r="6.4399999999999995" fill="#000"/><circle cx="17.0" cy="63.67" r="6.4399999999999995" fill="#000"/></mask></defs>
   <rect x="17.0" y="17.0" width="66" height="66" rx="10" mask="url(#ma)"/>
   <g mask="url(#mb)"><rect x="17.0" y="17.0" width="66" height="66" rx="10" transform="rotate(45 50 50)"/></g>
 </svg>Parley</div>
-  <div class="kick">Plus · when a real message comes in</div>
-  <h2 style="width:800px">Got a message right now? A calm reply in 10 seconds.</h2>
-  <ul class="copy">
-    <li><b>Drop a screenshot</b> or paste their texts, even four in a row.</li>
-    <li><b>Parley strikes out the bait</b> and says the one thing that needs an answer.</li>
-    <li><b>Three tones</b> (brief, neutral, firm) written the way people actually text.</li>
-    <li><b>Wrote your own?</b> See every phrase a judge would read badly, and what to say instead.</li>
-  </ul>
+  <div class="kick">Additional mechanics</div>
+  <h2 style="width:820px;font-size:56px">When a real text comes in, Parley helps right away.</h2>
+  <div class="pf">
+    <div><i>"I don't know what to say"</i><b>Screenshot it, get a calm reply</b></div>
+    <div><i>"Their texts are all bait"</i><b>The bait is crossed out, the real ask shown</b></div>
+    <div><i>"How will a judge read this?"</i><b>Their own draft, read like a judge would</b></div>
+    <div><i>"My lawyer wants everything"</i><b>WhatsApp import, reports, one PDF, a read-only link</b></div>
+    <div><i>"My ex won't join any app"</i><b>Works with one parent. The other never sees it.</b></div>
+  </div>
   <div class="phones">
-    <div class="iphone iphone--black" style="--s:0.92; --shift:72" data-shot="shots/reply-result.png"></div>
-    <div class="low"><div class="iphone iphone--black" style="--s:0.92" data-shot="shots/lens.png"></div></div>
+    <div class="iphone iphone--black" style="--s:0.86; --shift:72" data-shot="shots/reply-result.png"></div>
+    <div class="low"><div class="iphone iphone--black" style="--s:0.86" data-shot="shots/lens.png"></div></div>
   </div>
   <div class="pg">7</div>
 </section>

@@ -2090,7 +2090,7 @@
             "why": "Fair, maybe, but it hands the blame back."
           },
           {
-            "text": "the school only emails me, sorry about that. i'll add u to the calendar tn",
+            "text": "the school only emails me. i'll add u to the calendar tn so u get every date",
             "good": true,
             "why": "A fix so it doesn't happen again, with no defense."
           },
@@ -2953,9 +2953,9 @@
             "why": "True or not, it lands as a wall."
           },
           {
-            "text": "yes, chris moved in last week. sorry u heard it from jake first. happy to answer questions",
+            "text": "yes, chris moved in last week. i'll tell u first about changes like that. happy to answer questions",
             "good": true,
-            "why": "The fact, owning that it came late, and an open door."
+            "why": "The fact, a plan for next time, and an open door."
           }
         ]
       },
